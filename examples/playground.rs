@@ -1,4 +1,4 @@
-use telegram::structs::bots_api::BotsApi;
+use telegram_framework::structs::bots_api::BotsApi;
 
 fn main() {
     let bots_api = BotsApi::new();

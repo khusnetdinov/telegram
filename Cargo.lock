@@ -1139,13 +1139,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "telegram"
-version = "0.1.0"
-dependencies = [
- "telegram_bots_api",
-]
-
-[[package]]
 name = "telegram_bots_api"
 version = "0.71.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1161,6 +1154,13 @@ dependencies = [
  "serde_with_macros",
  "structopt",
  "tokio",
+]
+
+[[package]]
+name = "telegram_framework"
+version = "0.1.0"
+dependencies = [
+ "telegram_bots_api",
 ]
 
 [[package]]
