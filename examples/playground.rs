@@ -1,3 +1,7 @@
+use telegram::structs::bots_api::BotsApi;
+
 fn main() {
-    println!("Playground!");
+    let bots_api = BotsApi::new();
+
+    println!("{:#?}", bots_api);
 }
