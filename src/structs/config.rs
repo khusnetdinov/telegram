@@ -3,7 +3,7 @@ use telegram_bots_api::config::Config as Inner;
 
 #[derive(Debug)]
 pub struct Config {
-    inner: Inner,
+    pub inner: Inner,
 }
 
 impl Config {

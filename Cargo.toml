@@ -8,7 +8,7 @@ repository = "https://github.com/khusnetdinov/telegram_framework"
 authors = ["Marat Khusnetdinov <khusnetdinov@gmail.com>"]
 
 [dependencies]
-telegram_bots_api = { version = "0.71.0", features = ["async", "sync"] }
+telegram_bots_api = { git = "https://github.com/khusnetdinov/telegram_bots_api", branch = "master", features = ["async", "sync"] }
 
 [[example]]
 name = "playground"

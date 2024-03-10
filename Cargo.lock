@@ -1141,8 +1141,7 @@ dependencies = [
 [[package]]
 name = "telegram_bots_api"
 version = "0.71.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8427c99ea8538d96b96b5c4bedcc194da7819de4a31effc124d2f56dff221543"
+source = "git+https://github.com/khusnetdinov/telegram_bots_api?branch=master#403dd7c0130183c272980eff82bff0aa59fd18eb"
 dependencies = [
  "async-trait",
  "mio",
