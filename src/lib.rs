@@ -5,8 +5,6 @@
 //! For a overview, see [GitHub repository](https://github.com/khusnetdinov/telegram).
 //!
 
-extern crate core;
-
 pub use telegram_bots_api;
 pub mod structs;
 #[cfg(test)]

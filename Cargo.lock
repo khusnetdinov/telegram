@@ -1141,7 +1141,6 @@ dependencies = [
 [[package]]
 name = "telegram_bots_api"
 version = "0.71.0"
-source = "git+https://github.com/khusnetdinov/telegram_bots_api?branch=master#403dd7c0130183c272980eff82bff0aa59fd18eb"
 dependencies = [
  "async-trait",
  "mio",

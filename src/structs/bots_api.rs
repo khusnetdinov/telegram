@@ -1,17 +1,17 @@
-use std::thread::sleep;
 use crate::structs::config::Config;
+use std::thread::sleep;
+use std::time::Duration;
+use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::requests::sync::Requests;
+use telegram_bots_api::api::types::update::Update;
 use telegram_bots_api::api::types::user::User;
 use telegram_bots_api::clients::sync::Sync;
-use std::time::{Duration};
-use telegram_bots_api::api::params::get_update::GetUpdate;
-use telegram_bots_api::api::types::update::Update;
 
 #[derive(Debug)]
 pub struct BotsApi {
     client: Sync,
     user: User,
-    config: telegram_bots_api::config::Config
+    config: telegram_bots_api::config::Config,
 }
 
 impl From<Config> for BotsApi {
@@ -20,7 +20,11 @@ impl From<Config> for BotsApi {
         let config = client.config.clone();
         let user = client.get_me().unwrap();
 
-        Self { client, config, user }
+        Self {
+            client,
+            config,
+            user,
+        }
     }
 }
 
@@ -30,22 +34,29 @@ impl BotsApi {
         let config = client.config.clone();
         let user = client.get_me().unwrap();
 
-        Self { client, config, user }
+        Self {
+            client,
+            config,
+            user,
+        }
     }
 
     /// Pooling updates for telegram bots api. Pass callback `fn(updates: Vec<Update>)`
-    pub fn pooling(&self, callback: fn(updates: Vec<Update>)) {
+    pub fn pooling(&self, callback: fn(updates: Update)) {
         loop {
             let params = GetUpdate {
                 offset: self.config.updates_offset,
                 limit: self.config.updates_limit,
                 timeout: self.config.updates_timeout,
-                allowed_updates: None
+                allowed_updates: None,
             };
             let updates = self.client.get_updates(&params).unwrap();
 
-            callback(updates);
-            sleep(Duration::from_secs(1).clone());
+            for update in updates.into_iter() {
+                callback(update);
+            }
+
+            sleep(Duration::from_secs(10));
         }
     }
 
@@ -54,6 +65,14 @@ impl BotsApi {
     }
 
     pub fn listen_https(&self) {
+        todo!()
+    }
+
+    pub fn commands(&self) {
+        todo!()
+    }
+
+    pub fn menu_buttons(&self) {
         todo!()
     }
 }
