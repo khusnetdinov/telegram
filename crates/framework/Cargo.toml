@@ -1,0 +1,10 @@
+[package]
+name = "framework"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+
+[[example]]
+name = "playground"
+path = "examples/playground.rs"
