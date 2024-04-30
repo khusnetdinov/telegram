@@ -1,27 +1,7 @@
-pub struct Message {}
+use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_macros::{DerefInner, FromInner};
 
-impl Message {
-    fn send_message(&self) {
-        todo!()
-    }
-
-    fn send_messages(&self) {
-        todo!()
-    }
-
-    fn forward_message(&self) {
-        todo!()
-    }
-
-    fn forward_messages(&self) {
-        todo!()
-    }
-
-    fn copy_message(&self) {
-        todo!()
-    }
-
-    fn copy_messages(&self) {
-        todo!()
-    }
+#[derive(Debug, DerefInner, FromInner)]
+pub struct Message {
+    inner: Inner,
 }

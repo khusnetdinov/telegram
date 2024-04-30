@@ -7,9 +7,15 @@ homepage = "https://github.com/khusnetdinov/telegram_framework"
 repository = "https://github.com/khusnetdinov/telegram_framework"
 authors = ["Marat Khusnetdinov <khusnetdinov@gmail.com>"]
 
+[dependencies]
+proc-macro2 = "1.0.79"
+
 [dependencies.telegram_bots_api]
 path = "../telegram_bots_api"
 features = ["sync", "async"]
+
+[dependencies.telegram_macros]
+path = "../telegram_macros"
 
 [[example]]
 name = "playground"

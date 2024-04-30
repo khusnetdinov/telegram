@@ -9,3 +9,5 @@ pub use telegram_bots_api;
 pub mod structs;
 #[cfg(test)]
 mod tests;
+pub mod bots_api;
+pub mod config;

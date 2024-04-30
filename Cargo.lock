@@ -156,6 +156,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "convert_case"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ec182b0ca2f35d8fc196cf3404988fd8b8c739a4d270ff118a398feb0cbec1ca"
+dependencies = [
+ "unicode-segmentation",
+]
+
+[[package]]
 name = "core-foundation"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -751,9 +760,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.78"
+version = "1.0.79"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2422ad645d89c99f8f3e6b88a9fdeca7fabeac836b1002371c4367c8f984aae"
+checksum = "e835ff2298f5721608eb1a980ecaee1aef2c132bf95ecc026a11b7bf3c01c02e"
 dependencies = [
  "unicode-ident",
 ]
@@ -1140,7 +1149,7 @@ dependencies = [
 
 [[package]]
 name = "telegram_bots_api"
-version = "0.71.0"
+version = "0.72.0"
 dependencies = [
  "async-trait",
  "mio",
@@ -1158,6 +1167,20 @@ dependencies = [
 name = "telegram_framework"
 version = "0.1.0"
 dependencies = [
+ "proc-macro2",
+ "telegram_bots_api",
+ "telegram_macros",
+]
+
+[[package]]
+name = "telegram_macros"
+version = "0.1.0"
+dependencies = [
+ "convert_case",
+ "proc-macro2",
+ "quote",
+ "serde_json",
+ "syn 2.0.52",
  "telegram_bots_api",
 ]
 
