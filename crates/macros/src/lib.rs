@@ -1,12 +1,8 @@
-use proc_macro::TokenStream;
-use quote::quote;
-use syn::{parse_macro_input, DeriveInput};
-
 #[proc_macro_derive(DerefInner)]
-pub fn deref_inner_derive(input: TokenStream) -> TokenStream {
-    let DeriveInput { ident, .. } = parse_macro_input!(input);
+pub fn deref_inner_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let syn::DeriveInput { ident, .. } = syn::parse_macro_input!(input);
 
-    let gen = quote! {
+    let quote = quote::quote! {
         impl std::ops::Deref for #ident {
             type Target = Inner;
 
@@ -16,14 +12,14 @@ pub fn deref_inner_derive(input: TokenStream) -> TokenStream {
         }
     };
 
-    gen.into()
+    quote.into()
 }
 
 #[proc_macro_derive(FromInner)]
-pub fn from_inner_derive(input: TokenStream) -> TokenStream {
-    let DeriveInput { ident, .. } = parse_macro_input!(input);
+pub fn from_inner_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let syn::DeriveInput { ident, .. } = syn::parse_macro_input!(input);
 
-    let gen = quote! {
+    let quote = quote::quote! {
         impl From<Inner> for #ident {
             fn from(inner: Inner) -> Self {
                 Self { inner }
@@ -31,5 +27,5 @@ pub fn from_inner_derive(input: TokenStream) -> TokenStream {
         }
     };
 
-    gen.into()
+    quote.into()
 }
