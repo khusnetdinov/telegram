@@ -1,7 +1,12 @@
+use crate::config::Config;
+use crate::structs::update::Update;
+use crate::structs::webhook::Webhook;
+use std::thread::sleep;
+use std::time::Duration;
+use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
+use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::requests::sync::Requests;
 use telegram_bots_api::api::structs::user::User;
-use crate::config::Config;
-use crate::structs::webhook::Webhook;
 use telegram_bots_api::clients::sync::Sync;
 
 #[derive(Debug)]
@@ -9,7 +14,7 @@ pub struct BotsApi {
     config: Config,
     client: Sync,
     webhook: Webhook,
-    user: User
+    user: User,
 }
 
 impl From<Config> for BotsApi {
@@ -23,7 +28,7 @@ impl From<Config> for BotsApi {
             config,
             client,
             webhook,
-            user
+            user,
         }
     }
 }
@@ -35,8 +40,30 @@ impl BotsApi {
         Self::from(config)
     }
 
-    pub fn pooling(&self, _drop_pending_updates: bool, _callback: fn()) {
-        todo!()
+    pub fn pooling(&self, drop_pending_updates: bool, callback: fn(updates: Update)) {
+        self.client
+            .delete_webhook(&DeleteWebhook {
+                drop_pending_updates: Some(drop_pending_updates),
+            })
+            .unwrap();
+
+        loop {
+            let updates = self
+                .client
+                .get_updates(&GetUpdate {
+                    offset: self.config.updates_offset,
+                    limit: self.config.updates_limit,
+                    timeout: self.config.updates_timeout,
+                    allowed_updates: None,
+                })
+                .unwrap();
+
+            for inner in updates.into_iter() {
+                callback(Update { inner });
+            }
+
+            sleep(Duration::from_secs(1));
+        }
     }
 
     pub fn listen_http(&self) {
