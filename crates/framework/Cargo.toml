@@ -1,11 +1,12 @@
 [package]
-name = "framework"
+name = "telegram_framework"
 version = "0.0.0"
 edition = "2021"
 
 [dependencies]
 telegram_macros = { path = "../macros" }
 telegram_bots_api = { path = "../../../telegram_bots_api", features = ["sync", "async"] }
+proc-macro-error = "1.0.4"
 #telegram_bots_api = { version = "0.72.0", features = ["all"] }
 
 [[example]]
