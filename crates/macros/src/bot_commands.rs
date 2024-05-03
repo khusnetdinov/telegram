@@ -15,6 +15,8 @@ use telegram_bots_api::api::structs::bot_command_scope_default::BotCommandScopeD
 const COMMAND_ATTRIBUTE_IDENT_NAME: &str = "command";
 const DESCRIPTION_CHARS_MAX_COUNT: u16 = 256;
 
+type PunctuatedAttributes = syn::punctuated::Punctuated<syn::Meta, syn::token::Comma>;
+
 fn parse_commands(enum_data: &syn::DataEnum) -> Vec<BotCommand> {
     let mut commands = Vec::new();
 
@@ -49,9 +51,7 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<BotCommand> {
     commands
 }
 
-fn parse_nested(
-    attrs: &[syn::Attribute],
-) -> Option<syn::punctuated::Punctuated<syn::Meta, syn::token::Comma>> {
+fn parse_nested(attrs: &[syn::Attribute]) -> Option<PunctuatedAttributes> {
     let mut nested = None;
 
     for attr in attrs {
@@ -68,10 +68,7 @@ fn parse_nested(
     nested
 }
 
-fn parse_nested_value(
-    predicate_name: &str,
-    nested: &syn::punctuated::Punctuated<syn::Meta, syn::token::Comma>,
-) -> Option<String> {
+fn parse_nested_value(predicate_name: &str, nested: &PunctuatedAttributes) -> Option<String> {
     let mut predicate_value = None;
 
     for attr in nested {
@@ -90,23 +87,20 @@ fn parse_nested_value(
 }
 
 fn parse_scope(attrs: &[syn::Attribute]) -> Option<BotCommandScopes> {
-    let nested = parse_nested(attrs).unwrap();
-    let scope_name = parse_nested_value("scope", &nested);
+    if let Some(nested) = parse_nested(attrs) {
+        let scope_name = parse_nested_value("scope", &nested);
 
-    let parse_chat_uid = |kind: &str,
-                          nested: &syn::punctuated::Punctuated<syn::Meta, syn::token::Comma>|
-     -> ChatUId {
-        let message = format!(
-            "#[command(scope = \"{}\", chat_id = ???)] expect chat_id",
-            kind
-        );
-        let chat_id = parse_nested_value("chat_id", nested).expect(&message);
+        let parse_chat_uid = |kind: &str, nested: &PunctuatedAttributes| -> ChatUId {
+            let message = format!(
+                "#[command(scope = \"{}\", chat_id = ???)] expect chat_id",
+                kind
+            );
+            let chat_id = parse_nested_value("chat_id", nested).expect(&message);
 
-        ChatUId::from(chat_id)
-    };
+            ChatUId::from(chat_id)
+        };
 
-    let parse_user_id =
-        |kind: &str, nested: &syn::punctuated::Punctuated<syn::Meta, syn::token::Comma>| -> i64 {
+        let parse_user_id = |kind: &str, nested: &PunctuatedAttributes| -> i64 {
             let message = format!(
                 "#[command(scope = \"{}\", user_id = ???)] expect user_id",
                 kind
@@ -118,50 +112,56 @@ fn parse_scope(attrs: &[syn::Attribute]) -> Option<BotCommandScopes> {
                 .unwrap()
         };
 
-    match scope_name {
-        Some(kind) if kind == "default" => {
-            Some(BotCommandScopes::Default(BotCommandScopeDefault { kind }))
-        }
-        Some(kind) if kind == "all_chat_administrators" => Some(
-            BotCommandScopes::AllChatAdministrators(BotCommandScopeAllChatAdministrators { kind }),
-        ),
-        Some(kind) if kind == "all_group_chats" => Some(BotCommandScopes::AllGroupChats(
-            BotCommandScopeAllGroupChats { kind },
-        )),
-        Some(kind) if kind == "all_private_chats" => Some(BotCommandScopes::AllPrivateChats(
-            BotCommandScopeAllPrivateChats { kind },
-        )),
-        Some(kind) if kind == "chat" => Some(BotCommandScopes::Chat(BotCommandScopeChat {
-            chat_id: parse_chat_uid(&kind, &nested),
-            kind,
-        })),
-        Some(kind) if kind == "chat_administrators" => Some(BotCommandScopes::ChatAdministrators(
-            BotCommandScopeChatAdministrators {
+        match scope_name {
+            Some(kind) if kind == "default" => {
+                Some(BotCommandScopes::Default(BotCommandScopeDefault { kind }))
+            }
+            Some(kind) if kind == "all_chat_administrators" => {
+                Some(BotCommandScopes::AllChatAdministrators(
+                    BotCommandScopeAllChatAdministrators { kind },
+                ))
+            }
+            Some(kind) if kind == "all_group_chats" => Some(BotCommandScopes::AllGroupChats(
+                BotCommandScopeAllGroupChats { kind },
+            )),
+            Some(kind) if kind == "all_private_chats" => Some(BotCommandScopes::AllPrivateChats(
+                BotCommandScopeAllPrivateChats { kind },
+            )),
+            Some(kind) if kind == "chat" => Some(BotCommandScopes::Chat(BotCommandScopeChat {
                 chat_id: parse_chat_uid(&kind, &nested),
                 kind,
-            },
-        )),
-        Some(kind) if kind == "chat_member" => {
-            Some(BotCommandScopes::ChatMember(BotCommandScopeChatMember {
-                user_id: parse_user_id(&kind, &nested),
-                chat_id: parse_chat_uid(&kind, &nested),
-                kind,
-            }))
+            })),
+            Some(kind) if kind == "chat_administrators" => Some(
+                BotCommandScopes::ChatAdministrators(BotCommandScopeChatAdministrators {
+                    chat_id: parse_chat_uid(&kind, &nested),
+                    kind,
+                }),
+            ),
+            Some(kind) if kind == "chat_member" => {
+                Some(BotCommandScopes::ChatMember(BotCommandScopeChatMember {
+                    user_id: parse_user_id(&kind, &nested),
+                    chat_id: parse_chat_uid(&kind, &nested),
+                    kind,
+                }))
+            }
+            None => None,
+            _ => {
+                proc_macro_error::abort_call_site!(format!(
+                    "#[command(scope = \"{}\")] scope doesn't supported",
+                    scope_name.unwrap()
+                ))
+            }
         }
-        None => None,
-        _ => {
-            proc_macro_error::abort_call_site!(format!(
-                "#[command(scope = \"{}\")] scope doesn't supported",
-                scope_name.unwrap()
-            ))
-        }
+    } else {
+        None
     }
 }
 
 fn parse_language_code(attrs: &[syn::Attribute]) -> Option<String> {
-    let nested = parse_nested(attrs).unwrap();
-
-    parse_nested_value("language_code", &nested)
+    match parse_nested(attrs) {
+        Some(nested) => parse_nested_value("language_code", &nested),
+        None => None,
+    }
 }
 
 #[proc_macro_error::proc_macro_error(allow_not_macro)]
@@ -172,6 +172,7 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
         syn::Data::Enum(data) => data,
         _ => proc_macro_error::abort_call_site!("derive(BotCommands) expected enum"),
     };
+    let ident = &input.ident;
 
     let commands = parse_commands(enum_data);
     let language_code = parse_language_code(&input.attrs);
@@ -185,7 +186,13 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
 
     dbg!(serde_json::to_string(&commands).unwrap());
 
-    let quote = quote::quote! {};
+    let quote = quote::quote! {
+        impl #ident {
+            pub fn delete(&self) {}
+            pub fn set(&self) {}
+            pub fn setup(&self) {}
+        }
+    };
 
     proc_macro::TokenStream::from(quote)
 }
