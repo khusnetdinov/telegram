@@ -7,8 +7,7 @@ edition = "2021"
 proc-macro = true
 
 [dependencies]
-#telegram_bots_api = { version = "0.72.0", features = ["all"] }
-telegram_bots_api = { path = "../../../telegram_bots_api", features = ["sync", "async"] }
+telegram_bots_api = { version = "0.72.0", features = ["all"] }
 syn = { version = "2.0.53", features = ["extra-traits"] }
 quote = "1.0.35"
 proc-macro2 = "1.0.79"
@@ -17,3 +16,4 @@ regex = "1.10.4"
 
 [dev-dependencies]
 trybuild = { version = "1.0.49", features = ["diff", "dissimilar"] }
+#telegram_bots_api = { path = "../../../telegram_bots_api", features = ["sync", "async"] }
