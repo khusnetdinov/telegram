@@ -1,6 +1,8 @@
 mod bot_commands;
 mod deref_inner;
 mod from_inner;
+mod structs;
+mod visitors;
 
 #[proc_macro_derive(BotCommands, attributes(command))]
 pub fn bot_commands_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {

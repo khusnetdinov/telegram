@@ -12,7 +12,11 @@ fn main() {
     // #[command(scope = "all_group_chats")]
     // #[command(scope = "all_private_chats", language_code = "ru")]
     // #[command(scope = "chat", chat_id = "-1002109487074", language_code = "ru")]
-    // #[command(scope = "chat_administrators", chat_id = "-1002109487074", language_code = "ru")]
+    // #[command(
+    //     scope = "chat_administrators",
+    //     chat_id = "-1002109487074",
+    //     language_code = "ru"
+    // )]
     #[command(
         scope = "chat_member",
         chat_id = "-1002109487074",
