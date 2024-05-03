@@ -1,9 +1,9 @@
 #![allow(clippy::collapsible_match)]
 
-use crate::structs::command::Command;
-use crate::visitors::commands::Commands;
 use telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
+use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
+use telegram_bots_api::api::structs::bot_command::BotCommand;
 use telegram_bots_api::api::structs::bot_command_scope_all_chat_administrators::BotCommandScopeAllChatAdministrators;
 use telegram_bots_api::api::structs::bot_command_scope_all_group_chats::BotCommandScopeAllGroupChats;
 use telegram_bots_api::api::structs::bot_command_scope_all_private_chats::BotCommandScopeAllPrivateChats;
@@ -15,7 +15,7 @@ use telegram_bots_api::api::structs::bot_command_scope_default::BotCommandScopeD
 const COMMAND_ATTRIBUTE_IDENT_NAME: &str = "command";
 const DESCRIPTION_CHARS_MAX_COUNT: u16 = 256;
 
-fn parse_commands(enum_data: &syn::DataEnum) -> Vec<Command> {
+fn parse_commands(enum_data: &syn::DataEnum) -> Vec<BotCommand> {
     let mut commands = Vec::new();
 
     enum_data.variants.iter().for_each(|variant: &syn::Variant| {
@@ -35,7 +35,7 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<Command> {
                         )
                     }
 
-                    commands.push(Command {
+                    commands.push(BotCommand {
                         command,
                         description
                     });
@@ -173,13 +173,17 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
         _ => proc_macro_error::abort_call_site!("derive(BotCommands) expected enum"),
     };
 
-    let commands = Commands {
-        commands: parse_commands(enum_data),
-        language_code: parse_language_code(&input.attrs),
-        scope: parse_scope(&input.attrs),
+    let commands = parse_commands(enum_data);
+    let language_code = parse_language_code(&input.attrs);
+    let scope = parse_scope(&input.attrs);
+
+    let commands = SetMyCommands {
+        commands,
+        language_code,
+        scope,
     };
 
-    dbg!(commands);
+    dbg!(serde_json::to_string(&commands).unwrap());
 
     let quote = quote::quote! {};
 
