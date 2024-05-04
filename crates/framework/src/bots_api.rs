@@ -11,8 +11,8 @@ use telegram_bots_api::clients::sync::Sync;
 
 #[derive(Debug)]
 pub struct BotsApi {
+    pub client: Sync,
     config: Config,
-    client: Sync,
     webhook: Webhook,
     user: User,
 }

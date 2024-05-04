@@ -1,23 +1,11 @@
 #![allow(clippy::collapsible_match)]
 
-use telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
-use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
-use telegram_bots_api::api::structs::bot_command::BotCommand;
-use telegram_bots_api::api::structs::bot_command_scope_all_chat_administrators::BotCommandScopeAllChatAdministrators;
-use telegram_bots_api::api::structs::bot_command_scope_all_group_chats::BotCommandScopeAllGroupChats;
-use telegram_bots_api::api::structs::bot_command_scope_all_private_chats::BotCommandScopeAllPrivateChats;
-use telegram_bots_api::api::structs::bot_command_scope_chat::BotCommandScopeChat;
-use telegram_bots_api::api::structs::bot_command_scope_chat_administrators::BotCommandScopeChatAdministrators;
-use telegram_bots_api::api::structs::bot_command_scope_chat_member::BotCommandScopeChatMember;
-use telegram_bots_api::api::structs::bot_command_scope_default::BotCommandScopeDefault;
-
 const COMMAND_ATTRIBUTE_IDENT_NAME: &str = "command";
 const DESCRIPTION_CHARS_MAX_COUNT: u16 = 256;
 
 type PunctuatedAttributes = syn::punctuated::Punctuated<syn::Meta, syn::token::Comma>;
 
-fn parse_commands(enum_data: &syn::DataEnum) -> Vec<BotCommand> {
+fn parse_commands(enum_data: &syn::DataEnum) -> Vec<proc_macro2::TokenStream> {
     let mut commands = Vec::new();
 
     enum_data.variants.iter().for_each(|variant: &syn::Variant| {
@@ -29,7 +17,7 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<BotCommand> {
                     let parse_stream = meta.value().unwrap();
                     let lit_str = parse_stream.parse::<syn::LitStr>().unwrap();
                     let description = lit_str.value();
-                    let command = variant.ident.to_string().to_lowercase();
+                    let command = format!("/{}", variant.ident.to_string().to_lowercase());
 
                     if description.len() > DESCRIPTION_CHARS_MAX_COUNT as usize {
                         proc_macro_error::abort_call_site!(
@@ -37,9 +25,11 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<BotCommand> {
                         )
                     }
 
-                    commands.push(BotCommand {
-                        command,
-                        description
+                    commands.push(quote::quote! {
+                        telegram_bots_api::api::structs::bot_command::BotCommand {
+                            command: #command.to_string(),
+                            description: #description.to_string(),
+                        }
                     });
 
                     Ok(())
@@ -86,65 +76,112 @@ fn parse_nested_value(predicate_name: &str, nested: &PunctuatedAttributes) -> Op
     predicate_value
 }
 
-fn parse_scope(attrs: &[syn::Attribute]) -> Option<BotCommandScopes> {
+fn parse_scope(attrs: &[syn::Attribute]) -> proc_macro2::TokenStream {
     if let Some(nested) = parse_nested(attrs) {
         let scope_name = parse_nested_value("scope", &nested);
 
-        let parse_chat_uid = |kind: &str, nested: &PunctuatedAttributes| -> ChatUId {
-            let message = format!(
-                "#[command(scope = \"{}\", chat_id = ???)] expect chat_id",
-                kind
-            );
-            let chat_id = parse_nested_value("chat_id", nested).expect(&message);
+        let parse_chat_uid =
+            |kind: &str, nested: &PunctuatedAttributes| -> proc_macro2::TokenStream {
+                let message = format!(
+                    "#[command(scope = \"{}\", chat_id = ???)] expect chat_id",
+                    kind
+                );
+                let chat_id = parse_nested_value("chat_id", nested).expect(&message);
 
-            ChatUId::from(chat_id)
-        };
+                quote::quote! { telegram_bots_api::api::enums::chat_uid::ChatUId::from(#chat_id) }
+            };
 
-        let parse_user_id = |kind: &str, nested: &PunctuatedAttributes| -> i64 {
-            let message = format!(
-                "#[command(scope = \"{}\", user_id = ???)] expect user_id",
-                kind
-            );
+        let parse_user_id =
+            |kind: &str, nested: &PunctuatedAttributes| -> proc_macro2::TokenStream {
+                let message = format!(
+                    "#[command(scope = \"{}\", user_id = ???)] expect user_id",
+                    kind
+                );
 
-            parse_nested_value("user_id", nested)
-                .expect(&message)
-                .parse::<i64>()
-                .unwrap()
-        };
+                let user_id = parse_nested_value("user_id", nested)
+                    .expect(&message)
+                    .parse::<i64>()
+                    .unwrap();
+
+                quote::quote! { #user_id }
+            };
 
         match scope_name {
             Some(kind) if kind == "default" => {
-                Some(BotCommandScopes::Default(BotCommandScopeDefault { kind }))
+                quote::quote! {
+                    Some(telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes::Default(
+                        telegram_bots_api::api::structs::bot_command_scope_default::BotCommandScopeDefault {
+                            kind: #kind.to_string()
+                        }
+                    ))
+                }
             }
             Some(kind) if kind == "all_chat_administrators" => {
-                Some(BotCommandScopes::AllChatAdministrators(
-                    BotCommandScopeAllChatAdministrators { kind },
-                ))
+                quote::quote! {
+                    Some(telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes::AllChatAdministrators(
+                        telegram_bots_api::api::structs::bot_command_scope_all_chat_administrators::BotCommandScopeAllChatAdministrators {
+                            kind: #kind.to_string()
+                        }
+                    ))
+                }
             }
-            Some(kind) if kind == "all_group_chats" => Some(BotCommandScopes::AllGroupChats(
-                BotCommandScopeAllGroupChats { kind },
-            )),
-            Some(kind) if kind == "all_private_chats" => Some(BotCommandScopes::AllPrivateChats(
-                BotCommandScopeAllPrivateChats { kind },
-            )),
-            Some(kind) if kind == "chat" => Some(BotCommandScopes::Chat(BotCommandScopeChat {
-                chat_id: parse_chat_uid(&kind, &nested),
-                kind,
-            })),
-            Some(kind) if kind == "chat_administrators" => Some(
-                BotCommandScopes::ChatAdministrators(BotCommandScopeChatAdministrators {
-                    chat_id: parse_chat_uid(&kind, &nested),
-                    kind,
-                }),
-            ),
+            Some(kind) if kind == "all_group_chats" => {
+                quote::quote! {
+                    Some(telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes::AllGroupChats(
+                        telegram_bots_api::api::structs::bot_command_scope_all_group_chats::BotCommandScopeAllGroupChats {
+                            kind: #kind.to_string()
+                        }
+                    ))
+                }
+            }
+            Some(kind) if kind == "all_private_chats" => {
+                quote::quote! {
+                    Some(telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes::AllPrivateChats(
+                        telegram_bots_api::api::structs::bot_command_scope_all_private_chats::BotCommandScopeAllPrivateChats {
+                            kind: #kind.to_string()
+                        }
+                    ))
+                }
+            }
+            Some(kind) if kind == "chat" => {
+                let chat_uid = parse_chat_uid(&kind, &nested);
+
+                quote::quote! {
+                    Some(telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes::Chat(
+                        telegram_bots_api::api::structs::bot_command_scope_chat::BotCommandScopeChat {
+                            chat_id: #chat_uid,
+                            kind: #kind.to_string(),
+                        }
+                    ))
+                }
+            }
+            Some(kind) if kind == "chat_administrators" => {
+                let chat_uid = parse_chat_uid(&kind, &nested);
+
+                quote::quote! {
+                    Some(telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes::ChatAdministrators(
+                        telegram_bots_api::api::structs::bot_command_scope_chat_administrators::BotCommandScopeChatAdministrators {
+                            chat_id: #chat_uid,
+                            kind: #kind.to_string(),
+                        }
+                    ))
+                }
+            }
             Some(kind) if kind == "chat_member" => {
-                Some(BotCommandScopes::ChatMember(BotCommandScopeChatMember {
-                    user_id: parse_user_id(&kind, &nested),
-                    chat_id: parse_chat_uid(&kind, &nested),
-                    kind,
-                }))
+                let user_id = parse_user_id(&kind, &nested);
+                let chat_uid = parse_chat_uid(&kind, &nested);
+
+                quote::quote! {
+                    Some(telegram_bots_api::api::enums::bot_command_scopes::BotCommandScopes::ChatMember(
+                        telegram_bots_api::api::structs::bot_command_scope_chat_member::BotCommandScopeChatMember {
+                            user_id: #user_id,
+                            chat_id: #chat_uid,
+                            kind: #kind.to_string(),
+                        }
+                    ))
+                }
             }
-            None => None,
+            None => quote::quote! { None },
             _ => {
                 proc_macro_error::abort_call_site!(format!(
                     "#[command(scope = \"{}\")] scope doesn't supported",
@@ -153,14 +190,20 @@ fn parse_scope(attrs: &[syn::Attribute]) -> Option<BotCommandScopes> {
             }
         }
     } else {
-        None
+        quote::quote! { None }
     }
 }
 
-fn parse_language_code(attrs: &[syn::Attribute]) -> Option<String> {
-    match parse_nested(attrs) {
+fn parse_language_code(attrs: &[syn::Attribute]) -> proc_macro2::TokenStream {
+    let language_code = match parse_nested(attrs) {
         Some(nested) => parse_nested_value("language_code", &nested),
         None => None,
+    };
+
+    if language_code.is_some() {
+        quote::quote! { Some(#language_code.to_string()) }
+    } else {
+        quote::quote! { None }
     }
 }
 
@@ -178,19 +221,35 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
     let language_code = parse_language_code(&input.attrs);
     let scope = parse_scope(&input.attrs);
 
-    let commands = SetMyCommands {
-        commands,
-        language_code,
-        scope,
-    };
-
-    dbg!(serde_json::to_string(&commands).unwrap());
-
     let quote = quote::quote! {
         impl #ident {
-            pub fn delete(&self) {}
-            pub fn set(&self) {}
-            pub fn setup(&self) {}
+            pub fn delete(bots_api: &telegram_framework::bots_api::BotsApi) -> bool {
+                let params = telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands {
+                    language_code: #language_code,
+                    scope: #scope,
+                };
+
+                bots_api.client.delete_my_commands(&params).unwrap()
+            }
+
+            pub fn get(bots_api: &telegram_framework::bots_api::BotsApi) -> Vec<telegram_bots_api::api::structs::bot_command::BotCommand> {
+                let params = telegram_bots_api::api::params::get_my_commands::GetMyCommands {
+                    language_code: #language_code,
+                    scope: #scope,
+                };
+
+                bots_api.client.get_my_commands(&params).unwrap()
+            }
+
+            pub fn set(bots_api: &telegram_framework::bots_api::BotsApi) -> bool {
+                let params = telegram_bots_api::api::params::set_my_commands::SetMyCommands {
+                    language_code: #language_code,
+                    scope: #scope,
+                    commands: vec![#(#commands), *]
+                };
+
+                bots_api.client.set_my_commands(&params).unwrap()
+            }
         }
     };
 
