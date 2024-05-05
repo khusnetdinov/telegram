@@ -1,4 +1,5 @@
 use crate::config::Config;
+use crate::state::State;
 use crate::structs::update::Update;
 use crate::structs::webhook::Webhook;
 use std::thread::sleep;
@@ -40,7 +41,11 @@ impl BotsApi {
         Self::from(config)
     }
 
-    pub fn pooling(&self, drop_pending_updates: bool, callback: fn(updates: Update)) {
+    pub fn pooling(&mut self, drop_pending_updates: bool, callback: impl Fn(&Update, &Sync)) {
+        let mut state = State {
+            offset: self.config.updates_offset,
+        };
+
         self.client
             .delete_webhook(&DeleteWebhook {
                 drop_pending_updates: Some(drop_pending_updates),
@@ -51,7 +56,7 @@ impl BotsApi {
             let updates = self
                 .client
                 .get_updates(&GetUpdate {
-                    offset: self.config.updates_offset,
+                    offset: state.offset,
                     limit: self.config.updates_limit,
                     timeout: self.config.updates_timeout,
                     allowed_updates: None,
@@ -59,7 +64,11 @@ impl BotsApi {
                 .unwrap();
 
             for inner in updates.into_iter() {
-                callback(Update { inner });
+                let offset = &inner.update_id + 1i64;
+
+                callback(&Update::from(inner), &self.client);
+
+                state.offset = offset;
             }
 
             sleep(Duration::from_secs(1));

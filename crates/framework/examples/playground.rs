@@ -1,11 +1,15 @@
+use telegram_bots_api::api::enums::chat_uid::ChatUId;
+use telegram_bots_api::api::params::send_message::SendMessage;
 use telegram_bots_api::api::requests::sync::Requests;
+use telegram_bots_api::clients::sync::Sync;
 
 use telegram_framework::bots_api::BotsApi;
+use telegram_framework::enums::messages::{Messages, TextMessage};
 use telegram_framework::structs::update::Update;
 use telegram_macros::BotCommands;
 
 fn main() {
-    let bots_api = BotsApi::new();
+    let mut bots_api = BotsApi::new();
 
     #[allow(dead_code)]
     #[derive(Debug, BotCommands)]
@@ -27,7 +31,41 @@ fn main() {
 
     DefaultCommands::set(&bots_api);
 
-    bots_api.pooling(true, move |update: Update| {
-        println!("{update:?}");
+    bots_api.pooling(true, move |update: &Update, client: &Sync| {
+        match update.dispatch() {
+            Some(Messages::Text(message)) => {
+                let TextMessage { chat, text, .. } = message;
+
+                client
+                    .send_message(&SendMessage {
+                        chat_id: ChatUId::from(chat.id),
+                        text: format!("You have entered text: #{}", text),
+                        ..SendMessage::default()
+                    })
+                    .unwrap();
+            }
+            Some(Messages::Command(message)) => {
+                let TextMessage { chat, text, .. } = message;
+
+                client
+                    .send_message(&SendMessage {
+                        chat_id: ChatUId::from(chat.id),
+                        text: format!("You have entered command: #{}", text),
+                        ..SendMessage::default()
+                    })
+                    .unwrap();
+            }
+            _ => {
+                let chat_id = update.message.as_deref().unwrap().chat.id;
+
+                client
+                    .send_message(&SendMessage {
+                        chat_id: ChatUId::from(chat_id),
+                        text: String::from("None"),
+                        ..SendMessage::default()
+                    })
+                    .unwrap();
+            }
+        };
     })
 }

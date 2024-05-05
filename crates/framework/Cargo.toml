@@ -8,6 +8,7 @@ telegram_bots_api = { path = "../../../telegram_bots_api", features = ["sync", "
 #telegram_bots_api = { version = "0.72.0", features = ["all"] }
 telegram_macros = { path = "../macros" }
 proc-macro-error = "1.0.4"
+serde = { version = "1.0.199", features = ["derive"] }
 
 [dev-dependencies]
 
