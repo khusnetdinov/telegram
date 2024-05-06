@@ -4,7 +4,7 @@ use telegram_bots_api::api::requests::sync::Requests;
 use telegram_bots_api::clients::sync::Sync;
 
 use telegram_framework::bots_api::BotsApi;
-use telegram_framework::enums::messages::{Messages, TextMessage};
+use telegram_framework::enums::messages::{CommandMessage, Messages, TextMessage};
 use telegram_framework::structs::update::Update;
 use telegram_macros::BotCommands;
 
@@ -25,8 +25,9 @@ fn main() {
         Help,
         #[command(description = "Show you user name")]
         Username,
-        #[command(description = "Test after update")]
-        Test,
+        #[command(description = "Test after")]
+        TestFuck,
+        Dick,
     }
 
     DefaultCommands::set(&bots_api);
@@ -45,15 +46,46 @@ fn main() {
                     .unwrap();
             }
             Some(Messages::Command(message)) => {
-                let TextMessage { chat, text, .. } = message;
+                let CommandMessage { chat, .. } = &message;
 
-                client
-                    .send_message(&SendMessage {
-                        chat_id: ChatUId::from(chat.id),
-                        text: format!("You have entered command: #{}", text),
-                        ..SendMessage::default()
-                    })
-                    .unwrap();
+                match DefaultCommands::dispatch(&message) {
+                    Some(DefaultCommands::Help) => {
+                        client
+                            .send_message(&SendMessage {
+                                chat_id: ChatUId::from(chat.id),
+                                text: String::from("You have entered /help"),
+                                ..SendMessage::default()
+                            })
+                            .unwrap();
+                    }
+                    Some(DefaultCommands::Username) => {
+                        client
+                            .send_message(&SendMessage {
+                                chat_id: ChatUId::from(chat.id),
+                                text: String::from("You have entered /username"),
+                                ..SendMessage::default()
+                            })
+                            .unwrap();
+                    }
+                    Some(DefaultCommands::TestFuck) => {
+                        client
+                            .send_message(&SendMessage {
+                                chat_id: ChatUId::from(chat.id),
+                                text: String::from("You have entered /test"),
+                                ..SendMessage::default()
+                            })
+                            .unwrap();
+                    }
+                    _ => {
+                        client
+                            .send_message(&SendMessage {
+                                chat_id: ChatUId::from(chat.id),
+                                text: String::from("You have entered not valid command"),
+                                ..SendMessage::default()
+                            })
+                            .unwrap();
+                    }
+                }
             }
             _ => {
                 let chat_id = update.message.as_deref().unwrap().chat.id;

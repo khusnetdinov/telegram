@@ -5,7 +5,7 @@ const DESCRIPTION_CHARS_MAX_COUNT: u16 = 256;
 
 type PunctuatedAttributes = syn::punctuated::Punctuated<syn::Meta, syn::token::Comma>;
 
-fn parse_commands(enum_data: &syn::DataEnum) -> Vec<proc_macro2::TokenStream> {
+fn parse_commands(enum_data: &syn::DataEnum) -> Vec<(String, String)> {
     let mut commands = Vec::new();
 
     enum_data.variants.iter().for_each(|variant: &syn::Variant| {
@@ -17,7 +17,6 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<proc_macro2::TokenStream> {
                     let parse_stream = meta.value().unwrap();
                     let lit_str = parse_stream.parse::<syn::LitStr>().unwrap();
                     let description = lit_str.value();
-                    let command = format!("/{}", variant.ident.to_string().to_lowercase());
 
                     if description.len() > DESCRIPTION_CHARS_MAX_COUNT as usize {
                         proc_macro_error::abort_call_site!(
@@ -25,12 +24,7 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<proc_macro2::TokenStream> {
                         )
                     }
 
-                    commands.push(quote::quote! {
-                        telegram_bots_api::api::structs::bot_command::BotCommand {
-                            command: #command.to_string(),
-                            description: #description.to_string(),
-                        }
-                    });
+                    commands.push((variant.ident.to_string(), description.to_string(), ));
 
                     Ok(())
                 }).unwrap();
@@ -217,9 +211,37 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
     };
     let ident = &input.ident;
 
-    let commands = parse_commands(enum_data);
+    let raw_commands = parse_commands(enum_data);
+    let commands: Vec<proc_macro2::TokenStream> = raw_commands
+        .iter()
+        .map(|(ident, description)| {
+            let command = format!("/{}", ident.to_lowercase());
+
+            quote::quote! {
+                telegram_bots_api::api::structs::bot_command::BotCommand {
+                    command: #command.to_string(),
+                    description: #description.to_string(),
+                }
+            }
+        })
+        .collect();
+    let enum_variants: Vec<_> = raw_commands
+        .iter()
+        .map(|(command, _)| {
+            let command_pattern = format!("/{}", command.to_lowercase());
+            let enum_variant =
+                syn::parse_str::<syn::Expr>(&format!("{}::{}", ident, command)).unwrap();
+
+            quote::quote! {
+               #command_pattern => Some(#enum_variant)
+            }
+        })
+        .collect();
+
     let language_code = parse_language_code(&input.attrs);
     let scope = parse_scope(&input.attrs);
+
+    dbg!(enum_data);
 
     let quote = quote::quote! {
         impl #ident {
@@ -249,6 +271,13 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
                 };
 
                 bots_api.client.set_my_commands(&params).unwrap()
+            }
+
+            pub fn dispatch(message: &CommandMessage) -> Option<#ident> {
+                match message.text.as_str() {
+                    #(#enum_variants,)*
+                    _ => None
+                }
             }
         }
     };
