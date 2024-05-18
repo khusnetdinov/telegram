@@ -21,16 +21,14 @@ fn main() {
     // #[command(scope = "chat_administrators", chat_id = "-1002109487074", language_code = "ru")]
     // #[command(scope = "chat_member", chat_id = "-1002109487074", user_id = "6591790550", language_code = "ru")]
     enum DefaultCommands {
-        #[command(description = "help command description after update")]
+        #[command(description = "help command description")]
         Help,
-        #[command(description = "Show you user name")]
-        Username,
-        #[command(description = "Test after")]
-        TestFuck,
-        Dick,
+        #[command(description = "enter username")]
+        Username
+
     }
 
-    DefaultCommands::set(&bots_api);
+    DefaultCommands::configure(&bots_api);
 
     bots_api.pooling(true, move |update: &Update, client: &Sync| {
         match update.dispatch() {
@@ -67,15 +65,6 @@ fn main() {
                             })
                             .unwrap();
                     }
-                    Some(DefaultCommands::TestFuck) => {
-                        client
-                            .send_message(&SendMessage {
-                                chat_id: ChatUId::from(chat.id),
-                                text: String::from("You have entered /test"),
-                                ..SendMessage::default()
-                            })
-                            .unwrap();
-                    }
                     _ => {
                         client
                             .send_message(&SendMessage {
@@ -98,6 +87,6 @@ fn main() {
                     })
                     .unwrap();
             }
-        };
+        }
     })
 }

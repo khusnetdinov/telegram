@@ -65,8 +65,9 @@ impl BotsApi {
 
             for inner in updates.into_iter() {
                 let offset = &inner.update_id + 1i64;
+                let update = Update::from(inner);
 
-                callback(&Update::from(inner), &self.client);
+                callback(&update, &self.client);
 
                 state.offset = offset;
             }

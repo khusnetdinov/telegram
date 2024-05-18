@@ -36,6 +36,7 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<(String, String)> {
 }
 
 fn parse_nested(attrs: &[syn::Attribute]) -> Option<PunctuatedAttributes> {
+
     let mut nested = None;
 
     for attr in attrs {
@@ -271,6 +272,11 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
                 };
 
                 bots_api.client.set_my_commands(&params).unwrap()
+            }
+
+            pub fn configure(bots_api: &telegram_framework::bots_api::BotsApi) {
+                Self::delete(bots_api);
+                Self::set(bots_api);
             }
 
             pub fn dispatch(message: &CommandMessage) -> Option<#ident> {
