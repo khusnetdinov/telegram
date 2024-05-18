@@ -24,8 +24,7 @@ fn main() {
         #[command(description = "help command description")]
         Help,
         #[command(description = "enter username")]
-        Username
-
+        Username,
     }
 
     DefaultCommands::configure(&bots_api);

@@ -2,6 +2,7 @@ use crate::config::Config;
 use crate::state::State;
 use crate::structs::update::Update;
 use crate::structs::webhook::Webhook;
+use std::rc::Rc;
 use std::thread::sleep;
 use std::time::Duration;
 use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
@@ -21,7 +22,7 @@ pub struct BotsApi {
 impl From<Config> for BotsApi {
     fn from(config: Config) -> Self {
         let Config { ref inner } = config;
-        let client = Sync::from(inner.clone());
+        let client = Sync::from(Rc::clone(inner));
         let webhook = Webhook::from(inner);
         let user = client.get_me().unwrap();
 
