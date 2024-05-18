@@ -1,35 +1,18 @@
-use proc_macro::TokenStream;
-use quote::quote;
-use syn::{parse_macro_input, DeriveInput};
+mod bot_commands;
+mod deref_inner;
+mod from_inner;
+
+#[proc_macro_derive(BotCommands, attributes(command))]
+pub fn bot_commands_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    bot_commands::impl_proc_macro(input)
+}
 
 #[proc_macro_derive(DerefInner)]
-pub fn deref_inner_derive(input: TokenStream) -> TokenStream {
-    let DeriveInput { ident, .. } = parse_macro_input!(input);
-
-    let gen = quote! {
-        impl std::ops::Deref for #ident {
-            type Target = Inner;
-
-            fn deref(&self) -> &Self::Target {
-                &self.inner
-            }
-        }
-    };
-
-    gen.into()
+pub fn deref_inner_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    deref_inner::impl_proc_macro(input)
 }
 
 #[proc_macro_derive(FromInner)]
-pub fn from_inner_derive(input: TokenStream) -> TokenStream {
-    let DeriveInput { ident, .. } = parse_macro_input!(input);
-
-    let gen = quote! {
-        impl From<Inner> for #ident {
-            fn from(inner: Inner) -> Self {
-                Self { inner }
-            }
-        }
-    };
-
-    gen.into()
+pub fn from_inner_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    from_inner::impl_proc_macro(input)
 }
