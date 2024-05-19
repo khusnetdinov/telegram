@@ -242,8 +242,6 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
     let language_code = parse_language_code(&input.attrs);
     let scope = parse_scope(&input.attrs);
 
-    dbg!(enum_data);
-
     let quote = quote::quote! {
         impl #ident {
             pub fn delete(bots_api: &telegram_framework::bots_api::BotsApi) -> bool {

@@ -1,5 +1,7 @@
 use crate::config::Config;
+use crate::enums::messages::Messages;
 use crate::state::State;
+use crate::structs::message::Message;
 use crate::structs::update::Update;
 use crate::structs::webhook::Webhook;
 use std::rc::Rc;
@@ -42,7 +44,11 @@ impl BotsApi {
         Self::from(config)
     }
 
-    pub fn pooling(&mut self, drop_pending_updates: bool, callback: impl Fn(&Update, &Sync)) {
+    pub fn pooling(
+        &mut self,
+        drop_pending_updates: bool,
+        callback: impl Fn(&BotsApi, &State, Update),
+    ) {
         let mut state = State {
             offset: self.config.updates_offset,
         };
@@ -68,7 +74,7 @@ impl BotsApi {
                 let offset = &inner.update_id + 1i64;
                 let update = Update::from(inner);
 
-                callback(&update, &self.client);
+                callback(self, &state, update);
 
                 state.offset = offset;
             }
@@ -83,5 +89,15 @@ impl BotsApi {
 
     pub fn listen_https(&self) {
         todo!()
+    }
+
+    pub fn dispatch(&self, update: &Update) -> Option<Messages> {
+        let inner = update.message.as_deref().unwrap();
+
+        match Message::from(inner.clone()) {
+            message if message.is_text() => Some(Messages::Text(message.into())),
+            message if message.is_command() => Some(Messages::Command(message.into())),
+            _ => None,
+        }
     }
 }
