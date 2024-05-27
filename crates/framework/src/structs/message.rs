@@ -34,4 +34,8 @@ impl Message {
 
         self.text.is_some() && bot_command_entity_any
     }
+
+    pub fn is_photo(&self) -> bool {
+        self.photo.is_some()
+    }
 }

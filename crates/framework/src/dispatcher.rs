@@ -12,6 +12,7 @@ impl Dispatcher {
         match Message::from(inner.clone()) {
             message if message.is_text() => Some(Messages::Text(message.into())),
             message if message.is_command() => Some(Messages::Command(message.into())),
+            message if message.is_photo() => Some(Messages::Photo(message.into())),
             _ => None,
         }
     }

@@ -3,7 +3,7 @@ use telegram_bots_api::api::params::send_message::SendMessage;
 use telegram_bots_api::api::requests::sync::Requests;
 use telegram_framework::bots_api::BotsApi;
 use telegram_framework::dispatcher::Dispatcher;
-use telegram_framework::enums::messages::{CommandMessage, Messages, TextMessage};
+use telegram_framework::enums::messages::{CommandMessage, Messages, PhotoMessage, TextMessage};
 use telegram_framework::structs::update::Update;
 use telegram_macros::BotCommands;
 
@@ -24,8 +24,7 @@ pub enum DefaultCommands {
 }
 
 fn main() {
-    let bots_api = BotsApi::new();
-
+    let bots_api = BotsApi::from_env();
     DefaultCommands::configure(&bots_api);
 
     bots_api.pooling(true, move |bots_api: &BotsApi, update: Update| {
@@ -40,6 +39,19 @@ fn main() {
                     .send_message(&SendMessage {
                         chat_id: ChatUId::from(chat.id),
                         text: format!("You have entered text: #{}", text),
+                        ..SendMessage::default()
+                    })
+                    .unwrap();
+            }
+
+            Some(Messages::Photo(message)) => {
+                let PhotoMessage { chat, .. } = message;
+
+                bots_api
+                    .client
+                    .send_message(&SendMessage {
+                        chat_id: ChatUId::from(chat.id),
+                        text: "You have send photo!".into(),
                         ..SendMessage::default()
                     })
                     .unwrap();
@@ -82,6 +94,8 @@ fn main() {
             }
             _ => {
                 let chat_id = update.message.as_deref().unwrap().chat.id;
+
+                println!("{:#?}", update);
 
                 bots_api
                     .client
