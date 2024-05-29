@@ -226,18 +226,18 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
             }
         })
         .collect();
-    let enum_variants: Vec<_> = raw_commands
-        .iter()
-        .map(|(command, _)| {
-            let command_pattern = format!("/{}", command.to_lowercase());
-            let enum_variant =
-                syn::parse_str::<syn::Expr>(&format!("{}::{}", ident, command)).unwrap();
-
-            quote::quote! {
-               #command_pattern => Some(#enum_variant)
-            }
-        })
-        .collect();
+    // let enum_variants: Vec<_> = raw_commands
+    //     .iter()
+    //     .map(|(command, _)| {
+    //         let command_pattern = format!("/{}", command.to_lowercase());
+    //         let enum_variant =
+    //             syn::parse_str::<syn::Expr>(&format!("{}::{}", ident, command)).unwrap();
+    //
+    //         quote::quote! {
+    //            #command_pattern => Some(#enum_variant)
+    //         }
+    //     })
+    //     .collect();
 
     let language_code = parse_language_code(&input.attrs);
     let scope = parse_scope(&input.attrs);
@@ -277,12 +277,12 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
                 Self::set(bots_api);
             }
 
-            pub fn dispatch(message: &CommandMessage) -> Option<#ident> {
-                match message.text.as_str() {
-                    #(#enum_variants,)*
-                    _ => None
-                }
-            }
+            // pub fn dispatch(message: &CommandMessage) -> Option<#ident> {
+            //     match message.text.as_str() {
+            //         #(#enum_variants,)*
+            //         _ => None
+            //     }
+            // }
         }
     };
 
