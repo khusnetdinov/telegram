@@ -4,7 +4,9 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-telegram_bots_api = { version = "0.73.2", features = ["all"] }
+#telegram_bots_api = { version = "0.73.2", features = ["all"] }
+telegram_bots_api = { path = "../../../telegram_bots_api", features = ["sync", "async"] }
+
 telegram_macros = { path = "../macros" }
 proc-macro-error = "1.0.4"
 serde = { version = "1.0.199", features = ["derive"] }

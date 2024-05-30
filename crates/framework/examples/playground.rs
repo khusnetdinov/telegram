@@ -1,5 +1,6 @@
 use telegram_bots_api::api::requests::sync::Requests;
 use telegram_framework::bots_api::BotsApi;
+use telegram_framework::enums::update_kind::UpdateKind;
 use telegram_framework::structs::update::Update;
 use telegram_macros::BotCommands;
 
@@ -23,7 +24,11 @@ fn main() {
     let bots_api = BotsApi::from_env();
     DefaultCommands::configure(&bots_api);
 
-    bots_api.pooling(true, move |_bots_api: &BotsApi, update: Update| {
-        println!("===> {:#?}", update);
-    });
+    bots_api.pooling(
+        true,
+        move |_bots_api: &BotsApi, update: Update| match update.kind {
+            UpdateKind::Message(message) => println!("===> {:#?}", message),
+            UpdateKind::Unexpected | _ => {}
+        },
+    );
 }

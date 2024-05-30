@@ -20,7 +20,7 @@ use telegram_bots_api::api::structs::update::Update as Inner;
 /// This object represents an incoming update.
 /// At most one of the optional parameters can be present in any given update.
 #[derive(Debug)]
-pub enum Updates {
+pub enum UpdateKind {
     /// Optional. New incoming message of any kind - text, photo, sticker, etc.
     Message(Message),
     /// Optional. New version of a message that is known to the bot and was edited. This update
@@ -89,7 +89,7 @@ pub enum Updates {
     Unexpected,
 }
 
-impl From<Inner> for Updates {
+impl From<Inner> for UpdateKind {
     fn from(inner: Inner) -> Self {
         match inner {
             Inner {

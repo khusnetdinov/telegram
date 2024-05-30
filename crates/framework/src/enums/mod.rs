@@ -1,1 +1,1 @@
-pub mod updates;
+pub mod update_kind;

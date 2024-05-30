@@ -1,4 +1,4 @@
-use crate::enums::updates::Updates;
+use crate::enums::update_kind::UpdateKind;
 use telegram_bots_api::api::structs::update::Update as Inner;
 
 /// <https://core.telegram.org/bots/api#update>
@@ -13,14 +13,14 @@ pub struct Update {
     /// identifier of the next update will be chosen randomly instead of sequentially.
     pub id: i64,
     /// Not Telegram type: wrap raw update struct with dispatched enum variant
-    pub kind: Updates,
+    pub kind: UpdateKind,
 }
 
 impl From<Inner> for Update {
     fn from(inner: Inner) -> Self {
         Self {
             id: inner.update_id,
-            kind: Updates::from(inner),
+            kind: UpdateKind::from(inner),
         }
     }
 }
