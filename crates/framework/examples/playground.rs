@@ -1,8 +1,5 @@
-use telegram_bots_api::api::requests::sync::Requests;
-use telegram_framework::bots_api::BotsApi;
 use telegram_framework::enums::update_kind::UpdateKind;
-use telegram_framework::structs::update::Update;
-use telegram_macros::BotCommands;
+use telegram_framework::prelude::*;
 
 #[allow(dead_code)]
 #[derive(Debug, BotCommands)]
