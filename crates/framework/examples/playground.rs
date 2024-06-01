@@ -27,7 +27,9 @@ fn main() {
     bots_api.pooling(
         true,
         move |_bots_api: &BotsApi, update: Update| match update.kind {
-            UpdateKind::Message(message) => println!("===> {:#?}", message),
+            UpdateKind::Message(message) => {
+                println!("UpdateKind::Message: {:#?}", message);
+            }
             UpdateKind::Unexpected | _ => {}
         },
     );

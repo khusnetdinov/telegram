@@ -11,15 +11,15 @@ pub struct Update {
     /// since it allows you to ignore repeated updates or to restore the correct update sequence,
     /// should they get out of order. If there are no new updates for at least a week, then
     /// identifier of the next update will be chosen randomly instead of sequentially.
-    pub id: i64,
-    /// Not Telegram type: wrap raw update struct with dispatched enum variant
+    pub update_id: i64,
+    /// Not Telegram type: wrap raw struct with dispatched enum variant
     pub kind: UpdateKind,
 }
 
 impl From<Inner> for Update {
     fn from(inner: Inner) -> Self {
         Self {
-            id: inner.update_id,
+            update_id: inner.update_id,
             kind: UpdateKind::from(inner),
         }
     }

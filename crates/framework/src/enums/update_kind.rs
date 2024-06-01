@@ -1,19 +1,19 @@
-use crate::structs::business_connection::BusinessConnection;
-use crate::structs::business_messages_deleted::BusinessMessagesDeleted;
-use crate::structs::callback_query::CallbackQuery;
-use crate::structs::chat_boost_removed::ChatBoostRemoved;
-use crate::structs::chat_boost_updated::ChatBoostUpdated;
-use crate::structs::chat_join_request::ChatJoinRequest;
-use crate::structs::chat_member_updated::ChatMemberUpdated;
-use crate::structs::chosen_inline_result::ChosenInlineResult;
-use crate::structs::inline_query::InlineQuery;
-use crate::structs::message::Message;
-use crate::structs::message_reaction_count_updated::MessageReactionCountUpdated;
-use crate::structs::message_reaction_updated::MessageReactionUpdated;
-use crate::structs::poll::Poll;
-use crate::structs::poll_answer::PollAnswer;
-use crate::structs::pre_checkout_query::PreCheckoutQuery;
-use crate::structs::shipping_query::ShippingQuery;
+use crate::structs::update_kinds::business_connection::BusinessConnection;
+use crate::structs::update_kinds::business_messages_deleted::BusinessMessagesDeleted;
+use crate::structs::update_kinds::callback_query::CallbackQuery;
+use crate::structs::update_kinds::chat_boost_removed::ChatBoostRemoved;
+use crate::structs::update_kinds::chat_boost_updated::ChatBoostUpdated;
+use crate::structs::update_kinds::chat_join_request::ChatJoinRequest;
+use crate::structs::update_kinds::chat_member_updated::ChatMemberUpdated;
+use crate::structs::update_kinds::chosen_inline_result::ChosenInlineResult;
+use crate::structs::update_kinds::inline_query::InlineQuery;
+use crate::structs::update_kinds::message::Message;
+use crate::structs::update_kinds::message_reaction_count_updated::MessageReactionCountUpdated;
+use crate::structs::update_kinds::message_reaction_updated::MessageReactionUpdated;
+use crate::structs::update_kinds::poll::Poll;
+use crate::structs::update_kinds::poll_answer::PollAnswer;
+use crate::structs::update_kinds::pre_checkout_query::PreCheckoutQuery;
+use crate::structs::update_kinds::shipping_query::ShippingQuery;
 use telegram_bots_api::api::structs::update::Update as Inner;
 
 /// <https://core.telegram.org/bots/api#update>
