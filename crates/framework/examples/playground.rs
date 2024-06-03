@@ -27,7 +27,7 @@ fn main() {
             UpdateKind::Message(message) => {
                 println!("UpdateKind::Message: {:#?}", message);
             }
-            UpdateKind::Unexpected | _ => {}
+            UpdateKind::Unexpected(_) | _ => {}
         },
     );
 }

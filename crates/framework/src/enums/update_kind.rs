@@ -86,7 +86,7 @@ pub enum UpdateKind {
     /// receive these updates.
     RemovedChatBoost(ChatBoostRemoved),
     /// Not Telegram type: for unexpected messages, errors, debugging, logging purpose.
-    Unexpected,
+    Unexpected(Inner),
 }
 
 impl From<Inner> for UpdateKind {
@@ -183,7 +183,7 @@ impl From<Inner> for UpdateKind {
                 removed_chat_boost: Some(removed_chat_boost),
                 ..
             } => Self::RemovedChatBoost(ChatBoostRemoved::from(removed_chat_boost)),
-            _ => Self::Unexpected,
+            _ => Self::Unexpected(inner),
         }
     }
 }

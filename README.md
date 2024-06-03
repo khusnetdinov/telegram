@@ -1,11 +1,12 @@
 # telegram
 
-### Done
-- bots_api
+### BotsApi updates methods
+- pooling
+- listen http (ngrok)
+- listen https (tls)
 
 ### TODO
 - framework
-- state
+- state (Redis / DB)
 - ui
-- tdlib (tests)
-- ??? tg 
+- tdlib
