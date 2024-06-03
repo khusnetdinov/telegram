@@ -36,7 +36,6 @@ fn parse_commands(enum_data: &syn::DataEnum) -> Vec<(String, String)> {
 }
 
 fn parse_nested(attrs: &[syn::Attribute]) -> Option<PunctuatedAttributes> {
-
     let mut nested = None;
 
     for attr in attrs {
