@@ -1,8 +1,6 @@
 use crate::config::Config;
-use crate::state::State;
 use crate::structs::update::Update;
 use crate::structs::webhook::Webhook;
-use std::rc::Rc;
 use std::thread::sleep;
 use std::time::Duration;
 use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
@@ -13,19 +11,24 @@ use telegram_bots_api::clients::sync::Sync;
 
 #[derive(Debug)]
 pub struct BotsApi {
-    pub client: Sync,
     config: Config,
-    webhook: Webhook,
-    user: User,
+    pub client: Sync,
+    pub user: User,
+    pub webhook: Webhook,
 }
 
 impl From<Config> for BotsApi {
     fn from(config: Config) -> Self {
-        let Config { ref inner } = config;
-        let client = Sync::from(Rc::clone(inner));
-        let webhook = Webhook::from(inner);
+        let client = Sync::from(&*config);
+        let webhook = Webhook::from(&config);
         let user = client.get_me().unwrap();
 
+        Self::new(config, client, webhook, user)
+    }
+}
+
+impl BotsApi {
+    pub fn new(config: Config, client: Sync, webhook: Webhook, user: User) -> Self {
         Self {
             config,
             client,
@@ -33,19 +36,14 @@ impl From<Config> for BotsApi {
             user,
         }
     }
-}
-
-impl BotsApi {
-    pub fn new() -> Self {
+    pub fn from_env() -> Self {
         let config = Config::new();
 
         Self::from(config)
     }
 
-    pub fn pooling(&mut self, drop_pending_updates: bool, callback: impl Fn(&Update, &Sync)) {
-        let mut state = State {
-            offset: self.config.updates_offset,
-        };
+    pub fn pooling(&self, drop_pending_updates: bool, callback: impl Fn(&BotsApi, Update)) {
+        let mut update_offset = self.config.updates_offset;
 
         self.client
             .delete_webhook(&DeleteWebhook {
@@ -57,7 +55,7 @@ impl BotsApi {
             let updates = self
                 .client
                 .get_updates(&GetUpdate {
-                    offset: state.offset,
+                    offset: update_offset,
                     limit: self.config.updates_limit,
                     timeout: self.config.updates_timeout,
                     allowed_updates: None,
@@ -66,22 +64,21 @@ impl BotsApi {
 
             for inner in updates.into_iter() {
                 let offset = &inner.update_id + 1i64;
-                let update = Update::from(inner);
 
-                callback(&update, &self.client);
+                callback(self, Update::from(inner));
 
-                state.offset = offset;
+                update_offset = offset;
             }
 
             sleep(Duration::from_secs(1));
         }
     }
 
-    pub fn listen_http(&self) {
+    pub fn http_listen(&self) {
         todo!()
     }
 
-    pub fn listen_https(&self) {
+    pub fn https_listen(&self) {
         todo!()
     }
 }
