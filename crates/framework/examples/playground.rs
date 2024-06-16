@@ -2,7 +2,7 @@
 use telegram_framework::prelude::*;
 use telegram_framework::storages::memory::MemoryStorage;
 use telegram_framework::traits::bots_api::Pooler;
-use telegram_framework::traits::params::Params;
+use telegram_framework::traits::params::EnumParams;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -16,9 +16,7 @@ pub enum Commands {
     #[command(description = "help command description")]
     Help,
     #[command(description = "enter username")]
-    Username,
-    #[command(description = "update after")]
-    Update,
+    Username
 }
 
 #[derive(Debug, Clone)]
@@ -35,7 +33,6 @@ fn main() {
 
     bots_api.commands(Commands::config());
     bots_api.pooling(
-        true,
         move |_bots_api: &BotsApi, update: Update| match update.dispatch() {
             UpdateKind::Message(message) => match message.dispatch() {
                 MessageKind::Text(text_message) => {

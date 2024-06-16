@@ -250,32 +250,36 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
                     _ => None
                 }
             }
+
+            pub fn test(&self) {
+                println!("Test");
+            }
         }
 
-        impl telegram_framework::traits::params::Params for #ident {
+        impl telegram_framework::traits::params::EnumParams for #ident {
             type Delete = telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
             type Get = telegram_bots_api::api::params::get_my_commands::GetMyCommands;
             type Set = telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 
             fn config() -> (Self::Delete, Self::Get, Self::Set) {
-                (Self::delete(), Self::get(), Self::set())
+                (Self::delete_params(), Self::get_params(), Self::set_params())
             }
 
-            fn delete() -> Self::Delete {
+            fn delete_params() -> Self::Delete {
                 Self::Delete {
                     language_code: #language_code,
                     scope: #scope,
                 }
             }
 
-            fn get() -> Self::Get {
+            fn get_params() -> Self::Get {
                 Self::Get {
                     language_code: #language_code,
                     scope: #scope,
                 }
             }
 
-            fn set() -> Self::Set {
+            fn set_params() -> Self::Set {
                 Self::Set {
                     language_code: #language_code,
                     scope: #scope,

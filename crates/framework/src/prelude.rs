@@ -5,7 +5,7 @@ pub use crate::structs::message_kinds::*;
 pub use crate::structs::update::Update;
 pub use crate::structs::update_kinds::*;
 pub use crate::traits::dispatcher::Dispatcher;
-pub use crate::traits::params::Params;
+pub use crate::traits::params::EnumParams;
 pub use crate::traits::storage::Storage;
 pub use telegram_bots_api::api::requests::sync::Requests;
 pub use telegram_macros::BotCommands;

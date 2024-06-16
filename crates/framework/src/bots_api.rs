@@ -1,17 +1,17 @@
 use crate::config::Config;
 use crate::structs::bot_command::BotCommand;
 use crate::structs::update::Update;
+use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
 use crate::traits::bots_api::Pooler;
+use crate::traits::params::Params;
 use std::thread::sleep;
 use std::time::Duration;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
-use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 use telegram_bots_api::api::requests::sync::Requests;
-use telegram_bots_api::api::structs::user::User;
 use telegram_bots_api::clients::sync::Sync;
 
 #[derive(Debug)]
@@ -31,10 +31,21 @@ impl BotsApi {
             user,
         }
     }
+
     pub fn from_env() -> Self {
         let config = Config::new();
 
         Self::from(config)
+    }
+}
+
+impl From<Config> for BotsApi {
+    fn from(config: Config) -> Self {
+        let client = Sync::from(&*config);
+        let webhook = Webhook::from(&config);
+        let user = User::from(client.get_me().unwrap());
+
+        Self::new(config, client, webhook, user)
     }
 }
 
@@ -64,25 +75,29 @@ impl BotsApi {
     }
 }
 
-impl From<Config> for BotsApi {
-    fn from(config: Config) -> Self {
-        let client = Sync::from(&*config);
-        let webhook = Webhook::from(&config);
-        let user = client.get_me().unwrap();
+impl BotsApi {
+    pub fn delete_webhook(&self) -> bool {
+        let params = self.webhook.delete_params();
 
-        Self::new(config, client, webhook, user)
+        self.client.delete_webhook(&params).unwrap()
+    }
+
+    pub fn get_webhook(&self) -> Webhook {
+        Webhook::from(self.client.get_webhook_info().unwrap())
+    }
+
+    pub fn set_webhook(&self) -> bool {
+        let params = self.webhook.set_params();
+
+        self.client.set_webhook(&params).unwrap()
     }
 }
 
 impl Pooler for BotsApi {
-    fn pooling(&self, drop_pending_updates: bool, callback: impl Fn(&BotsApi, Update)) {
+    fn pooling(&self, callback: impl Fn(&BotsApi, Update)) {
         let mut update_offset = self.config.updates_offset;
 
-        self.client
-            .delete_webhook(&DeleteWebhook {
-                drop_pending_updates: Some(drop_pending_updates),
-            })
-            .unwrap();
+        self.delete_webhook();
 
         loop {
             let updates = self
