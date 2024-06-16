@@ -3,7 +3,9 @@ use crate::structs::bot_command::BotCommand;
 use crate::structs::update::Update;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
+use crate::traits::bots_api::Commander;
 use crate::traits::bots_api::Pooler;
+use crate::traits::bots_api::Webhooker;
 use crate::traits::params::Params;
 use std::thread::sleep;
 use std::time::Duration;
@@ -20,6 +22,16 @@ pub struct BotsApi {
     pub client: Sync,
     pub user: User,
     pub webhook: Webhook,
+}
+
+impl From<Config> for BotsApi {
+    fn from(config: Config) -> Self {
+        let client = Sync::from(&*config);
+        let webhook = Webhook::from(&config);
+        let user = User::from(client.get_me().unwrap());
+
+        Self::new(config, client, webhook, user)
+    }
 }
 
 impl BotsApi {
@@ -39,29 +51,19 @@ impl BotsApi {
     }
 }
 
-impl From<Config> for BotsApi {
-    fn from(config: Config) -> Self {
-        let client = Sync::from(&*config);
-        let webhook = Webhook::from(&config);
-        let user = User::from(client.get_me().unwrap());
-
-        Self::new(config, client, webhook, user)
-    }
-}
-
-impl BotsApi {
-    pub fn commands(&self, params: (DeleteMyCommands, GetMyCommands, SetMyCommands)) {
+impl Commander for BotsApi {
+    fn commands(&self, params: (DeleteMyCommands, GetMyCommands, SetMyCommands)) {
         let (delete_params, _, set_params) = params;
 
         self.delete_commands(delete_params);
         self.set_commands(set_params);
     }
 
-    pub fn delete_commands(&self, params: DeleteMyCommands) -> bool {
+    fn delete_commands(&self, params: DeleteMyCommands) -> bool {
         self.client.delete_my_commands(&params).unwrap()
     }
 
-    pub fn get_commands(&self, params: GetMyCommands) -> Vec<BotCommand> {
+    fn get_commands(&self, params: GetMyCommands) -> Vec<BotCommand> {
         self.client
             .get_my_commands(&params)
             .unwrap()
@@ -70,23 +72,23 @@ impl BotsApi {
             .collect::<Vec<BotCommand>>()
     }
 
-    pub fn set_commands(&self, params: SetMyCommands) -> bool {
+    fn set_commands(&self, params: SetMyCommands) -> bool {
         self.client.set_my_commands(&params).unwrap()
     }
 }
 
-impl BotsApi {
-    pub fn delete_webhook(&self) -> bool {
+impl Webhooker for BotsApi {
+    fn delete_webhook(&self) -> bool {
         let params = self.webhook.delete_params();
 
         self.client.delete_webhook(&params).unwrap()
     }
 
-    pub fn get_webhook(&self) -> Webhook {
+    fn get_webhook(&self) -> Webhook {
         Webhook::from(self.client.get_webhook_info().unwrap())
     }
 
-    pub fn set_webhook(&self) -> bool {
+    fn set_webhook(&self) -> bool {
         let params = self.webhook.set_params();
 
         self.client.set_webhook(&params).unwrap()
@@ -117,7 +119,7 @@ impl Pooler for BotsApi {
                 update_offset = offset;
             }
 
-            sleep(Duration::from_secs(1));
+            sleep(Duration::from_secs(self.config.pooling_timeout.unwrap()));
         }
     }
 }

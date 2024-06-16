@@ -1,16 +1,14 @@
 use crate::config::Config;
 use crate::traits::params::Params;
+use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
 use telegram_bots_api::api::params::set_webhook::SetWebhook;
+use telegram_bots_api::api::structs::input_file::InputFile;
 use telegram_bots_api::api::structs::webhook_info::WebhookInfo as Inner;
-use telegram_bots_api::api::{
-    params::delete_webhook::DeleteWebhook, structs::input_file::InputFile,
-};
 use telegram_macros::DerefInner;
 
 #[derive(Debug, DerefInner)]
 pub struct Webhook {
     pub inner: Inner,
-    // TODO: Config
     pub drop_pending_updates: Option<bool>,
     pub certificate: Option<InputFile>,
     pub secret_token: Option<String>,
@@ -32,11 +30,12 @@ impl From<&Config> for Webhook {
         Self {
             inner: Inner {
                 url: config.webhook.to_string(),
+                has_custom_certificate: config.certificate.is_some(),
                 ..Default::default()
             },
-            drop_pending_updates: None,
-            certificate: None,
-            secret_token: None,
+            drop_pending_updates: config.drop_pending_updates,
+            certificate: config.certificate.clone(),
+            secret_token: config.secret_token.clone(),
         }
     }
 }
@@ -48,7 +47,7 @@ impl Params for Webhook {
 
     fn delete_params(&self) -> Self::Delete {
         Self::Delete {
-            drop_pending_updates: Some(true),
+            drop_pending_updates: self.drop_pending_updates,
         }
     }
 
@@ -63,8 +62,8 @@ impl Params for Webhook {
             ip_address: self.ip_address.clone(),
             max_connections: self.max_connections,
             allowed_updates: self.allowed_updates.clone(),
-            drop_pending_updates: self.drop_pending_updates,
             secret_token: self.secret_token.clone(),
+            drop_pending_updates: self.drop_pending_updates,
         }
     }
 }

@@ -4,6 +4,8 @@ pub use crate::enums::update_kind::UpdateKind;
 pub use crate::structs::message_kinds::*;
 pub use crate::structs::update::Update;
 pub use crate::structs::update_kinds::*;
+pub use crate::traits::bots_api::Commander;
+pub use crate::traits::bots_api::Pooler;
 pub use crate::traits::dispatcher::Dispatcher;
 pub use crate::traits::params::EnumParams;
 pub use crate::traits::storage::Storage;
