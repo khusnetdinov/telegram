@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 use telegram_framework::prelude::*;
 use telegram_framework::storages::memory::MemoryStorage;
+use telegram_framework::traits::bots_api::Pooler;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]

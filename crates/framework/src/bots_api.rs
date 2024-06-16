@@ -1,6 +1,7 @@
 use crate::config::Config;
 use crate::structs::update::Update;
 use crate::structs::webhook::Webhook;
+use crate::traits::bots_api::Pooler;
 use std::thread::sleep;
 use std::time::Duration;
 use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
@@ -17,16 +18,6 @@ pub struct BotsApi {
     pub webhook: Webhook,
 }
 
-impl From<Config> for BotsApi {
-    fn from(config: Config) -> Self {
-        let client = Sync::from(&*config);
-        let webhook = Webhook::from(&config);
-        let user = client.get_me().unwrap();
-
-        Self::new(config, client, webhook, user)
-    }
-}
-
 impl BotsApi {
     pub fn new(config: Config, client: Sync, webhook: Webhook, user: User) -> Self {
         Self {
@@ -41,8 +32,20 @@ impl BotsApi {
 
         Self::from(config)
     }
+}
 
-    pub fn pooling(&self, drop_pending_updates: bool, callback: impl Fn(&BotsApi, Update)) {
+impl From<Config> for BotsApi {
+    fn from(config: Config) -> Self {
+        let client = Sync::from(&*config);
+        let webhook = Webhook::from(&config);
+        let user = client.get_me().unwrap();
+
+        Self::new(config, client, webhook, user)
+    }
+}
+
+impl Pooler for BotsApi {
+    fn pooling(&self, drop_pending_updates: bool, callback: impl Fn(&BotsApi, Update)) {
         let mut update_offset = self.config.updates_offset;
 
         self.client
@@ -72,13 +75,5 @@ impl BotsApi {
 
             sleep(Duration::from_secs(1));
         }
-    }
-
-    pub fn http_listen(&self) {
-        todo!()
-    }
-
-    pub fn https_listen(&self) {
-        todo!()
     }
 }
