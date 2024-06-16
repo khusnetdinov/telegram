@@ -8,4 +8,3 @@ pub use crate::traits::dispatcher::Dispatcher;
 pub use crate::traits::storage::Storage;
 pub use telegram_bots_api::api::requests::sync::Requests;
 pub use telegram_macros::BotCommands;
-pub use telegram_macros::BotStates;

@@ -17,9 +17,8 @@ pub enum Commands {
     Username,
 }
 
-#[derive(Debug, Default, Clone, BotStates)]
+#[derive(Debug, Clone)]
 pub enum States {
-    #[default]
     Start,
     Help,
     Username,
