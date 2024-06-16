@@ -1,4 +1,5 @@
 use crate::enums::message_kind::MessageKind;
+use crate::traits::dispatcher::Dispatcher;
 use telegram_bots_api::api::enums::message_origin::MessageOrigin;
 use telegram_bots_api::api::structs::chat::Chat;
 use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo;
@@ -131,5 +132,13 @@ impl From<Inner> for Message {
             reply_markup,
             kind: MessageKind::from(inner),
         }
+    }
+}
+
+impl Dispatcher for Message {
+    type Kind = MessageKind;
+
+    fn dispatch(&self) -> &Self::Kind {
+        &self.kind
     }
 }

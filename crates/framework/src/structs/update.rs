@@ -1,4 +1,5 @@
 use crate::enums::update_kind::UpdateKind;
+use crate::traits::dispatcher::Dispatcher;
 use telegram_bots_api::api::structs::update::Update as Inner;
 
 /// <https://core.telegram.org/bots/api#update>
@@ -22,5 +23,13 @@ impl From<Inner> for Update {
             update_id: inner.update_id,
             kind: UpdateKind::from(inner),
         }
+    }
+}
+
+impl Dispatcher for Update {
+    type Kind = UpdateKind;
+
+    fn dispatch(&self) -> &Self::Kind {
+        &self.kind
     }
 }
