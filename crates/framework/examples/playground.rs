@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 use telegram_framework::prelude::*;
 use telegram_framework::storages::memory::MemoryStorage;
+use telegram_framework::traits::bots_api::Sender;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -15,6 +16,8 @@ pub enum Commands {
     Help,
     #[command(description = "enter username")]
     Username,
+    #[command(description = "send dice")]
+    Dice,
 }
 
 #[derive(Debug, Clone)]
@@ -23,6 +26,7 @@ pub enum States {
     Help,
     Username,
     Text,
+    Dice,
 }
 
 fn main() {
@@ -31,7 +35,7 @@ fn main() {
 
     bots_api.commands(Commands::config());
     bots_api.pooling(
-        move |_bots_api: &BotsApi, update: Update| match update.dispatch() {
+        move |bots_api: &BotsApi, update: Update| match update.dispatch() {
             UpdateKind::Message(message) => match message.dispatch() {
                 MessageKind::Text(text_message) => {
                     println!("{:#?}", text_message);
@@ -49,6 +53,13 @@ fn main() {
                             println!("{:#?}", command_message);
                             state.set(message.chat.id, States::Username);
                             println!("{:#?}", state);
+                        }
+                        Some(Commands::Dice) => {
+                            println!("{:#?}", command_message);
+                            state.set(message.chat.id, States::Dice);
+                            println!("{:#?}", state);
+
+                            bots_api.send_dice(message.chat.id);
                         }
                         _ => println!("Commmand::Unexpected"),
                     }

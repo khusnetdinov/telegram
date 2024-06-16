@@ -5,13 +5,16 @@ use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
 use crate::traits::bots_api::Commander;
 use crate::traits::bots_api::Pooler;
+use crate::traits::bots_api::Sender;
 use crate::traits::bots_api::Webhooker;
 use crate::traits::params::Params;
 use std::thread::sleep;
 use std::time::Duration;
+use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
+use telegram_bots_api::api::params::send_dice::SendDice;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 use telegram_bots_api::api::requests::sync::Requests;
 use telegram_bots_api::clients::sync::Sync;
@@ -77,24 +80,6 @@ impl Commander for BotsApi {
     }
 }
 
-impl Webhooker for BotsApi {
-    fn delete_webhook(&self) -> bool {
-        let params = self.webhook.delete_params();
-
-        self.client.delete_webhook(&params).unwrap()
-    }
-
-    fn get_webhook(&self) -> Webhook {
-        Webhook::from(self.client.get_webhook_info().unwrap())
-    }
-
-    fn set_webhook(&self) -> bool {
-        let params = self.webhook.set_params();
-
-        self.client.set_webhook(&params).unwrap()
-    }
-}
-
 impl Pooler for BotsApi {
     fn pooling(&self, callback: impl Fn(&BotsApi, Update)) {
         let mut update_offset = self.config.updates_offset;
@@ -121,5 +106,34 @@ impl Pooler for BotsApi {
 
             sleep(Duration::from_secs(self.config.pooling_timeout.unwrap()));
         }
+    }
+}
+
+impl Sender for BotsApi {
+    fn send_dice(&self, chat_id: i64) {
+        self.client
+            .send_dice(&SendDice {
+                chat_id: ChatUId::from(chat_id),
+                ..Default::default()
+            })
+            .unwrap();
+    }
+}
+
+impl Webhooker for BotsApi {
+    fn delete_webhook(&self) -> bool {
+        let params = self.webhook.delete_params();
+
+        self.client.delete_webhook(&params).unwrap()
+    }
+
+    fn get_webhook(&self) -> Webhook {
+        Webhook::from(self.client.get_webhook_info().unwrap())
+    }
+
+    fn set_webhook(&self) -> bool {
+        let params = self.webhook.set_params();
+
+        self.client.set_webhook(&params).unwrap()
     }
 }
