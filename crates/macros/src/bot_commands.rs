@@ -250,38 +250,37 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
                     _ => None
                 }
             }
+        }
 
-            pub fn delete(bots_api: &telegram_framework::bots_api::BotsApi) -> bool {
-                let params = telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands {
-                    language_code: #language_code,
-                    scope: #scope,
-                };
+        impl telegram_framework::traits::params::Params for #ident {
+            type Delete = telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
+            type Get = telegram_bots_api::api::params::get_my_commands::GetMyCommands;
+            type Set = telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 
-                bots_api.client.delete_my_commands(&params).unwrap()
+            fn config() -> (Self::Delete, Self::Get, Self::Set) {
+                (Self::delete(), Self::get(), Self::set())
             }
 
-            pub fn get(bots_api: &telegram_framework::bots_api::BotsApi) -> Vec<telegram_bots_api::api::structs::bot_command::BotCommand> {
-                let params = telegram_bots_api::api::params::get_my_commands::GetMyCommands {
+            fn delete() -> Self::Delete {
+                Self::Delete {
                     language_code: #language_code,
                     scope: #scope,
-                };
-
-                bots_api.client.get_my_commands(&params).unwrap()
+                }
             }
 
-            pub fn set(bots_api: &telegram_framework::bots_api::BotsApi) -> bool {
-                let params = telegram_bots_api::api::params::set_my_commands::SetMyCommands {
+            fn get() -> Self::Get {
+                Self::Get {
+                    language_code: #language_code,
+                    scope: #scope,
+                }
+            }
+
+            fn set() -> Self::Set {
+                Self::Set {
                     language_code: #language_code,
                     scope: #scope,
                     commands: vec![#(#commands), *]
-                };
-
-                bots_api.client.set_my_commands(&params).unwrap()
-            }
-
-            pub fn configure(bots_api: &telegram_framework::bots_api::BotsApi) {
-                Self::delete(bots_api);
-                Self::set(bots_api);
+                }
             }
         }
     };

@@ -2,6 +2,7 @@
 use telegram_framework::prelude::*;
 use telegram_framework::storages::memory::MemoryStorage;
 use telegram_framework::traits::bots_api::Pooler;
+use telegram_framework::traits::params::Params;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -16,6 +17,8 @@ pub enum Commands {
     Help,
     #[command(description = "enter username")]
     Username,
+    #[command(description = "update after")]
+    Update,
 }
 
 #[derive(Debug, Clone)]
@@ -30,12 +33,7 @@ fn main() {
     let bots_api = BotsApi::from_env();
     let state = MemoryStorage::<States>::new();
 
-    // TODO: rework configs
-    // bots_api.commands(Commands
-    // bots_api.set_commands(Commands::params);
-    // bots_api.delete_commands(Commands::params);
-    Commands::configure(&bots_api);
-
+    bots_api.commands(Commands::config());
     bots_api.pooling(
         true,
         move |_bots_api: &BotsApi, update: Update| match update.dispatch() {
