@@ -8,7 +8,7 @@ telegram_bots_api = { git = "https://github.com/khusnetdinov/telegram_bots_api/"
 serde = { version = "1.0.199", features = ["derive"] }
 
 telegram_macros = { path = "../macros" }
-clap = { version = "4.5.7", features = ["derive"] }
+clap = { version = "4.5.4", features = ["derive"] }
 
 [dev-dependencies]
 
