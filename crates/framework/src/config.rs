@@ -35,7 +35,7 @@ pub struct Config {
     #[arg(long, default_value = None)]
     pub ip_address: Option<String>,
 
-    ///
+    /// Client. Max connections.
     #[arg(long, default_value = None)]
     pub max_connections: Option<u32>,
 
