@@ -33,8 +33,6 @@ fn main() {
     let bots_api = BotsApi::from_env();
     let state = MemoryStorage::<States>::new();
 
-    println!("==> {:#?}", bots_api.webhook);
-
     bots_api.commands(Commands::config());
     bots_api.pooling(
         move |bots_api: &BotsApi, update: Update| match update.dispatch() {
