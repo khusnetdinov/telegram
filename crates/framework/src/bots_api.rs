@@ -89,7 +89,7 @@ impl Pooler for BotsApi {
     fn pooling(&self, callback: impl Fn(&BotsApi, Update)) {
         let mut update_offset = self.config.updates_offset;
 
-        // self.delete_webhook();
+        self.delete_webhook();
 
         loop {
             let updates = self
