@@ -5,7 +5,7 @@ resolver = "2"
 [workspace.package]
 name = "telegram"
 version = "0.1.0"
-rust-version = "1.70"
+rust-version = "1.74"
 edition = "2021"
 license = "MIT"
 homepage = "https://github.com/khusnetdinov/telegram_framework"
