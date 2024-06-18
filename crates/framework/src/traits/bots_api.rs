@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::structs::bot_command::BotCommand;
 use crate::structs::update::Update;
-use crate::structs::webhook::Webhook;
+use crate::structs::webhook_info::WebhookInfo;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
@@ -27,7 +27,7 @@ pub trait Pooler {
 
 pub trait Webhooker {
     fn delete_webhook(&self) -> bool;
-    fn get_webhook(&self) -> Webhook;
+    fn get_webhook(&self) -> WebhookInfo;
     fn set_webhook(&self) -> bool;
 }
 

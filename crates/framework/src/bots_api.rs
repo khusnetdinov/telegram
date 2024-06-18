@@ -3,11 +3,13 @@ use crate::structs::bot_command::BotCommand;
 use crate::structs::update::Update;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
+use crate::structs::webhook_info::WebhookInfo;
 use crate::traits::bots_api::Commander;
 use crate::traits::bots_api::Pooler;
 use crate::traits::bots_api::Sender;
 use crate::traits::bots_api::Webhooker;
 use crate::traits::params::Params;
+
 use std::thread::sleep;
 use std::time::Duration;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
@@ -29,28 +31,31 @@ pub struct BotsApi {
 
 impl From<Config> for BotsApi {
     fn from(config: Config) -> Self {
-        let client = Sync::from(&*config);
-        let webhook = Webhook::from(&config);
+        let client = Sync::new(
+            config.timeout,
+            config.connect_timeout,
+            config.url.as_str(),
+            config.token.as_str(),
+        );
         let user = User::from(client.get_me().unwrap());
+        let webhook = Webhook::from(&config);
 
-        Self::new(config, client, webhook, user)
+        Self::new(config, client, user, webhook)
     }
 }
 
 impl BotsApi {
-    pub fn new(config: Config, client: Sync, webhook: Webhook, user: User) -> Self {
+    pub fn new(config: Config, client: Sync, user: User, webhook: Webhook) -> Self {
         Self {
             config,
             client,
-            webhook,
             user,
+            webhook,
         }
     }
 
     pub fn from_env() -> Self {
-        let config = Config::new();
-
-        Self::from(config)
+        Self::from(Config::new())
     }
 }
 
@@ -84,7 +89,7 @@ impl Pooler for BotsApi {
     fn pooling(&self, callback: impl Fn(&BotsApi, Update)) {
         let mut update_offset = self.config.updates_offset;
 
-        self.delete_webhook();
+        // self.delete_webhook();
 
         loop {
             let updates = self
@@ -104,7 +109,7 @@ impl Pooler for BotsApi {
                 update_offset = offset;
             }
 
-            sleep(Duration::from_secs(self.config.pooling_timeout.unwrap()));
+            sleep(Duration::from_secs(self.config.pooling_timeout));
         }
     }
 }
@@ -127,8 +132,8 @@ impl Webhooker for BotsApi {
         self.client.delete_webhook(&params).unwrap()
     }
 
-    fn get_webhook(&self) -> Webhook {
-        Webhook::from(self.client.get_webhook_info().unwrap())
+    fn get_webhook(&self) -> WebhookInfo {
+        WebhookInfo::from(self.client.get_webhook_info().unwrap())
     }
 
     fn set_webhook(&self) -> bool {

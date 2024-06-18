@@ -2,40 +2,28 @@ use crate::config::Config;
 use crate::traits::params::Params;
 use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
 use telegram_bots_api::api::params::set_webhook::SetWebhook;
-use telegram_bots_api::api::structs::input_file::InputFile;
-use telegram_bots_api::api::structs::webhook_info::WebhookInfo as Inner;
-use telegram_macros::DerefInner;
 
-#[derive(Debug, DerefInner)]
+#[derive(Debug)]
 pub struct Webhook {
-    pub inner: Inner,
-    pub drop_pending_updates: Option<bool>,
-    pub certificate: Option<InputFile>,
+    pub url: String,
+    pub max_connections: Option<u32>,
+    pub certificate: Option<String>,
     pub secret_token: Option<String>,
-}
-
-impl From<Inner> for Webhook {
-    fn from(inner: Inner) -> Self {
-        Self {
-            inner,
-            drop_pending_updates: None,
-            certificate: None,
-            secret_token: None,
-        }
-    }
+    pub ip_address: Option<String>,
+    pub allowed_updates: Option<Vec<String>>,
+    pub drop_pending_updates: Option<bool>,
 }
 
 impl From<&Config> for Webhook {
     fn from(config: &Config) -> Self {
         Self {
-            inner: Inner {
-                url: config.webhook.to_string(),
-                has_custom_certificate: config.certificate.is_some(),
-                ..Default::default()
-            },
-            drop_pending_updates: config.drop_pending_updates,
+            url: config.webhook.clone(),
+            max_connections: config.max_connections,
             certificate: config.certificate.clone(),
             secret_token: config.secret_token.clone(),
+            ip_address: config.ip_address.clone(),
+            allowed_updates: config.updates_allowed.clone(),
+            drop_pending_updates: Some(config.updates_drop_pending),
         }
     }
 }
@@ -58,11 +46,11 @@ impl Params for Webhook {
     fn set_params(&self) -> Self::Set {
         Self::Set {
             url: self.url.clone(),
-            certificate: self.certificate.clone(),
-            ip_address: self.ip_address.clone(),
             max_connections: self.max_connections,
-            allowed_updates: self.allowed_updates.clone(),
+            certificate: None,
             secret_token: self.secret_token.clone(),
+            ip_address: self.ip_address.clone(),
+            allowed_updates: self.allowed_updates.clone(),
             drop_pending_updates: self.drop_pending_updates,
         }
     }
