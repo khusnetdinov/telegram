@@ -229,39 +229,62 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
     let language_code = parse_language_code(&input.attrs);
     let scope = parse_scope(&input.attrs);
 
+    let enum_variants: Vec<_> = raw_commands
+        .iter()
+        .map(|(command, _)| {
+            let command_pattern = format!("/{}", command.to_lowercase());
+            let enum_variant =
+                syn::parse_str::<syn::Expr>(&format!("{}::{}", ident, command)).unwrap();
+
+            quote::quote! {
+                #command_pattern => Some(#enum_variant)
+            }
+        })
+        .collect();
+
     let quote = quote::quote! {
         impl #ident {
-            pub fn delete(bots_api: &telegram_framework::bots_api::BotsApi) -> bool {
-                let params = telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands {
-                    language_code: #language_code,
-                    scope: #scope,
-                };
-
-                bots_api.client.delete_my_commands(&params).unwrap()
+            pub fn dispatch(message: &telegram_framework::structs::message_kinds::command_message::CommandMessage) -> Option<#ident> {
+                match message.text.as_str() {
+                    #(#enum_variants,)*
+                    _ => None
+                }
             }
 
-            pub fn get(bots_api: &telegram_framework::bots_api::BotsApi) -> Vec<telegram_bots_api::api::structs::bot_command::BotCommand> {
-                let params = telegram_bots_api::api::params::get_my_commands::GetMyCommands {
-                    language_code: #language_code,
-                    scope: #scope,
-                };
+            pub fn test(&self) {
+                println!("Test");
+            }
+        }
 
-                bots_api.client.get_my_commands(&params).unwrap()
+        impl telegram_framework::traits::params::EnumParams for #ident {
+            type Delete = telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
+            type Get = telegram_bots_api::api::params::get_my_commands::GetMyCommands;
+            type Set = telegram_bots_api::api::params::set_my_commands::SetMyCommands;
+
+            fn config() -> (Self::Delete, Self::Get, Self::Set) {
+                (Self::delete_params(), Self::get_params(), Self::set_params())
             }
 
-            pub fn set(bots_api: &telegram_framework::bots_api::BotsApi) -> bool {
-                let params = telegram_bots_api::api::params::set_my_commands::SetMyCommands {
+            fn delete_params() -> Self::Delete {
+                Self::Delete {
+                    language_code: #language_code,
+                    scope: #scope,
+                }
+            }
+
+            fn get_params() -> Self::Get {
+                Self::Get {
+                    language_code: #language_code,
+                    scope: #scope,
+                }
+            }
+
+            fn set_params() -> Self::Set {
+                Self::Set {
                     language_code: #language_code,
                     scope: #scope,
                     commands: vec![#(#commands), *]
-                };
-
-                bots_api.client.set_my_commands(&params).unwrap()
-            }
-
-            pub fn configure(bots_api: &telegram_framework::bots_api::BotsApi) {
-                Self::delete(bots_api);
-                Self::set(bots_api);
+                }
             }
         }
     };

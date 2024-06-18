@@ -1,4 +1,13 @@
 pub use crate::bots_api::BotsApi;
+pub use crate::enums::message_kind::MessageKind;
+pub use crate::enums::update_kind::UpdateKind;
+pub use crate::structs::message_kinds::*;
 pub use crate::structs::update::Update;
+pub use crate::structs::update_kinds::*;
+pub use crate::traits::bots_api::Commander;
+pub use crate::traits::bots_api::Pooler;
+pub use crate::traits::dispatcher::Dispatcher;
+pub use crate::traits::params::EnumParams;
+pub use crate::traits::storage::Storage;
 pub use telegram_bots_api::api::requests::sync::Requests;
 pub use telegram_macros::BotCommands;
