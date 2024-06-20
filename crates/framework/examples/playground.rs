@@ -2,6 +2,7 @@
 use telegram_framework::bots_api::BotsApi;
 use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
+use telegram_framework::storages::memory::MemoryStorage;
 use telegram_framework::structs::update::Update;
 use telegram_framework::traits::bots_api::Commander;
 use telegram_framework::traits::bots_api::Pooler;
@@ -26,18 +27,18 @@ pub enum Commands {
     Dice,
 }
 
-// #[derive(Debug, Clone)]
-// pub enum States {
-//     Start,
-//     Help,
-//     Username,
-//     Text,
-//     Dice,
-// }
+#[derive(Debug, Clone)]
+pub enum States {
+    Start,
+    Help,
+    Username,
+    Text,
+    Dice,
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // let state = MemoryStorage::<States>::new();
+    let _ = MemoryStorage::<States>::new();
     let bots_api = BotsApi::from_env().await?;
 
     bots_api.commands(Commands::config()).await?;
@@ -45,30 +46,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .pooling(|update: Update| match update.dispatch() {
             UpdateKind::Message(message) => match message.dispatch() {
                 MessageKind::Text(text_message) => {
-                    println!("{:#?}", update);
                     println!("{:#?}", text_message);
-                    // state.set(message.chat.id, States::Text);
-                    // println!("{:#?}", state);
                 }
                 MessageKind::Command(command_message) => {
                     match Commands::dispatch(command_message) {
                         Some(Commands::Help) => {
-                            println!("{:#?}", update);
                             println!("{:#?}", command_message);
-                            // state.set(message.chat.id, States::Help);
-                            // println!("{:#?}", state);
                         }
                         Some(Commands::Username) => {
-                            println!("{:#?}", update);
                             println!("{:#?}", command_message);
-                            // state.set(message.chat.id, States::Username);
-                            // println!("{:#?}", state);
                         }
                         Some(Commands::Dice) => {
-                            println!("{:#?}", update);
                             println!("{:#?}", command_message);
-                            // state.set(message.chat.id, States::Dice);
-                            // println!("{:#?}", state);
                         }
                         _ => println!("Commmand::Unexpected"),
                     }

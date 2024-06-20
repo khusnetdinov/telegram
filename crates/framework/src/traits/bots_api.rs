@@ -59,7 +59,7 @@ pub trait Sender {
     // fn send_audio(&self) -> Message;
     // fn send_chat_action(&self) -> bool;
     // fn send_contact(&self) -> Message;
-    async fn send_dice(&self, chat_id: i64);
+    // fn send_dice(&self, chat_id: i64);
     // fn send_document(&self) -> Message;
     // fn send_game(&self) -> Message;
     // fn send_invoice(&self) -> Message;
