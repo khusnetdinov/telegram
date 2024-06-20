@@ -4,11 +4,12 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-telegram_bots_api = { git = "https://github.com/khusnetdinov/telegram_bots_api/", features = ["all"] }
-serde = { version = "1.0.199", features = ["derive"] }
-
-telegram_macros = { path = "../macros" }
+async-trait = "0.1.80"
 clap = { version = "^4.5.4", features = ["derive"] }
+serde = { version = "1.0.199", features = ["derive"] }
+telegram_bots_api = { git = "https://github.com/khusnetdinov/telegram_bots_api/", features = ["all"] }
+telegram_macros = { path = "../macros" }
+tokio = "1.38.0"
 
 [dev-dependencies]
 

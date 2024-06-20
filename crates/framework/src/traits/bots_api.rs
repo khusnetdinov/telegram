@@ -1,4 +1,3 @@
-use crate::bots_api::BotsApi;
 use crate::structs::bot_command::BotCommand;
 use crate::structs::update::Update;
 use crate::structs::webhook_info::WebhookInfo;
@@ -6,37 +5,61 @@ use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 
+#[async_trait::async_trait]
 pub trait Commander {
-    fn commands(&self, params: (DeleteMyCommands, GetMyCommands, SetMyCommands));
-    fn delete_commands(&self, params: DeleteMyCommands) -> bool;
-    fn get_commands(&self, params: GetMyCommands) -> Vec<BotCommand>;
-    fn set_commands(&self, params: SetMyCommands) -> bool;
+    async fn commands(
+        &self,
+        params: (DeleteMyCommands, GetMyCommands, SetMyCommands),
+    ) -> Result<(), Box<dyn std::error::Error>>;
+
+    async fn delete_commands(
+        &self,
+        params: DeleteMyCommands,
+    ) -> Result<bool, Box<dyn std::error::Error>>;
+
+    async fn get_commands(
+        &self,
+        params: GetMyCommands,
+    ) -> Result<Vec<BotCommand>, Box<dyn std::error::Error>>;
+
+    async fn set_commands(&self, params: SetMyCommands)
+        -> Result<bool, Box<dyn std::error::Error>>;
 }
 
+#[async_trait::async_trait]
 pub trait HttpListener {
     fn http_listen(&self);
 }
 
+#[async_trait::async_trait]
 pub trait HttpsListener {
     fn https_listen(&self);
 }
 
+#[async_trait::async_trait]
 pub trait Pooler {
-    fn pooling(&self, callback: impl Fn(&BotsApi, Update));
+    async fn pooling(
+        &self,
+        callback: impl Fn(Update) + Send,
+    ) -> Result<(), Box<dyn std::error::Error>>;
 }
 
+#[async_trait::async_trait]
 pub trait Webhooker {
-    fn delete_webhook(&self) -> bool;
-    fn get_webhook(&self) -> WebhookInfo;
-    fn set_webhook(&self) -> bool;
+    async fn delete_webhook(&self) -> Result<bool, Box<dyn std::error::Error>>;
+
+    async fn get_webhook(&self) -> Result<WebhookInfo, Box<dyn std::error::Error>>;
+
+    async fn set_webhook(&self) -> Result<bool, Box<dyn std::error::Error>>;
 }
 
+#[async_trait::async_trait]
 pub trait Sender {
     // fn send_animation(&self) -> Message;
     // fn send_audio(&self) -> Message;
     // fn send_chat_action(&self) -> bool;
     // fn send_contact(&self) -> Message;
-    fn send_dice(&self, chat_id: i64);
+    async fn send_dice(&self, chat_id: i64);
     // fn send_document(&self) -> Message;
     // fn send_game(&self) -> Message;
     // fn send_invoice(&self) -> Message;
