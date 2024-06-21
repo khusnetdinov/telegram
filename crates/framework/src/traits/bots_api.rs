@@ -1,5 +1,5 @@
 use crate::structs::bot_command::BotCommand;
-use crate::structs::update::Update;
+// use crate::structs::update::Update;
 use crate::structs::webhook_info::WebhookInfo;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
@@ -40,7 +40,7 @@ pub trait HttpsListener {
 pub trait Pooler {
     async fn pooling(
         &self,
-        callback: impl Fn(Update) + Send,
+        // callback: impl Fn(Update) + Send,
     ) -> Result<(), Box<dyn std::error::Error>>;
 }
 

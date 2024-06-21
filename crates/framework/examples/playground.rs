@@ -1,12 +1,12 @@
 #![allow(dead_code)]
 use telegram_framework::bots_api::BotsApi;
-use telegram_framework::enums::message_kind::MessageKind;
-use telegram_framework::enums::update_kind::UpdateKind;
+// use telegram_framework::enums::message_kind::MessageKind;
+// use telegram_framework::enums::update_kind::UpdateKind;
 use telegram_framework::storages::memory::MemoryStorage;
-use telegram_framework::structs::update::Update;
+// use telegram_framework::structs::update::Update;
 use telegram_framework::traits::bots_api::Commander;
 use telegram_framework::traits::bots_api::Pooler;
-use telegram_framework::traits::dispatcher::Dispatcher;
+// use telegram_framework::traits::dispatcher::Dispatcher;
 use telegram_framework::traits::params::EnumParams;
 use telegram_macros::BotCommands;
 
@@ -42,31 +42,32 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let bots_api = BotsApi::from_env().await?;
 
     bots_api.commands(Commands::config()).await?;
-    bots_api
-        .pooling(|update: Update| match update.dispatch() {
-            UpdateKind::Message(message) => match message.dispatch() {
-                MessageKind::Text(text_message) => {
-                    println!("{:#?}", text_message);
-                }
-                MessageKind::Command(command_message) => {
-                    match Commands::dispatch(command_message) {
-                        Some(Commands::Help) => {
-                            println!("{:#?}", command_message);
-                        }
-                        Some(Commands::Username) => {
-                            println!("{:#?}", command_message);
-                        }
-                        Some(Commands::Dice) => {
-                            println!("{:#?}", command_message);
-                        }
-                        _ => println!("Commmand::Unexpected"),
-                    }
-                }
-                MessageKind::Unexpected(_) | _ => {}
-            },
-            UpdateKind::Unexpected(_) | _ => {}
-        })
-        .await?;
+    bots_api.pooling().await?;
+    // bots_api
+    //     .pooling(|update: Update| match update.dispatch() {
+    //         UpdateKind::Message(message) => match message.dispatch() {
+    //             MessageKind::Text(text_message) => {
+    //                 println!("{:#?}", text_message);
+    //             }
+    //             MessageKind::Command(command_message) => {
+    //                 match Commands::dispatch(command_message) {
+    //                     Some(Commands::Help) => {
+    //                         println!("{:#?}", command_message);
+    //                     }
+    //                     Some(Commands::Username) => {
+    //                         println!("{:#?}", command_message);
+    //                     }
+    //                     Some(Commands::Dice) => {
+    //                         println!("{:#?}", command_message);
+    //                     }
+    //                     _ => println!("Commmand::Unexpected"),
+    //                 }
+    //             }
+    //             MessageKind::Unexpected(_) | _ => {}
+    //         },
+    //         UpdateKind::Unexpected(_) | _ => {}
+    //     })
+    //     .await?;
 
     Ok(())
 }

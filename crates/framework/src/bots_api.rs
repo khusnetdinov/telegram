@@ -1,6 +1,6 @@
 use crate::config::Config;
 use crate::structs::bot_command::BotCommand;
-use crate::structs::update::Update;
+// use crate::structs::update::Update;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
 use crate::structs::webhook_info::WebhookInfo;
@@ -108,7 +108,7 @@ impl Commander for BotsApi {
 impl Pooler for BotsApi {
     async fn pooling(
         &self,
-        callback: impl Fn(Update) + Send,
+        // callback: impl Fn(Update) + Send,
     ) -> Result<(), Box<dyn std::error::Error>> {
         let mut update_offset = self.config.updates_offset;
 
@@ -128,7 +128,7 @@ impl Pooler for BotsApi {
             for inner in updates.into_iter() {
                 let offset = &inner.update_id + 1i64;
 
-                callback(Update::from(inner));
+                // callback(Update::from(inner));
                 update_offset = offset;
             }
 
