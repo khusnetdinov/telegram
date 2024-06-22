@@ -1,6 +1,6 @@
 use crate::config::Config;
 use crate::structs::bot_command::BotCommand;
-// use crate::structs::update::Update;
+use crate::structs::update::Update;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
 use crate::structs::webhook_info::WebhookInfo;
@@ -17,6 +17,7 @@ use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 // use telegram_bots_api::api::params::send_dice::SendDice;
+use futures::Future;
 use telegram_bots_api::api::requests::r#async::Requests;
 use telegram_bots_api::clients::r#async::Async;
 
@@ -52,7 +53,6 @@ impl BotsApi {
             config.token.as_str(),
         );
 
-        // TODO: AuthorizationError
         let user = User::from(client.get_me().await?);
         let webhook = Webhook::from(&config);
 
@@ -106,10 +106,14 @@ impl Commander for BotsApi {
 
 #[async_trait::async_trait]
 impl Pooler for BotsApi {
-    async fn pooling(
+    async fn pooling<Callback, Fut>(
         &self,
-        // callback: impl Fn(Update) + Send,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+        callback: Callback,
+    ) -> Result<(), Box<dyn std::error::Error>>
+    where
+        Callback: Fn(Update) -> Fut + std::marker::Send,
+        Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
+    {
         let mut update_offset = self.config.updates_offset;
 
         self.delete_webhook().await?;
@@ -123,12 +127,14 @@ impl Pooler for BotsApi {
                     timeout: self.config.updates_timeout,
                     allowed_updates: None,
                 })
-                .await?;
+                .await
+                .unwrap();
 
             for inner in updates.into_iter() {
                 let offset = &inner.update_id + 1i64;
 
-                // callback(Update::from(inner));
+                callback(Update::from(inner)).await?;
+
                 update_offset = offset;
             }
 
