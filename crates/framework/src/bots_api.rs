@@ -108,17 +108,17 @@ impl Commander for BotsApi {
 }
 
 #[async_trait::async_trait]
-impl Pooler for BotsApi {
-    async fn pooling<Callback, Fut, State, Store>(
+impl<STO, STA> Pooler<STO, STA> for BotsApi {
+    async fn pooling<Callback, Fut>(
         &self,
-        _storage: Arc<Store>,
+        _storage: Arc<STO>,
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
         Callback: Fn(Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
-        Store: Storage<State> + Debug + Send + Sync,
-        State: Debug + Clone,
+        STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
+        STA: Debug + Clone + 'async_trait,
     {
         let mut update_offset = self.config.updates_offset;
 

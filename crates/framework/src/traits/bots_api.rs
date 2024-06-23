@@ -41,17 +41,17 @@ pub trait HttpsListener {
 }
 
 #[async_trait::async_trait]
-pub trait Pooler {
-    async fn pooling<Callback, Fut, State, Store>(
+pub trait Pooler<STO, STA> {
+    async fn pooling<Callback, Fut>(
         &self,
-        storage: Arc<Store>,
+        storage: Arc<STO>,
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
         Callback: Fn(Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
-        Store: Storage<State> + Debug + Send + Sync,
-        State: Debug + Clone;
+        STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
+        STA: Debug + Clone + 'async_trait;
 }
 
 #[async_trait::async_trait]
