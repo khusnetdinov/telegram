@@ -6,11 +6,11 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 #[derive(Debug)]
-pub struct MemoryStorage<ST> {
-    pub states: Mutex<HashMap<i64, ST>>,
+pub struct MemoryStorage<State> {
+    pub states: Mutex<HashMap<i64, State>>,
 }
 
-impl<ST> MemoryStorage<ST> {
+impl<State> MemoryStorage<State> {
     pub fn new() -> Arc<Self> {
         Arc::new(Self {
             states: Mutex::new(HashMap::new()),
@@ -18,13 +18,16 @@ impl<ST> MemoryStorage<ST> {
     }
 }
 
-impl<ST> Storage<ST> for MemoryStorage<ST>
+impl<State> Storage<State> for MemoryStorage<State>
 where
-    ST: Debug + Clone + Send + 'static,
+    State: Debug + Clone + Send + 'static,
 {
     type Error = Box<dyn std::error::Error>;
 
-    fn get(self: Arc<Self>, chat_id: i64) -> BoxFuture<'static, Result<Option<ST>, Self::Error>> {
+    fn get(
+        self: Arc<Self>,
+        chat_id: i64,
+    ) -> BoxFuture<'static, Result<Option<State>, Self::Error>> {
         Box::pin(async move {
             Ok(self
                 .states
@@ -38,7 +41,7 @@ where
     fn set(
         self: Arc<Self>,
         chat_id: i64,
-        state: ST,
+        state: State,
     ) -> BoxFuture<'static, Result<(), Self::Error>> {
         Box::pin(async move {
             self.states.lock().await.insert(chat_id, state);

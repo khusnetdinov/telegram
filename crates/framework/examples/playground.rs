@@ -1,4 +1,5 @@
 #![allow(dead_code)]
+use std::fmt::Debug;
 use telegram_framework::bots_api::BotsApi;
 use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
@@ -36,7 +37,7 @@ pub enum States {
     Dice,
 }
 
-async fn schema(update: Update) -> Result<(), Box<dyn std::error::Error>> {
+async fn dispatcher(update: Update) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
         UpdateKind::Message(message) => match message.dispatch() {
             MessageKind::Text(text_message) => {
@@ -64,11 +65,11 @@ async fn schema(update: Update) -> Result<(), Box<dyn std::error::Error>> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let _ = MemoryStorage::<States>::new();
+    let storage = MemoryStorage::<States>::new();
     let bots_api = BotsApi::from_env().await?;
 
     bots_api.commands(Commands::config()).await?;
-    bots_api.pooling(schema).await?;
+    bots_api.pooling(storage, dispatcher).await?;
 
     Ok(())
 }

@@ -6,9 +6,12 @@ use crate::structs::webhook::Webhook;
 use crate::structs::webhook_info::WebhookInfo;
 use crate::traits::bots_api::Commander;
 use crate::traits::bots_api::Pooler;
+use std::fmt::Debug;
+use std::sync::Arc;
 // use crate::traits::bots_api::Sender;
 use crate::traits::bots_api::Webhooker;
 use crate::traits::params::Params;
+use crate::traits::storage::Storage;
 use tokio::time::sleep;
 use tokio::time::Duration;
 // use telegram_bots_api::api::enums::chat_uid::ChatUId;
@@ -106,13 +109,16 @@ impl Commander for BotsApi {
 
 #[async_trait::async_trait]
 impl Pooler for BotsApi {
-    async fn pooling<Callback, Fut>(
+    async fn pooling<Callback, Fut, State, Store>(
         &self,
+        _storage: Arc<Store>,
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
         Callback: Fn(Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
+        Store: Storage<State> + Debug + Send + Sync,
+        State: Debug + Clone,
     {
         let mut update_offset = self.config.updates_offset;
 

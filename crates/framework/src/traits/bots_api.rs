@@ -1,7 +1,10 @@
 use crate::structs::bot_command::BotCommand;
 use crate::structs::update::Update;
 use crate::structs::webhook_info::WebhookInfo;
+use crate::traits::storage::Storage;
 use futures::Future;
+use std::fmt::Debug;
+use std::sync::Arc;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
@@ -39,13 +42,16 @@ pub trait HttpsListener {
 
 #[async_trait::async_trait]
 pub trait Pooler {
-    async fn pooling<Callback, Fut>(
+    async fn pooling<Callback, Fut, State, Store>(
         &self,
+        storage: Arc<Store>,
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
         Callback: Fn(Update) -> Fut + std::marker::Send,
-        Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static;
+        Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
+        Store: Storage<State> + Debug + Send + Sync,
+        State: Debug + Clone;
 }
 
 #[async_trait::async_trait]
