@@ -111,11 +111,11 @@ impl Commander for BotsApi {
 impl<STO, STA> Pooler<STO, STA> for BotsApi {
     async fn pooling<Callback, Fut>(
         &self,
-        _storage: Arc<STO>,
+        storage: Arc<STO>,
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
-        Callback: Fn(Update) -> Fut + std::marker::Send,
+        Callback: Fn(Arc<STO>, Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
         STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
         STA: Debug + Clone + 'async_trait,
@@ -139,7 +139,7 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
             for inner in updates.into_iter() {
                 let offset = &inner.update_id + 1i64;
 
-                callback(Update::from(inner)).await?;
+                callback(storage.clone(), Update::from(inner)).await?;
 
                 update_offset = offset;
             }

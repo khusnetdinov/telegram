@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 use std::fmt::Debug;
+use std::sync::Arc;
 use telegram_framework::bots_api::BotsApi;
 use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
@@ -9,6 +10,7 @@ use telegram_framework::traits::bots_api::Commander;
 use telegram_framework::traits::bots_api::Pooler;
 use telegram_framework::traits::dispatcher::Dispatcher;
 use telegram_framework::traits::params::EnumParams;
+use telegram_framework::traits::storage::Storage;
 use telegram_macros::BotCommands;
 
 #[derive(Debug, BotCommands)]
@@ -37,7 +39,7 @@ pub enum States {
     Dice,
 }
 
-async fn dispatcher(update: Update) -> Result<(), Box<dyn std::error::Error>> {
+async fn dispatcher<STO: Storage<States>>(_storage: Arc<STO>, update: Update) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
         UpdateKind::Message(message) => match message.dispatch() {
             MessageKind::Text(text_message) => {
@@ -69,7 +71,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let bots_api = BotsApi::from_env().await?;
 
     bots_api.commands(Commands::config()).await?;
-    bots_api.pooling(storage, dispatcher).await?;
+    bots_api.pooling(storage, dispatcher::<MemoryStorage<States>>).await?;
 
     Ok(())
 }

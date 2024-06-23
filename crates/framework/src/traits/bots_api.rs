@@ -48,7 +48,7 @@ pub trait Pooler<STO, STA> {
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
-        Callback: Fn(Update) -> Fut + std::marker::Send,
+        Callback: Fn(Arc<STO>, Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
         STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
         STA: Debug + Clone + 'async_trait;
