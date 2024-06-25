@@ -1,7 +1,17 @@
 #![allow(dead_code)]
-use telegram_framework::prelude::*;
+use std::fmt::Debug;
+use std::sync::Arc;
+use telegram_framework::bots_api::BotsApi;
+use telegram_framework::enums::message_kind::MessageKind;
+use telegram_framework::enums::update_kind::UpdateKind;
 use telegram_framework::storages::memory::MemoryStorage;
-use telegram_framework::traits::bots_api::Sender;
+use telegram_framework::structs::update::Update;
+use telegram_framework::traits::bots_api::Commander;
+use telegram_framework::traits::bots_api::Pooler;
+use telegram_framework::traits::dispatcher::KindDispatcher;
+use telegram_framework::traits::params::EnumParams;
+use telegram_framework::traits::storage::Storage;
+use telegram_macros::BotCommands;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -29,44 +39,45 @@ pub enum States {
     Dice,
 }
 
-fn main() {
-    let bots_api = BotsApi::from_env();
-    let state = MemoryStorage::<States>::new();
-
-    bots_api.commands(Commands::config());
-    bots_api.pooling(
-        move |bots_api: &BotsApi, update: Update| match update.dispatch() {
-            UpdateKind::Message(message) => match message.dispatch() {
-                MessageKind::Text(text_message) => {
-                    println!("{:#?}", text_message);
-                    state.set(message.chat.id, States::Text);
-                    println!("{:#?}", state);
+async fn dispatch(
+    storage: Arc<MemoryStorage<States>>,
+    update: Update,
+) -> Result<(), Box<dyn std::error::Error>> {
+    match update.dispatch() {
+        UpdateKind::Message(message) => match message.dispatch() {
+            MessageKind::Text(text_message) => {
+                println!("{:#?}", text_message);
+                storage.clone().set(message.chat.id, States::Text).await;
+            }
+            MessageKind::Command(command_message) => match Commands::dispatch(command_message) {
+                Some(Commands::Help) => {
+                    println!("{:#?}", command_message);
                 }
-                MessageKind::Command(command_message) => {
-                    match Commands::dispatch(command_message) {
-                        Some(Commands::Help) => {
-                            println!("{:#?}", command_message);
-                            state.set(message.chat.id, States::Help);
-                            println!("{:#?}", state);
-                        }
-                        Some(Commands::Username) => {
-                            println!("{:#?}", command_message);
-                            state.set(message.chat.id, States::Username);
-                            println!("{:#?}", state);
-                        }
-                        Some(Commands::Dice) => {
-                            println!("{:#?}", command_message);
-                            state.set(message.chat.id, States::Dice);
-                            println!("{:#?}", state);
-
-                            bots_api.send_dice(message.chat.id);
-                        }
-                        _ => println!("Commmand::Unexpected"),
-                    }
+                Some(Commands::Username) => {
+                    println!("{:#?}", command_message);
                 }
-                MessageKind::Unexpected(_) | _ => {}
+                Some(Commands::Dice) => {
+                    println!("{:#?}", command_message);
+                }
+                _ => println!("Commmand::Unexpected"),
             },
-            UpdateKind::Unexpected(_) | _ => {}
+            MessageKind::Unexpected(_) | _ => {}
         },
-    )
+        UpdateKind::Unexpected(_) | _ => {}
+    }
+
+    println!("Storage: {:#?}", storage);
+
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let bots_api = BotsApi::from_env().await?;
+    let storage = MemoryStorage::<States>::new();
+
+    bots_api.commands(Commands::config()).await?;
+    bots_api.pooling(storage, dispatch).await?;
+
+    Ok(())
 }
