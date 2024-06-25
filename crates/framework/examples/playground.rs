@@ -8,7 +8,7 @@ use telegram_framework::storages::memory::MemoryStorage;
 use telegram_framework::structs::update::Update;
 use telegram_framework::traits::bots_api::Commander;
 use telegram_framework::traits::bots_api::Pooler;
-use telegram_framework::traits::dispatcher::Dispatcher;
+use telegram_framework::traits::dispatcher::KindDispatcher;
 use telegram_framework::traits::params::EnumParams;
 use telegram_framework::traits::storage::Storage;
 use telegram_macros::BotCommands;
@@ -39,11 +39,16 @@ pub enum States {
     Dice,
 }
 
-async fn dispatcher<STO: Storage<States>>(_storage: Arc<STO>, update: Update) -> Result<(), Box<dyn std::error::Error>> {
+async fn dispatch<STO: Storage<States> + Debug>(
+    storage: Arc<STO>,
+    update: Update,
+) -> Result<(), Box<dyn std::error::Error>> {
+    println!("Storage: {:#?}", storage);
     match update.dispatch() {
         UpdateKind::Message(message) => match message.dispatch() {
             MessageKind::Text(text_message) => {
                 println!("{:#?}", text_message);
+                storage.clone().set(message.chat.id, States::Text).await;
             }
             MessageKind::Command(command_message) => match Commands::dispatch(command_message) {
                 Some(Commands::Help) => {
@@ -65,13 +70,22 @@ async fn dispatcher<STO: Storage<States>>(_storage: Arc<STO>, update: Update) ->
     Ok(())
 }
 
+// pub struct Dispather<STO<STA>> {
+//     storage: STO<STA>
+// }
+
+// pub trait Dispatcher<STO<STA>> {
+//     fn dispatch();
+// }
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let storage = MemoryStorage::<States>::new();
     let bots_api = BotsApi::from_env().await?;
+    let storage = MemoryStorage::<States>::new();
+    let dispatcher = dispatch::<MemoryStorage<States>>;
 
     bots_api.commands(Commands::config()).await?;
-    bots_api.pooling(storage, dispatcher::<MemoryStorage<States>>).await?;
+    bots_api.pooling(storage, dispatcher).await?;
 
     Ok(())
 }

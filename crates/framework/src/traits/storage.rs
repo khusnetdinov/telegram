@@ -7,9 +7,5 @@ pub trait Storage<State> {
     fn get(self: Arc<Self>, chat_id: i64)
         -> BoxFuture<'static, Result<Option<State>, Self::Error>>;
 
-    fn set(
-        self: Arc<Self>,
-        chat_id: i64,
-        state: State,
-    ) -> BoxFuture<'static, Result<(), Self::Error>>;
+    fn set(self: Arc<Self>, chat_id: i64, state: State) -> BoxFuture<'static, ()>;
 }

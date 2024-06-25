@@ -38,14 +38,9 @@ where
         })
     }
 
-    fn set(
-        self: Arc<Self>,
-        chat_id: i64,
-        state: State,
-    ) -> BoxFuture<'static, Result<(), Self::Error>> {
+    fn set(self: Arc<Self>, chat_id: i64, state: State) -> BoxFuture<'static, ()> {
         Box::pin(async move {
             self.states.lock().await.insert(chat_id, state);
-            Ok(())
         })
     }
 }
