@@ -6,9 +6,9 @@ use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
 use telegram_framework::storages::memory::MemoryStorage;
 use telegram_framework::structs::update::Update;
-use telegram_framework::traits::bots_api::Commander;
 use telegram_framework::traits::bots_api::Pooler;
-use telegram_framework::traits::dispatcher::KindDispatcher;
+use telegram_framework::traits::commander::Commander;
+use telegram_framework::traits::kind_dispatcher::KindDispatcher;
 use telegram_framework::traits::params::EnumParams;
 use telegram_macros::BotCommands;
 
@@ -43,7 +43,6 @@ async fn dispatch(
     storage: Arc<MemoryStorage<States>>,
     update: Update,
 ) -> Result<(), Box<dyn std::error::Error>> {
-
     match update.dispatch() {
         UpdateKind::Message(message) => match message.dispatch() {
             MessageKind::Text(text_message) => {

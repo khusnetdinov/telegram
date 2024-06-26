@@ -4,25 +4,22 @@ use crate::structs::update::Update;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
 use crate::structs::webhook_info::WebhookInfo;
-use crate::traits::bots_api::Commander;
 use crate::traits::bots_api::Pooler;
-use std::fmt::Debug;
-use std::sync::Arc;
-// use crate::traits::bots_api::Sender;
-use crate::traits::bots_api::Webhooker;
+use crate::traits::commander::Commander;
 use crate::traits::params::Params;
 use crate::traits::storage::Storage;
-use tokio::time::sleep;
-use tokio::time::Duration;
-// use telegram_bots_api::api::enums::chat_uid::ChatUId;
+use crate::traits::webhooker::Webhooker;
+use futures::Future;
+use std::fmt::Debug;
+use std::sync::Arc;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
-// use telegram_bots_api::api::params::send_dice::SendDice;
-use futures::Future;
 use telegram_bots_api::api::requests::r#async::Requests;
 use telegram_bots_api::clients::r#async::Async;
+use tokio::time::sleep;
+use tokio::time::Duration;
 
 #[derive(Debug, Clone)]
 pub struct BotsApi {
