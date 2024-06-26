@@ -6,11 +6,10 @@ use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
 use telegram_framework::storages::memory::MemoryStorage;
 use telegram_framework::structs::update::Update;
-use telegram_framework::traits::bots_api::Commander;
 use telegram_framework::traits::bots_api::Pooler;
-use telegram_framework::traits::dispatcher::KindDispatcher;
+use telegram_framework::traits::commander::Commander;
+use telegram_framework::traits::kind_dispatcher::KindDispatcher;
 use telegram_framework::traits::params::EnumParams;
-use telegram_framework::traits::storage::Storage;
 use telegram_macros::BotCommands;
 
 #[derive(Debug, BotCommands)]
@@ -40,6 +39,7 @@ pub enum States {
 }
 
 async fn dispatch(
+    bots_api: BotsApi,
     storage: Arc<MemoryStorage<States>>,
     update: Update,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -47,7 +47,6 @@ async fn dispatch(
         UpdateKind::Message(message) => match message.dispatch() {
             MessageKind::Text(text_message) => {
                 println!("{:#?}", text_message);
-                storage.clone().set(message.chat.id, States::Text).await;
             }
             MessageKind::Command(command_message) => match Commands::dispatch(command_message) {
                 Some(Commands::Help) => {
@@ -66,7 +65,8 @@ async fn dispatch(
         UpdateKind::Unexpected(_) | _ => {}
     }
 
-    println!("Storage: {:#?}", storage);
+    dbg!(bots_api);
+    dbg!(storage);
 
     Ok(())
 }

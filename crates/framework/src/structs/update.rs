@@ -1,5 +1,5 @@
 use crate::enums::update_kind::UpdateKind;
-use crate::traits::dispatcher::KindDispatcher;
+use crate::traits::kind_dispatcher::KindDispatcher;
 use telegram_bots_api::api::structs::update::Update as Inner;
 
 /// <https://core.telegram.org/bots/api#update>

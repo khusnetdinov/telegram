@@ -1,5 +1,5 @@
 use crate::enums::message_kind::MessageKind;
-use crate::traits::dispatcher::KindDispatcher;
+use crate::traits::kind_dispatcher::KindDispatcher;
 use telegram_bots_api::api::enums::message_origin::MessageOrigin;
 use telegram_bots_api::api::structs::chat::Chat;
 use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo;

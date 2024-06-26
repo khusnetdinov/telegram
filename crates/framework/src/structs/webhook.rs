@@ -3,7 +3,7 @@ use crate::traits::params::Params;
 use telegram_bots_api::api::params::delete_webhook::DeleteWebhook;
 use telegram_bots_api::api::params::set_webhook::SetWebhook;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Webhook {
     pub url: String,
     pub max_connections: Option<u32>,

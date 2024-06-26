@@ -4,27 +4,24 @@ use crate::structs::update::Update;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
 use crate::structs::webhook_info::WebhookInfo;
-use crate::traits::bots_api::Commander;
 use crate::traits::bots_api::Pooler;
-use std::fmt::Debug;
-use std::sync::Arc;
-// use crate::traits::bots_api::Sender;
-use crate::traits::bots_api::Webhooker;
+use crate::traits::commander::Commander;
 use crate::traits::params::Params;
 use crate::traits::storage::Storage;
-use tokio::time::sleep;
-use tokio::time::Duration;
-// use telegram_bots_api::api::enums::chat_uid::ChatUId;
+use crate::traits::webhooker::Webhooker;
+use futures::Future;
+use std::fmt::Debug;
+use std::sync::Arc;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
-// use telegram_bots_api::api::params::send_dice::SendDice;
-use futures::Future;
 use telegram_bots_api::api::requests::r#async::Requests;
 use telegram_bots_api::clients::r#async::Async;
+use tokio::time::sleep;
+use tokio::time::Duration;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BotsApi {
     config: Config,
     pub client: Async,
@@ -115,7 +112,7 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
-        Callback: Fn(Arc<STO>, Update) -> Fut + std::marker::Send,
+        Callback: Fn(BotsApi, Arc<STO>, Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
         STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
         STA: Debug + Clone + 'async_trait,
@@ -139,7 +136,7 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
             for inner in updates.into_iter() {
                 let offset = &inner.update_id + 1i64;
 
-                callback(storage.clone(), Update::from(inner)).await?;
+                callback(self.clone(), storage.clone(), Update::from(inner)).await?;
 
                 update_offset = offset;
             }
