@@ -2,6 +2,7 @@ use crate::structs::bot_command::BotCommand;
 use crate::structs::update::Update;
 use crate::structs::webhook_info::WebhookInfo;
 use crate::traits::storage::Storage;
+use crate::bots_api::BotsApi;
 use futures::Future;
 use std::fmt::Debug;
 use std::sync::Arc;
@@ -48,7 +49,7 @@ pub trait Pooler<STO, STA> {
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
-        Callback: Fn(Arc<STO>, Update) -> Fut + std::marker::Send,
+        Callback: Fn(BotsApi, Arc<STO>, Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
         STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
         STA: Debug + Clone + 'async_trait;

@@ -24,7 +24,7 @@ use futures::Future;
 use telegram_bots_api::api::requests::r#async::Requests;
 use telegram_bots_api::clients::r#async::Async;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BotsApi {
     config: Config,
     pub client: Async,
@@ -115,7 +115,7 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
-        Callback: Fn(Arc<STO>, Update) -> Fut + std::marker::Send,
+        Callback: Fn(BotsApi, Arc<STO>, Update) -> Fut + std::marker::Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
         STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
         STA: Debug + Clone + 'async_trait,
@@ -139,7 +139,7 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
             for inner in updates.into_iter() {
                 let offset = &inner.update_id + 1i64;
 
-                callback(storage.clone(), Update::from(inner)).await?;
+                callback(self.clone(), storage.clone(), Update::from(inner)).await?;
 
                 update_offset = offset;
             }
