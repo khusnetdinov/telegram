@@ -6,7 +6,14 @@ pub trait Sender {
     // fn send_animation(&self) -> Message;
     // fn send_audio(&self) -> Message;
     // fn send_chat_action(&self) -> bool;
-    // fn send_contact(&self) -> Message;
+
+    async fn send_contact(
+        &self,
+        chat_id: i64,
+        phone_number: String,
+        first_name: String,
+        options: Option<SendOptions>,
+    ) -> Result<Message, Box<dyn std::error::Error>>;
 
     async fn send_dice(
         &self,
