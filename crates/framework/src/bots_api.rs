@@ -1,5 +1,6 @@
 use crate::config::Config;
 use crate::structs::bot_command::BotCommand;
+use crate::structs::options::send_options::SendOptions;
 use crate::structs::update::Update;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
@@ -7,14 +8,17 @@ use crate::structs::webhook_info::WebhookInfo;
 use crate::traits::bots_api::Pooler;
 use crate::traits::commander::Commander;
 use crate::traits::params::Params;
+use crate::traits::sender::Sender;
 use crate::traits::storage::Storage;
 use crate::traits::webhooker::Webhooker;
 use futures::Future;
 use std::fmt::Debug;
 use std::sync::Arc;
+use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
+use telegram_bots_api::api::params::send_dice::SendDice;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 use telegram_bots_api::api::requests::r#async::Requests;
 use telegram_bots_api::clients::r#async::Async;
@@ -146,16 +150,37 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
     }
 }
 
-// impl Sender for BotsApi {
-//     fn send_dice(&self, chat_id: i64) {
-//         self.client
-//             .send_dice(&SendDice {
-//                 chat_id: ChatUId::from(chat_id),
-//                 ..Default::default()
-//             })
-//             .unwrap();
-//     }
-// }
+#[async_trait::async_trait]
+impl Sender for BotsApi {
+    async fn send_dice(
+        &self,
+        chat_id: i64,
+        options: Option<SendOptions>,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let params = if let Some(options) = options {
+            SendDice {
+                chat_id: ChatUId::from(chat_id),
+                business_connection_id: options.business_connection_id,
+                emoji: options.emoji,
+                disable_notification: options.disable_notification,
+                protect_content: options.protect_content,
+                message_effect_id: options.message_effect_id,
+                message_thread_id: options.message_thread_id,
+                reply_parameters: options.reply_parameters,
+                reply_markup: options.reply_markup,
+            }
+        } else {
+            SendDice {
+                chat_id: ChatUId::from(chat_id),
+                ..Default::default()
+            }
+        };
+
+        self.client.send_dice(&params).await?;
+
+        Ok(())
+    }
+}
 
 #[async_trait::async_trait]
 impl Webhooker for BotsApi {

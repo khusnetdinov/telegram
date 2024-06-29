@@ -5,11 +5,13 @@ use telegram_framework::bots_api::BotsApi;
 use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
 use telegram_framework::storages::memory::MemoryStorage;
+use telegram_framework::structs::options::send_options::SendOptions;
 use telegram_framework::structs::update::Update;
 use telegram_framework::traits::bots_api::Pooler;
 use telegram_framework::traits::commander::Commander;
 use telegram_framework::traits::kind_dispatcher::KindDispatcher;
 use telegram_framework::traits::params::EnumParams;
+use telegram_framework::traits::sender::Sender;
 use telegram_macros::BotCommands;
 
 #[derive(Debug, BotCommands)]
@@ -56,7 +58,12 @@ async fn dispatch(
                     println!("{:#?}", command_message);
                 }
                 Some(Commands::Dice) => {
-                    println!("{:#?}", command_message);
+                    let options = SendOptions {
+                        message_effect_id: Some(String::from("5046589136895476101")),
+                        ..Default::default()
+                    };
+
+                    bots_api.send_dice(message.chat.id, Some(options)).await?;
                 }
                 _ => println!("Commmand::Unexpected"),
             },
@@ -65,6 +72,7 @@ async fn dispatch(
         UpdateKind::Unexpected(_) | _ => {}
     }
 
+    dbg!(update);
     dbg!(bots_api);
     dbg!(storage);
 

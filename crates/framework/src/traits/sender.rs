@@ -1,10 +1,18 @@
+use crate::structs::options::send_options::SendOptions;
+
 #[async_trait::async_trait]
 pub trait Sender {
     // fn send_animation(&self) -> Message;
     // fn send_audio(&self) -> Message;
     // fn send_chat_action(&self) -> bool;
     // fn send_contact(&self) -> Message;
-    // fn send_dice(&self, chat_id: i64);
+
+    async fn send_dice(
+        &self,
+        chat_id: i64,
+        options: Option<SendOptions>,
+    ) -> Result<(), Box<dyn std::error::Error>>;
+
     // fn send_document(&self) -> Message;
     // fn send_game(&self) -> Message;
     // fn send_invoice(&self) -> Message;
