@@ -2,6 +2,7 @@
 use std::fmt::Debug;
 use std::sync::Arc;
 use telegram_framework::bots_api::BotsApi;
+use telegram_framework::enums::emoji::Emoji;
 use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
 use telegram_framework::storages::memory::MemoryStorage;
@@ -48,7 +49,18 @@ async fn dispatch(
     match update.dispatch() {
         UpdateKind::Message(message) => match message.dispatch() {
             MessageKind::Text(text_message) => {
-                println!("{:#?}", text_message);
+                let options = SendOptions {
+                    message_effect_id: Some(String::from("5046589136895476101")),
+                    ..Default::default()
+                };
+
+                bots_api
+                    .send_message(
+                        message.chat.id,
+                        format!("Text: {}", text_message.text),
+                        Some(options),
+                    )
+                    .await?;
             }
             MessageKind::Command(command_message) => match Commands::dispatch(command_message) {
                 Some(Commands::Help) => {
@@ -60,6 +72,7 @@ async fn dispatch(
                 Some(Commands::Dice) => {
                     let options = SendOptions {
                         message_effect_id: Some(String::from("5046589136895476101")),
+                        emoji: Some(Emoji::Darts),
                         ..Default::default()
                     };
 
@@ -72,8 +85,6 @@ async fn dispatch(
         UpdateKind::Unexpected(_) | _ => {}
     }
 
-    dbg!(update);
-    dbg!(bots_api);
     dbg!(storage);
 
     Ok(())

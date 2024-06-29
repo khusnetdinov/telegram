@@ -2,6 +2,7 @@ use crate::config::Config;
 use crate::structs::bot_command::BotCommand;
 use crate::structs::options::send_options::SendOptions;
 use crate::structs::update::Update;
+use crate::structs::update_kinds::message::Message;
 use crate::structs::user::User;
 use crate::structs::webhook::Webhook;
 use crate::structs::webhook_info::WebhookInfo;
@@ -19,6 +20,7 @@ use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::params::send_dice::SendDice;
+use telegram_bots_api::api::params::send_message::SendMessage;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 use telegram_bots_api::api::requests::r#async::Requests;
 use telegram_bots_api::clients::r#async::Async;
@@ -152,16 +154,47 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
 
 #[async_trait::async_trait]
 impl Sender for BotsApi {
+    async fn send_message(
+        &self,
+        chat_id: i64,
+        text: String,
+        options: Option<SendOptions>,
+    ) -> Result<Message, Box<dyn std::error::Error>> {
+        let params = if let Some(options) = options {
+            SendMessage {
+                text,
+                chat_id: ChatUId::from(chat_id),
+                business_connection_id: options.business_connection_id,
+                disable_notification: options.disable_notification,
+                protect_content: options.protect_content,
+                message_effect_id: options.message_effect_id,
+                message_thread_id: options.message_thread_id,
+                reply_parameters: options.reply_parameters,
+                reply_markup: options.reply_markup,
+                parse_mode: options.parse_mode,
+                entities: options.entities,
+                link_preview_options: options.link_preview_options,
+            }
+        } else {
+            SendMessage {
+                text,
+                chat_id: ChatUId::from(chat_id),
+                ..Default::default()
+            }
+        };
+
+        Ok(self.client.send_message(&params).await?.into())
+    }
     async fn send_dice(
         &self,
         chat_id: i64,
         options: Option<SendOptions>,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    ) -> Result<Message, Box<dyn std::error::Error>> {
         let params = if let Some(options) = options {
             SendDice {
                 chat_id: ChatUId::from(chat_id),
                 business_connection_id: options.business_connection_id,
-                emoji: options.emoji,
+                emoji: options.emoji.map(|emoji| emoji.into()),
                 disable_notification: options.disable_notification,
                 protect_content: options.protect_content,
                 message_effect_id: options.message_effect_id,
@@ -176,9 +209,7 @@ impl Sender for BotsApi {
             }
         };
 
-        self.client.send_dice(&params).await?;
-
-        Ok(())
+        Ok(self.client.send_dice(&params).await?.into())
     }
 }
 
