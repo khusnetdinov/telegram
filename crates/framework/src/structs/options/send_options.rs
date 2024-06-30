@@ -33,4 +33,12 @@ pub struct SendOptions {
     pub last_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vcard: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub foursquare_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub foursquare_type: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub google_place_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub google_place_type: Option<String>,
 }
