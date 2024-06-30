@@ -23,6 +23,7 @@ use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::params::send_chat_action::SendChatAction;
 use telegram_bots_api::api::params::send_contact::SendContact;
 use telegram_bots_api::api::params::send_dice::SendDice;
+use telegram_bots_api::api::params::send_game::SendGame;
 use telegram_bots_api::api::params::send_message::SendMessage;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 use telegram_bots_api::api::requests::r#async::Requests;
@@ -246,6 +247,7 @@ impl Sender for BotsApi {
 
         Ok(self.client.send_message(&params).await?.into())
     }
+
     async fn send_dice(
         &self,
         chat_id: i64,
@@ -271,6 +273,35 @@ impl Sender for BotsApi {
         };
 
         Ok(self.client.send_dice(&params).await?.into())
+    }
+
+    async fn send_game(
+        &self,
+        chat_id: i64,
+        game_short_name: String,
+        options: Option<SendOptions>,
+    ) -> Result<Message, Box<dyn std::error::Error>> {
+        let params = if let Some(options) = options {
+            SendGame {
+                game_short_name,
+                chat_id: ChatUId::from(chat_id),
+                business_connection_id: options.business_connection_id,
+                disable_notification: options.disable_notification,
+                protect_content: options.protect_content,
+                message_effect_id: options.message_effect_id,
+                message_thread_id: options.message_thread_id,
+                reply_parameters: options.reply_parameters,
+                reply_markup: options.reply_markup,
+            }
+        } else {
+            SendGame {
+                game_short_name,
+                chat_id: ChatUId::from(chat_id),
+                ..Default::default()
+            }
+        };
+
+        Ok(self.client.send_game(&params).await?.into())
     }
 }
 

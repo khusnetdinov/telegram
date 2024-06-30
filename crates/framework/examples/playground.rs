@@ -33,6 +33,8 @@ pub enum Commands {
     Username,
     #[command(description = "send dice")]
     Dice,
+    #[command(description = "send game")]
+    Game,
 }
 
 #[derive(Debug, Clone)]
@@ -42,6 +44,7 @@ pub enum States {
     Username,
     Text,
     Dice,
+    Game,
 }
 
 async fn dispatch(
@@ -87,6 +90,14 @@ async fn dispatch(
 
                     bots_api.send_dice(message.chat.id, Some(options)).await?;
                 }
+                Some(Commands::Game) => {
+                    if let Err(error) = bots_api
+                        .send_game(message.chat.id, String::from("test"), None)
+                        .await
+                    {
+                        println!("Error: {error:#?}");
+                    };
+                }
                 _ => println!("Commmand::Unexpected"),
             },
             MessageKind::Unexpected(_) | _ => {}
@@ -94,6 +105,7 @@ async fn dispatch(
         UpdateKind::Unexpected(_) | _ => {}
     }
 
+    dbg!(update);
     dbg!(storage);
 
     Ok(())
