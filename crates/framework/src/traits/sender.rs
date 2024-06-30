@@ -4,9 +4,6 @@ use crate::structs::update_kinds::message::Message;
 
 #[async_trait::async_trait]
 pub trait Sender {
-    // fn send_animation(&self) -> Message;
-    // fn send_audio(&self) -> Message;
-
     async fn send_chat_action(
         &self,
         chat_id: i64,
@@ -28,7 +25,6 @@ pub trait Sender {
         options: Option<SendOptions>,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 
-    // fn send_document(&self) -> Message;
     // fn send_game(&self) -> Message;
     // fn send_invoice(&self) -> Message;
     // fn send_location(&self) -> Mesasge;
@@ -41,9 +37,17 @@ pub trait Sender {
         options: Option<SendOptions>,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 
-    // fn send_photo(&self) -> Message;
     // fn send_poll(&self) -> Message;
     // fn send_venue(&self) -> Message;
+}
+
+#[async_trait::async_trait]
+pub trait FileSender {
+    // fn send_animation(&self) -> Message;
+    // fn send_audio(&self) -> Message;
+    // fn send_document(&self) -> Message;
+    // fn send_photo(&self) -> Message;
+    // fn send_sticker(&self) -> Message;
     // fn send_video(&self) -> Message;
     // fn send_video_note(&self) -> Message;
     // fn send_voice(&self) -> Message;
