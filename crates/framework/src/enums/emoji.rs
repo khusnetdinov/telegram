@@ -10,15 +10,15 @@ pub enum Emoji {
     SlotMachine,
 }
 
-impl Into<String> for Emoji {
-    fn into(self) -> String {
-        match self {
-            Self::Dice => "🎲",
-            Self::Darts => "🎯",
-            Self::Bowling => "🎳",
-            Self::Basketball => "🏀",
-            Self::Football => "⚽",
-            Self::SlotMachine => "🎰",
+impl From<Emoji> for String {
+    fn from(value: Emoji) -> String {
+        match value {
+            Emoji::Dice => "🎲",
+            Emoji::Darts => "🎯",
+            Emoji::Bowling => "🎳",
+            Emoji::Basketball => "🏀",
+            Emoji::Football => "⚽",
+            Emoji::SlotMachine => "🎰",
         }
         .to_string()
     }

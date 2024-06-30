@@ -2,6 +2,7 @@
 use std::fmt::Debug;
 use std::sync::Arc;
 use telegram_framework::bots_api::BotsApi;
+use telegram_framework::enums::chat_action::ChatAction;
 use telegram_framework::enums::emoji::Emoji;
 use telegram_framework::enums::message_kind::MessageKind;
 use telegram_framework::enums::update_kind::UpdateKind;
@@ -14,6 +15,8 @@ use telegram_framework::traits::kind_dispatcher::KindDispatcher;
 use telegram_framework::traits::params::EnumParams;
 use telegram_framework::traits::sender::Sender;
 use telegram_macros::BotCommands;
+use tokio::time::sleep;
+use tokio::time::Duration;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -53,6 +56,12 @@ async fn dispatch(
                     message_effect_id: Some(String::from("5046589136895476101")),
                     ..Default::default()
                 };
+
+                bots_api
+                    .send_chat_action(message.chat.id, ChatAction::Typing, None)
+                    .await?;
+
+                sleep(Duration::from_secs(1)).await;
 
                 bots_api
                     .send_message(

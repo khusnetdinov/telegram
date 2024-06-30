@@ -1,4 +1,5 @@
 use crate::config::Config;
+use crate::enums::chat_action::ChatAction;
 use crate::structs::bot_command::BotCommand;
 use crate::structs::options::send_options::SendOptions;
 use crate::structs::update::Update;
@@ -19,6 +20,7 @@ use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::get_update::GetUpdate;
+use telegram_bots_api::api::params::send_chat_action::SendChatAction;
 use telegram_bots_api::api::params::send_contact::SendContact;
 use telegram_bots_api::api::params::send_dice::SendDice;
 use telegram_bots_api::api::params::send_message::SendMessage;
@@ -155,6 +157,30 @@ impl<STO, STA> Pooler<STO, STA> for BotsApi {
 
 #[async_trait::async_trait]
 impl Sender for BotsApi {
+    async fn send_chat_action(
+        &self,
+        chat_id: i64,
+        action: ChatAction,
+        options: Option<SendOptions>,
+    ) -> Result<bool, Box<dyn std::error::Error>> {
+        let params = if let Some(options) = options {
+            SendChatAction {
+                action: action.into(),
+                chat_id: ChatUId::from(chat_id),
+                business_connection_id: options.business_connection_id,
+                message_thread_id: options.message_thread_id,
+            }
+        } else {
+            SendChatAction {
+                action: action.into(),
+                chat_id: ChatUId::from(chat_id),
+                ..Default::default()
+            }
+        };
+
+        Ok(self.client.send_chat_action(&params).await?)
+    }
+
     async fn send_contact(
         &self,
         chat_id: i64,

@@ -1,3 +1,4 @@
+use crate::enums::chat_action::ChatAction;
 use crate::structs::options::send_options::SendOptions;
 use crate::structs::update_kinds::message::Message;
 
@@ -5,7 +6,13 @@ use crate::structs::update_kinds::message::Message;
 pub trait Sender {
     // fn send_animation(&self) -> Message;
     // fn send_audio(&self) -> Message;
-    // fn send_chat_action(&self) -> bool;
+
+    async fn send_chat_action(
+        &self,
+        chat_id: i64,
+        action: ChatAction,
+        options: Option<SendOptions>,
+    ) -> Result<bool, Box<dyn std::error::Error>>;
 
     async fn send_contact(
         &self,
