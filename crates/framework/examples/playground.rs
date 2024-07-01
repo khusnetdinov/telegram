@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 use std::fmt::Debug;
 use std::sync::Arc;
+use telegram_bots_api::api::structs::input_poll_option::InputPollOption;
 use telegram_framework::bots_api::BotsApi;
 use telegram_framework::enums::chat_action::ChatAction;
 use telegram_framework::enums::emoji::Emoji;
@@ -35,6 +36,8 @@ pub enum Commands {
     Dice,
     #[command(description = "send game")]
     Game,
+    #[command(description = "send poll")]
+    Poll,
 }
 
 #[derive(Debug, Clone)]
@@ -45,6 +48,7 @@ pub enum States {
     Text,
     Dice,
     Game,
+    Poll,
 }
 
 async fn dispatch(
@@ -97,6 +101,34 @@ async fn dispatch(
                     {
                         println!("Error: {error:#?}");
                     };
+                }
+                Some(Commands::Poll) => {
+                    let poll_options = vec![
+                        InputPollOption {
+                            text: Some("Ответ 1".to_string()),
+                            text_parse_mode: Some("".to_string()),
+                            ..Default::default()
+                        },
+                        InputPollOption {
+                            text: Some("Ответ 2".to_string()),
+                            text_parse_mode: Some("".to_string()),
+                            ..Default::default()
+                        },
+                    ];
+
+                    let options = SendOptions {
+                        kind: Some(String::from("regular")),
+                        ..Default::default()
+                    };
+
+                    bots_api
+                        .send_poll(
+                            message.chat.id,
+                            String::from("Вопрос?"),
+                            poll_options,
+                            Some(options),
+                        )
+                        .await?;
                 }
                 _ => println!("Commmand::Unexpected"),
             },

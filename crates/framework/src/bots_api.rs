@@ -25,9 +25,11 @@ use telegram_bots_api::api::params::send_contact::SendContact;
 use telegram_bots_api::api::params::send_dice::SendDice;
 use telegram_bots_api::api::params::send_game::SendGame;
 use telegram_bots_api::api::params::send_message::SendMessage;
+use telegram_bots_api::api::params::send_poll::SendPoll;
 use telegram_bots_api::api::params::send_venue::SendVenue;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 use telegram_bots_api::api::requests::r#async::Requests;
+use telegram_bots_api::api::structs::input_poll_option::InputPollOption;
 use telegram_bots_api::clients::r#async::Async;
 use tokio::time::sleep;
 use tokio::time::Duration;
@@ -303,6 +305,50 @@ impl Sender for BotsApi {
         };
 
         Ok(self.client.send_message(&params).await?.into())
+    }
+
+    async fn send_poll(
+        &self,
+        chat_id: i64,
+        question: String,
+        poll_options: Vec<InputPollOption>,
+        options: Option<SendOptions>,
+    ) -> Result<Message, Box<dyn std::error::Error>> {
+        let params = if let Some(options) = options {
+            SendPoll {
+                question,
+                options: poll_options,
+                chat_id: ChatUId::from(chat_id),
+                business_connection_id: options.business_connection_id,
+                disable_notification: options.disable_notification,
+                protect_content: options.protect_content,
+                message_effect_id: options.message_effect_id,
+                message_thread_id: options.message_thread_id,
+                reply_parameters: options.reply_parameters,
+                reply_markup: options.reply_markup,
+                allows_multiple_answers: options.allows_multiple_answers,
+                is_anonymous: options.is_anonymous,
+                correct_option_id: options.correct_option_id,
+                explanation: options.explanation,
+                explanation_parse_mode: options.explanation_parse_mode,
+                explanation_entities: options.explanation_entities,
+                open_period: options.open_period,
+                close_date: options.close_date,
+                is_closed: options.is_closed,
+                question_entities: options.question_entities,
+                question_parse_mode: options.question_parse_mode,
+                kind: options.kind,
+            }
+        } else {
+            SendPoll {
+                question,
+                options: poll_options,
+                chat_id: ChatUId::from(chat_id),
+                ..Default::default()
+            }
+        };
+
+        Ok(self.client.send_poll(&params).await?.into())
     }
 
     async fn send_venue(

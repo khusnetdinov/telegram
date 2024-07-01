@@ -1,6 +1,7 @@
 use crate::enums::chat_action::ChatAction;
 use crate::structs::options::send_options::SendOptions;
 use crate::structs::update_kinds::message::Message;
+use telegram_bots_api::api::structs::input_poll_option::InputPollOption;
 
 #[async_trait::async_trait]
 pub trait Sender {
@@ -43,7 +44,13 @@ pub trait Sender {
         options: Option<SendOptions>,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 
-    // fn send_poll(&self) -> Message;
+    async fn send_poll(
+        &self,
+        chat_id: i64,
+        question: String,
+        poll_options: Vec<InputPollOption>,
+        options: Option<SendOptions>,
+    ) -> Result<Message, Box<dyn std::error::Error>>;
 
     async fn send_venue(
         &self,
