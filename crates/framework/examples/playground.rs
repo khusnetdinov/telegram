@@ -44,86 +44,86 @@ async fn dispatch(
     storage: Arc<MemoryStorage<States>>,
     update: Update,
 ) -> Result<(), Box<dyn std::error::Error>> {
-        match update.dispatch() {
-            UpdateKind::Message(message) => match message.dispatch() {
-    //             MessageKind::Text(text_message) => {
-    //                 let options = SendOptions {
-    //                     message_effect_id: Some(String::from("5046589136895476101")),
-    //                     ..Default::default()
-    //                 };
+    match update.dispatch() {
+        UpdateKind::Message(message) => match message.dispatch() {
+            //             MessageKind::Text(text_message) => {
+            //                 let options = SendOptions {
+            //                     message_effect_id: Some(String::from("5046589136895476101")),
+            //                     ..Default::default()
+            //                 };
 
-    //                 bots_api
-    //                     .send_chat_action(message.chat.id, ChatAction::Typing, None)
-    //                     .await?;
+            //                 bots_api
+            //                     .send_chat_action(message.chat.id, ChatAction::Typing, None)
+            //                     .await?;
 
-    //                 sleep(Duration::from_secs(1)).await;
+            //                 sleep(Duration::from_secs(1)).await;
 
-    //                 bots_api
-    //                     .send_message(
-    //                         message.chat.id,
-    //                         format!("Text: {}", text_message.text),
-    //                         Some(options),
-    //                     )
-    //                     .await?;
-    //             }
-    //             MessageKind::Command(command_message) => match Commands::dispatch(command_message) {
-    //                 Some(Commands::Help) => {
-    //                     println!("{:#?}", command_message);
-    //                 }
-    //                 Some(Commands::Username) => {
-    //                     println!("{:#?}", command_message);
-    //                 }
-    //                 Some(Commands::Dice) => {
-    //                     let options = SendOptions {
-    //                         message_effect_id: Some(String::from("5046589136895476101")),
-    //                         emoji: Some(Emoji::Darts),
-    //                         ..Default::default()
-    //                     };
+            //                 bots_api
+            //                     .send_message(
+            //                         message.chat.id,
+            //                         format!("Text: {}", text_message.text),
+            //                         Some(options),
+            //                     )
+            //                     .await?;
+            //             }
+            //             MessageKind::Command(command_message) => match Commands::dispatch(command_message) {
+            //                 Some(Commands::Help) => {
+            //                     println!("{:#?}", command_message);
+            //                 }
+            //                 Some(Commands::Username) => {
+            //                     println!("{:#?}", command_message);
+            //                 }
+            //                 Some(Commands::Dice) => {
+            //                     let options = SendOptions {
+            //                         message_effect_id: Some(String::from("5046589136895476101")),
+            //                         emoji: Some(Emoji::Darts),
+            //                         ..Default::default()
+            //                     };
 
-    //                     bots_api.send_dice(message.chat.id, Some(options)).await?;
-    //                 }
-    //                 Some(Commands::Game) => {
-    //                     if let Err(error) = bots_api
-    //                         .send_game(message.chat.id, String::from("test"), None)
-    //                         .await
-    //                     {
-    //                         println!("Error: {error:#?}");
-    //                     };
-    //                 }
-    //                 Some(Commands::Poll) => {
-    //                     let poll_options = vec![
-    //                         InputPollOption {
-    //                             text: Some("Ответ 1".to_string()),
-    //                             text_parse_mode: Some("".to_string()),
-    //                             ..Default::default()
-    //                         },
-    //                         InputPollOption {
-    //                             text: Some("Ответ 2".to_string()),
-    //                             text_parse_mode: Some("".to_string()),
-    //                             ..Default::default()
-    //                         },
-    //                     ];
+            //                     bots_api.send_dice(message.chat.id, Some(options)).await?;
+            //                 }
+            //                 Some(Commands::Game) => {
+            //                     if let Err(error) = bots_api
+            //                         .send_game(message.chat.id, String::from("test"), None)
+            //                         .await
+            //                     {
+            //                         println!("Error: {error:#?}");
+            //                     };
+            //                 }
+            //                 Some(Commands::Poll) => {
+            //                     let poll_options = vec![
+            //                         InputPollOption {
+            //                             text: Some("Ответ 1".to_string()),
+            //                             text_parse_mode: Some("".to_string()),
+            //                             ..Default::default()
+            //                         },
+            //                         InputPollOption {
+            //                             text: Some("Ответ 2".to_string()),
+            //                             text_parse_mode: Some("".to_string()),
+            //                             ..Default::default()
+            //                         },
+            //                     ];
 
-    //                     let options = SendOptions {
-    //                         kind: Some(String::from("regular")),
-    //                         ..Default::default()
-    //                     };
+            //                     let options = SendOptions {
+            //                         kind: Some(String::from("regular")),
+            //                         ..Default::default()
+            //                     };
 
-    //                     bots_api
-    //                         .send_poll(
-    //                             message.chat.id,
-    //                             String::from("Вопрос?"),
-    //                             poll_options,
-    //                             Some(options),
-    //                         )
-    //                         .await?;
-    //                 }
-    //                 _ => println!("Commmand::Unexpected"),
-    //             },
-                MessageKind::Unexpected(_) | _ => {}
-            },
-            UpdateKind::Unexpected(_) | _ => {}
-        }
+            //                     bots_api
+            //                         .send_poll(
+            //                             message.chat.id,
+            //                             String::from("Вопрос?"),
+            //                             poll_options,
+            //                             Some(options),
+            //                         )
+            //                         .await?;
+            //                 }
+            //                 _ => println!("Commmand::Unexpected"),
+            //             },
+            MessageKind::Unexpected(_) | _ => {}
+        },
+        UpdateKind::Unexpected(_) | _ => {}
+    }
 
     dbg!(bots_api);
     dbg!(update);
