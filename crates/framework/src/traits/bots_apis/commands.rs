@@ -4,7 +4,7 @@ use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;
 
 #[async_trait::async_trait]
-pub trait Commander {
+pub trait Commands {
     async fn commands(
         &self,
         params: (DeleteMyCommands, GetMyCommands, SetMyCommands),

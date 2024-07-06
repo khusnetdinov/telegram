@@ -6,17 +6,7 @@ use std::fmt::Debug;
 use std::sync::Arc;
 
 #[async_trait::async_trait]
-pub trait HttpListener {
-    fn http_listen(&self);
-}
-
-#[async_trait::async_trait]
-pub trait HttpsListener {
-    fn https_listen(&self);
-}
-
-#[async_trait::async_trait]
-pub trait Pooler<STO, STA> {
+pub trait Pooling<STO, STA> {
     async fn pooling<Callback, Fut>(
         &self,
         storage: Arc<STO>,
