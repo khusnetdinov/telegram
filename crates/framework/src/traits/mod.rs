@@ -4,7 +4,7 @@ pub mod bots_apis;
 pub mod business;
 pub mod callback_query;
 pub mod chat;
-pub mod chat_action;
+pub mod chat_actions;
 pub mod contact;
 pub mod dice;
 pub mod document;

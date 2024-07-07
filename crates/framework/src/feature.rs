@@ -19,6 +19,11 @@ pub mod callback_query {}
 
 pub mod chat {}
 
+pub mod chat_actions {
+    pub use crate::enums::chat_action::ChatAction;
+    pub use crate::traits::chat_actions::ChatActions;
+}
+
 pub mod contact {}
 
 pub mod commands {
