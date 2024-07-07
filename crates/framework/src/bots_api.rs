@@ -48,29 +48,6 @@ impl BotsApi {
 
 // #[async_trait::async_trait]
 // impl Sender for BotsApi {
-//     async fn send_chat_action(
-//         &self,
-//         chat_id: i64,
-//         action: ChatAction,
-//         options: Option<SendOptions>,
-//     ) -> Result<bool, Box<dyn std::error::Error>> {
-//         let params = if let Some(options) = options {
-//             SendChatAction {
-//                 action: action.into(),
-//                 chat_id: ChatUId::from(chat_id),
-//                 business_connection_id: options.business_connection_id,
-//                 message_thread_id: options.message_thread_id,
-//             }
-//         } else {
-//             SendChatAction {
-//                 action: action.into(),
-//                 chat_id: ChatUId::from(chat_id),
-//                 ..Default::default()
-//             }
-//         };
-
-//         Ok(self.client.send_chat_action(&params).await?)
-//     }
 
 //     async fn send_contact(
 //         &self,

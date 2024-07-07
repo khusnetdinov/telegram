@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 use telegram_framework::feature::bots_api::*;
+use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::pooling::*;
@@ -71,6 +72,9 @@ async fn dispatch(
                     println!("{:#?}", command_message);
                 }
                 Some(BotCommands::Dice) => {
+                    bots_api
+                        .send_chat_action(message.chat.id, ChatAction::Typing, None)
+                        .await?;
                     bots_api
                         .send_dice(message.chat.id, Some(Emoji::Darts), None)
                         .await?;
