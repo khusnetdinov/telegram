@@ -72,11 +72,16 @@ async fn dispatch(
                     println!("{:#?}", command_message);
                 }
                 Some(BotCommands::Dice) => {
+                    let options = Options {
+                        message_effect_id: Some(String::from("5046589136895476101")),
+                        ..Default::default()
+                    };
+
                     bots_api
                         .send_chat_action(message.chat.id, ChatAction::Typing, None)
                         .await?;
                     bots_api
-                        .send_dice(message.chat.id, Some(Emoji::Darts), None)
+                        .send_dice(message.chat.id, Some(Emoji::Darts), Some(options))
                         .await?;
                 }
                 // Some(Commands::Game) => {

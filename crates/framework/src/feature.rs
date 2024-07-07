@@ -7,6 +7,7 @@ pub mod bots_api {
     pub use crate::enums::message_kind::MessageKind;
     pub use crate::enums::update_kind::UpdateKind;
     pub use crate::storages::memory::MemoryStorage;
+    pub use crate::structs::options::Options;
     pub use crate::structs::update::Update;
     pub use crate::traits::kind_dispatcher::KindDispatcher;
     pub use std::fmt::Debug;
