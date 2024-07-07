@@ -106,33 +106,6 @@ impl BotsApi {
 //         Ok(self.client.send_contact(&params).await?.into())
 //     }
 
-//     async fn send_dice(
-//         &self,
-//         chat_id: i64,
-//         options: Option<SendOptions>,
-//     ) -> Result<Message, Box<dyn std::error::Error>> {
-//         let params = if let Some(options) = options {
-//             SendDice {
-//                 chat_id: ChatUId::from(chat_id),
-//                 business_connection_id: options.business_connection_id,
-//                 emoji: options.emoji.map(|emoji| emoji.into()),
-//                 disable_notification: options.disable_notification,
-//                 protect_content: options.protect_content,
-//                 message_effect_id: options.message_effect_id,
-//                 message_thread_id: options.message_thread_id,
-//                 reply_parameters: options.reply_parameters,
-//                 reply_markup: options.reply_markup,
-//             }
-//         } else {
-//             SendDice {
-//                 chat_id: ChatUId::from(chat_id),
-//                 ..Default::default()
-//             }
-//         };
-
-//         Ok(self.client.send_dice(&params).await?.into())
-//     }
-
 //     async fn send_game(
 //         &self,
 //         chat_id: i64,

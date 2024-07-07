@@ -20,12 +20,6 @@ pub trait Sender {
         options: Option<SendOptions>,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 
-    async fn send_dice(
-        &self,
-        chat_id: i64,
-        options: Option<SendOptions>,
-    ) -> Result<Message, Box<dyn std::error::Error>>;
-
     async fn send_game(
         &self,
         chat_id: i64,
