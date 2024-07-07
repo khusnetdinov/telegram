@@ -1,12 +1,14 @@
 use crate::bots_api::BotsApi;
 use crate::structs::update::Update;
+use crate::traits::bots_apis::commands::Commands;
 use crate::traits::storage::Storage;
+use crate::traits::webhook::Webhook;
 use futures::Future;
 use std::fmt::Debug;
 use std::sync::Arc;
 
 #[async_trait::async_trait]
-pub trait Pooling<STO, STA> {
+pub trait Pooling<STO, STA> where Self: Commands + Webhook {
     async fn pooling<Callback, Fut>(
         &self,
         storage: Arc<STO>,
