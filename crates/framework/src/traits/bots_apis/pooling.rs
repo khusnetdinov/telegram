@@ -7,7 +7,10 @@ use std::fmt::Debug;
 use std::sync::Arc;
 
 #[async_trait::async_trait]
-pub trait Pooling<STO, STA> where Self: Webhook {
+pub trait Pooling<STO, STA>
+where
+    Self: Webhook,
+{
     async fn pooling<Callback, Fut>(
         &self,
         storage: Arc<STO>,
