@@ -27,7 +27,10 @@ pub mod commands {
     pub use telegram_macros::BotCommands;
 }
 
-pub mod dice {}
+pub mod dice {
+    pub use crate::enums::emoji::Emoji;
+    pub use crate::traits::dice::Dice;
+}
 
 pub mod document {}
 
