@@ -22,6 +22,7 @@ pub mod giveaway_created_message;
 pub mod giveaway_message;
 pub mod giveaway_winners_message;
 pub mod group_chat_created_message;
+pub mod inaccessible_message;
 pub mod invoice_message;
 pub mod left_chat_membe_message;
 pub mod location_message;

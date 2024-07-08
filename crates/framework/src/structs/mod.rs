@@ -1,5 +1,6 @@
 pub mod bot_command;
 pub mod chat;
+pub mod message_id;
 pub mod message_kinds;
 pub mod options;
 pub mod update;
