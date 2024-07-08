@@ -36,7 +36,7 @@ impl Commands for BotsApi {
             .get_my_commands(&params)
             .await?
             .iter()
-            .map(|remote| remote.to_owned().into())
+            .map(|remote| BotCommand::from(remote.to_owned()))
             .collect::<Vec<BotCommand>>())
     }
 
