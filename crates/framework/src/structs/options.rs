@@ -1,6 +1,7 @@
 use telegram_bots_api::api::enums::reply_markup::ReplyMarkup;
 use telegram_bots_api::api::structs::reply_parameters::ReplyParameters;
 
+#[derive(Debug)]
 pub struct Options {
     pub message_thread_id: Option<i64>,
     pub disable_notification: Option<bool>,
