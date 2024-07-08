@@ -1,7 +1,17 @@
-use telegram_bots_api::api::structs::bot_command::BotCommand as Inner;
-use telegram_macros::{DerefInner, FromInner};
+use serde::{Deserialize, Serialize};
+use telegram_bots_api::api::structs::bot_command::BotCommand as Remote;
 
-#[derive(Debug, DerefInner, FromInner)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BotCommand {
-    pub inner: Inner,
+    pub command: String,
+    pub description: String,
+}
+
+impl From<Remote> for BotCommand {
+    fn from(remote: Remote) -> Self {
+        Self {
+            command: remote.command,
+            description: remote.description,
+        }
+    }
 }

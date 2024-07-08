@@ -17,3 +17,7 @@ tokio = "1.38.0"
 [[example]]
 name = "playground"
 path = "examples/playground.rs"
+
+[[example]]
+name = "macro"
+path = "examples/macro.rs"
