@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat::Chat as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Chat {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,

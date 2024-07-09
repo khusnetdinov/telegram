@@ -7,6 +7,7 @@ pub mod chat_members;
 pub mod message_id;
 pub mod message_kinds;
 pub mod options;
+pub mod reactions;
 pub mod update;
 pub mod update_kinds;
 pub mod user;
