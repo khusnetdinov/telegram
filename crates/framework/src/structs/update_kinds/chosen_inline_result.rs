@@ -1,7 +1,26 @@
-use telegram_bots_api::api::structs::chosen_inline_result::ChosenInlineResult as Inner;
-use telegram_macros::{DerefInner, FromInner};
+use crate::structs::message_kinds::location::Location;
+use crate::structs::user::User;
+use serde::{Deserialize, Serialize};
+use telegram_bots_api::api::structs::chosen_inline_result::ChosenInlineResult as Remote;
 
-#[derive(Debug, Clone, DerefInner, FromInner)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct ChosenInlineResult {
-    inner: Inner,
+    pub result_id: String,
+    pub from: User,
+    pub query: String,
+    pub location: Option<Location>,
+    pub inline_message_id: Option<String>,
+}
+impl From<Remote> for ChosenInlineResult {
+    fn from(remote: Remote) -> Self {
+        Self {
+            result_id: remote.result_id,
+            // TODO: #[remote(into)]
+            from: remote.from.into(),
+            query: remote.query,
+            // TODO: #[remote(option)]
+            location: remote.location.map(|inner| inner.into()),
+            inline_message_id: remote.inline_message_id,
+        }
+    }
 }

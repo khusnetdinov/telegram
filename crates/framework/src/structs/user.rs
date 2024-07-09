@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::user::User as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct User {
     pub id: i64,
     pub is_bot: bool,

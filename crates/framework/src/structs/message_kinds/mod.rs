@@ -25,7 +25,7 @@ pub mod group_chat_created_message;
 pub mod inaccessible_message;
 pub mod invoice_message;
 pub mod left_chat_membe_message;
-pub mod location_message;
+pub mod location;
 pub mod message_auto_delete_timer_changed_message;
 pub mod migrate_from_chat_message;
 pub mod migrate_to_chat_message;

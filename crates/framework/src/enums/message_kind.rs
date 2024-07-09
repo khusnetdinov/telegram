@@ -24,7 +24,7 @@ use crate::structs::message_kinds::giveaway_winners_message::GiveawayWinnersMess
 use crate::structs::message_kinds::group_chat_created_message::GroupChatCreatedMessage;
 use crate::structs::message_kinds::invoice_message::InvoiceMessage;
 use crate::structs::message_kinds::left_chat_membe_message::LeftChatMemberMessage;
-use crate::structs::message_kinds::location_message::LocationMessage;
+use crate::structs::message_kinds::location::Location;
 use crate::structs::message_kinds::message_auto_delete_timer_changed_message::MessageAutoDeleteTimerChangedMessage;
 use crate::structs::message_kinds::migrate_from_chat_message::MigrateFromChatMessage;
 use crate::structs::message_kinds::migrate_to_chat_message::MigrateToChatMessage;
@@ -92,7 +92,7 @@ pub enum MessageKind {
     /// Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
     Venue(VenueMessage),
     ///  Message is a shared location, information about the location
-    Location(LocationMessage),
+    Location(Location),
     /// New members that were added to the group or supergroup and information about them (the bot
     /// itself may be one of these members)
     NewChatMembers(NewChatMembersMessage),
@@ -205,9 +205,7 @@ impl From<Inner> for MessageKind {
             inner if Self::is_game(&inner) => MessageKind::Game(GameMessage::from(inner)),
             inner if Self::is_poll(&inner) => MessageKind::Poll(PollMessage::from(inner)),
             inner if Self::is_venue(&inner) => MessageKind::Venue(VenueMessage::from(inner)),
-            inner if Self::is_location(&inner) => {
-                MessageKind::Location(LocationMessage::from(inner))
-            }
+            inner if Self::is_location(&inner) => MessageKind::Location(Location::from(inner)),
             inner if Self::is_new_chat_members(&inner) => {
                 MessageKind::NewChatMembers(NewChatMembersMessage::from(inner))
             }
