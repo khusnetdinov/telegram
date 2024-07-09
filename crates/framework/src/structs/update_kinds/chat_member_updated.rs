@@ -1,8 +1,8 @@
+use crate::enums::chat_member::ChatMember;
 use crate::structs::chat::Chat;
 use crate::structs::chat_invite_link::ChatInviteLink;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::chat_member::ChatMember; // TODO: crate::enums::chat_member::ChatMember;
 use telegram_bots_api::api::structs::chat_member_updated::ChatMemberUpdated as Remote;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -28,9 +28,9 @@ impl From<Remote> for ChatMemberUpdated {
             from: remote.from.into(),
             date: remote.date,
             // TODO: #[remote(into)]
-            old_chat_member: remote.old_chat_member,
+            old_chat_member: remote.old_chat_member.into(),
             // TODO: #[remote(into)]
-            new_chat_member: remote.new_chat_member,
+            new_chat_member: remote.new_chat_member.into(),
             // TODO: #[remote(option)]
             invite_link: remote.invite_link.map(|inner| inner.into()),
             via_join_request: remote.via_join_request,
