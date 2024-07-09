@@ -1,20 +1,21 @@
-// use telegram_bots_api::api::structs::chat_invite_link::ChatInviteLink as Remote;
+// use telegram_bots_api::api::enums::chat_member::ChatMember;
+// use telegram_bots_api::api::structs::chat::Chat;
+// use telegram_bots_api::api::structs::chat_invite_link::ChatInviteLink;
+// use telegram_bots_api::api::structs::chat_member_updated::ChatMemberUpdated as Remote;
 // use telegram_bots_api::api::structs::user::User;
 // use telegram_macros::FromRemote;
 //
 // #[derive(FromRemote)]
-// pub struct ChatInviteLink {
-//     pub invite_link: String,
-//     pub creator: User,
-//     pub creates_join_request: bool,
-//     pub is_primary: bool,
-//     pub is_revoked: bool,
+// pub struct ChatMemberUpdated {
+//     pub chat: Chat,
+//     pub from: User,
+//     pub date: i64,
+//     pub old_chat_member: ChatMember,
+//     pub new_chat_member: ChatMember,
 //     // #[serde(skip_serializing_if = "Option::is_none")]
-//     pub name: Option<String>,
+//     pub invite_link: Option<ChatInviteLink>,
 //     // #[serde(skip_serializing_if = "Option::is_none")]
-//     pub expire_date: Option<i64>,
+//     pub via_join_request: Option<bool>,
 //     // #[serde(skip_serializing_if = "Option::is_none")]
-//     pub member_limit: Option<i64>,
-//     // #[serde(skip_serializing_if = "Option::is_none")]
-//     pub pending_join_request_count: Option<i64>,
+//     pub via_chat_folder_invite_link: Option<bool>,
 // }
