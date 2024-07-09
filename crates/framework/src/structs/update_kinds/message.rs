@@ -4,7 +4,7 @@ use telegram_bots_api::api::enums::message_origin::MessageOrigin;
 use telegram_bots_api::api::structs::chat::Chat;
 use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo;
 use telegram_bots_api::api::structs::inline_keyboard_markup::InlineKeyboardMarkup;
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message as Remote;
 use telegram_bots_api::api::structs::message_id::MessageId;
 use telegram_bots_api::api::structs::story::Story;
 use telegram_bots_api::api::structs::text_quote::TextQuote;
@@ -48,7 +48,7 @@ pub struct Message {
     /// Optional. For replies in the same chat and message thread, the original message. Note that
     /// the Message object in this field will not contain further reply_to_message fields even if
     /// it itself is a reply.
-    pub reply_to_message: Option<Box<Inner>>,
+    pub reply_to_message: Option<Box<Remote>>,
     /// Optional. Information about the message that is being replied to, which may come from another
     /// chat or forum topic
     pub external_reply: Option<ExternalReplyInfo>,
@@ -77,9 +77,9 @@ pub struct Message {
     pub kind: MessageKind,
 }
 
-impl From<Inner> for Message {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Remote> for Message {
+    fn from(remote: Remote) -> Self {
+        let Remote {
             message_id: MessageId { message_id },
             message_thread_id,
             from,
@@ -104,7 +104,7 @@ impl From<Inner> for Message {
             effect_id,
             reply_markup,
             ..
-        } = inner.clone();
+        } = remote.clone();
 
         Self {
             message_id,
@@ -130,7 +130,7 @@ impl From<Inner> for Message {
             author_signature,
             effect_id,
             reply_markup,
-            kind: MessageKind::from(inner),
+            kind: MessageKind::from(remote),
         }
     }
 }

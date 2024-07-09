@@ -8,7 +8,7 @@ pub mod command_message;
 pub mod connected_website_message;
 pub mod contract_message;
 pub mod delete_chat_photo_message;
-pub mod dice_message;
+pub mod dice;
 pub mod document_message;
 pub mod forum_topic_closed_message;
 pub mod forum_topic_created_message;
