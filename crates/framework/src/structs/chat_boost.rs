@@ -1,5 +1,5 @@
+use crate::enums::chat_boost_source::ChatBoostSource;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::chat_boost_source::ChatBoostSource; // TODO: use crate::enums::chat_boost_source::ChatBoostSource
 use telegram_bots_api::api::structs::chat_boost::ChatBoost as Remote;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -16,7 +16,8 @@ impl From<Remote> for ChatBoost {
             boost_id: remote.boost_id,
             add_date: remote.add_date,
             expiration_date: remote.expiration_date,
-            source: remote.source,
+            // TODO: #[remote(into)]
+            source: remote.source.into(),
         }
     }
 }

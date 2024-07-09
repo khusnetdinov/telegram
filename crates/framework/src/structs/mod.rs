@@ -1,6 +1,7 @@
 pub mod bot_command;
 pub mod chat;
 mod chat_boost;
+pub mod chat_boost_sources;
 mod chat_invite_link;
 pub mod message_id;
 pub mod message_kinds;
