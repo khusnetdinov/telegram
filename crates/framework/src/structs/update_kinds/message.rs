@@ -1,6 +1,5 @@
 use crate::enums::message_kind::MessageKind;
 use crate::traits::kind_dispatcher::KindDispatcher;
-use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::message_origin::MessageOrigin;
 use telegram_bots_api::api::structs::chat::Chat;
 use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo;
@@ -11,7 +10,7 @@ use telegram_bots_api::api::structs::story::Story;
 use telegram_bots_api::api::structs::text_quote::TextQuote;
 use telegram_bots_api::api::structs::user::User;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct Message {
     /// Unique message identifier inside this chat
     pub message_id: i64,

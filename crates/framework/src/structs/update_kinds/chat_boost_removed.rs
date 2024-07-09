@@ -1,7 +1,24 @@
-use telegram_bots_api::api::structs::chat_boost_removed::ChatBoostRemoved as Inner;
-use telegram_macros::{DerefInner, FromInner};
+use crate::structs::chat::Chat;
+use serde::{Deserialize, Serialize};
+use telegram_bots_api::api::enums::chat_boost_source::ChatBoostSource;
+use telegram_bots_api::api::structs::chat_boost_removed::ChatBoostRemoved as Remote;
 
-#[derive(Debug, DerefInner, FromInner)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ChatBoostRemoved {
-    inner: Inner,
+    pub chat: Chat,
+    pub boost_id: String,
+    pub remove_date: i64,
+    pub source: ChatBoostSource,
+}
+
+impl From<Remote> for ChatBoostRemoved {
+    fn from(remote: Remote) -> Self {
+        Self {
+            // TODO: [remote(into)]
+            chat: remote.chat.into(),
+            boost_id: remote.boost_id,
+            remove_date: remote.remove_date,
+            source: remote.source,
+        }
+    }
 }

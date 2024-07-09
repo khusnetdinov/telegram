@@ -14,12 +14,12 @@ use crate::structs::update_kinds::poll::Poll;
 use crate::structs::update_kinds::poll_answer::PollAnswer;
 use crate::structs::update_kinds::pre_checkout_query::PreCheckoutQuery;
 use crate::structs::update_kinds::shipping_query::ShippingQuery;
-use telegram_bots_api::api::structs::update::Update as Inner;
+use telegram_bots_api::api::structs::update::Update as Remote;
 
 /// <https://core.telegram.org/bots/api#update>
 /// This object represents an incoming update.
 /// At most one of the optional parameters can be present in any given update.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum UpdateKind {
     /// Optional. New incoming message of any kind - text, photo, sticker, etc.
     Message(Message),
@@ -86,104 +86,104 @@ pub enum UpdateKind {
     /// receive these updates.
     RemovedChatBoost(ChatBoostRemoved),
     /// Not Telegram type: for unexpected messages, errors, debugging, logging purpose.
-    Unexpected(Inner),
+    Unexpected(Remote),
 }
 
-impl From<Inner> for UpdateKind {
-    fn from(inner: Inner) -> Self {
-        match inner {
-            Inner {
+impl From<Remote> for UpdateKind {
+    fn from(remote: Remote) -> Self {
+        match remote {
+            Remote {
                 message: Some(message),
                 ..
             } => Self::Message(Message::from(*message)),
-            Inner {
+            Remote {
                 edited_message: Some(message),
                 ..
             } => Self::EditedMessage(Message::from(*message)),
-            Inner {
+            Remote {
                 channel_post: Some(message),
                 ..
             } => Self::ChannelPost(Message::from(*message)),
-            Inner {
+            Remote {
                 edited_channel_post: Some(message),
                 ..
             } => Self::EditedChannelPost(Message::from(*message)),
-            Inner {
+            Remote {
                 business_connection: Some(business_connection),
                 ..
             } => Self::BusinessConnection(BusinessConnection::from(business_connection)),
-            Inner {
+            Remote {
                 business_message: Some(message),
                 ..
             } => Self::BusinessMessage(Message::from(message)),
-            Inner {
+            Remote {
                 edited_business_message: Some(message),
                 ..
             } => Self::EditedBusinessMessage(Message::from(message)),
-            Inner {
+            Remote {
                 deleted_business_messages: Some(deleted_business_messages),
                 ..
             } => Self::DeletedBusinessMessages(BusinessMessagesDeleted::from(
                 deleted_business_messages,
             )),
-            Inner {
+            Remote {
                 message_reaction: Some(message_reaction),
                 ..
             } => Self::MessageReaction(MessageReactionUpdated::from(message_reaction)),
-            Inner {
+            Remote {
                 message_reaction_count: Some(message_reaction_count),
                 ..
             } => Self::MessageReactionCount(MessageReactionCountUpdated::from(
                 message_reaction_count,
             )),
-            Inner {
+            Remote {
                 inline_query: Some(inline_query),
                 ..
             } => Self::InlineQuery(InlineQuery::from(inline_query)),
-            Inner {
+            Remote {
                 chosen_inline_result: Some(chosen_inline_result),
                 ..
             } => Self::ChosenInlineResult(ChosenInlineResult::from(chosen_inline_result)),
-            Inner {
+            Remote {
                 callback_query: Some(callback_query),
                 ..
             } => Self::CallbackQuery(CallbackQuery::from(callback_query)),
-            Inner {
+            Remote {
                 shipping_query: Some(shipping_query),
                 ..
             } => Self::ShippingQuery(ShippingQuery::from(shipping_query)),
-            Inner {
+            Remote {
                 pre_checkout_query: Some(pre_checkout_query),
                 ..
             } => Self::PreCheckoutQuery(PreCheckoutQuery::from(pre_checkout_query)),
-            Inner {
+            Remote {
                 poll: Some(poll), ..
             } => Self::Poll(Poll::from(poll)),
-            Inner {
+            Remote {
                 poll_answer: Some(poll_answer),
                 ..
             } => Self::PollAnswer(PollAnswer::from(poll_answer)),
-            Inner {
+            Remote {
                 my_chat_member: Some(my_chat_member),
                 ..
             } => Self::MyChatMember(ChatMemberUpdated::from(my_chat_member)),
-            Inner {
+            Remote {
                 chat_member: Some(chat_member),
                 ..
             } => Self::ChatMember(ChatMemberUpdated::from(chat_member)),
-            Inner {
+            Remote {
                 chat_join_request: Some(chat_join_request),
                 ..
             } => Self::ChatJoinRequest(ChatJoinRequest::from(chat_join_request)),
-            Inner {
+            Remote {
                 chat_boost: Some(chat_boost),
                 ..
             } => Self::ChatBoost(ChatBoostUpdated::from(chat_boost)),
-            Inner {
+            Remote {
                 removed_chat_boost: Some(removed_chat_boost),
                 ..
             } => Self::RemovedChatBoost(ChatBoostRemoved::from(removed_chat_boost)),
-            _ => Self::Unexpected(inner),
+            _ => Self::Unexpected(remote),
         }
     }
 }
