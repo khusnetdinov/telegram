@@ -13,9 +13,9 @@ pub struct InaccessibleMessage {
 impl From<Remote> for InaccessibleMessage {
     fn from(remote: Remote) -> Self {
         Self {
-            // TODO: [remote(into)]
+            // TODO: #[remote(into)]
             chat: remote.chat.into(),
-            // TODO: [remote(into)]
+            // TODO: #[remote(into)]
             message_id: remote.message_id.into(),
             date: remote.date,
         }

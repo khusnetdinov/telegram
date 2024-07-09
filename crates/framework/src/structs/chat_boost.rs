@@ -1,23 +1,21 @@
-use crate::structs::chat::Chat;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::chat_boost_source::ChatBoostSource; // TODO: use crate::enums::chat_boost_source::ChatBoostSource
-use telegram_bots_api::api::structs::chat_boost_removed::ChatBoostRemoved as Remote;
+use telegram_bots_api::api::structs::chat_boost::ChatBoost as Remote;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ChatBoostRemoved {
-    pub chat: Chat,
+pub struct ChatBoost {
     pub boost_id: String,
-    pub remove_date: i64,
+    pub add_date: i64,
+    pub expiration_date: i64,
     pub source: ChatBoostSource,
 }
 
-impl From<Remote> for ChatBoostRemoved {
+impl From<Remote> for ChatBoost {
     fn from(remote: Remote) -> Self {
         Self {
-            // TODO: #[remote(into)]
-            chat: remote.chat.into(),
             boost_id: remote.boost_id,
-            remove_date: remote.remove_date,
+            add_date: remote.add_date,
+            expiration_date: remote.expiration_date,
             source: remote.source,
         }
     }
