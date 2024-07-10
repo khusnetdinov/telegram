@@ -1,3 +1,4 @@
+use crate::structs::message_kinds::poll::Poll;
 use crate::structs::update_kinds::business_connection::BusinessConnection;
 use crate::structs::update_kinds::business_messages_deleted::BusinessMessagesDeleted;
 use crate::structs::update_kinds::callback_query::CallbackQuery;
@@ -10,7 +11,6 @@ use crate::structs::update_kinds::inline_query::InlineQuery;
 use crate::structs::update_kinds::message::Message;
 use crate::structs::update_kinds::message_reaction_count_updated::MessageReactionCountUpdated;
 use crate::structs::update_kinds::message_reaction_updated::MessageReactionUpdated;
-use crate::structs::update_kinds::poll::Poll;
 use crate::structs::update_kinds::poll_answer::PollAnswer;
 use crate::structs::update_kinds::pre_checkout_query::PreCheckoutQuery;
 use crate::structs::update_kinds::shipping_query::ShippingQuery;

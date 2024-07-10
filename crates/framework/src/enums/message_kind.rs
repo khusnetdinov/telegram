@@ -34,7 +34,7 @@ use crate::structs::message_kinds::new_chat_title_message::NewChatTitleMessage;
 use crate::structs::message_kinds::passport_data_message::PassportDataMessage;
 use crate::structs::message_kinds::photo_message::PhotoMessage;
 use crate::structs::message_kinds::pinned_message::PinnedMessage;
-use crate::structs::message_kinds::poll_message::PollMessage;
+use crate::structs::message_kinds::poll::Poll;
 use crate::structs::message_kinds::proximity_alert_triggered_message::ProximityAlertTriggeredMessage;
 use crate::structs::message_kinds::sticker_message::StickerMessage;
 use crate::structs::message_kinds::story_message::StoryMessage;
@@ -88,7 +88,7 @@ pub enum MessageKind {
     /// Message is a game, information about the game.
     Game(GameMessage),
     /// Message is a native poll, information about the poll
-    Poll(PollMessage),
+    Poll(Poll),
     /// Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
     Venue(VenueMessage),
     ///  Message is a shared location, information about the location
@@ -203,7 +203,7 @@ impl From<Inner> for MessageKind {
             inner if Self::is_contact(&inner) => MessageKind::Contact(ContactMessage::from(inner)),
             inner if Self::is_dice(&inner) => MessageKind::Dice(Dice::from(inner)),
             inner if Self::is_game(&inner) => MessageKind::Game(GameMessage::from(inner)),
-            inner if Self::is_poll(&inner) => MessageKind::Poll(PollMessage::from(inner)),
+            inner if Self::is_poll(&inner) => MessageKind::Poll(Poll::from(inner)),
             inner if Self::is_venue(&inner) => MessageKind::Venue(VenueMessage::from(inner)),
             inner if Self::is_location(&inner) => MessageKind::Location(Location::from(inner)),
             inner if Self::is_new_chat_members(&inner) => {

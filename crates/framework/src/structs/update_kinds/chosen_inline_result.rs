@@ -8,7 +8,9 @@ pub struct ChosenInlineResult {
     pub result_id: String,
     pub from: User,
     pub query: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub location: Option<Location>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub inline_message_id: Option<String>,
 }
 impl From<Remote> for ChosenInlineResult {

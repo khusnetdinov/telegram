@@ -18,13 +18,12 @@ impl From<Remote> for Dice {
 impl From<Message> for Dice {
     fn from(remote: Message) -> Self {
         let Message {
-            dice: Some(Remote { emoji, value }),
-            ..
+            dice: Some(dice), ..
         } = remote
         else {
             unreachable!()
         };
 
-        Self { emoji, value }
+        Self::from(dice)
     }
 }
