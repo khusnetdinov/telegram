@@ -1,7 +1,7 @@
-use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::pre_checkout_query::PreCheckoutQuery as Remote;
 use crate::structs::order_info::OrderInfo;
 use crate::structs::user::User;
+use serde::{Deserialize, Serialize};
+use telegram_bots_api::api::structs::pre_checkout_query::PreCheckoutQuery as Remote;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 
