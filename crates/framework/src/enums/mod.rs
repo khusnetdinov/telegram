@@ -1,3 +1,5 @@
+pub mod background_fill;
+pub mod background_type;
 pub mod chat_action;
 pub mod chat_boost_source;
 pub mod chat_member;

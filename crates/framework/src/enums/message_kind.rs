@@ -2,7 +2,7 @@ use crate::structs::message_kinds::animation_message::AnimationMessage;
 use crate::structs::message_kinds::audio_message::AudioMessage;
 use crate::structs::message_kinds::boost_added::ChatBoostAdded;
 use crate::structs::message_kinds::channel_chat_created::ChannelChatCreated;
-use crate::structs::message_kinds::chat_background_set_message::ChatBackgroundMessage;
+use crate::structs::message_kinds::chat_background::ChatBackground;
 use crate::structs::message_kinds::chat_shared_message::ChatSharedMessage;
 use crate::structs::message_kinds::command_message::CommandMessage;
 use crate::structs::message_kinds::connected_website_message::ConnectedWebsiteMessage;
@@ -151,7 +151,7 @@ pub enum MessageKind {
     /// Service message: user boosted the chat
     ChatBoostAdded(ChatBoostAdded),
     /// Service message: chat background set
-    ChatBackground(ChatBackgroundMessage),
+    ChatBackground(ChatBackground),
     ///  Service message: forum topic created
     ForumTopicCreated(ForumTopicCreatedMessage),
     /// Service message: forum topic edited
@@ -270,7 +270,7 @@ impl From<Inner> for MessageKind {
                 MessageKind::ChatBoostAdded(ChatBoostAdded::from(inner))
             }
             inner if Self::is_chat_background_set(&inner) => {
-                MessageKind::ChatBackground(ChatBackgroundMessage::from(inner))
+                MessageKind::ChatBackground(ChatBackground::from(inner))
             }
             inner if Self::is_forum_topic_edited(&inner) => {
                 MessageKind::ForumTopicEdited(ForumTopicEditedMessage::from(inner))

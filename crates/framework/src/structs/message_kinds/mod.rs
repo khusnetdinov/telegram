@@ -2,7 +2,7 @@ pub mod animation_message;
 pub mod audio_message;
 pub mod boost_added;
 pub mod channel_chat_created;
-pub mod chat_background_set_message;
+pub mod chat_background;
 pub mod chat_shared_message;
 pub mod command_message;
 pub mod connected_website_message;
