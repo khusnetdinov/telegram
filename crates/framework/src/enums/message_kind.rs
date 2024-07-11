@@ -3,7 +3,7 @@ use crate::structs::message_kinds::audio_message::AudioMessage;
 use crate::structs::message_kinds::boost_added::ChatBoostAdded;
 use crate::structs::message_kinds::channel_chat_created::ChannelChatCreated;
 use crate::structs::message_kinds::chat_background::ChatBackground;
-use crate::structs::message_kinds::chat_shared_message::ChatSharedMessage;
+use crate::structs::message_kinds::chat_shared::ChatShared;
 use crate::structs::message_kinds::command_message::CommandMessage;
 use crate::structs::message_kinds::connected_website_message::ConnectedWebsiteMessage;
 use crate::structs::message_kinds::contract_message::ContactMessage;
@@ -137,7 +137,7 @@ pub enum MessageKind {
     /// Service message: users were shared with the bot
     UsersShared(UsersSharedMessage),
     /// Service message: a chat was shared with the bot
-    ChatShared(ChatSharedMessage),
+    ChatShared(ChatShared),
     /// The domain name of the website on which the user has logged in.
     ConnectedWebsite(ConnectedWebsiteMessage),
     /// Service message: the user allowed the bot to write messages after adding it to the attachment
@@ -252,7 +252,7 @@ impl From<Inner> for MessageKind {
                 MessageKind::UsersShared(UsersSharedMessage::from(inner))
             }
             inner if Self::is_chat_shared(&inner) => {
-                MessageKind::ChatShared(ChatSharedMessage::from(inner))
+                MessageKind::ChatShared(ChatShared::from(inner))
             }
             inner if Self::is_connected_website(&inner) => {
                 MessageKind::ConnectedWebsite(ConnectedWebsiteMessage::from(inner))

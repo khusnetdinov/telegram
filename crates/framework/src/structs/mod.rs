@@ -11,6 +11,7 @@ pub mod message_id;
 pub mod message_kinds;
 pub mod options;
 pub mod order_info;
+pub mod photo_size;
 pub mod poll_option;
 pub mod reactions;
 pub mod shipping_address;

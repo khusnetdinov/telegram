@@ -1,5 +1,5 @@
+use crate::enums::background_type::BackgroundType;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::background_type::BackgroundType;
 use telegram_bots_api::api::structs::chat_background::ChatBackground as Remote;
 use telegram_bots_api::api::structs::message::Message;
 
@@ -9,7 +9,10 @@ pub struct ChatBackground {
 }
 impl From<Remote> for ChatBackground {
     fn from(remote: Remote) -> Self {
-        Self { kind: remote.kind }
+        Self {
+            // TODO: #[remote(into)]
+            kind: remote.kind.into(),
+        }
     }
 }
 impl From<Message> for ChatBackground {
