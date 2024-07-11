@@ -4,7 +4,7 @@ use crate::structs::message_kinds::boost_added::ChatBoostAdded;
 use crate::structs::message_kinds::channel_chat_created::ChannelChatCreated;
 use crate::structs::message_kinds::chat_background::ChatBackground;
 use crate::structs::message_kinds::chat_shared::ChatShared;
-use crate::structs::message_kinds::command_message::CommandMessage;
+use crate::structs::message_kinds::command::Command;
 use crate::structs::message_kinds::connected_website_message::ConnectedWebsiteMessage;
 use crate::structs::message_kinds::contract_message::ContactMessage;
 use crate::structs::message_kinds::delete_chat_photo_message::DeleteChatPhotoMessage;
@@ -61,7 +61,7 @@ pub enum MessageKind {
     /// Text messages, the actual UTF-8 text of the message
     Text(TextMessage),
     /// Command text messages, the actual UTF-8 text of the message
-    Command(CommandMessage),
+    Command(Command),
     /// Message is an animation, information about the animation. For backward compatibility,
     /// when this field is set, the document field will also be set
     Animation(AnimationMessage),
@@ -190,7 +190,7 @@ impl From<Inner> for MessageKind {
     fn from(inner: Inner) -> Self {
         match inner {
             inner if Self::is_text(&inner) => MessageKind::Text(TextMessage::from(inner)),
-            inner if Self::is_command(&inner) => MessageKind::Command(CommandMessage::from(inner)),
+            inner if Self::is_command(&inner) => MessageKind::Command(Command::from(inner)),
             inner if Self::is_animation(&inner) => {
                 MessageKind::Animation(AnimationMessage::from(inner))
             }

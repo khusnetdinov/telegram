@@ -4,7 +4,7 @@ pub mod boost_added;
 pub mod channel_chat_created;
 pub mod chat_background;
 pub mod chat_shared;
-pub mod command_message;
+pub mod command;
 pub mod connected_website_message;
 pub mod contract_message;
 pub mod delete_chat_photo_message;
