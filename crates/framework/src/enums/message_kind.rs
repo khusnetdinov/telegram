@@ -1,7 +1,7 @@
 use crate::structs::message_kinds::animation_message::AnimationMessage;
 use crate::structs::message_kinds::audio_message::AudioMessage;
-use crate::structs::message_kinds::boost_added_message::ChatBoostAddedMessage;
-use crate::structs::message_kinds::channel_chat_created_message::ChannelChatCreatedMessage;
+use crate::structs::message_kinds::boost_added::ChatBoostAdded;
+use crate::structs::message_kinds::channel_chat_created::ChannelChatCreated;
 use crate::structs::message_kinds::chat_background_set_message::ChatBackgroundMessage;
 use crate::structs::message_kinds::chat_shared_message::ChatSharedMessage;
 use crate::structs::message_kinds::command_message::CommandMessage;
@@ -114,7 +114,7 @@ pub enum MessageKind {
     /// Service message: the channel has been created. This field can't be received in a message
     /// coming through updates, because bot can't be a member of a channel when it is created. It can
     /// only be found in reply_to_message if someone replies to a very first message in a channel.
-    ChannelChatCreated(ChannelChatCreatedMessage),
+    ChannelChatCreated(ChannelChatCreated),
     /// Service message: auto-delete timer settings changed in the chat
     MessageAutoDeleteTimerChanged(MessageAutoDeleteTimerChangedMessage),
     /// The group has been migrated to a supergroup with the specified identifier. This number may
@@ -149,7 +149,7 @@ pub enum MessageKind {
     /// Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
     ProximityAlertTriggered(ProximityAlertTriggeredMessage),
     /// Service message: user boosted the chat
-    ChatBoostAdded(ChatBoostAddedMessage),
+    ChatBoostAdded(ChatBoostAdded),
     /// Service message: chat background set
     ChatBackground(ChatBackgroundMessage),
     ///  Service message: forum topic created
@@ -228,7 +228,7 @@ impl From<Inner> for MessageKind {
                 MessageKind::SupergroupChatCreated(SupergroupChatCreatedMessage::from(inner))
             }
             inner if Self::is_channel_chat_created(&inner) => {
-                MessageKind::ChannelChatCreated(ChannelChatCreatedMessage::from(inner))
+                MessageKind::ChannelChatCreated(ChannelChatCreated::from(inner))
             }
             inner if Self::is_message_auto_delete_timer_changed(&inner) => {
                 MessageKind::MessageAutoDeleteTimerChanged(
@@ -267,7 +267,7 @@ impl From<Inner> for MessageKind {
                 MessageKind::ProximityAlertTriggered(ProximityAlertTriggeredMessage::from(inner))
             }
             inner if Self::is_boost_added(&inner) => {
-                MessageKind::ChatBoostAdded(ChatBoostAddedMessage::from(inner))
+                MessageKind::ChatBoostAdded(ChatBoostAdded::from(inner))
             }
             inner if Self::is_chat_background_set(&inner) => {
                 MessageKind::ChatBackground(ChatBackgroundMessage::from(inner))

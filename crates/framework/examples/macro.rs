@@ -1,12 +1,10 @@
-use telegram_bots_api::api::structs::shipping_address::ShippingAddress;
-use telegram_bots_api::api::structs::shipping_query::ShippingQuery as Remote;
-use telegram_bots_api::api::structs::user::User;
+use telegram_bots_api::api::enums::background_type::BackgroundType;
+use telegram_bots_api::api::structs::chat_background::ChatBackground as Remote;
+use telegram_bots_api::api::structs::message::Message;
 use telegram_macros::FromRemote;
 
 #[derive(FromRemote)]
-pub struct ShippingQuery {
-    pub id: String,
-    pub from: User,
-    pub invoice_payload: String,
-    pub shipping_address: ShippingAddress,
+pub struct ChatBackground {
+    // #[serde(rename(serialize = "type", deserialize = "type"))]
+    pub kind: BackgroundType,
 }

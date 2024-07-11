@@ -1,17 +1,17 @@
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct ChannelChatCreatedMessage {
+pub struct ChannelChatCreated {
     pub channel_chat_created: bool,
 }
 
-impl From<Inner> for ChannelChatCreatedMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for ChannelChatCreated {
+    fn from(remote: Message) -> Self {
+        let Message {
             channel_chat_created,
             ..
-        } = inner;
+        } = remote;
 
         Self {
             channel_chat_created: channel_chat_created.unwrap(),
