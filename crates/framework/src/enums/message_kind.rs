@@ -7,7 +7,7 @@ use crate::structs::message_kinds::chat_shared::ChatShared;
 use crate::structs::message_kinds::command::Command;
 use crate::structs::message_kinds::connected_website_message::ConnectedWebsiteMessage;
 use crate::structs::message_kinds::contract_message::ContactMessage;
-use crate::structs::message_kinds::delete_chat_photo_message::DeleteChatPhotoMessage;
+use crate::structs::message_kinds::delete_chat_photo::DeleteChatPhoto;
 use crate::structs::message_kinds::dice::Dice;
 use crate::structs::message_kinds::document_message::DocumentMessage;
 use crate::structs::message_kinds::forum_topic_closed_message::ForumTopicClosedMessage;
@@ -21,16 +21,16 @@ use crate::structs::message_kinds::giveaway_completed_message::GiveawayCompleted
 use crate::structs::message_kinds::giveaway_created_message::GiveawayCreatedMessage;
 use crate::structs::message_kinds::giveaway_message::GiveawayMessage;
 use crate::structs::message_kinds::giveaway_winners_message::GiveawayWinnersMessage;
-use crate::structs::message_kinds::group_chat_created_message::GroupChatCreatedMessage;
+use crate::structs::message_kinds::group_chat_created::GroupChatCreated;
 use crate::structs::message_kinds::invoice_message::InvoiceMessage;
 use crate::structs::message_kinds::left_chat_membe_message::LeftChatMemberMessage;
 use crate::structs::message_kinds::location::Location;
 use crate::structs::message_kinds::message_auto_delete_timer_changed_message::MessageAutoDeleteTimerChangedMessage;
-use crate::structs::message_kinds::migrate_from_chat_message::MigrateFromChatMessage;
-use crate::structs::message_kinds::migrate_to_chat_message::MigrateToChatMessage;
+use crate::structs::message_kinds::migrate_from_chat::MigrateFromChat;
+use crate::structs::message_kinds::migrate_to_chat::MigrateToChat;
 use crate::structs::message_kinds::new_chat_members_message::NewChatMembersMessage;
 use crate::structs::message_kinds::new_chat_photo_message::NewChatPhotoMessage;
-use crate::structs::message_kinds::new_chat_title_message::NewChatTitleMessage;
+use crate::structs::message_kinds::new_chat_title::NewChatTitle;
 use crate::structs::message_kinds::passport_data_message::PassportDataMessage;
 use crate::structs::message_kinds::photo_message::PhotoMessage;
 use crate::structs::message_kinds::pinned_message::PinnedMessage;
@@ -39,7 +39,7 @@ use crate::structs::message_kinds::proximity_alert_triggered_message::ProximityA
 use crate::structs::message_kinds::sticker_message::StickerMessage;
 use crate::structs::message_kinds::story_message::StoryMessage;
 use crate::structs::message_kinds::successful_payment_message::SuccessfulPaymentMessage;
-use crate::structs::message_kinds::supergroup_chat_created_message::SupergroupChatCreatedMessage;
+use crate::structs::message_kinds::supergroup_chat_created::SupergroupChatCreated;
 use crate::structs::message_kinds::text_message::TextMessage;
 use crate::structs::message_kinds::users_shared_message::UsersSharedMessage;
 use crate::structs::message_kinds::venue_message::VenueMessage;
@@ -99,18 +99,18 @@ pub enum MessageKind {
     /// A member was removed from the group, information about them (this member may be the bot itself)
     LeftChatMember(LeftChatMemberMessage),
     /// A chat title was changed to this value
-    NewChatTitle(NewChatTitleMessage),
+    NewChatTitle(NewChatTitle),
     /// A chat photo was change to this value
     NewChatPhoto(NewChatPhotoMessage),
     /// Service message: the chat photo was deleted
-    DeleteChatPhoto(DeleteChatPhotoMessage),
+    DeleteChatPhoto(DeleteChatPhoto),
     /// Service message: the group has been created
-    GroupChatCreated(GroupChatCreatedMessage),
+    GroupChatCreated(GroupChatCreated),
     ///  Service message: the supergroup has been created. This field can't be received in a message
     /// coming through updates, because bot can't be a member of a supergroup when it is created.
     /// It can only be found in reply_to_message if someone replies to a very first message in a
     /// directly created supergroup.
-    SupergroupChatCreated(SupergroupChatCreatedMessage),
+    SupergroupChatCreated(SupergroupChatCreated),
     /// Service message: the channel has been created. This field can't be received in a message
     /// coming through updates, because bot can't be a member of a channel when it is created. It can
     /// only be found in reply_to_message if someone replies to a very first message in a channel.
@@ -121,12 +121,12 @@ pub enum MessageKind {
     /// have more than 32 significant bits and some programming languages may have difficulty/silent
     /// defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer
     /// or double-precision float type are safe for storing this identifier.
-    MigrateToChat(MigrateToChatMessage),
+    MigrateToChat(MigrateToChat),
     /// The supergroup has been migrated from a group with the specified identifier. This number may
     /// have more than 32 significant bits and some programming languages may have difficulty/silent
     /// defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer
     /// or double-precision float type are safe for storing this identifier.
-    MigrateFromChat(MigrateFromChatMessage),
+    MigrateFromChat(MigrateFromChat),
     /// Specified message was pinned. Note that the Message object in this field will not contain
     /// further reply_to_message fields even if it itself is a reply.
     Pinned(PinnedMessage),
@@ -213,19 +213,19 @@ impl From<Inner> for MessageKind {
                 MessageKind::LeftChatMember(LeftChatMemberMessage::from(inner))
             }
             inner if Self::is_new_chat_title(&inner) => {
-                MessageKind::NewChatTitle(NewChatTitleMessage::from(inner))
+                MessageKind::NewChatTitle(NewChatTitle::from(inner))
             }
             inner if Self::is_new_chat_photo(&inner) => {
                 MessageKind::NewChatPhoto(NewChatPhotoMessage::from(inner))
             }
             inner if Self::is_delete_chat_photo(&inner) => {
-                MessageKind::DeleteChatPhoto(DeleteChatPhotoMessage::from(inner))
+                MessageKind::DeleteChatPhoto(DeleteChatPhoto::from(inner))
             }
             inner if Self::is_group_chat_created(&inner) => {
-                MessageKind::GroupChatCreated(GroupChatCreatedMessage::from(inner))
+                MessageKind::GroupChatCreated(GroupChatCreated::from(inner))
             }
             inner if Self::is_supergroup_chat_created(&inner) => {
-                MessageKind::SupergroupChatCreated(SupergroupChatCreatedMessage::from(inner))
+                MessageKind::SupergroupChatCreated(SupergroupChatCreated::from(inner))
             }
             inner if Self::is_channel_chat_created(&inner) => {
                 MessageKind::ChannelChatCreated(ChannelChatCreated::from(inner))
@@ -236,10 +236,10 @@ impl From<Inner> for MessageKind {
                 )
             }
             inner if Self::is_migrate_to_chat_id(&inner) => {
-                MessageKind::MigrateToChat(MigrateToChatMessage::from(inner))
+                MessageKind::MigrateToChat(MigrateToChat::from(inner))
             }
             inner if Self::is_migrate_from_chat_id(&inner) => {
-                MessageKind::MigrateFromChat(MigrateFromChatMessage::from(inner))
+                MessageKind::MigrateFromChat(MigrateFromChat::from(inner))
             }
             inner if Self::is_pinned_message(&inner) => {
                 MessageKind::Pinned(PinnedMessage::from(inner))
