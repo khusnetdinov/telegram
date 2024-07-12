@@ -6,7 +6,7 @@ pub mod chat_background;
 pub mod chat_shared;
 pub mod command;
 pub mod connected_website;
-pub mod contract_message;
+pub mod contract;
 pub mod delete_chat_photo;
 pub mod dice;
 pub mod document_message;

@@ -6,7 +6,7 @@ use crate::structs::message_kinds::chat_background::ChatBackground;
 use crate::structs::message_kinds::chat_shared::ChatShared;
 use crate::structs::message_kinds::command::Command;
 use crate::structs::message_kinds::connected_website::ConnectedWebsite;
-use crate::structs::message_kinds::contract_message::ContactMessage;
+use crate::structs::message_kinds::contract::Contact;
 use crate::structs::message_kinds::delete_chat_photo::DeleteChatPhoto;
 use crate::structs::message_kinds::dice::Dice;
 use crate::structs::message_kinds::document_message::DocumentMessage;
@@ -82,7 +82,7 @@ pub enum MessageKind {
     /// Message is a voice message, information about the file
     Voice(VoiceMessage),
     /// Message is a shared contact, information about the contact
-    Contact(ContactMessage),
+    Contact(Contact),
     /// Message is a dice with random value
     Dice(Dice),
     /// Message is a game, information about the game.
@@ -200,7 +200,7 @@ impl From<Inner> for MessageKind {
             }
             inner if Self::is_photo(&inner) => MessageKind::Photo(PhotoMessage::from(inner)),
             inner if Self::is_sticker(&inner) => MessageKind::Sticker(StickerMessage::from(inner)),
-            inner if Self::is_contact(&inner) => MessageKind::Contact(ContactMessage::from(inner)),
+            inner if Self::is_contact(&inner) => MessageKind::Contact(Contact::from(inner)),
             inner if Self::is_dice(&inner) => MessageKind::Dice(Dice::from(inner)),
             inner if Self::is_game(&inner) => MessageKind::Game(GameMessage::from(inner)),
             inner if Self::is_poll(&inner) => MessageKind::Poll(Poll::from(inner)),
