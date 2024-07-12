@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::animation::Animation;
 use telegram_bots_api::api::structs::document::Document;
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -15,9 +15,9 @@ pub struct AnimationMessage {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<Inner> for AnimationMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for AnimationMessage {
+    fn from(remote: Message) -> Self {
+        let Message {
             animation,
             document,
             media_group_id,
@@ -26,7 +26,7 @@ impl From<Inner> for AnimationMessage {
             caption_entities,
             show_caption_above_media,
             ..
-        } = inner;
+        } = remote;
 
         Self {
             animation: animation.unwrap(),

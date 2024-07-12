@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::link_preview_options::LinkPreviewOptions;
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -10,14 +10,14 @@ pub struct TextMessage {
     pub link_preview_options: Option<LinkPreviewOptions>,
 }
 
-impl From<Inner> for TextMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for TextMessage {
+    fn from(remote: Message) -> Self {
+        let Message {
             text,
             entities,
             link_preview_options,
             ..
-        } = inner;
+        } = remote;
 
         Self {
             text: text.unwrap(),

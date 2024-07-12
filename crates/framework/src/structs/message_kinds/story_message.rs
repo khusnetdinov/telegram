@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::story::Story;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -9,14 +9,14 @@ pub struct StoryMessage {
     pub has_media_spoiler: Option<bool>,
 }
 
-impl From<Inner> for StoryMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for StoryMessage {
+    fn from(remote: Message) -> Self {
+        let Message {
             story,
             media_group_id,
             has_media_spoiler,
             ..
-        } = inner;
+        } = remote;
 
         Self {
             story: story.unwrap(),

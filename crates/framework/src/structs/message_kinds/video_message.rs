@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
 use telegram_bots_api::api::structs::video::Video;
 
@@ -13,9 +13,9 @@ pub struct VideoMessage {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<Inner> for VideoMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for VideoMessage {
+    fn from(remote: Message) -> Self {
+        let Message {
             video,
             media_group_id,
             has_media_spoiler,
@@ -23,7 +23,7 @@ impl From<Inner> for VideoMessage {
             caption_entities,
             show_caption_above_media,
             ..
-        } = inner;
+        } = remote;
 
         Self {
             video: video.unwrap(),

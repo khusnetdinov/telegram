@@ -1,18 +1,18 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::general_forum_topic_hidden::GeneralForumTopicHidden;
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct GeneralForumTopicHiddenMessage {
     pub general_forum_topic_hidden: GeneralForumTopicHidden,
 }
 
-impl From<Inner> for GeneralForumTopicHiddenMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for GeneralForumTopicHiddenMessage {
+    fn from(remote: Message) -> Self {
+        let Message {
             general_forum_topic_hidden,
             ..
-        } = inner;
+        } = remote;
 
         Self {
             general_forum_topic_hidden: general_forum_topic_hidden.unwrap(),

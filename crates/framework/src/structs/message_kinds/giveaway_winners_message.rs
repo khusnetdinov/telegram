@@ -1,15 +1,15 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::giveaway_winners::GiveawayWinners;
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct GiveawayWinnersMessage {
     pub giveaway_winners: GiveawayWinners,
 }
 
-impl From<Inner> for GiveawayWinnersMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for GiveawayWinnersMessage {
+    fn from(inner: Message) -> Self {
+        let Message {
             giveaway_winners, ..
         } = inner;
 

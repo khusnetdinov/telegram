@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::write_access_allowed::WriteAccessAllowed;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -7,12 +7,12 @@ pub struct WriteAccessAllowedMessage {
     pub write_access_allowed: WriteAccessAllowed,
 }
 
-impl From<Inner> for WriteAccessAllowedMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for WriteAccessAllowedMessage {
+    fn from(remote: Message) -> Self {
+        let Message {
             write_access_allowed,
             ..
-        } = inner;
+        } = remote;
 
         Self {
             write_access_allowed: write_access_allowed.unwrap(),
