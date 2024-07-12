@@ -1,16 +1,16 @@
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message as Inner;
+use telegram_bots_api::api::structs::message::Message;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct ConnectedWebsiteMessage {
+pub struct ConnectedWebsite {
     pub connected_website: String,
 }
 
-impl From<Inner> for ConnectedWebsiteMessage {
-    fn from(inner: Inner) -> Self {
-        let Inner {
+impl From<Message> for ConnectedWebsite {
+    fn from(remote: Message) -> Self {
+        let Message {
             connected_website, ..
-        } = inner;
+        } = remote;
 
         Self {
             connected_website: connected_website.unwrap(),

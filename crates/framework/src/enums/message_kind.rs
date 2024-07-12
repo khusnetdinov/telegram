@@ -5,7 +5,7 @@ use crate::structs::message_kinds::channel_chat_created::ChannelChatCreated;
 use crate::structs::message_kinds::chat_background::ChatBackground;
 use crate::structs::message_kinds::chat_shared::ChatShared;
 use crate::structs::message_kinds::command::Command;
-use crate::structs::message_kinds::connected_website_message::ConnectedWebsiteMessage;
+use crate::structs::message_kinds::connected_website::ConnectedWebsite;
 use crate::structs::message_kinds::contract_message::ContactMessage;
 use crate::structs::message_kinds::delete_chat_photo::DeleteChatPhoto;
 use crate::structs::message_kinds::dice::Dice;
@@ -139,7 +139,7 @@ pub enum MessageKind {
     /// Service message: a chat was shared with the bot
     ChatShared(ChatShared),
     /// The domain name of the website on which the user has logged in.
-    ConnectedWebsite(ConnectedWebsiteMessage),
+    ConnectedWebsite(ConnectedWebsite),
     /// Service message: the user allowed the bot to write messages after adding it to the attachment
     /// or side menu, launching a Web App from a link, or accepting an explicit request from a Web App
     /// sent by the method requestWriteAccess
@@ -255,7 +255,7 @@ impl From<Inner> for MessageKind {
                 MessageKind::ChatShared(ChatShared::from(inner))
             }
             inner if Self::is_connected_website(&inner) => {
-                MessageKind::ConnectedWebsite(ConnectedWebsiteMessage::from(inner))
+                MessageKind::ConnectedWebsite(ConnectedWebsite::from(inner))
             }
             inner if Self::is_write_access_allowed(&inner) => {
                 MessageKind::WriteAccessAllowed(WriteAccessAllowedMessage::from(inner))
