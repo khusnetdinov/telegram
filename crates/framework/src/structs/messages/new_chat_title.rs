@@ -8,10 +8,14 @@ pub struct NewChatTitle {
 
 impl From<Message> for NewChatTitle {
     fn from(remote: Message) -> Self {
-        let Message { new_chat_title, .. } = remote;
+        let Message {
+            new_chat_title: Some(new_chat_title),
+            ..
+        } = remote
+        else {
+            unreachable!()
+        };
 
-        Self {
-            new_chat_title: new_chat_title.unwrap(),
-        }
+        Self { new_chat_title }
     }
 }

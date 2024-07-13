@@ -1,6 +1,6 @@
+use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
-use telegram_bots_api::api::structs::user::User;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct NewChatMembersMessage {
@@ -10,11 +10,19 @@ pub struct NewChatMembersMessage {
 impl From<Message> for NewChatMembersMessage {
     fn from(remote: Message) -> Self {
         let Message {
-            new_chat_members, ..
-        } = remote;
+            new_chat_members: Some(new_chat_members),
+            ..
+        } = remote
+        else {
+            unreachable!()
+        };
 
         Self {
-            new_chat_members: new_chat_members.unwrap(),
+            // TODO: #[remote(map, into)]
+            new_chat_members: new_chat_members
+                .iter()
+                .map(|inner| inner.to_owned().into())
+                .collect(),
         }
     }
 }
