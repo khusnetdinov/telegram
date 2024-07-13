@@ -8,6 +8,7 @@ pub mod chat_invite_link;
 pub mod chat_members;
 pub mod encrypted_credentials;
 pub mod encrypted_passport_element;
+mod link_preview_options;
 pub mod message_entity;
 pub mod message_id;
 pub mod messages;
