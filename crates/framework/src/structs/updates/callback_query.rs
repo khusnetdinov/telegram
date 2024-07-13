@@ -25,7 +25,7 @@ impl From<Remote> for CallbackQuery {
             // TODO: #[remote(into)]
             from: remote.from.into(),
             chat_instance: remote.chat_instance,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             message: remote.message.map(|inner| inner.into()),
             inline_message_id: remote.inline_message_id,
             data: remote.data,

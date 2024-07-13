@@ -26,7 +26,7 @@ impl From<Remote> for ChatJoinRequest {
             user_chat_id: remote.user_chat_id,
             date: remote.date,
             bio: remote.bio,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             invite_link: remote.invite_link.map(|inner| inner.into()),
         }
     }

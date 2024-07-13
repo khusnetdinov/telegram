@@ -23,7 +23,7 @@ impl From<Remote> for InlineQuery {
             query: remote.query,
             offset: remote.offset,
             chat_type: remote.chat_type,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             location: remote.location.map(|inner| inner.into()),
         }
     }

@@ -17,9 +17,9 @@ impl From<Remote> for PollAnswer {
         Self {
             poll_id: remote.poll_id,
             option_ids: remote.option_ids,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             voter_chat: remote.voter_chat.map(|inner| inner.into()),
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             user: remote.user.map(|inner| inner.into()),
         }
     }

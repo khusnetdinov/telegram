@@ -15,7 +15,7 @@ impl From<Remote> for OrderInfo {
             name: remote.name,
             phone_number: remote.phone_number,
             email: remote.email,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             shipping_address: remote.shipping_address.map(|inner| inner.into()),
         }
     }

@@ -25,21 +25,21 @@ impl From<Remote> for MessageReactionUpdated {
             // TODO: #[remote(into)]
             message_id: remote.message_id.into(),
             date: remote.date,
-            // TODO: #[remote(map)]
+            // TODO: #[remote(map, into)]
             old_reaction: remote
                 .old_reaction
                 .iter()
                 .map(|inner| inner.to_owned().into())
                 .collect(),
-            // TODO: #[remote(map)]
+            // TODO: #[remote(map, into)]
             new_reaction: remote
                 .new_reaction
                 .iter()
                 .map(|inner| inner.to_owned().into())
                 .collect(),
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             user: remote.user.map(|inner| inner.into()),
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             actor_chat: remote.actor_chat.map(|inner| inner.into()),
         }
     }

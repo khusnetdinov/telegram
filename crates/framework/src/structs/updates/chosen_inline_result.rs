@@ -20,7 +20,7 @@ impl From<Remote> for ChosenInlineResult {
             // TODO: #[remote(into)]
             from: remote.from.into(),
             query: remote.query,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             location: remote.location.map(|inner| inner.into()),
             inline_message_id: remote.inline_message_id,
         }

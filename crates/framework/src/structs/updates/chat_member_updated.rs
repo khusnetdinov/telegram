@@ -31,7 +31,7 @@ impl From<Remote> for ChatMemberUpdated {
             old_chat_member: remote.old_chat_member.into(),
             // TODO: #[remote(into)]
             new_chat_member: remote.new_chat_member.into(),
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             invite_link: remote.invite_link.map(|inner| inner.into()),
             via_join_request: remote.via_join_request,
             via_chat_folder_invite_link: remote.via_chat_folder_invite_link,

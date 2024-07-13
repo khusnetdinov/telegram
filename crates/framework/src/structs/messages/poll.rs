@@ -44,13 +44,13 @@ impl From<Remote> for Poll {
             is_closed: remote.is_closed,
             is_anonymous: remote.is_anonymous,
             allows_multiple_answers: remote.allows_multiple_answers,
-            // TODO: #[remote(option, into)]
+            // TODO: #[remote(option, map, into)]
             question_entities: remote
                 .question_entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
             correct_option_id: remote.correct_option_id,
             explanation: remote.explanation,
-            // TODO: #[remote(option, into)]
+            // TODO: #[remote(option, map, into)]
             explanation_entities: remote
                 .explanation_entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),

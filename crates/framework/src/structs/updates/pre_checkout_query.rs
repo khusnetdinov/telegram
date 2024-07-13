@@ -26,7 +26,7 @@ impl From<Remote> for PreCheckoutQuery {
             total_amount: remote.total_amount,
             invoice_payload: remote.invoice_payload,
             shipping_option_id: remote.shipping_option_id,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             order_info: remote.order_info.map(|inner| inner.into()),
         }
     }

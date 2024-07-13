@@ -24,7 +24,7 @@ impl From<Remote> for MessageEntity {
             offset: remote.offset,
             length: remote.length,
             url: remote.url,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             user: remote.user.map(|inner| inner.into()),
             language: remote.language,
             custom_emoji_id: remote.custom_emoji_id,

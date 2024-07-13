@@ -14,7 +14,7 @@ impl From<Remote> for PollOption {
         Self {
             text: remote.text,
             voter_count: remote.voter_count,
-            // TODO: #[remote(option, into)]
+            // TODO: #[remote(option, map, into)]
             text_entities: remote
                 .text_entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),

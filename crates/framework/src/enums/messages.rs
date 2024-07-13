@@ -17,10 +17,10 @@ use crate::structs::messages::forum_topic_reopened::ForumTopicReopened;
 use crate::structs::messages::game_message::GameMessage;
 use crate::structs::messages::general_forum_topic_hidden::GeneralForumTopicHidden;
 use crate::structs::messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
-use crate::structs::messages::giveaway_completed_message::GiveawayCompletedMessage;
-use crate::structs::messages::giveaway_created_message::GiveawayCreatedMessage;
-use crate::structs::messages::giveaway_message::GiveawayMessage;
-use crate::structs::messages::giveaway_winners_message::GiveawayWinnersMessage;
+use crate::structs::messages::giveaway::Giveaway;
+use crate::structs::messages::giveaway_completed::GiveawayCompleted;
+use crate::structs::messages::giveaway_created::GiveawayCreated;
+use crate::structs::messages::giveaway_winners::GiveawayWinners;
 use crate::structs::messages::group_chat_created::GroupChatCreated;
 use crate::structs::messages::invoice_message::InvoiceMessage;
 use crate::structs::messages::left_chat_membe_message::LeftChatMemberMessage;
@@ -165,13 +165,13 @@ pub enum Messages {
     /// Service message: the 'General' forum topic unhidden
     GeneralForumTopicUnhidden(GeneralForumTopicUnhidden),
     /// Service message: a scheduled giveaway was created
-    GiveawayCreated(GiveawayCreatedMessage),
+    GiveawayCreated(GiveawayCreated),
     /// The message is a scheduled giveaway message
-    Giveaway(GiveawayMessage),
+    Giveaway(Giveaway),
     /// A giveaway with public winners was completed
-    GiveawayWinners(GiveawayWinnersMessage),
+    GiveawayWinners(GiveawayWinners),
     /// Service message: a giveaway without public winners was completed
-    GiveawayCompleted(GiveawayCompletedMessage),
+    GiveawayCompleted(GiveawayCompleted),
     /// Service message: video chat scheduled
     VideoChatScheduled(VideoChatScheduledMessage),
     /// Service message: video chat started
@@ -286,15 +286,15 @@ impl From<Inner> for Messages {
             inner if Self::is_general_forum_topic_unhidden(&inner) => {
                 Messages::GeneralForumTopicUnhidden(GeneralForumTopicUnhidden::from(inner))
             }
-            inner if Self::is_giveaway_created(&inner) => {
-                Messages::GiveawayCreated(GiveawayCreatedMessage::from(inner))
-            }
-            inner if Self::is_giveaway(&inner) => Messages::Giveaway(GiveawayMessage::from(inner)),
-            inner if Self::is_giveaway_winners(&inner) => {
-                Messages::GiveawayWinners(GiveawayWinnersMessage::from(inner))
-            }
+            // inner if Self::is_giveaway_created(&inner) => {
+            //     Messages::GiveawayCreated(GiveawayCreated::from(inner))
+            // }
+            inner if Self::is_giveaway(&inner) => Messages::Giveaway(Giveaway::from(inner)),
+            // inner if Self::is_giveaway_winners(&inner) => {
+            //     Messages::GiveawayWinners(GiveawayWinners::from(inner))
+            // }
             inner if Self::is_giveaway_completed(&inner) => {
-                Messages::GiveawayCompleted(GiveawayCompletedMessage::from(inner))
+                Messages::GiveawayCompleted(GiveawayCompleted::from(inner))
             }
             inner if Self::is_video_chat_scheduled(&inner) => {
                 Messages::VideoChatScheduled(VideoChatScheduledMessage::from(inner))

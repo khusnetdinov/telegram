@@ -21,7 +21,7 @@ impl From<Remote> for ChatShared {
             chat_id: remote.chat_id,
             title: remote.title,
             username: remote.username,
-            // TODO: #[remote(option,map)]
+            // TODO: #[remote(option, map, into)]
             photo: remote
                 .photo
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),

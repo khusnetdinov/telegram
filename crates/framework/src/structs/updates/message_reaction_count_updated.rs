@@ -19,7 +19,7 @@ impl From<Remote> for MessageReactionCountUpdated {
             // TODO: #[remote(into)]
             message_id: remote.message_id.into(),
             date: remote.date,
-            // TODO: #[remote(map)]
+            // TODO: #[remote(map, into)]
             reactions: remote
                 .reactions
                 .iter()

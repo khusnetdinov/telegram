@@ -17,7 +17,7 @@ impl From<Remote> for ChatBoostSourceGiveaway {
         Self {
             source: remote.source,
             giveaway_message_id: remote.giveaway_message_id,
-            // TODO: #[remote(option)]
+            // TODO: #[remote(option, into)]
             user: remote.user.map(|inner| inner.into()),
             is_unclaimed: remote.is_unclaimed,
         }
