@@ -42,16 +42,16 @@ use crate::structs::messages::successful_payment::SuccessfulPayment;
 use crate::structs::messages::supergroup_chat_created::SupergroupChatCreated;
 use crate::structs::messages::text::Text;
 use crate::structs::messages::users_shared::UsersShared;
-use crate::structs::messages::venue_message::VenueMessage;
-use crate::structs::messages::video_chat_ended_message::VideoChatEndedMessage;
-use crate::structs::messages::video_chat_participants_invited_message::VideoChatParticipantsInvitedMessage;
-use crate::structs::messages::video_chat_scheduled_message::VideoChatScheduledMessage;
-use crate::structs::messages::video_chat_started_message::VideoChatStartedMessage;
+use crate::structs::messages::venue::Venue;
+use crate::structs::messages::video_chat_ended::VideoChatEnded;
+use crate::structs::messages::video_chat_participants_invited::VideoChatParticipantsInvited;
+use crate::structs::messages::video_chat_scheduled::VideoChatScheduled;
+use crate::structs::messages::video_chat_started::VideoChatStarted;
 use crate::structs::messages::video_message::VideoMessage;
 use crate::structs::messages::video_note_message::VideoNoteMessage;
 use crate::structs::messages::voice_message::VoiceMessage;
-use crate::structs::messages::web_app_data_message::WebAppDataMessage;
-use crate::structs::messages::write_access_allowed_message::WriteAccessAllowedMessage;
+use crate::structs::messages::web_app_data::WebAppData;
+use crate::structs::messages::write_access_allowed::WriteAccessAllowed;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as Inner;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
@@ -90,7 +90,7 @@ pub enum Messages {
     /// Message is a native poll, information about the poll
     Poll(Poll),
     /// Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
-    Venue(VenueMessage),
+    Venue(Venue),
     ///  Message is a shared location, information about the location
     Location(Location),
     /// New members that were added to the group or supergroup and information about them (the bot
@@ -143,7 +143,7 @@ pub enum Messages {
     /// Service message: the user allowed the bot to write messages after adding it to the attachment
     /// or side menu, launching a Web App from a link, or accepting an explicit request from a Web App
     /// sent by the method requestWriteAccess
-    WriteAccessAllowed(WriteAccessAllowedMessage),
+    WriteAccessAllowed(WriteAccessAllowed),
     /// Telegram Passport data
     PassportData(PassportData),
     /// Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
@@ -173,15 +173,15 @@ pub enum Messages {
     /// Service message: a giveaway without public winners was completed
     GiveawayCompleted(GiveawayCompleted),
     /// Service message: video chat scheduled
-    VideoChatScheduled(VideoChatScheduledMessage),
+    VideoChatScheduled(VideoChatScheduled),
     /// Service message: video chat started
-    VideoChatStarted(VideoChatStartedMessage),
+    VideoChatStarted(VideoChatStarted),
     /// Service message: video chat ended
-    VideoChatEnded(VideoChatEndedMessage),
+    VideoChatEnded(VideoChatEnded),
     /// Service message: new participants invited to a video chat
-    VideoChatParticipantsInvited(VideoChatParticipantsInvitedMessage),
+    VideoChatParticipantsInvited(VideoChatParticipantsInvited),
     /// Service message: data sent by a Web App
-    WebAppData(WebAppDataMessage),
+    WebAppData(WebAppData),
     /// Not Telegram type: for unexpected messages, errors, debugging, logging purpose.
     Unexpected(Inner),
 }
@@ -202,7 +202,7 @@ impl From<Inner> for Messages {
             inner if Self::is_dice(&inner) => Messages::Dice(Dice::from(inner)),
             inner if Self::is_game(&inner) => Messages::Game(GameMessage::from(inner)),
             inner if Self::is_poll(&inner) => Messages::Poll(Poll::from(inner)),
-            inner if Self::is_venue(&inner) => Messages::Venue(VenueMessage::from(inner)),
+            inner if Self::is_venue(&inner) => Messages::Venue(Venue::from(inner)),
             inner if Self::is_location(&inner) => Messages::Location(Location::from(inner)),
             inner if Self::is_new_chat_members(&inner) => {
                 Messages::NewChatMembers(NewChatMembersMessage::from(inner))
@@ -252,7 +252,7 @@ impl From<Inner> for Messages {
                 Messages::ConnectedWebsite(ConnectedWebsite::from(inner))
             }
             inner if Self::is_write_access_allowed(&inner) => {
-                Messages::WriteAccessAllowed(WriteAccessAllowedMessage::from(inner))
+                Messages::WriteAccessAllowed(WriteAccessAllowed::from(inner))
             }
             inner if Self::is_passport_data(&inner) => {
                 Messages::PassportData(PassportData::from(inner))
@@ -295,22 +295,18 @@ impl From<Inner> for Messages {
                 Messages::GiveawayCompleted(GiveawayCompleted::from(inner))
             }
             inner if Self::is_video_chat_scheduled(&inner) => {
-                Messages::VideoChatScheduled(VideoChatScheduledMessage::from(inner))
+                Messages::VideoChatScheduled(VideoChatScheduled::from(inner))
             }
             inner if Self::is_video_chat_started(&inner) => {
-                Messages::VideoChatStarted(VideoChatStartedMessage::from(inner))
+                Messages::VideoChatStarted(VideoChatStarted::from(inner))
             }
             inner if Self::is_video_chat_ended(&inner) => {
-                Messages::VideoChatEnded(VideoChatEndedMessage::from(inner))
+                Messages::VideoChatEnded(VideoChatEnded::from(inner))
             }
             inner if Self::is_video_chat_participants_invited(&inner) => {
-                Messages::VideoChatParticipantsInvited(VideoChatParticipantsInvitedMessage::from(
-                    inner,
-                ))
+                Messages::VideoChatParticipantsInvited(VideoChatParticipantsInvited::from(inner))
             }
-            inner if Self::is_web_app_data(&inner) => {
-                Messages::WebAppData(WebAppDataMessage::from(inner))
-            }
+            inner if Self::is_web_app_data(&inner) => Messages::WebAppData(WebAppData::from(inner)),
             _ => Self::Unexpected(inner),
         }
     }
