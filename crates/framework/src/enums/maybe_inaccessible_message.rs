@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::maybe_inaccessible_message::MaybeInaccessibleMessage as Remote;
 use telegram_bots_api::api::structs::message::Message; // TODO: use crate::structs::update_kinds::message::Message;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum MaybeInaccessibleMessage {
     Message(Box<Message>),
     InaccessibleMessage(InaccessibleMessage),
