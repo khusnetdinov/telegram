@@ -36,7 +36,7 @@ pub mod passport_data;
 pub mod photo_message;
 pub mod pinned_message;
 pub mod poll;
-pub mod proximity_alert_triggered_message;
+pub mod proximity_alert_triggered;
 pub mod sticker_message;
 pub mod story_message;
 pub mod successful_payment_message;
