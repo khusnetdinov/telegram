@@ -1,6 +1,6 @@
 use crate::enums::emoji::Emoji;
 use crate::structs::options::Options;
-use crate::structs::update_kinds::message::Message;
+use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]
 pub trait Dice {

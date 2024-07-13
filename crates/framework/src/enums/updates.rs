@@ -20,7 +20,7 @@ use telegram_bots_api::api::structs::update::Update as Remote;
 /// This object represents an incoming update.
 /// At most one of the optional parameters can be present in any given update.
 #[derive(Debug, Clone)]
-pub enum UpdateKind {
+pub enum Updates {
     /// Optional. New incoming message of any kind - text, photo, sticker, etc.
     Message(Message),
     /// Optional. New version of a message that is known to the bot and was edited. This update
@@ -89,7 +89,7 @@ pub enum UpdateKind {
     Unexpected(Remote),
 }
 
-impl From<Remote> for UpdateKind {
+impl From<Remote> for Updates {
     fn from(remote: Remote) -> Self {
         match remote {
             Remote {

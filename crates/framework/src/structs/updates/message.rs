@@ -1,4 +1,4 @@
-use crate::enums::message_kind::MessageKind;
+use crate::enums::messages::Messages;
 use crate::traits::kind_dispatcher::KindDispatcher;
 use telegram_bots_api::api::enums::message_origin::MessageOrigin;
 use telegram_bots_api::api::structs::chat::Chat;
@@ -74,7 +74,7 @@ pub struct Message {
     /// ordinary url buttons.
     pub reply_markup: Option<InlineKeyboardMarkup>,
     /// Not Telegram type: wrap raw struct with dispatched enum variant
-    pub kind: MessageKind,
+    pub kind: Messages,
 }
 
 impl From<Remote> for Message {
@@ -130,13 +130,13 @@ impl From<Remote> for Message {
             author_signature,
             effect_id,
             reply_markup,
-            kind: MessageKind::from(remote),
+            kind: Messages::from(remote),
         }
     }
 }
 
 impl KindDispatcher for Message {
-    type Kind = MessageKind;
+    type Kind = Messages;
 
     fn dispatch(&self) -> &Self::Kind {
         &self.kind

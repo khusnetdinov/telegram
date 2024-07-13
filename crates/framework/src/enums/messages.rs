@@ -57,7 +57,7 @@ use telegram_bots_api::api::structs::message::Message as Inner;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub enum MessageKind {
+pub enum Messages {
     /// Text messages, the actual UTF-8 text of the message
     Text(TextMessage),
     /// Command text messages, the actual UTF-8 text of the message
@@ -186,145 +186,139 @@ pub enum MessageKind {
     Unexpected(Inner),
 }
 
-impl From<Inner> for MessageKind {
+impl From<Inner> for Messages {
     fn from(inner: Inner) -> Self {
         match inner {
-            inner if Self::is_text(&inner) => MessageKind::Text(TextMessage::from(inner)),
-            inner if Self::is_command(&inner) => MessageKind::Command(Command::from(inner)),
+            inner if Self::is_text(&inner) => Messages::Text(TextMessage::from(inner)),
+            inner if Self::is_command(&inner) => Messages::Command(Command::from(inner)),
             inner if Self::is_animation(&inner) => {
-                MessageKind::Animation(AnimationMessage::from(inner))
+                Messages::Animation(AnimationMessage::from(inner))
             }
-            inner if Self::is_audio(&inner) => MessageKind::Audio(AudioMessage::from(inner)),
-            inner if Self::is_document(&inner) => {
-                MessageKind::Document(DocumentMessage::from(inner))
-            }
-            inner if Self::is_photo(&inner) => MessageKind::Photo(PhotoMessage::from(inner)),
-            inner if Self::is_sticker(&inner) => MessageKind::Sticker(StickerMessage::from(inner)),
-            inner if Self::is_contact(&inner) => MessageKind::Contact(Contact::from(inner)),
-            inner if Self::is_dice(&inner) => MessageKind::Dice(Dice::from(inner)),
-            inner if Self::is_game(&inner) => MessageKind::Game(GameMessage::from(inner)),
-            inner if Self::is_poll(&inner) => MessageKind::Poll(Poll::from(inner)),
-            inner if Self::is_venue(&inner) => MessageKind::Venue(VenueMessage::from(inner)),
-            inner if Self::is_location(&inner) => MessageKind::Location(Location::from(inner)),
+            inner if Self::is_audio(&inner) => Messages::Audio(AudioMessage::from(inner)),
+            inner if Self::is_document(&inner) => Messages::Document(DocumentMessage::from(inner)),
+            inner if Self::is_photo(&inner) => Messages::Photo(PhotoMessage::from(inner)),
+            inner if Self::is_sticker(&inner) => Messages::Sticker(StickerMessage::from(inner)),
+            inner if Self::is_contact(&inner) => Messages::Contact(Contact::from(inner)),
+            inner if Self::is_dice(&inner) => Messages::Dice(Dice::from(inner)),
+            inner if Self::is_game(&inner) => Messages::Game(GameMessage::from(inner)),
+            inner if Self::is_poll(&inner) => Messages::Poll(Poll::from(inner)),
+            inner if Self::is_venue(&inner) => Messages::Venue(VenueMessage::from(inner)),
+            inner if Self::is_location(&inner) => Messages::Location(Location::from(inner)),
             inner if Self::is_new_chat_members(&inner) => {
-                MessageKind::NewChatMembers(NewChatMembersMessage::from(inner))
+                Messages::NewChatMembers(NewChatMembersMessage::from(inner))
             }
             inner if Self::is_left_chat_member(&inner) => {
-                MessageKind::LeftChatMember(LeftChatMemberMessage::from(inner))
+                Messages::LeftChatMember(LeftChatMemberMessage::from(inner))
             }
             inner if Self::is_new_chat_title(&inner) => {
-                MessageKind::NewChatTitle(NewChatTitle::from(inner))
+                Messages::NewChatTitle(NewChatTitle::from(inner))
             }
             inner if Self::is_new_chat_photo(&inner) => {
-                MessageKind::NewChatPhoto(NewChatPhotoMessage::from(inner))
+                Messages::NewChatPhoto(NewChatPhotoMessage::from(inner))
             }
             inner if Self::is_delete_chat_photo(&inner) => {
-                MessageKind::DeleteChatPhoto(DeleteChatPhoto::from(inner))
+                Messages::DeleteChatPhoto(DeleteChatPhoto::from(inner))
             }
             inner if Self::is_group_chat_created(&inner) => {
-                MessageKind::GroupChatCreated(GroupChatCreated::from(inner))
+                Messages::GroupChatCreated(GroupChatCreated::from(inner))
             }
             inner if Self::is_supergroup_chat_created(&inner) => {
-                MessageKind::SupergroupChatCreated(SupergroupChatCreated::from(inner))
+                Messages::SupergroupChatCreated(SupergroupChatCreated::from(inner))
             }
             inner if Self::is_channel_chat_created(&inner) => {
-                MessageKind::ChannelChatCreated(ChannelChatCreated::from(inner))
+                Messages::ChannelChatCreated(ChannelChatCreated::from(inner))
             }
             inner if Self::is_message_auto_delete_timer_changed(&inner) => {
-                MessageKind::MessageAutoDeleteTimerChanged(
-                    MessageAutoDeleteTimerChangedMessage::from(inner),
-                )
+                Messages::MessageAutoDeleteTimerChanged(MessageAutoDeleteTimerChangedMessage::from(
+                    inner,
+                ))
             }
             inner if Self::is_migrate_to_chat_id(&inner) => {
-                MessageKind::MigrateToChat(MigrateToChat::from(inner))
+                Messages::MigrateToChat(MigrateToChat::from(inner))
             }
             inner if Self::is_migrate_from_chat_id(&inner) => {
-                MessageKind::MigrateFromChat(MigrateFromChat::from(inner))
+                Messages::MigrateFromChat(MigrateFromChat::from(inner))
             }
             inner if Self::is_pinned_message(&inner) => {
-                MessageKind::Pinned(PinnedMessage::from(inner))
+                Messages::Pinned(PinnedMessage::from(inner))
             }
-            inner if Self::is_invoice(&inner) => MessageKind::Invoice(InvoiceMessage::from(inner)),
+            inner if Self::is_invoice(&inner) => Messages::Invoice(InvoiceMessage::from(inner)),
             inner if Self::is_successful_payment(&inner) => {
-                MessageKind::SuccessfulPayment(SuccessfulPaymentMessage::from(inner))
+                Messages::SuccessfulPayment(SuccessfulPaymentMessage::from(inner))
             }
             inner if Self::is_users_shared(&inner) => {
-                MessageKind::UsersShared(UsersSharedMessage::from(inner))
+                Messages::UsersShared(UsersSharedMessage::from(inner))
             }
-            inner if Self::is_chat_shared(&inner) => {
-                MessageKind::ChatShared(ChatShared::from(inner))
-            }
+            inner if Self::is_chat_shared(&inner) => Messages::ChatShared(ChatShared::from(inner)),
             inner if Self::is_connected_website(&inner) => {
-                MessageKind::ConnectedWebsite(ConnectedWebsite::from(inner))
+                Messages::ConnectedWebsite(ConnectedWebsite::from(inner))
             }
             inner if Self::is_write_access_allowed(&inner) => {
-                MessageKind::WriteAccessAllowed(WriteAccessAllowedMessage::from(inner))
+                Messages::WriteAccessAllowed(WriteAccessAllowedMessage::from(inner))
             }
             inner if Self::is_passport_data(&inner) => {
-                MessageKind::PassportData(PassportDataMessage::from(inner))
+                Messages::PassportData(PassportDataMessage::from(inner))
             }
             inner if Self::is_proximity_alert_triggered(&inner) => {
-                MessageKind::ProximityAlertTriggered(ProximityAlertTriggeredMessage::from(inner))
+                Messages::ProximityAlertTriggered(ProximityAlertTriggeredMessage::from(inner))
             }
             inner if Self::is_boost_added(&inner) => {
-                MessageKind::ChatBoostAdded(ChatBoostAdded::from(inner))
+                Messages::ChatBoostAdded(ChatBoostAdded::from(inner))
             }
             inner if Self::is_chat_background_set(&inner) => {
-                MessageKind::ChatBackground(ChatBackground::from(inner))
+                Messages::ChatBackground(ChatBackground::from(inner))
             }
             inner if Self::is_forum_topic_edited(&inner) => {
-                MessageKind::ForumTopicEdited(ForumTopicEdited::from(inner))
+                Messages::ForumTopicEdited(ForumTopicEdited::from(inner))
             }
             inner if Self::is_forum_topic_created(&inner) => {
-                MessageKind::ForumTopicCreated(ForumTopicCreated::from(inner))
+                Messages::ForumTopicCreated(ForumTopicCreated::from(inner))
             }
             inner if Self::is_forum_topic_closed(&inner) => {
-                MessageKind::ForumTopicClosed(ForumTopicClosed::from(inner))
+                Messages::ForumTopicClosed(ForumTopicClosed::from(inner))
             }
             inner if Self::is_forum_topic_reopened(&inner) => {
-                MessageKind::ForumTopicReopened(ForumTopicReopened::from(inner))
+                Messages::ForumTopicReopened(ForumTopicReopened::from(inner))
             }
             inner if Self::is_general_forum_topic_hidden(&inner) => {
-                MessageKind::GeneralForumTopicHidden(GeneralForumTopicHidden::from(inner))
+                Messages::GeneralForumTopicHidden(GeneralForumTopicHidden::from(inner))
             }
             inner if Self::is_general_forum_topic_unhidden(&inner) => {
-                MessageKind::GeneralForumTopicUnhidden(GeneralForumTopicUnhidden::from(inner))
+                Messages::GeneralForumTopicUnhidden(GeneralForumTopicUnhidden::from(inner))
             }
             inner if Self::is_giveaway_created(&inner) => {
-                MessageKind::GiveawayCreated(GiveawayCreatedMessage::from(inner))
+                Messages::GiveawayCreated(GiveawayCreatedMessage::from(inner))
             }
-            inner if Self::is_giveaway(&inner) => {
-                MessageKind::Giveaway(GiveawayMessage::from(inner))
-            }
+            inner if Self::is_giveaway(&inner) => Messages::Giveaway(GiveawayMessage::from(inner)),
             inner if Self::is_giveaway_winners(&inner) => {
-                MessageKind::GiveawayWinners(GiveawayWinnersMessage::from(inner))
+                Messages::GiveawayWinners(GiveawayWinnersMessage::from(inner))
             }
             inner if Self::is_giveaway_completed(&inner) => {
-                MessageKind::GiveawayCompleted(GiveawayCompletedMessage::from(inner))
+                Messages::GiveawayCompleted(GiveawayCompletedMessage::from(inner))
             }
             inner if Self::is_video_chat_scheduled(&inner) => {
-                MessageKind::VideoChatScheduled(VideoChatScheduledMessage::from(inner))
+                Messages::VideoChatScheduled(VideoChatScheduledMessage::from(inner))
             }
             inner if Self::is_video_chat_started(&inner) => {
-                MessageKind::VideoChatStarted(VideoChatStartedMessage::from(inner))
+                Messages::VideoChatStarted(VideoChatStartedMessage::from(inner))
             }
             inner if Self::is_video_chat_ended(&inner) => {
-                MessageKind::VideoChatEnded(VideoChatEndedMessage::from(inner))
+                Messages::VideoChatEnded(VideoChatEndedMessage::from(inner))
             }
             inner if Self::is_video_chat_participants_invited(&inner) => {
-                MessageKind::VideoChatParticipantsInvited(
-                    VideoChatParticipantsInvitedMessage::from(inner),
-                )
+                Messages::VideoChatParticipantsInvited(VideoChatParticipantsInvitedMessage::from(
+                    inner,
+                ))
             }
             inner if Self::is_web_app_data(&inner) => {
-                MessageKind::WebAppData(WebAppDataMessage::from(inner))
+                Messages::WebAppData(WebAppDataMessage::from(inner))
             }
             _ => Self::Unexpected(inner),
         }
     }
 }
 
-impl MessageKind {
+impl Messages {
     pub fn is_text(inner: &Inner) -> bool {
         let bot_command_entity_none = if inner.entities.is_some() {
             !inner

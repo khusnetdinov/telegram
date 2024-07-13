@@ -43,7 +43,7 @@ async fn dispatch(
     update: Update,
 ) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
-        UpdateKind::Message(message) => match message.dispatch() {
+        Updates::Message(message) => match message.dispatch() {
             // MessageKind::Text(text_message) => {
             //     let options = SendOptions {
             //         message_effect_id: Some(String::from("5046589136895476101")),
@@ -64,7 +64,7 @@ async fn dispatch(
             //         )
             //         .await?;
             //
-            MessageKind::Command(command_message) => match BotCommands::dispatch(command_message) {
+            Messages::Command(command_message) => match BotCommands::dispatch(command_message) {
                 Some(BotCommands::Help) => {
                     println!("{:#?}", command_message);
                 }
@@ -117,9 +117,9 @@ async fn dispatch(
                 // }
                 _ => println!("Commmand::Unexpected"),
             },
-            MessageKind::Unexpected(_) | _ => {}
+            Messages::Unexpected(_) | _ => {}
         },
-        UpdateKind::Unexpected(_) | _ => {}
+        Updates::Unexpected(_) | _ => {}
     }
 
     dbg!(bots_api);

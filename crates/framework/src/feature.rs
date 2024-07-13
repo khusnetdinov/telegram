@@ -4,8 +4,8 @@ pub mod audio {}
 
 pub mod bots_api {
     pub use crate::bots_api::BotsApi;
-    pub use crate::enums::message_kind::MessageKind;
-    pub use crate::enums::update_kind::UpdateKind;
+    pub use crate::enums::messages::Messages;
+    pub use crate::enums::updates::Updates;
     pub use crate::storages::memory::MemoryStorage;
     pub use crate::structs::update::Update;
     pub use crate::traits::kind_dispatcher::KindDispatcher;
