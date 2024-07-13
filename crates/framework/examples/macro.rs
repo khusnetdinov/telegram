@@ -1,7 +1,19 @@
-use telegram_bots_api::api::structs::message_auto_delete_timer_changed::MessageAutoDeleteTimerChanged;
-use telegram_macros::FromRemote;
+use crate::structs::encrypted_credentials::EncryptedCredentials;
+use crate::structs::encrypted_passport_element::EncryptedPassportElement;
+use serde::{Deserialize, Serialize};
+use telegram_bots_api::api::structs::passport_data::PassportData as Remote;
 
-#[derive(FromRemote)]
-pub struct MessageAutoDeleteTimerChangedMessage {
-    pub message_auto_delete_timer_changed: MessageAutoDeleteTimerChanged,
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct PassportData {
+    pub data: Vec<EncryptedPassportElement>,
+    pub credentials: EncryptedCredentials,
+}
+
+impl From<Remote> for PassportData {
+    fn from(remote: Remote) -> Self {
+        Self {
+            data: remote.data,
+            credentials: remote.credentials,
+        }
+    }
 }

@@ -32,7 +32,7 @@ pub mod migrate_to_chat;
 pub mod new_chat_members;
 pub mod new_chat_photo;
 pub mod new_chat_title;
-pub mod passport_data_message;
+pub mod passport_data;
 pub mod photo_message;
 pub mod pinned_message;
 pub mod poll;

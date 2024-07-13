@@ -31,7 +31,7 @@ use crate::structs::messages::migrate_to_chat::MigrateToChat;
 use crate::structs::messages::new_chat_members::NewChatMembersMessage;
 use crate::structs::messages::new_chat_photo::NewChatPhotoMessage;
 use crate::structs::messages::new_chat_title::NewChatTitle;
-use crate::structs::messages::passport_data_message::PassportDataMessage;
+use crate::structs::messages::passport_data::PassportData;
 use crate::structs::messages::photo_message::PhotoMessage;
 use crate::structs::messages::pinned_message::PinnedMessage;
 use crate::structs::messages::poll::Poll;
@@ -145,7 +145,7 @@ pub enum Messages {
     /// sent by the method requestWriteAccess
     WriteAccessAllowed(WriteAccessAllowedMessage),
     /// Telegram Passport data
-    PassportData(PassportDataMessage),
+    PassportData(PassportData),
     /// Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
     ProximityAlertTriggered(ProximityAlertTriggeredMessage),
     /// Service message: user boosted the chat
@@ -255,7 +255,7 @@ impl From<Inner> for Messages {
                 Messages::WriteAccessAllowed(WriteAccessAllowedMessage::from(inner))
             }
             inner if Self::is_passport_data(&inner) => {
-                Messages::PassportData(PassportDataMessage::from(inner))
+                Messages::PassportData(PassportData::from(inner))
             }
             inner if Self::is_proximity_alert_triggered(&inner) => {
                 Messages::ProximityAlertTriggered(ProximityAlertTriggeredMessage::from(inner))
