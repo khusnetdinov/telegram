@@ -10,10 +10,10 @@ use crate::structs::message_kinds::contract::Contact;
 use crate::structs::message_kinds::delete_chat_photo::DeleteChatPhoto;
 use crate::structs::message_kinds::dice::Dice;
 use crate::structs::message_kinds::document_message::DocumentMessage;
-use crate::structs::message_kinds::forum_topic_closed_message::ForumTopicClosedMessage;
-use crate::structs::message_kinds::forum_topic_created_message::ForumTopicEditedMessage;
-use crate::structs::message_kinds::forum_topic_edited_message::ForumTopicCreatedMessage;
-use crate::structs::message_kinds::forum_topic_reopened_message::ForumTopicReopenedMessage;
+use crate::structs::message_kinds::forum_topic_closed::ForumTopicClosed;
+use crate::structs::message_kinds::forum_topic_created::ForumTopicEdited;
+use crate::structs::message_kinds::forum_topic_edited::ForumTopicCreated;
+use crate::structs::message_kinds::forum_topic_reopened::ForumTopicReopened;
 use crate::structs::message_kinds::game_message::GameMessage;
 use crate::structs::message_kinds::general_forum_topic_hidden_message::GeneralForumTopicHiddenMessage;
 use crate::structs::message_kinds::general_forum_topic_unhidden_message::GeneralForumTopicUnhiddenMessage;
@@ -153,13 +153,13 @@ pub enum MessageKind {
     /// Service message: chat background set
     ChatBackground(ChatBackground),
     ///  Service message: forum topic created
-    ForumTopicCreated(ForumTopicCreatedMessage),
+    ForumTopicCreated(ForumTopicCreated),
     /// Service message: forum topic edited
-    ForumTopicEdited(ForumTopicEditedMessage),
+    ForumTopicEdited(ForumTopicEdited),
     /// Service message: forum topic closed
-    ForumTopicClosed(ForumTopicClosedMessage),
+    ForumTopicClosed(ForumTopicClosed),
     /// Service message: forum topic reopened
-    ForumTopicReopened(ForumTopicReopenedMessage),
+    ForumTopicReopened(ForumTopicReopened),
     /// Service message: the 'General' forum topic hidden
     GeneralForumTopicHidden(GeneralForumTopicHiddenMessage),
     /// Service message: the 'General' forum topic unhidden
@@ -273,16 +273,16 @@ impl From<Inner> for MessageKind {
                 MessageKind::ChatBackground(ChatBackground::from(inner))
             }
             inner if Self::is_forum_topic_edited(&inner) => {
-                MessageKind::ForumTopicEdited(ForumTopicEditedMessage::from(inner))
+                MessageKind::ForumTopicEdited(ForumTopicEdited::from(inner))
             }
             inner if Self::is_forum_topic_created(&inner) => {
-                MessageKind::ForumTopicCreated(ForumTopicCreatedMessage::from(inner))
+                MessageKind::ForumTopicCreated(ForumTopicCreated::from(inner))
             }
             inner if Self::is_forum_topic_closed(&inner) => {
-                MessageKind::ForumTopicClosed(ForumTopicClosedMessage::from(inner))
+                MessageKind::ForumTopicClosed(ForumTopicClosed::from(inner))
             }
             inner if Self::is_forum_topic_reopened(&inner) => {
-                MessageKind::ForumTopicReopened(ForumTopicReopenedMessage::from(inner))
+                MessageKind::ForumTopicReopened(ForumTopicReopened::from(inner))
             }
             inner if Self::is_general_forum_topic_hidden(&inner) => {
                 MessageKind::GeneralForumTopicHidden(GeneralForumTopicHiddenMessage::from(inner))
