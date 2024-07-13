@@ -42,7 +42,7 @@ pub mod story_message;
 pub mod successful_payment;
 pub mod supergroup_chat_created;
 pub mod text;
-pub mod users_shared_message;
+pub mod users_shared;
 pub mod venue_message;
 pub mod video_chat_ended_message;
 pub mod video_chat_participants_invited_message;

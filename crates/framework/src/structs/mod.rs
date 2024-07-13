@@ -18,6 +18,7 @@ pub mod passport_file;
 pub mod photo_size;
 pub mod poll_option;
 pub mod reactions;
+mod shared_user;
 pub mod shipping_address;
 pub mod update;
 pub mod updates;

@@ -41,7 +41,7 @@ use crate::structs::messages::story_message::StoryMessage;
 use crate::structs::messages::successful_payment::SuccessfulPayment;
 use crate::structs::messages::supergroup_chat_created::SupergroupChatCreated;
 use crate::structs::messages::text::Text;
-use crate::structs::messages::users_shared_message::UsersSharedMessage;
+use crate::structs::messages::users_shared::UsersShared;
 use crate::structs::messages::venue_message::VenueMessage;
 use crate::structs::messages::video_chat_ended_message::VideoChatEndedMessage;
 use crate::structs::messages::video_chat_participants_invited_message::VideoChatParticipantsInvitedMessage;
@@ -135,7 +135,7 @@ pub enum Messages {
     /// Message is a service message about a successful payment, information about the payment.
     SuccessfulPayment(SuccessfulPayment),
     /// Service message: users were shared with the bot
-    UsersShared(UsersSharedMessage),
+    UsersShared(UsersShared),
     /// Service message: a chat was shared with the bot
     ChatShared(ChatShared),
     /// The domain name of the website on which the user has logged in.
@@ -245,7 +245,7 @@ impl From<Inner> for Messages {
                 Messages::SuccessfulPayment(SuccessfulPayment::from(inner))
             }
             inner if Self::is_users_shared(&inner) => {
-                Messages::UsersShared(UsersSharedMessage::from(inner))
+                Messages::UsersShared(UsersShared::from(inner))
             }
             inner if Self::is_chat_shared(&inner) => Messages::ChatShared(ChatShared::from(inner)),
             inner if Self::is_connected_website(&inner) => {
