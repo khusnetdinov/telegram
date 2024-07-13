@@ -3,7 +3,7 @@ use crate::structs::message_id::MessageId;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::inaccessible_message::InaccessibleMessage as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct InaccessibleMessage {
     pub chat: Chat,
     pub message_id: MessageId,

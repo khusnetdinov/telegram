@@ -22,10 +22,10 @@ use crate::structs::messages::giveaway_completed::GiveawayCompleted;
 use crate::structs::messages::giveaway_created::GiveawayCreated;
 use crate::structs::messages::giveaway_winners::GiveawayWinners;
 use crate::structs::messages::group_chat_created::GroupChatCreated;
-use crate::structs::messages::invoice_message::InvoiceMessage;
-use crate::structs::messages::left_chat_membe_message::LeftChatMemberMessage;
+use crate::structs::messages::invoice::InvoiceMessage;
+use crate::structs::messages::left_chat_member::LeftChatMember;
 use crate::structs::messages::location::Location;
-use crate::structs::messages::message_auto_delete_timer_changed_message::MessageAutoDeleteTimerChangedMessage;
+use crate::structs::messages::message_auto_delete_timer_changed::MessageAutoDeleteTimerChanged;
 use crate::structs::messages::migrate_from_chat::MigrateFromChat;
 use crate::structs::messages::migrate_to_chat::MigrateToChat;
 use crate::structs::messages::new_chat_members_message::NewChatMembersMessage;
@@ -97,7 +97,7 @@ pub enum Messages {
     /// itself may be one of these members)
     NewChatMembers(NewChatMembersMessage),
     /// A member was removed from the group, information about them (this member may be the bot itself)
-    LeftChatMember(LeftChatMemberMessage),
+    LeftChatMember(LeftChatMember),
     /// A chat title was changed to this value
     NewChatTitle(NewChatTitle),
     /// A chat photo was change to this value
@@ -116,7 +116,7 @@ pub enum Messages {
     /// only be found in reply_to_message if someone replies to a very first message in a channel.
     ChannelChatCreated(ChannelChatCreated),
     /// Service message: auto-delete timer settings changed in the chat
-    MessageAutoDeleteTimerChanged(MessageAutoDeleteTimerChangedMessage),
+    MessageAutoDeleteTimerChanged(MessageAutoDeleteTimerChanged),
     /// The group has been migrated to a supergroup with the specified identifier. This number may
     /// have more than 32 significant bits and some programming languages may have difficulty/silent
     /// defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer
@@ -208,7 +208,7 @@ impl From<Inner> for Messages {
                 Messages::NewChatMembers(NewChatMembersMessage::from(inner))
             }
             inner if Self::is_left_chat_member(&inner) => {
-                Messages::LeftChatMember(LeftChatMemberMessage::from(inner))
+                Messages::LeftChatMember(LeftChatMember::from(inner))
             }
             inner if Self::is_new_chat_title(&inner) => {
                 Messages::NewChatTitle(NewChatTitle::from(inner))
@@ -229,9 +229,7 @@ impl From<Inner> for Messages {
                 Messages::ChannelChatCreated(ChannelChatCreated::from(inner))
             }
             inner if Self::is_message_auto_delete_timer_changed(&inner) => {
-                Messages::MessageAutoDeleteTimerChanged(MessageAutoDeleteTimerChangedMessage::from(
-                    inner,
-                ))
+                Messages::MessageAutoDeleteTimerChanged(MessageAutoDeleteTimerChanged::from(inner))
             }
             inner if Self::is_migrate_to_chat_id(&inner) => {
                 Messages::MigrateToChat(MigrateToChat::from(inner))
