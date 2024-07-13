@@ -15,8 +15,8 @@ use crate::structs::message_kinds::forum_topic_created::ForumTopicEdited;
 use crate::structs::message_kinds::forum_topic_edited::ForumTopicCreated;
 use crate::structs::message_kinds::forum_topic_reopened::ForumTopicReopened;
 use crate::structs::message_kinds::game_message::GameMessage;
-use crate::structs::message_kinds::general_forum_topic_hidden_message::GeneralForumTopicHiddenMessage;
-use crate::structs::message_kinds::general_forum_topic_unhidden_message::GeneralForumTopicUnhiddenMessage;
+use crate::structs::message_kinds::general_forum_topic_hidden::GeneralForumTopicHidden;
+use crate::structs::message_kinds::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
 use crate::structs::message_kinds::giveaway_completed_message::GiveawayCompletedMessage;
 use crate::structs::message_kinds::giveaway_created_message::GiveawayCreatedMessage;
 use crate::structs::message_kinds::giveaway_message::GiveawayMessage;
@@ -161,9 +161,9 @@ pub enum MessageKind {
     /// Service message: forum topic reopened
     ForumTopicReopened(ForumTopicReopened),
     /// Service message: the 'General' forum topic hidden
-    GeneralForumTopicHidden(GeneralForumTopicHiddenMessage),
+    GeneralForumTopicHidden(GeneralForumTopicHidden),
     /// Service message: the 'General' forum topic unhidden
-    GeneralForumTopicUnhidden(GeneralForumTopicUnhiddenMessage),
+    GeneralForumTopicUnhidden(GeneralForumTopicUnhidden),
     /// Service message: a scheduled giveaway was created
     GiveawayCreated(GiveawayCreatedMessage),
     /// The message is a scheduled giveaway message
@@ -285,12 +285,10 @@ impl From<Inner> for MessageKind {
                 MessageKind::ForumTopicReopened(ForumTopicReopened::from(inner))
             }
             inner if Self::is_general_forum_topic_hidden(&inner) => {
-                MessageKind::GeneralForumTopicHidden(GeneralForumTopicHiddenMessage::from(inner))
+                MessageKind::GeneralForumTopicHidden(GeneralForumTopicHidden::from(inner))
             }
             inner if Self::is_general_forum_topic_unhidden(&inner) => {
-                MessageKind::GeneralForumTopicUnhidden(GeneralForumTopicUnhiddenMessage::from(
-                    inner,
-                ))
+                MessageKind::GeneralForumTopicUnhidden(GeneralForumTopicUnhidden::from(inner))
             }
             inner if Self::is_giveaway_created(&inner) => {
                 MessageKind::GiveawayCreated(GiveawayCreatedMessage::from(inner))
