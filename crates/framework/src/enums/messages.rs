@@ -40,7 +40,7 @@ use crate::structs::messages::sticker_message::StickerMessage;
 use crate::structs::messages::story_message::StoryMessage;
 use crate::structs::messages::successful_payment::SuccessfulPayment;
 use crate::structs::messages::supergroup_chat_created::SupergroupChatCreated;
-use crate::structs::messages::text_message::TextMessage;
+use crate::structs::messages::text::Text;
 use crate::structs::messages::users_shared_message::UsersSharedMessage;
 use crate::structs::messages::venue_message::VenueMessage;
 use crate::structs::messages::video_chat_ended_message::VideoChatEndedMessage;
@@ -59,7 +59,7 @@ use telegram_bots_api::api::structs::message_entity::MessageEntity;
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum Messages {
     /// Text messages, the actual UTF-8 text of the message
-    Text(TextMessage),
+    Text(Text),
     /// Command text messages, the actual UTF-8 text of the message
     Command(Command),
     /// Message is an animation, information about the animation. For backward compatibility,
@@ -189,7 +189,7 @@ pub enum Messages {
 impl From<Inner> for Messages {
     fn from(inner: Inner) -> Self {
         match inner {
-            inner if Self::is_text(&inner) => Messages::Text(TextMessage::from(inner)),
+            inner if Self::is_text(&inner) => Messages::Text(Text::from(inner)),
             inner if Self::is_command(&inner) => Messages::Command(Command::from(inner)),
             inner if Self::is_animation(&inner) => {
                 Messages::Animation(AnimationMessage::from(inner))
