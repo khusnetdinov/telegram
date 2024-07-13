@@ -38,7 +38,7 @@ use crate::structs::messages::poll::Poll;
 use crate::structs::messages::proximity_alert_triggered::ProximityAlertTriggered;
 use crate::structs::messages::sticker_message::StickerMessage;
 use crate::structs::messages::story_message::StoryMessage;
-use crate::structs::messages::successful_payment_message::SuccessfulPaymentMessage;
+use crate::structs::messages::successful_payment::SuccessfulPayment;
 use crate::structs::messages::supergroup_chat_created::SupergroupChatCreated;
 use crate::structs::messages::text_message::TextMessage;
 use crate::structs::messages::users_shared_message::UsersSharedMessage;
@@ -133,7 +133,7 @@ pub enum Messages {
     /// Message is an invoice for a payment, information about the invoice.
     Invoice(InvoiceMessage),
     /// Message is a service message about a successful payment, information about the payment.
-    SuccessfulPayment(SuccessfulPaymentMessage),
+    SuccessfulPayment(SuccessfulPayment),
     /// Service message: users were shared with the bot
     UsersShared(UsersSharedMessage),
     /// Service message: a chat was shared with the bot
@@ -242,7 +242,7 @@ impl From<Inner> for Messages {
             }
             inner if Self::is_invoice(&inner) => Messages::Invoice(InvoiceMessage::from(inner)),
             inner if Self::is_successful_payment(&inner) => {
-                Messages::SuccessfulPayment(SuccessfulPaymentMessage::from(inner))
+                Messages::SuccessfulPayment(SuccessfulPayment::from(inner))
             }
             inner if Self::is_users_shared(&inner) => {
                 Messages::UsersShared(UsersSharedMessage::from(inner))

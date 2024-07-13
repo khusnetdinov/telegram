@@ -39,7 +39,7 @@ pub mod poll;
 pub mod proximity_alert_triggered;
 pub mod sticker_message;
 pub mod story_message;
-pub mod successful_payment_message;
+pub mod successful_payment;
 pub mod supergroup_chat_created;
 pub mod text_message;
 pub mod users_shared_message;
