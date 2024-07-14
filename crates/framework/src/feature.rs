@@ -1,4 +1,4 @@
-pub mod amination {}
+pub mod animation {}
 
 pub mod audio {}
 
@@ -47,7 +47,10 @@ pub mod file {}
 
 pub mod forum {}
 
-pub mod game {}
+pub mod game {
+    pub use crate::structs::game::Game;
+    pub use crate::traits::game::Game as GameTrait;
+}
 
 pub mod http_listener {
     pub use crate::traits::bots_apis::http_listen::HttpListen;
