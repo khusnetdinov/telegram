@@ -1,3 +1,4 @@
+use crate::structs::contact::Contact;
 use crate::structs::dice::Dice;
 use crate::structs::forum_topics::forum_topic_closed::ForumTopicClosed;
 use crate::structs::forum_topics::forum_topic_created::ForumTopicEdited;
@@ -17,7 +18,6 @@ use crate::structs::messages::chat_background::ChatBackground;
 use crate::structs::messages::chat_shared::ChatShared;
 use crate::structs::messages::command::Command;
 use crate::structs::messages::connected_website::ConnectedWebsite;
-use crate::structs::messages::contact::Contact;
 use crate::structs::messages::delete_chat_photo::DeleteChatPhoto;
 use crate::structs::messages::document::Document;
 use crate::structs::messages::game_message::GameMessage;

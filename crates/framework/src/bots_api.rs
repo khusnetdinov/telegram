@@ -48,41 +48,6 @@ impl BotsApi {
 
 // #[async_trait::async_trait]
 // impl Sender for BotsApi {
-
-//     async fn send_contact(
-//         &self,
-//         chat_id: i64,
-//         phone_number: String,
-
-//         options: Option<SendOptions>,
-//     ) -> Result<Message, Box<dyn std::error::Error>> {
-//         let params = if let Some(options) = options {
-//             SendContact {
-//                 phone_number,
-//                 first_name,
-//                 chat_id: ChatUId::from(chat_id),
-//                 business_connection_id: options.business_connection_id,
-//                 disable_notification: options.disable_notification,
-//                 protect_content: options.protect_content,
-//                 message_effect_id: options.message_effect_id,
-//                 message_thread_id: options.message_thread_id,
-//                 reply_parameters: options.reply_parameters,
-//                 reply_markup: options.reply_markup,
-//                 last_name: options.last_name,
-//                 vcard: options.vcard,
-//             }
-//         } else {
-//             SendContact {
-//                 phone_number,
-//                 first_name,
-//                 chat_id: ChatUId::from(chat_id),
-//                 ..Default::default()
-//             }
-//         };
-
-//         Ok(self.client.send_contact(&params).await?.into())
-//     }
-
 //     async fn send_game(
 //         &self,
 //         chat_id: i64,

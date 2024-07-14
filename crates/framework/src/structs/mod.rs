@@ -23,6 +23,7 @@ pub mod user;
 pub mod webhook;
 pub mod webhook_info;
 
+pub mod contact;
 pub mod dice;
 pub mod forum_topics;
 pub mod giveaway;

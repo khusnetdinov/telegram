@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::contact::Contact as Remote;
 use telegram_bots_api::api::structs::message::Message;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 pub struct Contact {
     pub phone_number: String,
     pub first_name: String,
