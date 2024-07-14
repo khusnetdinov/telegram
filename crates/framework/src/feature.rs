@@ -25,7 +25,10 @@ pub mod chat_actions {
     pub use crate::traits::chat_actions::ChatActions;
 }
 
-pub mod contact {}
+pub mod contact {
+    pub use crate::structs::contact::Contact;
+    pub use crate::traits::contact::Contact as ContactTrait;
+}
 
 pub mod commands {
     pub use crate::traits::bots_apis::commands::Commands;

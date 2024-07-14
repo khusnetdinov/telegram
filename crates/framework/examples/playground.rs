@@ -2,6 +2,7 @@
 use telegram_framework::feature::bots_api::*;
 use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
+use telegram_framework::feature::contact::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::pooling::*;
 
@@ -17,24 +18,16 @@ pub enum BotCommands {
     #[command(description = "help command description")]
     Help,
     #[command(description = "enter username")]
-    Username,
-    #[command(description = "send dice")]
     Dice,
-    #[command(description = "send game")]
-    Game,
-    #[command(description = "send poll")]
-    Poll,
+    #[command(description = "send contact")]
+    Contact,
 }
 
 #[derive(Debug, Clone)]
 pub enum States {
-    Start,
     Help,
-    Username,
-    Text,
     Dice,
-    Game,
-    Poll,
+    Contact,
 }
 
 async fn dispatch(
@@ -44,31 +37,8 @@ async fn dispatch(
 ) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
         Updates::Message(message) => match message.dispatch() {
-            // MessageKind::Text(text_message) => {
-            //     let options = SendOptions {
-            //         message_effect_id: Some(String::from("5046589136895476101")),
-            //         ..Default::default()
-            //     };
-
-            //     bots_api
-            //         .send_chat_action(message.chat.id, ChatAction::Typing, None)
-            //         .await?;
-
-            //     sleep(Duration::from_secs(1)).await;
-
-            //     bots_api
-            //         .send_message(
-            //             message.chat.id,
-            //             format!("Text: {}", text_message.text),
-            //             Some(options),
-            //         )
-            //         .await?;
-            //
             Messages::Command(command_message) => match BotCommands::dispatch(command_message) {
                 Some(BotCommands::Help) => {
-                    println!("{:#?}", command_message);
-                }
-                Some(BotCommands::Username) => {
                     println!("{:#?}", command_message);
                 }
                 Some(BotCommands::Dice) => {
@@ -82,6 +52,17 @@ async fn dispatch(
                         .await?;
                     bots_api
                         .send_dice(message.chat.id, Some(Emoji::Darts), Some(options))
+                        .await?;
+                }
+                Some(BotCommands::Contact) => {
+                    let contact = Contact {
+                        phone_number: String::from("+79001234567"),
+                        first_name: String::from("FirstName"),
+                        ..Default::default()
+                    };
+
+                    bots_api
+                        .send_contact(message.chat.id, contact, None)
                         .await?;
                 }
                 // Some(Commands::Game) => {
@@ -120,8 +101,28 @@ async fn dispatch(
                 //         )
                 //         .await?;
                 // }
-                _ => println!("Commmand::Unexpected"),
+                _ => println!("Command::Unexpected"),
             },
+            // MessageKind::Text(text_message) => {
+            //     let options = SendOptions {
+            //         message_effect_id: Some(String::from("5046589136895476101")),
+            //         ..Default::default()
+            //     };
+
+            //     bots_api
+            //         .send_chat_action(message.chat.id, ChatAction::Typing, None)
+            //         .await?;
+
+            //     sleep(Duration::from_secs(1)).await;
+
+            //     bots_api
+            //         .send_message(
+            //             message.chat.id,
+            //             format!("Text: {}", text_message.text),
+            //             Some(options),
+            //         )
+            //         .await?;
+            //
             Messages::Unexpected(_) | _ => {}
         },
         Updates::Unexpected(_) | _ => {}
