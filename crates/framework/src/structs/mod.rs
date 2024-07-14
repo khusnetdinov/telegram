@@ -23,4 +23,8 @@ pub mod user;
 pub mod webhook;
 pub mod webhook_info;
 
+pub mod forum_topics;
+pub mod giveaway;
+pub mod giveaways;
 pub mod passports;
+pub mod video_chats;
