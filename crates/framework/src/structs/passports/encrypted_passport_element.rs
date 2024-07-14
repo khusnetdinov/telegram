@@ -1,4 +1,4 @@
-use crate::structs::passport_file::PassportFile;
+use crate::structs::passports::passport_file::PassportFile;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::encrypted_passport_element::EncryptedPassportElement as Remote;
 
