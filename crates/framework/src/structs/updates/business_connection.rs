@@ -2,7 +2,7 @@ use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::business_connection::BusinessConnection as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct BusinessConnection {
     pub id: String,
     pub user: User,

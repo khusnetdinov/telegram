@@ -3,7 +3,7 @@ use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::inline_query::InlineQuery as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct InlineQuery {
     pub id: String,
     pub from: User,

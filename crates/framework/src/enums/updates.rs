@@ -14,12 +14,13 @@ use crate::structs::updates::message_reaction_updated::MessageReactionUpdated;
 use crate::structs::updates::poll_answer::PollAnswer;
 use crate::structs::updates::pre_checkout_query::PreCheckoutQuery;
 use crate::structs::updates::shipping_query::ShippingQuery;
+use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::update::Update as Remote;
 
 /// <https://core.telegram.org/bots/api#update>
 /// This object represents an incoming update.
 /// At most one of the optional parameters can be present in any given update.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum Updates {
     /// Optional. New incoming message of any kind - text, photo, sticker, etc.
     Message(Message),

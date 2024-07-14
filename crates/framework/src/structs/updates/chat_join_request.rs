@@ -4,7 +4,7 @@ use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat_join_request::ChatJoinRequest as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct ChatJoinRequest {
     pub chat: Chat,
     pub from: User,

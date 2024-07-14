@@ -3,7 +3,7 @@ use crate::structs::chat::Chat;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat_boost_removed::ChatBoostRemoved as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct ChatBoostRemoved {
     pub chat: Chat,
     pub boost_id: String,
