@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::enums::emoji::Emoji;
 use crate::structs::options::Options;
-use crate::structs::update_kinds::message::Message;
+use crate::structs::updates::message::Message;
 use crate::traits::dice::Dice;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_dice::SendDice;
