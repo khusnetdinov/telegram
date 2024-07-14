@@ -1,5 +1,5 @@
-use crate::structs::messages::animation_message::AnimationMessage;
-use crate::structs::messages::audio_message::AudioMessage;
+use crate::structs::messages::animation::Animation;
+use crate::structs::messages::audio::Audio;
 use crate::structs::messages::boost_added::ChatBoostAdded;
 use crate::structs::messages::channel_chat_created::ChannelChatCreated;
 use crate::structs::messages::chat_background::ChatBackground;
@@ -9,7 +9,7 @@ use crate::structs::messages::connected_website::ConnectedWebsite;
 use crate::structs::messages::contract::Contact;
 use crate::structs::messages::delete_chat_photo::DeleteChatPhoto;
 use crate::structs::messages::dice::Dice;
-use crate::structs::messages::document_message::DocumentMessage;
+use crate::structs::messages::document::Document;
 use crate::structs::messages::forum_topic_closed::ForumTopicClosed;
 use crate::structs::messages::forum_topic_created::ForumTopicEdited;
 use crate::structs::messages::forum_topic_edited::ForumTopicCreated;
@@ -32,24 +32,24 @@ use crate::structs::messages::new_chat_members::NewChatMembersMessage;
 use crate::structs::messages::new_chat_photo::NewChatPhotoMessage;
 use crate::structs::messages::new_chat_title::NewChatTitle;
 use crate::structs::messages::passport_data::PassportData;
-use crate::structs::messages::photo_message::PhotoMessage;
+use crate::structs::messages::photo::Photo;
 use crate::structs::messages::pinned_message::PinnedMessage;
 use crate::structs::messages::poll::Poll;
 use crate::structs::messages::proximity_alert_triggered::ProximityAlertTriggered;
-use crate::structs::messages::sticker_message::StickerMessage;
-use crate::structs::messages::story_message::StoryMessage;
+use crate::structs::messages::sticker::Sticker;
+use crate::structs::messages::story::Story;
 use crate::structs::messages::successful_payment::SuccessfulPayment;
 use crate::structs::messages::supergroup_chat_created::SupergroupChatCreated;
 use crate::structs::messages::text::Text;
 use crate::structs::messages::users_shared::UsersShared;
 use crate::structs::messages::venue::Venue;
+use crate::structs::messages::video::Video;
 use crate::structs::messages::video_chat_ended::VideoChatEnded;
 use crate::structs::messages::video_chat_participants_invited::VideoChatParticipantsInvited;
 use crate::structs::messages::video_chat_scheduled::VideoChatScheduled;
 use crate::structs::messages::video_chat_started::VideoChatStarted;
-use crate::structs::messages::video_message::VideoMessage;
-use crate::structs::messages::video_note_message::VideoNoteMessage;
-use crate::structs::messages::voice_message::VoiceMessage;
+use crate::structs::messages::video_note::VideoNote;
+use crate::structs::messages::voice::Voice;
 use crate::structs::messages::web_app_data::WebAppData;
 use crate::structs::messages::write_access_allowed::WriteAccessAllowed;
 use serde::{Deserialize, Serialize};
@@ -64,23 +64,23 @@ pub enum Messages {
     Command(Command),
     /// Message is an animation, information about the animation. For backward compatibility,
     /// when this field is set, the document field will also be set
-    Animation(AnimationMessage),
+    Animation(Animation),
     /// Message is an audio file, information about the file
-    Audio(AudioMessage),
+    Audio(Audio),
     /// Message is a general file, information about the file
-    Document(DocumentMessage),
+    Document(Document),
     /// Message is a photo, available sizes of the photo
-    Photo(PhotoMessage),
+    Photo(Photo),
     /// Message is a sticker, information about the sticker
-    Sticker(StickerMessage),
+    Sticker(Sticker),
     /// Message is a forwarded story
-    Story(StoryMessage),
+    Story(Story),
     /// Message is a video, information about the video
-    Video(VideoMessage),
+    Video(Video),
     /// Message is a video note, information about the video message
-    VideoNote(VideoNoteMessage),
+    VideoNote(VideoNote),
     /// Message is a voice message, information about the file
-    Voice(VoiceMessage),
+    Voice(Voice),
     /// Message is a shared contact, information about the contact
     Contact(Contact),
     /// Message is a dice with random value
@@ -191,13 +191,11 @@ impl From<Inner> for Messages {
         match inner {
             inner if Self::is_text(&inner) => Messages::Text(Text::from(inner)),
             inner if Self::is_command(&inner) => Messages::Command(Command::from(inner)),
-            inner if Self::is_animation(&inner) => {
-                Messages::Animation(AnimationMessage::from(inner))
-            }
-            inner if Self::is_audio(&inner) => Messages::Audio(AudioMessage::from(inner)),
-            inner if Self::is_document(&inner) => Messages::Document(DocumentMessage::from(inner)),
-            inner if Self::is_photo(&inner) => Messages::Photo(PhotoMessage::from(inner)),
-            inner if Self::is_sticker(&inner) => Messages::Sticker(StickerMessage::from(inner)),
+            inner if Self::is_animation(&inner) => Messages::Animation(Animation::from(inner)),
+            inner if Self::is_audio(&inner) => Messages::Audio(Audio::from(inner)),
+            inner if Self::is_document(&inner) => Messages::Document(Document::from(inner)),
+            inner if Self::is_photo(&inner) => Messages::Photo(Photo::from(inner)),
+            inner if Self::is_sticker(&inner) => Messages::Sticker(Sticker::from(inner)),
             inner if Self::is_contact(&inner) => Messages::Contact(Contact::from(inner)),
             inner if Self::is_dice(&inner) => Messages::Dice(Dice::from(inner)),
             inner if Self::is_game(&inner) => Messages::Game(GameMessage::from(inner)),

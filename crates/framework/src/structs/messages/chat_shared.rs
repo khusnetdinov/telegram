@@ -1,4 +1,4 @@
-use crate::structs::photo_size::PhotoSize;
+use crate::structs::media::photo_size::PhotoSize;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat_shared::ChatShared as Remote;
 use telegram_bots_api::api::structs::message::Message;
