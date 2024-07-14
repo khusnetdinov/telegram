@@ -2,10 +2,9 @@
 use telegram_framework::feature::bots_api::*;
 use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
+use telegram_framework::feature::contact::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::pooling::*;
-use telegram_framework::structs::contact::Contact as Send;
-use telegram_framework::traits::contact::Contact;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -56,7 +55,7 @@ async fn dispatch(
                         .await?;
                 }
                 Some(BotCommands::Contact) => {
-                    let contact = Send {
+                    let contact = Contact {
                         phone_number: String::from("+79001234567"),
                         first_name: String::from("FirstName"),
                         ..Default::default()
