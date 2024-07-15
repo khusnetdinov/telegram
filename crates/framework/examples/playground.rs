@@ -4,6 +4,7 @@ use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
 use telegram_framework::feature::contact::*;
 use telegram_framework::feature::dice::*;
+use telegram_framework::feature::game::*;
 use telegram_framework::feature::pooling::*;
 
 #[derive(Debug, BotCommands)]
@@ -21,6 +22,8 @@ pub enum BotCommands {
     Dice,
     #[command(description = "send contact")]
     Contact,
+    #[command(description = "send game")]
+    Game,
 }
 
 #[derive(Debug, Clone)]
@@ -28,6 +31,7 @@ pub enum States {
     Help,
     Dice,
     Contact,
+    Game,
 }
 
 async fn dispatch(
@@ -65,14 +69,14 @@ async fn dispatch(
                         .send_contact(message.chat.id, contact, None)
                         .await?;
                 }
-                // Some(Commands::Game) => {
-                //     if let Err(error) = bots_api
-                //         .send_game(message.chat.id, String::from("test"), None)
-                //         .await
-                //     {
-                //         println!("Error: {error:#?}");
-                //     };
-                // }
+                Some(BotCommands::Game) => {
+                    let error = bots_api
+                        .send_game(message.chat.id, String::from("test"), None)
+                        .await
+                        .unwrap_err();
+
+                    println!("Error: {:#?}", error);
+                }
                 // Some(Commands::Poll) => {
                 //     let poll_options = vec![
                 //         InputPollOption {

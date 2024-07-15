@@ -6,6 +6,7 @@ use crate::structs::forum_topics::forum_topic_edited::ForumTopicCreated;
 use crate::structs::forum_topics::forum_topic_reopened::ForumTopicReopened;
 use crate::structs::forum_topics::general_forum_topic_hidden::GeneralForumTopicHidden;
 use crate::structs::forum_topics::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
+use crate::structs::game::Game;
 use crate::structs::giveaway::Giveaway;
 use crate::structs::giveaways::giveaway_completed::GiveawayCompleted;
 use crate::structs::giveaways::giveaway_created::GiveawayCreated;
@@ -20,7 +21,6 @@ use crate::structs::messages::command::Command;
 use crate::structs::messages::connected_website::ConnectedWebsite;
 use crate::structs::messages::delete_chat_photo::DeleteChatPhoto;
 use crate::structs::messages::document::Document;
-use crate::structs::messages::game_message::GameMessage;
 use crate::structs::messages::group_chat_created::GroupChatCreated;
 use crate::structs::messages::invoice::InvoiceMessage;
 use crate::structs::messages::left_chat_member::LeftChatMember;
@@ -86,7 +86,7 @@ pub enum Messages {
     /// Message is a dice with random value
     Dice(Dice),
     /// Message is a game, information about the game.
-    Game(GameMessage),
+    Game(Game),
     /// Message is a native poll, information about the poll
     Poll(Poll),
     /// Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
@@ -198,7 +198,7 @@ impl From<Inner> for Messages {
             inner if Self::is_sticker(&inner) => Messages::Sticker(Sticker::from(inner)),
             inner if Self::is_contact(&inner) => Messages::Contact(Contact::from(inner)),
             inner if Self::is_dice(&inner) => Messages::Dice(Dice::from(inner)),
-            inner if Self::is_game(&inner) => Messages::Game(GameMessage::from(inner)),
+            inner if Self::is_game(&inner) => Messages::Game(Game::from(inner)),
             inner if Self::is_poll(&inner) => Messages::Poll(Poll::from(inner)),
             inner if Self::is_venue(&inner) => Messages::Venue(Venue::from(inner)),
             inner if Self::is_location(&inner) => Messages::Location(Location::from(inner)),
