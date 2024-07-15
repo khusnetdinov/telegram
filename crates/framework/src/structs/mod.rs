@@ -30,6 +30,7 @@ pub mod game;
 pub mod games;
 pub mod giveaway;
 pub mod giveaways;
+pub mod location;
 pub mod passports;
 pub mod venue;
 pub mod video_chats;
