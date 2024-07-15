@@ -94,7 +94,10 @@ pub mod stickers {}
 
 pub mod user {}
 
-pub mod venue {}
+pub mod venue {
+    pub use crate::structs::venue::Venue;
+    pub use crate::traits::venue::Venue as VenueTrait;
+}
 
 pub mod video {}
 
