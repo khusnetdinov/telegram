@@ -10,6 +10,5 @@ pub mod inline_query;
 pub mod message;
 pub mod message_reaction_count_updated;
 pub mod message_reaction_updated;
-pub mod poll_answer;
 pub mod pre_checkout_query;
 pub mod shipping_query;

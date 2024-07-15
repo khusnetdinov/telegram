@@ -1,5 +1,5 @@
 use crate::structs::message_entity::MessageEntity;
-use crate::structs::poll_option::PollOption;
+use crate::structs::polls::poll_option::PollOption;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::poll::Poll as Remote;
