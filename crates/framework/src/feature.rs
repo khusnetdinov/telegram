@@ -64,7 +64,10 @@ pub mod inline {}
 
 pub mod invoice {}
 
-pub mod location {}
+pub mod location {
+    pub use crate::structs::location::Location;
+    pub use crate::traits::location::Location as LocationTrait;
+}
 
 pub mod media_group {}
 
