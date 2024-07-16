@@ -31,3 +31,18 @@ impl From<Remote> for MessageEntity {
         }
     }
 }
+
+impl From<MessageEntity> for Remote {
+    fn from(value: MessageEntity) -> Self {
+        Self {
+            kind: value.kind,
+            offset: value.offset,
+            length: value.length,
+            url: value.url,
+            // TODO: #[value(option, into)]
+            user: value.user.map(|inner| inner.into()),
+            language: value.language,
+            custom_emoji_id: value.custom_emoji_id,
+        }
+    }
+}
