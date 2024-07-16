@@ -87,7 +87,14 @@ pub mod pooling {
     pub use crate::traits::bots_apis::pooling::Pooling;
 }
 
-pub mod poll {}
+pub mod poll {
+    pub use crate::structs::poll::Poll;
+    pub use crate::structs::polls::input_poll_option::InputPollOption;
+    pub use crate::structs::polls::options::Options as PollOptions;
+    pub use crate::structs::polls::poll_answer::PollAnswer;
+    pub use crate::structs::polls::poll_option::PollOption;
+    pub use crate::traits::poll::Poll as PollTrait;
+}
 
 pub mod reply_markup {}
 

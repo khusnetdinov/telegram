@@ -5,6 +5,7 @@ use telegram_framework::feature::commands::*;
 use telegram_framework::feature::contact::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::game::*;
+use telegram_framework::feature::poll::*;
 use telegram_framework::feature::pooling::*;
 
 #[derive(Debug, BotCommands)]
@@ -24,14 +25,13 @@ pub enum BotCommands {
     Contact,
     #[command(description = "send game")]
     Game,
+    #[command(description = "send poll")]
+    Poll,
 }
 
 #[derive(Debug, Clone)]
 pub enum States {
-    Help,
-    Dice,
-    Contact,
-    Game,
+    Init,
 }
 
 async fn dispatch(
@@ -77,34 +77,35 @@ async fn dispatch(
 
                     println!("Error: {:#?}", error);
                 }
-                // Some(Commands::Poll) => {
-                //     let poll_options = vec![
-                //         InputPollOption {
-                //             text: Some("Ответ 1".to_string()),
-                //             text_parse_mode: Some("".to_string()),
-                //             ..Default::default()
-                //         },
-                //         InputPollOption {
-                //             text: Some("Ответ 2".to_string()),
-                //             text_parse_mode: Some("".to_string()),
-                //             ..Default::default()
-                //         },
-                //     ];
+                Some(BotCommands::Poll) => {
+                    let poll_options = PollOptions {
+                        ..Default::default()
+                    };
 
-                //     let options = SendOptions {
-                //         kind: Some(String::from("regular")),
-                //         ..Default::default()
-                //     };
+                    let input_poll_options = vec![
+                        InputPollOption {
+                            text: Some("Ответ 1".to_string()),
+                            text_parse_mode: Some("".to_string()),
+                            ..Default::default()
+                        },
+                        InputPollOption {
+                            text: Some("Ответ 2".to_string()),
+                            text_parse_mode: Some("".to_string()),
+                            ..Default::default()
+                        },
+                    ];
 
-                //     bots_api
-                //         .send_poll(
-                //             message.chat.id,
-                //             String::from("Вопрос?"),
-                //             poll_options,
-                //             Some(options),
-                //         )
-                //         .await?;
-                // }
+                    bots_api
+                        .send_poll(
+                            message.chat.id,
+                            String::from("Вопрос?"),
+                            String::from("regular"),
+                            poll_options,
+                            input_poll_options,
+                            None,
+                        )
+                        .await?;
+                }
                 _ => println!("Command::Unexpected"),
             },
             // MessageKind::Text(text_message) => {

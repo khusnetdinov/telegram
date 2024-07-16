@@ -44,3 +44,22 @@ impl From<Remote> for User {
         }
     }
 }
+
+impl From<User> for Remote {
+    fn from(value: User) -> Self {
+        Self {
+            id: value.id,
+            is_bot: value.is_bot,
+            first_name: value.first_name,
+            last_name: value.last_name,
+            username: value.username,
+            language_code: value.language_code,
+            is_premium: value.is_premium,
+            added_to_attachment_menu: value.added_to_attachment_menu,
+            can_join_groups: value.can_join_groups,
+            can_read_all_group_messages: value.can_read_all_group_messages,
+            supports_inline_queries: value.supports_inline_queries,
+            an_connect_to_business: value.an_connect_to_business,
+        }
+    }
+}

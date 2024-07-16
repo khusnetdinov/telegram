@@ -20,7 +20,6 @@ pub mod new_chat_photo;
 pub mod new_chat_title;
 pub mod photo;
 pub mod pinned_message;
-pub mod poll;
 pub mod proximity_alert_triggered;
 pub mod sticker;
 pub mod story;

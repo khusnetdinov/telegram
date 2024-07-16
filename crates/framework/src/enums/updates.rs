@@ -1,4 +1,5 @@
-use crate::structs::messages::poll::Poll;
+use crate::structs::poll::Poll;
+use crate::structs::polls::poll_answer::PollAnswer;
 use crate::structs::updates::business_connection::BusinessConnection;
 use crate::structs::updates::business_messages_deleted::BusinessMessagesDeleted;
 use crate::structs::updates::callback_query::CallbackQuery;
@@ -11,7 +12,6 @@ use crate::structs::updates::inline_query::InlineQuery;
 use crate::structs::updates::message::Message;
 use crate::structs::updates::message_reaction_count_updated::MessageReactionCountUpdated;
 use crate::structs::updates::message_reaction_updated::MessageReactionUpdated;
-use crate::structs::updates::poll_answer::PollAnswer;
 use crate::structs::updates::pre_checkout_query::PreCheckoutQuery;
 use crate::structs::updates::shipping_query::ShippingQuery;
 use serde::{Deserialize, Serialize};
