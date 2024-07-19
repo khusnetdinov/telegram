@@ -1,5 +1,5 @@
 use crate::bots_api::BotsApi;
-use crate::feature::bots_api::Options;
+use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::location::Location;
 use std::error::Error;

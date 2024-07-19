@@ -1,5 +1,5 @@
 use crate::bots_api::BotsApi;
-use crate::feature::bots_api::Options;
+use crate::structs::options::Options;
 use crate::structs::polls::input_poll_option::InputPollOption;
 use crate::structs::polls::options::Options as PollOptions;
 use crate::structs::updates::message::Message;
