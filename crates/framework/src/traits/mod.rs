@@ -11,6 +11,7 @@ pub mod document;
 pub mod file;
 pub mod forum;
 pub mod game;
+
 pub mod inline;
 pub mod invoice;
 pub mod kind_dispatcher;

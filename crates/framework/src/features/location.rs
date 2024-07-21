@@ -8,7 +8,6 @@ use telegram_bots_api::api::params::send_location::SendLocation;
 use telegram_bots_api::api::requests::r#async::Requests;
 
 #[async_trait::async_trait]
-
 impl Location for BotsApi {
     async fn send_location(
         &self,
