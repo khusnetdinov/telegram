@@ -17,9 +17,9 @@ impl Game for BotsApi {
         &self,
         user_id: i64,
         chat_id: i64,
-        options: Option<GameOptions>,
+        game_options: Option<GameOptions>,
     ) -> Result<Vec<GameHighScore>, Box<dyn std::error::Error>> {
-        let params = if let Some(options) = options {
+        let params = if let Some(options) = game_options {
             GetGameHighScores {
                 user_id,
                 chat_id: ChatUId::from(chat_id),
@@ -77,9 +77,9 @@ impl Game for BotsApi {
         &self,
         user_id: i64,
         score: u64,
-        options: Option<GameOptions>,
+        game_options: Option<GameOptions>,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
-        let params = if let Some(options) = options {
+        let params = if let Some(options) = game_options {
             SetGameScore {
                 user_id,
                 score,

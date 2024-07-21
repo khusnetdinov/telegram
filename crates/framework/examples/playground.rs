@@ -5,6 +5,7 @@ use telegram_framework::feature::commands::*;
 use telegram_framework::feature::contact::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::game::*;
+use telegram_framework::feature::photo::*;
 use telegram_framework::feature::poll::*;
 use telegram_framework::feature::pooling::*;
 
@@ -27,6 +28,8 @@ pub enum BotCommands {
     Game,
     #[command(description = "send poll")]
     Poll,
+    #[command(description = "send photo")]
+    Photo,
 }
 
 #[derive(Debug, Clone)]
@@ -104,6 +107,16 @@ async fn dispatch(
                             input_poll_options,
                             None,
                         )
+                        .await?;
+                }
+                Some(BotCommands::Photo) => {
+                    let photo = FileInput::from("https://248006.selcdn.ru/main/iblock/73d/73da4a4a09e01c1a4b2f20d3a870ac62/f8c5806b72c401ebaa6a32a2a482a3d4.png".to_string());
+                    let media_options = MediaOptions {
+                        ..Default::default()
+                    };
+
+                    bots_api
+                        .send_photo(message.chat.id, photo, media_options, None)
                         .await?;
                 }
                 _ => println!("Command::Unexpected"),

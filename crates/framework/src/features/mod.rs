@@ -4,6 +4,7 @@ pub mod contact;
 pub mod dice;
 pub mod game;
 pub mod location;
+mod photo;
 mod poll;
 pub mod pooling;
 pub mod venue;

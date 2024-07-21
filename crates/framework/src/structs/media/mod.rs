@@ -1,8 +1,8 @@
 pub mod animation;
 pub mod audio;
-pub mod photo_size;
-
 pub mod document;
+pub mod options;
+pub mod photo_size;
 pub mod sticker;
 pub mod story;
 pub mod video;

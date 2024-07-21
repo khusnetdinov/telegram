@@ -81,7 +81,11 @@ pub mod order {}
 
 pub mod passport {}
 
-pub mod photo {}
+pub mod photo {
+    pub use crate::enums::file_input::FileInput;
+    pub use crate::structs::media::options::Options as MediaOptions;
+    pub use crate::traits::photo::Photo as PhotoTrait;
+}
 
 pub mod pooling {
     pub use crate::traits::bots_apis::pooling::Pooling;
