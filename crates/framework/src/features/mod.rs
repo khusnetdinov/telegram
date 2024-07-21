@@ -9,4 +9,5 @@ mod photo;
 mod poll;
 pub mod pooling;
 pub mod venue;
+mod voice;
 pub mod webhook;

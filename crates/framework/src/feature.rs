@@ -94,6 +94,7 @@ pub mod photo {
     pub use crate::enums::file_input::FileInput;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::traits::photo::Photo as PhotoTrait;
+    pub use std::path::PathBuf;
 }
 
 pub mod pooling {
@@ -126,7 +127,12 @@ pub mod video {}
 
 pub mod video_note {}
 
-pub mod voice {}
+pub mod voice {
+    pub use crate::structs::media::voice::Voice;
+    pub use crate::structs::messages::voice::Voice as VoiceMessage;
+    pub use crate::traits::voice::Voice as VoiceTrait;
+    pub use std::path::PathBuf;
+}
 
 pub mod web_app {}
 

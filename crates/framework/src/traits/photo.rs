@@ -8,7 +8,7 @@ pub trait Photo {
     async fn send_photo(
         &self,
         chat_id: i64,
-        photo: FileInput,
+        file: FileInput,
         media_options: MediaOptions,
         options: Option<Options>,
     ) -> Result<Message, Box<dyn std::error::Error>>;
