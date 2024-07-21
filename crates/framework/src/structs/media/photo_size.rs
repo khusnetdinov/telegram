@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::photo_size::PhotoSize as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 pub struct PhotoSize {
     pub file_id: String,
     pub file_unique_id: String,

@@ -2,7 +2,7 @@ use crate::structs::media::photo_size::PhotoSize;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::animation::Animation as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 pub struct Animation {
     pub file_id: String,
     pub file_unique_id: String,

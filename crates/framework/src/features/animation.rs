@@ -3,17 +3,17 @@ use crate::enums::file_input::FileInput;
 use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
-use crate::traits::photo::Photo;
+use crate::traits::animation::Animation;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
-use telegram_bots_api::api::params::send_photo::SendPhoto;
+use telegram_bots_api::api::params::send_animation::SendAnimation;
 use telegram_bots_api::api::requests::r#async::Requests;
 
 #[async_trait::async_trait]
-impl Photo for BotsApi {
-    async fn send_photo(
+impl Animation for BotsApi {
+    async fn send_animation(
         &self,
         chat_id: i64,
-        photo: FileInput,
+        animation: FileInput,
         media_options: MediaOptions,
         options: Option<Options>,
     ) -> Result<Message, Box<dyn std::error::Error>> {
@@ -21,13 +21,21 @@ impl Photo for BotsApi {
             parse_mode,
             has_spoiler,
             caption_entities,
+            height,
+            width,
+            duration,
+            thumbnail,
             ..
         } = media_options;
 
         let params = if let Some(options) = options {
-            SendPhoto {
+            SendAnimation {
                 chat_id: ChatUId::from(chat_id),
-                photo: photo.into(),
+                animation: animation.into(),
+                height,
+                width,
+                duration,
+                thumbnail,
                 parse_mode,
                 has_spoiler,
                 // TODO: #[remote(option, map, into)]
@@ -44,9 +52,13 @@ impl Photo for BotsApi {
                 reply_markup: options.reply_markup,
             }
         } else {
-            SendPhoto {
+            SendAnimation {
                 chat_id: ChatUId::from(chat_id),
-                photo: photo.into(),
+                animation: animation.into(),
+                height,
+                width,
+                duration,
+                thumbnail,
                 parse_mode,
                 has_spoiler,
                 // TODO: #[remote(option, map, into)]
@@ -56,6 +68,6 @@ impl Photo for BotsApi {
             }
         };
 
-        Ok(self.client.send_photo(&params).await?.into())
+        Ok(self.client.send_animation(&params).await?.into())
     }
 }

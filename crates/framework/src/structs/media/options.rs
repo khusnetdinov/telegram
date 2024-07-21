@@ -1,5 +1,6 @@
 use crate::structs::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
+use telegram_bots_api::api::structs::photo_size::PhotoSize;
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 pub struct Options {
@@ -9,4 +10,12 @@ pub struct Options {
     pub has_spoiler: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub caption_entities: Option<Vec<MessageEntity>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub duration: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub thumbnail: Option<PhotoSize>,
 }
