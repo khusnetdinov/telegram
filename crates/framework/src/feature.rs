@@ -1,4 +1,13 @@
-pub mod animation {}
+pub mod animation {
+    pub use crate::enums::file_input::FileInput;
+    pub use crate::structs::media::animation::Animation;
+    pub use crate::structs::media::document::Document;
+    pub use crate::structs::media::options::Options as MediaOptions;
+    pub use crate::structs::media::photo_size::PhotoSize;
+    pub use crate::structs::messages::animation::Animation as AnimationMessage;
+    pub use crate::traits::animation::Animation as AnimationTrait;
+    pub use std::path::PathBuf;
+}
 
 pub mod audio {}
 

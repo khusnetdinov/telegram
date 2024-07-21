@@ -1,12 +1,10 @@
 #![allow(dead_code)]
+use telegram_framework::feature::animation::*;
 use telegram_framework::feature::bots_api::*;
 use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
-use telegram_framework::feature::contact::*;
 use telegram_framework::feature::dice::*;
-use telegram_framework::feature::game::*;
 use telegram_framework::feature::photo::*;
-use telegram_framework::feature::poll::*;
 use telegram_framework::feature::pooling::*;
 
 #[derive(Debug, BotCommands)]
@@ -22,14 +20,10 @@ pub enum BotCommands {
     Help,
     #[command(description = "enter username")]
     Dice,
-    #[command(description = "send contact")]
-    Contact,
-    #[command(description = "send game")]
-    Game,
-    #[command(description = "send poll")]
-    Poll,
     #[command(description = "send photo")]
     Photo,
+    #[command(description = "send photo")]
+    Animation,
 }
 
 #[derive(Debug, Clone)]
@@ -61,52 +55,15 @@ async fn dispatch(
                         .send_dice(message.chat.id, Some(Emoji::Darts), Some(options))
                         .await?;
                 }
-                Some(BotCommands::Contact) => {
-                    let contact = Contact {
-                        phone_number: String::from("+79001234567"),
-                        first_name: String::from("FirstName"),
+                Some(BotCommands::Animation) => {
+                    let animation =
+                        FileInput::from(PathBuf::from("../../../../Desktop/animation.mp4"));
+                    let media_options = MediaOptions {
                         ..Default::default()
                     };
 
                     bots_api
-                        .send_contact(message.chat.id, contact, None)
-                        .await?;
-                }
-                Some(BotCommands::Game) => {
-                    let error = bots_api
-                        .send_game(message.chat.id, String::from("test"), None)
-                        .await
-                        .unwrap_err();
-
-                    println!("Error: {:#?}", error);
-                }
-                Some(BotCommands::Poll) => {
-                    let poll_options = PollOptions {
-                        ..Default::default()
-                    };
-
-                    let input_poll_options = vec![
-                        InputPollOption {
-                            text: Some("Ответ 1".to_string()),
-                            text_parse_mode: Some("".to_string()),
-                            ..Default::default()
-                        },
-                        InputPollOption {
-                            text: Some("Ответ 2".to_string()),
-                            text_parse_mode: Some("".to_string()),
-                            ..Default::default()
-                        },
-                    ];
-
-                    bots_api
-                        .send_poll(
-                            message.chat.id,
-                            String::from("Вопрос?"),
-                            String::from("regular"),
-                            poll_options,
-                            input_poll_options,
-                            None,
-                        )
+                        .send_animation(message.chat.id, animation, media_options, None)
                         .await?;
                 }
                 Some(BotCommands::Photo) => {
