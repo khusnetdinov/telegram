@@ -13,7 +13,7 @@ impl Animation for BotsApi {
     async fn send_animation(
         &self,
         chat_id: i64,
-        animation: FileInput,
+        file: FileInput,
         media_options: MediaOptions,
         options: Option<Options>,
     ) -> Result<Message, Box<dyn std::error::Error>> {
@@ -31,7 +31,7 @@ impl Animation for BotsApi {
         let params = if let Some(options) = options {
             SendAnimation {
                 chat_id: ChatUId::from(chat_id),
-                animation: animation.into(),
+                animation: file.into(),
                 height,
                 width,
                 duration,
@@ -54,7 +54,7 @@ impl Animation for BotsApi {
         } else {
             SendAnimation {
                 chat_id: ChatUId::from(chat_id),
-                animation: animation.into(),
+                animation: file.into(),
                 height,
                 width,
                 duration,

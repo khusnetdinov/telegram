@@ -17,7 +17,7 @@ impl From<Remote> for BackgroundType {
     fn from(remote: Remote) -> Self {
         match remote {
             Remote::Fill(fill) => Self::Fill(fill.into()),
-            Remote::Wallpaper(wallpapeer) => Self::Wallpaper(wallpapeer.into()),
+            Remote::Wallpaper(wallpaper) => Self::Wallpaper(wallpaper.into()),
             Remote::Pattern(pattern) => Self::Pattern(pattern.into()),
             Remote::ChatTheme(chat_theme) => Self::ChatTheme(chat_theme.into()),
         }

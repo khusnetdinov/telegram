@@ -8,7 +8,7 @@ pub trait Animation {
     async fn send_animation(
         &self,
         chat_id: i64,
-        animation: FileInput,
+        file: FileInput,
         media_options: MediaOptions,
         options: Option<Options>,
     ) -> Result<Message, Box<dyn std::error::Error>>;

@@ -3,14 +3,14 @@ use crate::enums::file_input::FileInput;
 use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
-use crate::traits::photo::Photo;
+use crate::traits::voice::Voice;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
-use telegram_bots_api::api::params::send_photo::SendPhoto;
+use telegram_bots_api::api::params::send_voice::SendVoice;
 use telegram_bots_api::api::requests::r#async::Requests;
 
 #[async_trait::async_trait]
-impl Photo for BotsApi {
-    async fn send_photo(
+impl Voice for BotsApi {
+    async fn send_voice(
         &self,
         chat_id: i64,
         file: FileInput,
@@ -19,22 +19,21 @@ impl Photo for BotsApi {
     ) -> Result<Message, Box<dyn std::error::Error>> {
         let MediaOptions {
             parse_mode,
-            has_spoiler,
             caption_entities,
+            duration,
             ..
         } = media_options;
 
         let params = if let Some(options) = options {
-            SendPhoto {
+            SendVoice {
                 chat_id: ChatUId::from(chat_id),
-                photo: file.into(),
+                voice: file.into(),
                 parse_mode,
-                has_spoiler,
+                duration,
                 // TODO: #[remote(option, map, into)]
                 caption_entities: caption_entities
                     .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
                 caption: options.caption,
-                show_caption_above_media: options.show_caption_above_media,
                 disable_notification: options.disable_notification,
                 protect_content: options.protect_content,
                 business_connection_id: options.business_connection_id,
@@ -44,11 +43,11 @@ impl Photo for BotsApi {
                 reply_markup: options.reply_markup,
             }
         } else {
-            SendPhoto {
+            SendVoice {
                 chat_id: ChatUId::from(chat_id),
-                photo: file.into(),
+                voice: file.into(),
                 parse_mode,
-                has_spoiler,
+                duration,
                 // TODO: #[remote(option, map, into)]
                 caption_entities: caption_entities
                     .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
@@ -56,6 +55,6 @@ impl Photo for BotsApi {
             }
         };
 
-        Ok(self.client.send_photo(&params).await?.into())
+        Ok(self.client.send_voice(&params).await?.into())
     }
 }
