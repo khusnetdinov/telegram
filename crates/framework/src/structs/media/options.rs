@@ -7,8 +7,6 @@ pub struct Options {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parse_mode: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub has_spoiler: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub caption_entities: Option<Vec<MessageEntity>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub duration: Option<i64>,
@@ -20,4 +18,8 @@ pub struct Options {
     pub height: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<PhotoSize>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_spoiler: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub supports_streaming: Option<bool>,
 }

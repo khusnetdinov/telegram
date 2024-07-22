@@ -9,6 +9,7 @@ mod photo;
 mod poll;
 pub mod pooling;
 pub mod venue;
+pub mod video;
 pub mod video_note;
 pub mod voice;
 pub mod webhook;

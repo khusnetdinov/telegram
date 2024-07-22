@@ -123,7 +123,12 @@ pub mod venue {
     pub use crate::traits::venue::Venue as VenueTrait;
 }
 
-pub mod video {}
+pub mod video {
+    pub use crate::structs::media::video::Video;
+    pub use crate::structs::messages::voice::Voice as VideoMessage;
+    pub use crate::traits::video::Video as VideoTrait;
+    pub use std::path::PathBuf;
+}
 
 pub mod video_note {
     pub use crate::structs::media::video_note::VideoNote;
