@@ -57,7 +57,14 @@ pub mod dice {
     pub use crate::traits::dice::Dice;
 }
 
-pub mod document {}
+pub mod document {
+    pub use crate::enums::file_input::FileInput;
+    pub use crate::structs::media::document::Document;
+    pub use crate::structs::media::options::Options as MediaOptions;
+    pub use crate::structs::media::photo_size::PhotoSize;
+    pub use crate::structs::messages::document::Document as DocumentMessage;
+    pub use crate::traits::document::Document as DocumentTrait;
+}
 
 pub mod file {}
 
