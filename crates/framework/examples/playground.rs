@@ -4,6 +4,7 @@ use telegram_framework::feature::commands::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::photo::*;
 use telegram_framework::feature::pooling::*;
+use telegram_framework::feature::video_note::*;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -20,6 +21,8 @@ pub enum BotCommands {
     Dice,
     #[command(description = "send photo")]
     Photo,
+    #[command(description = "send video_note")]
+    VideoNote,
 }
 
 #[derive(Debug, Clone)]
@@ -58,6 +61,16 @@ async fn dispatch(
                         .send_photo(message.chat.id, photo, media_options, None)
                         .await?;
                 }
+                Some(BotCommands::VideoNote) => {
+                    let file = FileInput::from("DQACAgIAAxkBAAIFW2aeC34laU413ibdvukYQe2SgRVOAAKTSAAC4x7wSGGpUrHPzqqaNQQ".to_string());
+                    let media_options = MediaOptions {
+                        ..Default::default()
+                    };
+
+                    bots_api
+                        .send_video_note(message.chat.id, file, media_options, None)
+                        .await?;
+                }
                 _ => println!("Command::Unexpected"),
             },
             // MessageKind::Text(text_message) => {
@@ -85,8 +98,8 @@ async fn dispatch(
         Updates::Unexpected(_) | _ => {}
     }
 
-    dbg!(bots_api);
-    dbg!(update);
+    // dbg!(bots_api);
+    // dbg!(update);
     dbg!(storage);
 
     Ok(())

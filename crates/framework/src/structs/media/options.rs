@@ -13,6 +13,8 @@ pub struct Options {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub duration: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub length: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub width: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub height: Option<i64>,
