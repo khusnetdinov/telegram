@@ -22,4 +22,6 @@ pub struct Options {
     pub has_spoiler: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub supports_streaming: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub performer: Option<String>,
 }

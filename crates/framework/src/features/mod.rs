@@ -1,12 +1,13 @@
 pub mod animation;
+pub mod audio;
 pub mod chat_actions;
 pub mod commands;
 pub mod contact;
 pub mod dice;
 pub mod game;
 pub mod location;
-mod photo;
-mod poll;
+pub mod photo;
+pub mod poll;
 pub mod pooling;
 pub mod venue;
 pub mod video;
