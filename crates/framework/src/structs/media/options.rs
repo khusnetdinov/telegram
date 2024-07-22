@@ -24,4 +24,6 @@ pub struct Options {
     pub supports_streaming: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub performer: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub disable_content_type_detection: Option<bool>,
 }

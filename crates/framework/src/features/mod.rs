@@ -4,6 +4,7 @@ pub mod chat_actions;
 pub mod commands;
 pub mod contact;
 pub mod dice;
+pub mod document;
 pub mod game;
 pub mod location;
 pub mod photo;
