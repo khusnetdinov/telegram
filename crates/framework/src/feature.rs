@@ -9,7 +9,14 @@ pub mod animation {
     pub use std::path::PathBuf;
 }
 
-pub mod audio {}
+pub mod audio {
+    pub use crate::enums::file_input::FileInput;
+    pub use crate::structs::media::audio::Audio;
+    pub use crate::structs::media::options::Options as MediaOptions;
+    pub use crate::structs::media::photo_size::PhotoSize;
+    pub use crate::structs::messages::audio::Audio as AudioMessage;
+    pub use crate::traits::audio::Audio as AudioTrait;
+}
 
 pub mod bots_api {
     pub use crate::bots_api::BotsApi;
@@ -124,6 +131,7 @@ pub mod venue {
 }
 
 pub mod video {
+    pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video::Video;
     pub use crate::structs::messages::voice::Voice as VideoMessage;
     pub use crate::traits::video::Video as VideoTrait;
@@ -131,6 +139,7 @@ pub mod video {
 }
 
 pub mod video_note {
+    pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video_note::VideoNote;
     pub use crate::structs::messages::voice::Voice as VideoNoteMessage;
     pub use crate::traits::video_note::VideoNote as VideoNoteTrait;
