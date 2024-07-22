@@ -37,42 +37,44 @@ async fn dispatch(
 ) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
         Updates::Message(message) => match message.dispatch() {
-            Messages::Command(command_message) => match BotCommands::dispatch(command_message) {
-                Some(BotCommands::Help) => {
-                    println!("{:#?}", command_message);
-                }
-                Some(BotCommands::Dice) => {
-                    let options = Options {
-                        message_effect_id: Some(String::from("5046589136895476101")),
-                        ..Default::default()
-                    };
+            Messages::Command(command_message) => {
+                match BotCommands::dispatch(command_message) {
+                    Some(BotCommands::Help) => {
+                        println!("{:#?}", command_message);
+                    }
+                    Some(BotCommands::Dice) => {
+                        let options = Options {
+                            message_effect_id: Some(String::from("5046589136895476101")),
+                            ..Default::default()
+                        };
 
-                    bots_api
-                        .send_dice(message.chat.id, Some(Emoji::Darts), Some(options))
-                        .await?;
-                }
-                Some(BotCommands::Photo) => {
-                    let photo = FileInput::from("https://248006.selcdn.ru/main/iblock/73d/73da4a4a09e01c1a4b2f20d3a870ac62/f8c5806b72c401ebaa6a32a2a482a3d4.png".to_string());
-                    let media_options = MediaOptions {
-                        ..Default::default()
-                    };
+                        bots_api
+                            .send_dice(message.chat.id, Some(Emoji::Darts), Some(options))
+                            .await?;
+                    }
+                    Some(BotCommands::Photo) => {
+                        let photo = FileInput::from("https://248006.selcdn.ru/main/iblock/73d/73da4a4a09e01c1a4b2f20d3a870ac62/f8c5806b72c401ebaa6a32a2a482a3d4.png".to_string());
+                        let media_options = MediaOptions {
+                            ..Default::default()
+                        };
 
-                    bots_api
-                        .send_photo(message.chat.id, photo, media_options, None)
-                        .await?;
-                }
-                Some(BotCommands::VideoNote) => {
-                    let file = FileInput::from("DQACAgIAAxkBAAIFW2aeC34laU413ibdvukYQe2SgRVOAAKTSAAC4x7wSGGpUrHPzqqaNQQ".to_string());
-                    let media_options = MediaOptions {
-                        ..Default::default()
-                    };
+                        bots_api
+                            .send_photo(message.chat.id, photo, media_options, None)
+                            .await?;
+                    }
+                    Some(BotCommands::VideoNote) => {
+                        let file = FileInput::from("DQACAgIAAxkBAAIFW2aeC34laU413ibdvukYQe2SgRVOAAKTSAAC4x7wSGGpUrHPzqqaNQQ".to_string());
+                        let media_options = MediaOptions {
+                            ..Default::default()
+                        };
 
-                    bots_api
-                        .send_video_note(message.chat.id, file, media_options, None)
-                        .await?;
+                        bots_api
+                            .send_video_note(message.chat.id, file, media_options, None)
+                            .await?;
+                    }
+                    _ => println!("Command::Unexpected"),
                 }
-                _ => println!("Command::Unexpected"),
-            },
+            }
             // MessageKind::Text(text_message) => {
             //     let options = SendOptions {
             //         message_effect_id: Some(String::from("5046589136895476101")),
