@@ -36,3 +36,4 @@ pub mod poll;
 pub mod polls;
 pub mod venue;
 pub mod video_chats;
+pub mod web_apps;
