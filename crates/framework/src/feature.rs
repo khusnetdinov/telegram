@@ -72,6 +72,9 @@ pub mod forum {}
 
 pub mod game {
     pub use crate::structs::game::Game;
+    pub use crate::structs::games::callback_game::CallbackGame;
+    pub use crate::structs::games::game_high_score::GameHighScore;
+    pub use crate::structs::games::options as GameOptions;
     pub use crate::traits::game::Game as GameTrait;
 }
 
@@ -160,7 +163,10 @@ pub mod voice {
     pub use std::path::PathBuf;
 }
 
-pub mod web_app {}
+pub mod web_app {
+    pub use crate::structs::web_apps::web_app_data::WebAppData;
+    pub use crate::structs::web_apps::web_app_info::WebAppInfo;
+}
 
 pub mod webhook {
     pub use crate::traits::webhook::Webhook;
