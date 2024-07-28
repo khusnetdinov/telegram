@@ -111,7 +111,15 @@ pub mod media_group {}
 
 pub mod menu_buttons {}
 
-pub mod message {}
+pub mod message {
+    pub mod reactions {
+        pub use crate::structs::reactions::message_reaction_count_updated::MessageReactionCountUpdated;
+        pub use crate::structs::reactions::message_reaction_updated::MessageReactionUpdated;
+        pub use crate::structs::reactions::reaction_count::ReactionCount;
+        pub use crate::structs::reactions::reaction_type_custom_emoji::ReactionTypeCustomEmoji;
+        pub use crate::structs::reactions::reaction_type_emoji::ReactionTypeEmoji;
+    }
+}
 
 pub mod my {}
 
