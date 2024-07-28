@@ -33,6 +33,7 @@ pub mod shipping_address;
 pub mod update;
 pub mod updates;
 pub mod user;
+pub mod users;
 pub mod venue;
 pub mod video_chats;
 pub mod web_apps;

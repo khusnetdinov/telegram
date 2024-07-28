@@ -12,6 +12,7 @@ pub mod location;
 pub mod photo;
 pub mod poll;
 pub mod pooling;
+mod user;
 pub mod venue;
 pub mod video;
 pub mod video_note;
