@@ -6,6 +6,7 @@ pub mod commands;
 pub mod contact;
 pub mod dice;
 pub mod document;
+pub mod file;
 pub mod game;
 pub mod location;
 pub mod photo;

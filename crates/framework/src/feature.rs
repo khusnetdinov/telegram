@@ -75,7 +75,10 @@ pub mod document {
     pub use crate::traits::document::Document as DocumentTrait;
 }
 
-pub mod file {}
+pub mod file {
+    pub use crate::structs::file::File;
+    pub use crate::traits::file::File as FileTrait;
+}
 
 pub mod forum {}
 
