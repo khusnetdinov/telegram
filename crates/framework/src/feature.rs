@@ -121,7 +121,13 @@ pub mod message {
     }
 }
 
-pub mod my {}
+pub mod my {
+    pub use crate::structs::chats::chat_administrator_rights::ChatAdministratorRights;
+    pub use crate::structs::my::bot_description::BotDescription;
+    pub use crate::structs::my::bot_name::BotName;
+    pub use crate::structs::my::bot_short_description::BotShortDescription;
+    pub use crate::traits::my::My as MyTrait;
+}
 
 pub mod order {}
 
