@@ -109,7 +109,13 @@ pub mod location {
 
 pub mod media_group {}
 
-pub mod menu_buttons {}
+pub mod menu_buttons {
+    pub use crate::enums::menu_button::MenuButton;
+    pub use crate::structs::menu_buttons::menu_button_commands::MenuButtonCommands;
+    pub use crate::structs::menu_buttons::menu_button_default::MenuButtonDefault;
+    pub use crate::structs::menu_buttons::menu_button_web_app::MenuButtonWebApp;
+    pub use crate::traits::menu_button::MenuButton as MenuButtonTrait;
+}
 
 pub mod message {
     pub mod reactions {
