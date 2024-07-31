@@ -17,7 +17,7 @@ pub mod invoice;
 pub mod kind_dispatcher;
 pub mod location;
 pub mod media_group;
-pub mod menu_buttons;
+pub mod menu_button;
 pub mod message;
 pub mod my;
 pub mod order;

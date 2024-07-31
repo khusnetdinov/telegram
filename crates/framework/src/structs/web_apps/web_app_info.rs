@@ -10,3 +10,9 @@ impl From<Remote> for WebAppInfo {
         Self { url: remote.url }
     }
 }
+
+impl From<WebAppInfo> for Remote {
+    fn from(value: WebAppInfo) -> Self {
+        Self { url: value.url }
+    }
+}

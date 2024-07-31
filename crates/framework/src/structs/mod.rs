@@ -20,6 +20,7 @@ pub mod input_file;
 pub mod link_preview_options;
 pub mod location;
 pub mod media;
+pub mod menu_buttons;
 pub mod message_entity;
 pub mod message_id;
 pub mod messages;

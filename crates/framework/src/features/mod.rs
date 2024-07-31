@@ -9,6 +9,7 @@ pub mod document;
 pub mod file;
 pub mod game;
 pub mod location;
+mod menu_button;
 pub mod my;
 pub mod photo;
 pub mod poll;
