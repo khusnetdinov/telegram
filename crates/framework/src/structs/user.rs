@@ -24,6 +24,8 @@ pub struct User {
     pub supports_inline_queries: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub an_connect_to_business: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_main_web_app: Option<bool>,
 }
 
 impl From<Remote> for User {
@@ -41,6 +43,7 @@ impl From<Remote> for User {
             can_read_all_group_messages: remote.can_read_all_group_messages,
             supports_inline_queries: remote.supports_inline_queries,
             an_connect_to_business: remote.an_connect_to_business,
+            has_main_web_app: remote.has_main_web_app,
         }
     }
 }
@@ -60,6 +63,7 @@ impl From<User> for Remote {
             can_read_all_group_messages: value.can_read_all_group_messages,
             supports_inline_queries: value.supports_inline_queries,
             an_connect_to_business: value.an_connect_to_business,
+            has_main_web_app: value.has_main_web_app,
         }
     }
 }

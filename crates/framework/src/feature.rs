@@ -137,7 +137,23 @@ pub mod my {
 
 pub mod order {}
 
-pub mod passport {}
+pub mod passport {
+    pub use crate::enums::passport_element_error::PassportElementError;
+    pub use crate::structs::passports::encrypted_credentials::EncryptedCredentials;
+    pub use crate::structs::passports::encrypted_passport_element::EncryptedPassportElement;
+    pub use crate::structs::passports::passport_data::PassportData;
+    pub use crate::structs::passports::passport_element_error_data_field::PassportElementErrorDataField;
+    pub use crate::structs::passports::passport_element_error_file::PassportElementErrorFile;
+    pub use crate::structs::passports::passport_element_error_files::PassportElementErrorFiles;
+    pub use crate::structs::passports::passport_element_error_front_side::PassportElementErrorFrontSide;
+    pub use crate::structs::passports::passport_element_error_reverse_side::PassportElementErrorReverseSide;
+    pub use crate::structs::passports::passport_element_error_selfie::PassportElementErrorSelfie;
+    pub use crate::structs::passports::passport_element_error_translation_file::PassportElementErrorTranslationFile;
+    pub use crate::structs::passports::passport_element_error_translation_files::PassportElementErrorTranslationFiles;
+    pub use crate::structs::passports::passport_element_error_unspecified::PassportElementErrorUnspecified;
+    pub use crate::structs::passports::passport_file::PassportFile;
+    pub use crate::traits::passport::Passport as PassportTrait;
+}
 
 pub mod photo {
     pub use crate::enums::file_input::FileInput;
