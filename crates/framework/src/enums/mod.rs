@@ -9,6 +9,7 @@ pub mod maybe_inaccessible_message;
 pub mod menu_button;
 pub mod message_result;
 pub mod messages;
+pub mod passport_element_error;
 pub mod reaction_type;
 pub mod storage;
 pub mod updates;

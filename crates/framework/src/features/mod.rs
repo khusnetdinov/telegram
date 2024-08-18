@@ -11,6 +11,7 @@ pub mod game;
 pub mod location;
 mod menu_button;
 pub mod my;
+pub mod passport;
 pub mod photo;
 pub mod poll;
 pub mod pooling;
