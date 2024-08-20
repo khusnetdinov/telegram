@@ -1,10 +1,12 @@
 #![allow(dead_code)]
+
 use telegram_framework::feature::bots_api::*;
 use telegram_framework::feature::commands::*;
 use telegram_framework::feature::dice::*;
+use telegram_framework::feature::media_group::*;
 use telegram_framework::feature::photo::*;
 use telegram_framework::feature::pooling::*;
-use telegram_framework::feature::video_note::*;
+use telegram_framework::traits::media_group::MediaGroup;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -21,8 +23,8 @@ pub enum BotCommands {
     Dice,
     #[command(description = "send photo")]
     Photo,
-    #[command(description = "send video_note")]
-    VideoNote,
+    #[command(description = "media group")]
+    MediaGroup,
 }
 
 #[derive(Debug, Clone)]
@@ -53,6 +55,7 @@ async fn dispatch(
                             .await?;
                     }
                     Some(BotCommands::Photo) => {
+                        // let file_id = "AgACAgQAAxkDAAIFe2bDfFz2HfMVS53Mw4eibmQ-pRrrAAJ9rzEbVmCEUPbcHIfXrjbrAQADAgADcwADNQQ".to_string();
                         let photo = FileInput::from("https://248006.selcdn.ru/main/iblock/73d/73da4a4a09e01c1a4b2f20d3a870ac62/f8c5806b72c401ebaa6a32a2a482a3d4.png".to_string());
                         let media_options = MediaOptions {
                             ..Default::default()
@@ -62,14 +65,17 @@ async fn dispatch(
                             .send_photo(message.chat.id, photo, media_options, None)
                             .await?;
                     }
-                    Some(BotCommands::VideoNote) => {
-                        let file = FileInput::from("DQACAgIAAxkBAAIFW2aeC34laU413ibdvukYQe2SgRVOAAKTSAAC4x7wSGGpUrHPzqqaNQQ".to_string());
-                        let media_options = MediaOptions {
+                    Some(BotCommands::MediaGroup) => {
+                        let photo = InputMedia::Photo(InputMediaPhoto {
+                            kind: String::from("photo"),
+                            media: String::from("AgACAgQAAxkDAAIFe2bDfFz2HfMVS53Mw4eibmQ-pRrrAAJ9rzEbVmCEUPbcHIfXrjbrAQADAgADcwADNQQ"),
                             ..Default::default()
-                        };
+                        });
+
+                        let media = vec![photo, photo, photo];
 
                         bots_api
-                            .send_video_note(message.chat.id, file, media_options, None)
+                            .send_media_group(message.chat.id, media, None)
                             .await?;
                     }
                     _ => println!("Command::Unexpected"),
@@ -101,7 +107,7 @@ async fn dispatch(
     }
 
     // dbg!(bots_api);
-    // dbg!(update);
+    dbg!(update);
     dbg!(storage);
 
     Ok(())
