@@ -5,6 +5,7 @@ pub mod chat_boost_source;
 pub mod chat_member;
 pub mod emoji;
 pub mod file_input;
+pub mod input_media;
 pub mod maybe_inaccessible_message;
 pub mod menu_button;
 pub mod message_result;

@@ -107,7 +107,15 @@ pub mod location {
     pub use crate::traits::location::Location as LocationTrait;
 }
 
-pub mod media_group {}
+pub mod media_group {
+    pub use crate::enums::input_media::InputMedia;
+    pub use crate::structs::media::input_media_animation::InputMediaAnimation;
+    pub use crate::structs::media::input_media_audio::InputMediaAudio;
+    pub use crate::structs::media::input_media_document::InputMediaDocument;
+    pub use crate::structs::media::input_media_photo::InputMediaPhoto;
+    pub use crate::structs::media::input_media_video::InputMediaVideo;
+    pub use crate::traits::media_group::MediaGroup as MediaGroupTrait;
+}
 
 pub mod menu_buttons {
     pub use crate::enums::menu_button::MenuButton;

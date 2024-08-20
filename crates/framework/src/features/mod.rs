@@ -9,6 +9,7 @@ pub mod document;
 pub mod file;
 pub mod game;
 pub mod location;
+mod media_group;
 mod menu_button;
 pub mod my;
 pub mod passport;
