@@ -1,26 +1,15 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::giveaway_completed::GiveawayCompleted as Remote;
 use telegram_bots_api::api::structs::message::Message;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct GiveawayCompleted {
     pub winner_count: i64,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unclaimed_prize_count: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub giveaway_completed: Option<Box<Self>>,
-}
-impl From<Remote> for GiveawayCompleted {
-    fn from(remote: Remote) -> Self {
-        Self {
-            winner_count: remote.winner_count,
-            unclaimed_prize_count: remote.unclaimed_prize_count,
-            // TODO: #[remote(option, into)]
-            giveaway_completed: remote
-                .giveaway_completed
-                .map(|inner| Box::new((*inner).into())),
-        }
-    }
 }
 
 impl From<GiveawayCompleted> for Remote {

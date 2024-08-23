@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::reply_markup::ReplyMarkup;
 use telegram_bots_api::api::structs::reply_parameters::ReplyParameters;
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Options {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message_thread_id: Option<i64>,

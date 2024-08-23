@@ -3,8 +3,9 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::file::File;
 use telegram_bots_api::api::structs::mask_position::MaskPosition;
 use telegram_bots_api::api::structs::sticker::Sticker as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct Sticker {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,
@@ -30,26 +31,4 @@ pub struct Sticker {
     pub needs_repainting: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub file_size: Option<i64>,
-}
-impl From<Remote> for Sticker {
-    fn from(remote: Remote) -> Self {
-        Self {
-            kind: remote.kind,
-            width: remote.width,
-            file_id: remote.file_id,
-            file_unique_id: remote.file_unique_id,
-            height: remote.height,
-            is_animated: remote.is_animated,
-            is_video: remote.is_video,
-            // TODO: #[remote(option, into)]
-            thumbnail: remote.thumbnail.map(|inner| inner.into()),
-            emoji: remote.emoji,
-            set_name: remote.set_name,
-            premium_animation: remote.premium_animation,
-            mask_position: remote.mask_position,
-            custom_emoji_id: remote.custom_emoji_id,
-            needs_repainting: remote.needs_repainting,
-            file_size: remote.file_size,
-        }
-    }
 }

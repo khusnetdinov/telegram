@@ -1,8 +1,9 @@
 use crate::structs::passports::passport_file::PassportFile;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::encrypted_passport_element::EncryptedPassportElement as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct EncryptedPassportElement {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,
@@ -23,30 +24,4 @@ pub struct EncryptedPassportElement {
     pub selfie: Option<PassportFile>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub translation: Option<Vec<PassportFile>>,
-}
-
-impl From<Remote> for EncryptedPassportElement {
-    fn from(remote: Remote) -> Self {
-        Self {
-            kind: remote.kind,
-            hash: remote.hash,
-            data: remote.data,
-            phone_number: remote.phone_number,
-            email: remote.email,
-            // TODO: #[remote(option, map, into)]
-            files: remote
-                .files
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            // TODO: #[remote(option, into)]
-            front_side: remote.front_side.map(|inner| inner.to_owned().into()),
-            // TODO: #[remote(option, into)]
-            reverse_side: remote.reverse_side.map(|inner| inner.to_owned().into()),
-            // TODO: #[remote(option, into)]
-            selfie: remote.selfie.map(|inner| inner.to_owned().into()),
-            // TODO: #[remote(option, map, into)]
-            translation: remote
-                .translation
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-        }
-    }
 }

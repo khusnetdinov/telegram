@@ -23,3 +23,11 @@ impl From<Remote> for BackgroundType {
         }
     }
 }
+
+impl Default for BackgroundType {
+    fn default() -> Self {
+        Self::Fill(BackgroundTypeFill {
+            ..Default::default()
+        })
+    }
+}

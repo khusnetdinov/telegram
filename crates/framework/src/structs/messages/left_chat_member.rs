@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::user::User as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct LeftChatMember {
     pub left_chat_member: User,
 }

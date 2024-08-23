@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::user::User as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct User {
     pub id: i64,
     pub is_bot: bool,
@@ -26,26 +27,6 @@ pub struct User {
     pub an_connect_to_business: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub has_main_web_app: Option<bool>,
-}
-
-impl From<Remote> for User {
-    fn from(remote: Remote) -> Self {
-        Self {
-            id: remote.id,
-            is_bot: remote.is_bot,
-            first_name: remote.first_name,
-            last_name: remote.last_name,
-            username: remote.username,
-            language_code: remote.language_code,
-            is_premium: remote.is_premium,
-            added_to_attachment_menu: remote.added_to_attachment_menu,
-            can_join_groups: remote.can_join_groups,
-            can_read_all_group_messages: remote.can_read_all_group_messages,
-            supports_inline_queries: remote.supports_inline_queries,
-            an_connect_to_business: remote.an_connect_to_business,
-            has_main_web_app: remote.has_main_web_app,
-        }
-    }
 }
 
 impl From<User> for Remote {

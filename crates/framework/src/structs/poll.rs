@@ -3,8 +3,9 @@ use crate::structs::polls::poll_option::PollOption;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::poll::Poll as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct Poll {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,
@@ -27,37 +28,6 @@ pub struct Poll {
     pub open_period: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub close_date: Option<i64>,
-}
-impl From<Remote> for Poll {
-    fn from(remote: Remote) -> Self {
-        Self {
-            kind: remote.kind,
-            id: remote.id,
-            question: remote.question,
-            // TODO: #[remote(map)]
-            options: remote
-                .options
-                .iter()
-                .map(|inner| inner.to_owned().into())
-                .collect(),
-            total_voter_count: remote.total_voter_count,
-            is_closed: remote.is_closed,
-            is_anonymous: remote.is_anonymous,
-            allows_multiple_answers: remote.allows_multiple_answers,
-            // TODO: #[remote(option, map, into)]
-            question_entities: remote
-                .question_entities
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            correct_option_id: remote.correct_option_id,
-            explanation: remote.explanation,
-            // TODO: #[remote(option, map, into)]
-            explanation_entities: remote
-                .explanation_entities
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            open_period: remote.open_period,
-            close_date: remote.close_date,
-        }
-    }
 }
 
 impl From<Message> for Poll {

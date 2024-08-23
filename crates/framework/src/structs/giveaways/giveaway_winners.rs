@@ -3,8 +3,9 @@ use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::giveaway_winners::GiveawayWinners as Remote;
 use telegram_bots_api::api::structs::message::Message;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct GiveawayWinners {
     pub chat: Chat,
     pub giveaway_message_id: i64,
@@ -23,29 +24,6 @@ pub struct GiveawayWinners {
     pub was_refunded: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub prize_description: Option<String>,
-}
-impl From<Remote> for GiveawayWinners {
-    fn from(remote: Remote) -> Self {
-        Self {
-            // TODO: #[remote(into)]
-            chat: remote.chat.into(),
-            giveaway_message_id: remote.giveaway_message_id,
-            winners_selection_date: remote.winners_selection_date,
-            winner_count: remote.winner_count,
-            // TODO: #[remote(map, into)]
-            winners: remote
-                .winners
-                .iter()
-                .map(|inner| inner.to_owned().into())
-                .collect(),
-            additional_chat_count: remote.additional_chat_count,
-            premium_subscription_month_count: remote.premium_subscription_month_count,
-            unclaimed_prize_count: remote.unclaimed_prize_count,
-            only_new_members: remote.only_new_members,
-            was_refunded: remote.was_refunded,
-            prize_description: remote.prize_description,
-        }
-    }
 }
 
 impl From<Message> for GiveawayWinners {

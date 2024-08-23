@@ -4,7 +4,7 @@ use crate::structs::chat_boost_sources::chat_boost_source_premium::ChatBoostSour
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::chat_boost_source::ChatBoostSource as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ChatBoostSource {
     Premium(ChatBoostSourcePremium),
     GiftCode(ChatBoostSourceGiftCode),
@@ -18,5 +18,13 @@ impl From<Remote> for ChatBoostSource {
             Remote::GiftCode(gift_code) => Self::GiftCode(gift_code.into()),
             Remote::Giveaway(giveaway) => Self::Giveaway(giveaway.into()),
         }
+    }
+}
+
+impl Default for ChatBoostSource {
+    fn default() -> Self {
+        Self::Premium(ChatBoostSourcePremium {
+            ..Default::default()
+        })
     }
 }

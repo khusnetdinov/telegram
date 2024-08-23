@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::passport_element_error_data_field::PassportElementErrorDataField as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct PassportElementErrorDataField {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,
@@ -9,18 +10,6 @@ pub struct PassportElementErrorDataField {
     pub message: String,
     pub data_hash: String,
     pub field_name: String,
-}
-
-impl From<Remote> for PassportElementErrorDataField {
-    fn from(remote: Remote) -> Self {
-        Self {
-            kind: remote.kind,
-            source: remote.source,
-            field_name: remote.field_name,
-            data_hash: remote.data_hash,
-            message: remote.message,
-        }
-    }
 }
 
 impl From<PassportElementErrorDataField> for Remote {

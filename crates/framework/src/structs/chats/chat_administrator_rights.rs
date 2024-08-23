@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat_administrator_rights::ChatAdministratorRights as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct ChatAdministratorRights {
     pub is_anonymous: bool,
     pub can_manage_chat: bool,
@@ -25,27 +26,6 @@ pub struct ChatAdministratorRights {
     pub can_delete_stories: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_manage_topics: Option<bool>,
-}
-impl From<Remote> for ChatAdministratorRights {
-    fn from(remote: Remote) -> Self {
-        Self {
-            is_anonymous: remote.is_anonymous,
-            can_manage_chat: remote.can_manage_chat,
-            can_delete_messages: remote.can_delete_messages,
-            can_manage_video_chats: remote.can_manage_video_chats,
-            can_restrict_members: remote.can_restrict_members,
-            can_promote_members: remote.can_promote_members,
-            can_change_info: remote.can_change_info,
-            can_invite_users: remote.can_invite_users,
-            can_post_messages: remote.can_post_messages,
-            can_edit_messages: remote.can_edit_messages,
-            can_pin_messages: remote.can_pin_messages,
-            can_post_stories: remote.can_post_stories,
-            can_edit_stories: remote.can_edit_stories,
-            can_delete_stories: remote.can_delete_stories,
-            can_manage_topics: remote.can_manage_topics,
-        }
-    }
 }
 
 impl From<ChatAdministratorRights> for Remote {

@@ -1,8 +1,9 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::location::Location as Remote;
 use telegram_bots_api::api::structs::message::Message;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct Location {
     pub longitude: f64,
     pub latitude: f64,
@@ -10,18 +11,6 @@ pub struct Location {
     pub live_period: Option<i64>,
     pub heading: Option<i64>,
     pub proximity_alert_radius: Option<i64>,
-}
-impl From<Remote> for Location {
-    fn from(remote: Remote) -> Self {
-        Self {
-            longitude: remote.longitude,
-            latitude: remote.latitude,
-            horizontal_accuracy: remote.horizontal_accuracy,
-            live_period: remote.live_period,
-            heading: remote.heading,
-            proximity_alert_radius: remote.proximity_alert_radius,
-        }
-    }
 }
 
 impl From<Message> for Location {

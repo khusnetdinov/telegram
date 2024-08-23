@@ -2,7 +2,7 @@ use crate::structs::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::photo_size::PhotoSize;
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Options {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parse_mode: Option<String>,

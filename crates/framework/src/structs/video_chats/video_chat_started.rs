@@ -1,15 +1,10 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::video_chat_started::VideoChatStarted as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct VideoChatStarted {}
-
-impl From<Remote> for VideoChatStarted {
-    fn from(_remote: Remote) -> Self {
-        Self {}
-    }
-}
 
 impl From<Message> for VideoChatStarted {
     fn from(remote: Message) -> Self {

@@ -4,7 +4,7 @@ use crate::structs::background_fills::background_fill_solid::BackgroundFillSolid
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::background_fill::BackgroundFill as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum BackgroundFill {
     Solid(BackgroundFillSolid),
     Gradient(BackgroundFillGradient),
@@ -18,5 +18,13 @@ impl From<Remote> for BackgroundFill {
             Remote::Gradient(gradient) => Self::Gradient(gradient.into()),
             Remote::FreeformGradient(free) => Self::FreeformGradient(free.into()),
         }
+    }
+}
+
+impl Default for BackgroundFill {
+    fn default() -> Self {
+        Self::Solid(BackgroundFillSolid {
+            ..Default::default()
+        })
     }
 }

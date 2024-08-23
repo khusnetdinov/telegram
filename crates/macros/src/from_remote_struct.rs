@@ -59,39 +59,50 @@ impl StructFieldVisitor {
         let ident = &self.ident;
 
         if self.is_build_in() {
-            quote::quote! { #ident: remote.#ident }
+            quote::quote! { #ident: value.#ident }
+        } else if self.structs.len() == 2 && self.is_boxed() {
+            quote::quote! { #ident: Box::new((*value.#ident).into()) }
+        } else if self.structs.len() == 3
+            && self.structs.iter().filter(|ty| ty == &"Vec").count() == 2
+        {
+            quote::quote! { #ident: value.#ident.iter().map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()).collect() }
         } else {
             let quoted = self
                 .structs
                 .iter()
                 .rev()
-                .fold(quote::quote! {}, |quoted, ty| {
-                    if self.structs.len() == 1 {
-                        quote::quote! { into() }
-                    } else {
-                        match ty.as_str() {
-                            "Option" => {
-                                if self.structs.len() == 2 {
-                                    quote::quote! { map(|inner| #quoted) }
-                                } else {
-                                    quote::quote! { map(|option| option.#quoted) }
-                                }
-                            }
-                            "Vec" => quote::quote! { iter().map(|inner| #quoted ).collect() },
-                            "Box" => quote::quote! { #quoted },
-                            _ => {
-                                if self.is_boxed() {
-                                    quote::quote! { map(|inner| Box::new((*inner).into())) }
-                                } else {
-                                    quote::quote! { inner.to_owned().into() }
-                                }
+                .fold(quote::quote! {}, |quoted, ty| match self.structs.len() {
+                    1 => quote::quote! { into() },
+                    2 => match ty.as_str() {
+                        "Option" => quote::quote! { map(|inner| #quoted) },
+                        "Vec" => quote::quote! { iter().map(|inner| #quoted ).collect() },
+                        "Box" => unreachable!(),
+                        _ => {
+                            quote::quote! { inner.to_owned().into() }
+                        }
+                    },
+                    _ => match ty.as_str() {
+                        "Option" => {
+                            if self.is_boxed() {
+                                quote::quote! { map(|inner| #quoted) }
+                            } else {
+                                quote::quote! { map(|option| option.#quoted) }
                             }
                         }
-                    }
+                        "Vec" => quote::quote! { iter().map(|inner| #quoted ).collect() },
+                        "Box" => quote::quote! { Box::new((*inner).into()) },
+                        _ => {
+                            if ident == ty {
+                                quote::quote! {}
+                            } else {
+                                quote::quote! { inner.to_owned().into() }
+                            }
+                        }
+                    },
                 });
 
             quote::quote! {
-                #ident: remote.#ident.#quoted
+                #ident: value.#ident.#quoted
             }
         }
     }
@@ -117,7 +128,7 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
     let ident = &input.ident;
     let quote = quote::quote! {
         impl From<Remote> for #ident {
-            fn from(remote: Remote) -> Self {
+            fn from(value: Remote) -> Self {
                 Self {
                    #(#setters,)*
                 }

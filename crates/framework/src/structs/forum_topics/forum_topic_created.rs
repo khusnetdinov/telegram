@@ -1,22 +1,14 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::forum_topic_edited::ForumTopicEdited as Remote;
 use telegram_bots_api::api::structs::message::Message;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct ForumTopicEdited {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub icon_custom_emoji_id: Option<String>,
-}
-
-impl From<Remote> for ForumTopicEdited {
-    fn from(remote: Remote) -> Self {
-        Self {
-            name: remote.name,
-            icon_custom_emoji_id: remote.icon_custom_emoji_id,
-        }
-    }
 }
 
 impl From<Message> for ForumTopicEdited {
