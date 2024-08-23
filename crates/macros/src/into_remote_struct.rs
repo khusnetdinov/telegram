@@ -17,8 +17,8 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
 
     let ident = &input.ident;
     let quote = quote::quote! {
-        impl From<Remote> for #ident {
-            fn from(value: Remote) -> Self {
+        impl From<#ident> for Remote {
+            fn from(value: #ident) -> Self {
                 Self {
                    #(#setters,)*
                 }
