@@ -8,7 +8,7 @@ pub struct GiveawayCompleted {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unclaimed_prize_count: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub giveaway_completed: Option<Box<Remote>>,
+    pub giveaway_completed: Option<Box<Self>>,
 }
 impl From<Remote> for GiveawayCompleted {
     fn from(remote: Remote) -> Self {
@@ -16,7 +16,22 @@ impl From<Remote> for GiveawayCompleted {
             winner_count: remote.winner_count,
             unclaimed_prize_count: remote.unclaimed_prize_count,
             // TODO: #[remote(option, into)]
-            giveaway_completed: remote.giveaway_completed.map(|inner| (*inner).into()),
+            giveaway_completed: remote
+                .giveaway_completed
+                .map(|inner| Box::new((*inner).into())),
+        }
+    }
+}
+
+impl From<GiveawayCompleted> for Remote {
+    fn from(value: GiveawayCompleted) -> Self {
+        Self {
+            winner_count: value.winner_count,
+            unclaimed_prize_count: value.unclaimed_prize_count,
+            // TODO: #[remote(option, into)]
+            giveaway_completed: value
+                .giveaway_completed
+                .map(|inner| Box::new((*inner).into())),
         }
     }
 }
