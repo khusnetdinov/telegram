@@ -41,8 +41,6 @@ pub mod business {
     pub use crate::traits::business::Business as BusinessTrait;
 }
 
-pub mod callback_query {}
-
 pub mod chat {}
 
 pub mod chat_actions {
