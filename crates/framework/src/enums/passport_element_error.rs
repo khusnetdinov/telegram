@@ -23,19 +23,3 @@ pub enum PassportElementError {
     TranslationFiles(PassportElementErrorTranslationFiles),
     Unspecified(PassportElementErrorUnspecified),
 }
-
-// impl From<PassportElementError> for Remote {
-//     fn from(value: PassportElementError) -> Self {
-//         match value {
-//             PassportElementError::DataField(error) => Self::DataField(error.into()),
-//             PassportElementError::FrontSide(error) => Self::FrontSide(error.into()),
-//             PassportElementError::ReverseSide(error) => Self::ReverseSide(error.into()),
-//             PassportElementError::Selfie(error) => Self::Selfie(error.into()),
-//             PassportElementError::File(error) => Self::File(error.into()),
-//             PassportElementError::Files(error) => Self::Files(error.into()),
-//             PassportElementError::TranslationFile(error) => Self::TranslationFile(error.into()),
-//             PassportElementError::TranslationFiles(error) => Self::TranslationFiles(error.into()),
-//             PassportElementError::Unspecified(error) => Self::Unspecified(error.into()),
-//         }
-//     }
-// }

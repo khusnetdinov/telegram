@@ -23,15 +23,3 @@ impl Default for InputMedia {
         })
     }
 }
-
-// impl From<InputMedia> for Remote {
-//     fn from(value: InputMedia) -> Self {
-//         match value {
-//             InputMedia::Animation(media) => Self::Animation(media.into()),
-//             InputMedia::Document(media) => Self::Document(media.into()),
-//             InputMedia::Audio(media) => Self::Audio(media.into()),
-//             InputMedia::Photo(media) => Self::Photo(media.into()),
-//             InputMedia::Video(media) => Self::Video(media.into()),
-//         }
-//     }
-// }

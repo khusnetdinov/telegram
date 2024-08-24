@@ -36,12 +36,3 @@ impl From<String> for FileInput {
         Self::String(file)
     }
 }
-
-// impl From<FileInput> for Remote {
-//     fn from(value: FileInput) -> Self {
-//         match value {
-//             FileInput::InputFile(input_file) => Self::InputFile(input_file.into()),
-//             FileInput::String(string) => Self::String(string),
-//         }
-//     }
-// }
