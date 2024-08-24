@@ -56,7 +56,7 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as Inner;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum Messages {
     /// Text messages, the actual UTF-8 text of the message
     Text(Text),

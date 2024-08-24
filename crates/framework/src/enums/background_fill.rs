@@ -3,22 +3,13 @@ use crate::structs::background_fills::background_fill_gradient::BackgroundFillGr
 use crate::structs::background_fills::background_fill_solid::BackgroundFillSolid;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::background_fill::BackgroundFill as Remote;
+use telegram_macros::FromRemoteEnum;
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum)]
 pub enum BackgroundFill {
     Solid(BackgroundFillSolid),
     Gradient(BackgroundFillGradient),
     FreeformGradient(BackgroundFillFreeformGradient),
-}
-
-impl From<Remote> for BackgroundFill {
-    fn from(remote: Remote) -> Self {
-        match remote {
-            Remote::Solid(solid) => Self::Solid(solid.into()),
-            Remote::Gradient(gradient) => Self::Gradient(gradient.into()),
-            Remote::FreeformGradient(free) => Self::FreeformGradient(free.into()),
-        }
-    }
 }
 
 impl Default for BackgroundFill {
