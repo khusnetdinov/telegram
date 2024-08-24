@@ -15,30 +15,8 @@ pub struct Location {
 
 impl From<Message> for Location {
     fn from(remote: Message) -> Self {
-        let Message {
-            location:
-                Some(Remote {
-                    longitude,
-                    latitude,
-                    horizontal_accuracy,
-                    live_period,
-                    heading,
-                    proximity_alert_radius,
-                    ..
-                }),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { location, .. } = remote;
 
-        Self {
-            longitude,
-            latitude,
-            horizontal_accuracy,
-            live_period,
-            heading,
-            proximity_alert_radius,
-        }
+        Self::from(location.unwrap())
     }
 }

@@ -21,13 +21,8 @@ pub struct Game {
 
 impl From<Message> for Game {
     fn from(remote: Message) -> Self {
-        let Message {
-            game: Some(game), ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { game, .. } = remote;
 
-        Self::from(game)
+        Self::from(game.unwrap())
     }
 }

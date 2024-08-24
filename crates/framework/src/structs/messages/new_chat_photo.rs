@@ -9,20 +9,14 @@ pub struct NewChatPhotoMessage {
 
 impl From<Message> for NewChatPhotoMessage {
     fn from(remote: Message) -> Self {
-        let Message {
-            new_chat_photo: Some(new_chat_photo),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { new_chat_photo, .. } = remote;
 
-        Self {
-            // TODO: #[remote(map, into)]
-            new_chat_photo: new_chat_photo
-                .iter()
-                .map(|inner| inner.to_owned().into())
-                .collect(),
-        }
+        let new_chat_photo = new_chat_photo
+            .unwrap()
+            .iter()
+            .map(|inner| inner.to_owned().into())
+            .collect();
+
+        Self { new_chat_photo }
     }
 }

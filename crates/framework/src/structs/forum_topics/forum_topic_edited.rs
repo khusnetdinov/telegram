@@ -14,13 +14,10 @@ pub struct ForumTopicCreated {
 impl From<Message> for ForumTopicCreated {
     fn from(remote: Message) -> Self {
         let Message {
-            forum_topic_created: Some(forum_topic_created),
+            forum_topic_created,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(forum_topic_created)
+        Self::from(forum_topic_created.unwrap())
     }
 }

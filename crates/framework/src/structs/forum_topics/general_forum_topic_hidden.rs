@@ -9,13 +9,10 @@ pub struct GeneralForumTopicHidden {}
 impl From<Message> for GeneralForumTopicHidden {
     fn from(remote: Message) -> Self {
         let Message {
-            general_forum_topic_hidden: Some(general_forum_topic_hidden),
+            general_forum_topic_hidden,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(general_forum_topic_hidden)
+        Self::from(general_forum_topic_hidden.unwrap())
     }
 }

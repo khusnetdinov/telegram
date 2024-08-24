@@ -10,19 +10,15 @@ pub struct NewChatMembersMessage {
 impl From<Message> for NewChatMembersMessage {
     fn from(remote: Message) -> Self {
         let Message {
-            new_chat_members: Some(new_chat_members),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            new_chat_members, ..
+        } = remote;
 
-        Self {
-            // TODO: #[remote(map, into)]
-            new_chat_members: new_chat_members
-                .iter()
-                .map(|inner| inner.to_owned().into())
-                .collect(),
-        }
+        let new_chat_members = new_chat_members
+            .unwrap()
+            .iter()
+            .map(|inner| inner.to_owned().into())
+            .collect();
+
+        Self { new_chat_members }
     }
 }

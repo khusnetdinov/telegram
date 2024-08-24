@@ -14,13 +14,10 @@ pub struct ProximityAlertTriggered {
 impl From<Message> for ProximityAlertTriggered {
     fn from(remote: Message) -> Self {
         let Message {
-            proximity_alert_triggered: Some(proximity_alert_triggered),
+            proximity_alert_triggered,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(proximity_alert_triggered)
+        Self::from(proximity_alert_triggered.unwrap())
     }
 }

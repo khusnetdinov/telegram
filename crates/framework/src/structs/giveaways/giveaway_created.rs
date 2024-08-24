@@ -9,13 +9,9 @@ pub struct GiveawayCreated {}
 impl From<Message> for GiveawayCreated {
     fn from(remote: Message) -> Self {
         let Message {
-            giveaway_created: Some(giveaway_created),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            giveaway_created, ..
+        } = remote;
 
-        Self::from(giveaway_created)
+        Self::from(giveaway_created.unwrap())
     }
 }

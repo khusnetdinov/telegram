@@ -11,13 +11,10 @@ pub struct MessageAutoDeleteTimerChanged {
 impl From<Message> for MessageAutoDeleteTimerChanged {
     fn from(remote: Message) -> Self {
         let Message {
-            message_auto_delete_timer_changed: Some(message_auto_delete_timer_changed),
+            message_auto_delete_timer_changed,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(message_auto_delete_timer_changed)
+        Self::from(message_auto_delete_timer_changed.unwrap())
     }
 }

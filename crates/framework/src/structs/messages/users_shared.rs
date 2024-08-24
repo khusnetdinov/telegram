@@ -12,14 +12,8 @@ pub struct UsersShared {
 
 impl From<Message> for UsersShared {
     fn from(remote: Message) -> Self {
-        let Message {
-            users_shared: Some(users_shared),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { users_shared, .. } = remote;
 
-        Self::from(users_shared)
+        Self::from(users_shared.unwrap())
     }
 }

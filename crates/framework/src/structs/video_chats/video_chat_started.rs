@@ -9,13 +9,9 @@ pub struct VideoChatStarted {}
 impl From<Message> for VideoChatStarted {
     fn from(remote: Message) -> Self {
         let Message {
-            video_chat_started: Some(video_chat_started),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            video_chat_started, ..
+        } = remote;
 
-        Self::from(video_chat_started)
+        Self::from(video_chat_started.unwrap())
     }
 }

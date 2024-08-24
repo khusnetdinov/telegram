@@ -14,14 +14,8 @@ pub struct InvoiceMessage {
 
 impl From<Message> for InvoiceMessage {
     fn from(remote: Message) -> Self {
-        let Message {
-            invoice: Some(invoice),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { invoice, .. } = remote;
 
-        Self::from(invoice)
+        Self::from(invoice.unwrap())
     }
 }

@@ -11,13 +11,9 @@ pub struct VideoChatEnded {
 impl From<Message> for VideoChatEnded {
     fn from(remote: Message) -> Self {
         let Message {
-            video_chat_ended: Some(video_chat_ended),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            video_chat_ended, ..
+        } = remote;
 
-        Self::from(video_chat_ended)
+        Self::from(video_chat_ended.unwrap())
     }
 }

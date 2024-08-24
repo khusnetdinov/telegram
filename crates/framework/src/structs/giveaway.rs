@@ -23,14 +23,8 @@ pub struct Giveaway {
 
 impl From<Message> for Giveaway {
     fn from(remote: Message) -> Self {
-        let Message {
-            giveaway: Some(giveaway),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { giveaway, .. } = remote;
 
-        Self::from(giveaway)
+        Self::from(giveaway.unwrap())
     }
 }

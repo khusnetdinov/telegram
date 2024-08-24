@@ -16,13 +16,10 @@ pub struct WriteAccessAllowed {
 impl From<Message> for WriteAccessAllowed {
     fn from(remote: Message) -> Self {
         let Message {
-            write_access_allowed: Some(write_access_allowed),
+            write_access_allowed,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(write_access_allowed)
+        Self::from(write_access_allowed.unwrap())
     }
 }

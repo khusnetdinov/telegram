@@ -21,13 +21,8 @@ pub struct Venue {
 
 impl From<Message> for Venue {
     fn from(remote: Message) -> Self {
-        let Message {
-            venue: Some(venue), ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { venue, .. } = remote;
 
-        Self::from(venue)
+        Self::from(venue.unwrap())
     }
 }

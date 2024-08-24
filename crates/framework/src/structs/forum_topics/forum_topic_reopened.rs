@@ -9,13 +9,10 @@ pub struct ForumTopicReopened {}
 impl From<Message> for ForumTopicReopened {
     fn from(remote: Message) -> Self {
         let Message {
-            forum_topic_reopened: Some(forum_topic_reopened),
+            forum_topic_reopened,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(forum_topic_reopened)
+        Self::from(forum_topic_reopened.unwrap())
     }
 }

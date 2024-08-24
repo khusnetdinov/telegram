@@ -20,13 +20,9 @@ pub struct SuccessfulPayment {
 impl From<Message> for SuccessfulPayment {
     fn from(remote: Message) -> Self {
         let Message {
-            successful_payment: Some(successful_payment),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            successful_payment, ..
+        } = remote;
 
-        Self::from(successful_payment)
+        Self::from(successful_payment.unwrap())
     }
 }

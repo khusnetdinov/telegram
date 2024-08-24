@@ -17,13 +17,9 @@ pub struct GiveawayCompleted {
 impl From<Message> for GiveawayCompleted {
     fn from(remote: Message) -> Self {
         let Message {
-            giveaway_completed: Some(giveaway_completed),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            giveaway_completed, ..
+        } = remote;
 
-        Self::from(giveaway_completed)
+        Self::from(giveaway_completed.unwrap())
     }
 }

@@ -13,14 +13,8 @@ pub struct PassportData {
 
 impl From<Message> for PassportData {
     fn from(remote: Message) -> Self {
-        let Message {
-            passport_data: Some(passport_data),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { passport_data, .. } = remote;
 
-        Self::from(passport_data)
+        Self::from(passport_data.unwrap())
     }
 }

@@ -10,14 +10,8 @@ pub struct ChatBoostAdded {
 
 impl From<Message> for ChatBoostAdded {
     fn from(remote: Message) -> Self {
-        let Message {
-            boost_added: Some(boost_added),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { boost_added, .. } = remote;
 
-        Self::from(*boost_added)
+        Self::from(*boost_added.unwrap())
     }
 }

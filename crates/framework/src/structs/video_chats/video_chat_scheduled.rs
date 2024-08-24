@@ -11,13 +11,10 @@ pub struct VideoChatScheduled {
 impl From<Message> for VideoChatScheduled {
     fn from(remote: Message) -> Self {
         let Message {
-            video_chat_scheduled: Some(video_chat_scheduled),
+            video_chat_scheduled,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(video_chat_scheduled)
+        Self::from(video_chat_scheduled.unwrap())
     }
 }

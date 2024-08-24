@@ -11,13 +11,8 @@ pub struct Dice {
 
 impl From<Message> for Dice {
     fn from(remote: Message) -> Self {
-        let Message {
-            dice: Some(dice), ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { dice, .. } = remote;
 
-        Self::from(dice)
+        Self::from(dice.unwrap())
     }
 }

@@ -19,13 +19,9 @@ impl From<Remote> for LeftChatMember {
 impl From<Message> for LeftChatMember {
     fn from(remote: Message) -> Self {
         let Message {
-            left_chat_member: Some(left_chat_member),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            left_chat_member, ..
+        } = remote;
 
-        Self::from(left_chat_member)
+        Self::from(left_chat_member.unwrap())
     }
 }

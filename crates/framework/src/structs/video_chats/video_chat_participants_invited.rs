@@ -12,13 +12,10 @@ pub struct VideoChatParticipantsInvited {
 impl From<Message> for VideoChatParticipantsInvited {
     fn from(remote: Message) -> Self {
         let Message {
-            video_chat_participants_invited: Some(video_chat_participants_invited),
+            video_chat_participants_invited,
             ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        } = remote;
 
-        Self::from(video_chat_participants_invited)
+        Self::from(video_chat_participants_invited.unwrap())
     }
 }

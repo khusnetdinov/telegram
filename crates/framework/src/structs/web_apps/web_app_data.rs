@@ -11,14 +11,8 @@ pub struct WebAppData {
 
 impl From<Message> for WebAppData {
     fn from(remote: Message) -> Self {
-        let Message {
-            web_app_data: Some(web_app_data),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { web_app_data, .. } = remote;
 
-        Self::from(web_app_data)
+        Self::from(web_app_data.unwrap())
     }
 }

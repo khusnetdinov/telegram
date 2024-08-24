@@ -14,13 +14,9 @@ pub struct ForumTopicEdited {
 impl From<Message> for ForumTopicEdited {
     fn from(remote: Message) -> Self {
         let Message {
-            forum_topic_edited: Some(forum_topic_edited),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+            forum_topic_edited, ..
+        } = remote;
 
-        Self::from(forum_topic_edited)
+        Self::from(forum_topic_edited.unwrap())
     }
 }

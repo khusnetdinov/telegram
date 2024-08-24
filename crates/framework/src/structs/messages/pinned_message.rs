@@ -9,17 +9,10 @@ pub struct PinnedMessage {
 
 impl From<Message> for PinnedMessage {
     fn from(remote: Message) -> Self {
-        let Message {
-            pinned_message: Some(pinned_message),
-            ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { pinned_message, .. } = remote;
 
         Self {
-            // TODO: #[remote(into)]
-            pinned_message: Box::new((*pinned_message).into()),
+            pinned_message: Box::new((*pinned_message.unwrap()).into()),
         }
     }
 }

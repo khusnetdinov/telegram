@@ -32,13 +32,8 @@ pub struct Poll {
 
 impl From<Message> for Poll {
     fn from(remote: Message) -> Self {
-        let Message {
-            poll: Some(poll), ..
-        } = remote
-        else {
-            unreachable!()
-        };
+        let Message { poll, .. } = remote;
 
-        Self::from(poll)
+        Self::from(poll.unwrap())
     }
 }

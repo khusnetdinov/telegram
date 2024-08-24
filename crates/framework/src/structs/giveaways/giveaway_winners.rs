@@ -29,13 +29,9 @@ pub struct GiveawayWinners {
 impl From<Message> for GiveawayWinners {
     fn from(inner: Message) -> Self {
         let Message {
-            giveaway_winners: Some(giveaway_winners),
-            ..
-        } = inner
-        else {
-            unreachable!()
-        };
+            giveaway_winners, ..
+        } = inner;
 
-        Self::from(giveaway_winners)
+        Self::from(giveaway_winners.unwrap())
     }
 }
