@@ -6,8 +6,9 @@ use crate::structs::chat_members::chat_member_owner::ChatMemberOwner;
 use crate::structs::chat_members::chat_member_restricted::ChatMemberRestricted;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::chat_member::ChatMember as Remote;
+use telegram_macros::FromRemoteEnum;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum)]
 #[serde(untagged)]
 pub enum ChatMember {
     Owner(ChatMemberOwner),
@@ -18,15 +19,10 @@ pub enum ChatMember {
     Banned(ChatMemberBanned),
 }
 
-impl From<Remote> for ChatMember {
-    fn from(remote: Remote) -> Self {
-        match remote {
-            Remote::Owner(owner) => Self::Owner(owner.into()),
-            Remote::Administrator(administrator) => Self::Administrator(administrator.into()),
-            Remote::Member(member) => Self::Member(member.into()),
-            Remote::Restricted(restricted) => Self::Restricted(restricted.into()),
-            Remote::Left(left) => Self::Left(left.into()),
-            Remote::Banned(banned) => Self::Banned(banned.into()),
-        }
+impl Default for ChatMember {
+    fn default() -> Self {
+        Self::Owner(ChatMemberOwner {
+            ..Default::default()
+        })
     }
 }

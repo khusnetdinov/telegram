@@ -2,8 +2,11 @@ use crate::feature::audio::FileInput;
 use crate::structs::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::input_media_animation::InputMediaAnimation as Remote;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct InputMediaAnimation {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,
@@ -24,46 +27,4 @@ pub struct InputMediaAnimation {
     pub duration: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub has_spoiler: Option<bool>,
-}
-
-impl From<Remote> for InputMediaAnimation {
-    fn from(remote: Remote) -> Self {
-        Self {
-            kind: remote.kind,
-            media: remote.media,
-            // TODO: #[remote(option, into)]
-            thumbnail: remote.thumbnail.map(|inner| inner.into()),
-            caption: remote.caption,
-            parse_mode: remote.parse_mode,
-            // TODO: #[remote(option, map, into)]
-            caption_entities: remote
-                .caption_entities
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            width: remote.width,
-            height: remote.height,
-            duration: remote.duration,
-            has_spoiler: remote.has_spoiler,
-        }
-    }
-}
-
-impl From<InputMediaAnimation> for Remote {
-    fn from(value: InputMediaAnimation) -> Self {
-        Self {
-            kind: value.kind,
-            media: value.media,
-            // TODO: #[value(option, into)]
-            thumbnail: value.thumbnail.map(|inner| inner.into()),
-            caption: value.caption,
-            parse_mode: value.parse_mode,
-            // TODO: #[value(option, map, into)]
-            caption_entities: value
-                .caption_entities
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            width: value.width,
-            height: value.height,
-            duration: value.duration,
-            has_spoiler: value.has_spoiler,
-        }
-    }
 }

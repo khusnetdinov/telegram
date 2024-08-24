@@ -6,7 +6,6 @@ use telegram_framework::feature::dice::*;
 use telegram_framework::feature::media_group::*;
 use telegram_framework::feature::photo::*;
 use telegram_framework::feature::pooling::*;
-use telegram_framework::traits::media_group::MediaGroup;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]

@@ -2,8 +2,11 @@ use crate::feature::audio::FileInput;
 use crate::structs::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::input_media_audio::InputMediaAudio as Remote;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct InputMediaAudio {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,
@@ -24,46 +27,4 @@ pub struct InputMediaAudio {
     pub title: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub show_caption_above_media: Option<bool>,
-}
-
-impl From<Remote> for InputMediaAudio {
-    fn from(remote: Remote) -> Self {
-        Self {
-            kind: remote.kind,
-            media: remote.media,
-            // TODO: #[remote(option, into)]
-            thumbnail: remote.thumbnail.map(|inner| inner.into()),
-            caption: remote.caption,
-            parse_mode: remote.parse_mode,
-            // TODO: #[remote(option, map, into)]
-            caption_entities: remote
-                .caption_entities
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            duration: remote.duration,
-            performer: remote.performer,
-            title: remote.title,
-            show_caption_above_media: remote.show_caption_above_media,
-        }
-    }
-}
-
-impl From<InputMediaAudio> for Remote {
-    fn from(value: InputMediaAudio) -> Self {
-        Self {
-            kind: value.kind,
-            media: value.media,
-            // TODO: #[value(option, into)]
-            thumbnail: value.thumbnail.map(|inner| inner.into()),
-            caption: value.caption,
-            parse_mode: value.parse_mode,
-            // TODO: #[value(option, map, into)]
-            caption_entities: value
-                .caption_entities
-                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            duration: value.duration,
-            performer: value.performer,
-            title: value.title,
-            show_caption_above_media: value.show_caption_above_media,
-        }
-    }
 }

@@ -3,8 +3,9 @@ use crate::structs::chat_invite_link::ChatInviteLink;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat_join_request::ChatJoinRequest as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct ChatJoinRequest {
     pub chat: Chat,
     pub from: User,
@@ -14,20 +15,4 @@ pub struct ChatJoinRequest {
     pub bio: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub invite_link: Option<ChatInviteLink>,
-}
-
-impl From<Remote> for ChatJoinRequest {
-    fn from(remote: Remote) -> Self {
-        Self {
-            // TODO: #[remote(into)]
-            chat: remote.chat.into(),
-            // TODO: #[remote(into)]
-            from: remote.from.into(),
-            user_chat_id: remote.user_chat_id,
-            date: remote.date,
-            bio: remote.bio,
-            // TODO: #[remote(option, into)]
-            invite_link: remote.invite_link.map(|inner| inner.into()),
-        }
-    }
 }

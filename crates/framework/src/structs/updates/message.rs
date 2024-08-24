@@ -49,7 +49,7 @@ pub struct Message {
     /// Optional. For replies in the same chat and message thread, the original message. Note that
     /// the Message object in this field will not contain further reply_to_message fields even if
     /// it itself is a reply.
-    pub reply_to_message: Option<Box<Remote>>,
+    pub reply_to_message: Option<Box<Self>>,
     /// Optional. Information about the message that is being replied to, which may come from another
     /// chat or forum topic
     pub external_reply: Option<ExternalReplyInfo>,
@@ -118,7 +118,6 @@ impl From<Remote> for Message {
             forward_origin,
             is_topic_message,
             is_automatic_forward,
-            reply_to_message,
             external_reply,
             quote,
             reply_to_story,
@@ -131,6 +130,7 @@ impl From<Remote> for Message {
             author_signature,
             effect_id,
             reply_markup,
+            reply_to_message: reply_to_message.map(|inner| Box::new((*inner).into())),
             kind: Messages::from(remote),
         }
     }

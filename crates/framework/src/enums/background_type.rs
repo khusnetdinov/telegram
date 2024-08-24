@@ -4,8 +4,9 @@ use crate::structs::background_types::background_type_pattern::BackgroundTypePat
 use crate::structs::background_types::background_type_wallpaper::BackgroundTypeWallpaper;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::background_type::BackgroundType as Remote;
+use telegram_macros::FromRemoteEnum;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum)]
 pub enum BackgroundType {
     Fill(BackgroundTypeFill),
     Wallpaper(BackgroundTypeWallpaper),
@@ -13,13 +14,10 @@ pub enum BackgroundType {
     ChatTheme(BackgroundTypeChatTheme),
 }
 
-impl From<Remote> for BackgroundType {
-    fn from(remote: Remote) -> Self {
-        match remote {
-            Remote::Fill(fill) => Self::Fill(fill.into()),
-            Remote::Wallpaper(wallpaper) => Self::Wallpaper(wallpaper.into()),
-            Remote::Pattern(pattern) => Self::Pattern(pattern.into()),
-            Remote::ChatTheme(chat_theme) => Self::ChatTheme(chat_theme.into()),
-        }
+impl Default for BackgroundType {
+    fn default() -> Self {
+        Self::Fill(BackgroundTypeFill {
+            ..Default::default()
+        })
     }
 }

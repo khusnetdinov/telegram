@@ -30,5 +30,4 @@ pub mod users_shared;
 pub mod video;
 pub mod video_note;
 pub mod voice;
-pub mod web_app_data;
 pub mod write_access_allowed;

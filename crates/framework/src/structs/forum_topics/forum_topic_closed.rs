@@ -1,15 +1,10 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::forum_topic_closed::ForumTopicClosed as Remote;
 use telegram_bots_api::api::structs::message::Message;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct ForumTopicClosed {}
-
-impl From<Remote> for ForumTopicClosed {
-    fn from(_remote: Remote) -> Self {
-        Self {}
-    }
-}
 
 impl From<Message> for ForumTopicClosed {
     fn from(remote: Message) -> Self {

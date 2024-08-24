@@ -1,8 +1,9 @@
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message_entity::MessageEntity as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct MessageEntity {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,
@@ -16,20 +17,6 @@ pub struct MessageEntity {
     pub language: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_emoji_id: Option<String>,
-}
-impl From<Remote> for MessageEntity {
-    fn from(remote: Remote) -> Self {
-        Self {
-            kind: remote.kind,
-            offset: remote.offset,
-            length: remote.length,
-            url: remote.url,
-            // TODO: #[remote(option, into)]
-            user: remote.user.map(|inner| inner.into()),
-            language: remote.language,
-            custom_emoji_id: remote.custom_emoji_id,
-        }
-    }
 }
 
 impl From<MessageEntity> for Remote {

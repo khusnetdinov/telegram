@@ -43,7 +43,6 @@ use crate::structs::messages::users_shared::UsersShared;
 use crate::structs::messages::video::Video;
 use crate::structs::messages::video_note::VideoNote;
 use crate::structs::messages::voice::Voice;
-use crate::structs::messages::web_app_data::WebAppData;
 use crate::structs::messages::write_access_allowed::WriteAccessAllowed;
 use crate::structs::passports::passport_data::PassportData;
 use crate::structs::poll::Poll;
@@ -52,11 +51,12 @@ use crate::structs::video_chats::video_chat_ended::VideoChatEnded;
 use crate::structs::video_chats::video_chat_participants_invited::VideoChatParticipantsInvited;
 use crate::structs::video_chats::video_chat_scheduled::VideoChatScheduled;
 use crate::structs::video_chats::video_chat_started::VideoChatStarted;
+use crate::structs::web_apps::web_app_data::WebAppData;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as Inner;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum Messages {
     /// Text messages, the actual UTF-8 text of the message
     Text(Text),

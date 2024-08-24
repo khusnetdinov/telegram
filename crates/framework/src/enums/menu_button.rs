@@ -2,7 +2,7 @@ use crate::feature::web_app::WebAppInfo;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::menu_button::MenuButton as Remote;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum MenuButton {

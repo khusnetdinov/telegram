@@ -2,8 +2,9 @@ use crate::structs::location::Location;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chosen_inline_result::ChosenInlineResult as Remote;
+use telegram_macros::FromRemoteStruct;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
 pub struct ChosenInlineResult {
     pub result_id: String,
     pub from: User,
@@ -12,17 +13,4 @@ pub struct ChosenInlineResult {
     pub location: Option<Location>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub inline_message_id: Option<String>,
-}
-impl From<Remote> for ChosenInlineResult {
-    fn from(remote: Remote) -> Self {
-        Self {
-            result_id: remote.result_id,
-            // TODO: #[remote(into)]
-            from: remote.from.into(),
-            query: remote.query,
-            // TODO: #[remote(option, into)]
-            location: remote.location.map(|inner| inner.into()),
-            inline_message_id: remote.inline_message_id,
-        }
-    }
 }
