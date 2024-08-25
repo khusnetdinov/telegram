@@ -1,4 +1,4 @@
-use crate::structs::shipping_address::ShippingAddress;
+use crate::structs::payments::shipping_address::ShippingAddress;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::order_info::OrderInfo as Remote;
 use telegram_macros::FromRemoteStruct;

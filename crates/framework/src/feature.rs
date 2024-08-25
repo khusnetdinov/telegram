@@ -98,8 +98,6 @@ pub mod https_listener {
 
 pub mod inline {}
 
-pub mod invoice {}
-
 pub mod location {
     pub use crate::structs::location::Location;
     pub use crate::traits::location::Location as LocationTrait;
@@ -141,7 +139,41 @@ pub mod my {
     pub use crate::traits::my::My as MyTrait;
 }
 
-pub mod order {}
+pub mod payments {
+    pub mod invoice {
+        pub use crate::structs::payments::invoice::Invoice;
+        pub use crate::structs::payments::labeled_price::LabeledPrice;
+        pub use crate::traits::payments::invoice::Invoice as InvoiceTrait;
+    }
+
+    pub mod order {
+        pub use crate::structs::payments::labeled_price::LabeledPrice;
+        pub use crate::structs::payments::shipping_address::ShippingAddress;
+        pub use crate::structs::payments::shipping_option::ShippingOption;
+        pub use crate::structs::payments::shipping_query::ShippingQuery;
+        pub use crate::traits::payments::order::Order as OrderTrait;
+    }
+
+    pub mod star {
+        pub use crate::enums::paid_media::PaidMedia;
+        pub use crate::enums::revenue_withdrawal_state::RevenueWithdrawalState;
+        pub use crate::enums::transaction_partner::TransactionPartner;
+        pub use crate::structs::payments::paid_media_info::PaidMediaInfo;
+        pub use crate::structs::payments::paid_media_photo::PaidMediaPhoto;
+        pub use crate::structs::payments::paid_media_preview::PaidMediaPreview;
+        pub use crate::structs::payments::paid_media_video::PaidMediaVideo;
+        pub use crate::structs::payments::revenue_withdrawal_state_failed::RevenueWithdrawalStateFailed;
+        pub use crate::structs::payments::revenue_withdrawal_state_pending::RevenueWithdrawalStatePending;
+        pub use crate::structs::payments::revenue_withdrawal_state_succeeded::RevenueWithdrawalStateSucceeded;
+        pub use crate::structs::payments::transaction_partner_fragment::TransactionPartnerFragment;
+        pub use crate::structs::payments::transaction_partner_other::TransactionPartnerOther;
+        pub use crate::structs::payments::transaction_partner_telegram_ads::TransactionPartnerTelegramAds;
+        pub use crate::structs::payments::transaction_partner_user::TransactionPartnerUser;
+        pub use crate::traits::payments::star::Star as StarTrait;
+    }
+
+    pub use crate::structs::payments::options::Options;
+}
 
 pub mod passport {
     pub use crate::enums::passport_element_error::PassportElementError;
@@ -182,8 +214,6 @@ pub mod poll {
 }
 
 pub mod reply_markup {}
-
-pub mod star {}
 
 pub mod stickers {}
 

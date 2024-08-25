@@ -1,4 +1,6 @@
-#![allow(clippy::new_without_default, dead_code)]
+#![allow(clippy::new_without_default)]
+#![allow(clippy::too_many_arguments)]
+#![allow(dead_code)]
 pub mod bots_api;
 pub mod config;
 pub mod enums;
