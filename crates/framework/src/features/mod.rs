@@ -7,6 +7,7 @@ pub mod contact;
 pub mod dice;
 pub mod document;
 pub mod file;
+mod forum;
 pub mod game;
 pub mod location;
 pub mod media_group;

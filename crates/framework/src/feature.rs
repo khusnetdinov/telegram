@@ -78,7 +78,16 @@ pub mod file {
     pub use crate::traits::file::File as FileTrait;
 }
 
-pub mod forum {}
+pub mod forum {
+    pub use crate::structs::forum_topics::forum_topic::ForumTopic;
+    pub use crate::structs::forum_topics::forum_topic_closed::ForumTopicClosed;
+    pub use crate::structs::forum_topics::forum_topic_created::ForumTopicEdited;
+    pub use crate::structs::forum_topics::forum_topic_edited::ForumTopicCreated;
+    pub use crate::structs::forum_topics::forum_topic_reopened::ForumTopicReopened;
+    pub use crate::structs::forum_topics::general_forum_topic_hidden::GeneralForumTopicHidden;
+    pub use crate::structs::forum_topics::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
+    pub use crate::traits::forum::Forum as ForumTrait;
+}
 
 pub mod game {
     pub use crate::structs::game::Game;
