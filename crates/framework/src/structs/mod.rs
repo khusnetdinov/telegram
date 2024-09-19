@@ -1,5 +1,6 @@
 pub mod background_fills;
 pub mod background_types;
+pub mod birthdate;
 pub mod bot_command;
 pub mod business;
 pub mod chat;
@@ -30,6 +31,7 @@ pub mod poll;
 pub mod polls;
 pub mod reactions;
 pub mod shared_user;
+pub mod text_quote;
 pub mod update;
 pub mod updates;
 pub mod user;
