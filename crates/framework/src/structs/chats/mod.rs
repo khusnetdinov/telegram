@@ -22,6 +22,7 @@ pub mod chat_member_updated;
 pub mod chat_permissions;
 pub mod chat_photo;
 pub mod chat_shared;
+pub mod options;
 pub mod user_chat_boosts;
 pub mod video_chat_ended;
 pub mod video_chat_participants_invited;

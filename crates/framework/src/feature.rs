@@ -6,7 +6,6 @@ pub mod animation {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::messages::animation::Animation as AnimationMessage;
     pub use crate::traits::animation::Animation as AnimationTrait;
-    pub use std::path::PathBuf;
 }
 
 pub mod audio {
@@ -25,13 +24,13 @@ pub mod bots_api {
     pub use crate::storages::memory::MemoryStorage;
     pub use crate::structs::options::Options;
     pub use crate::structs::update::Update;
-    pub use crate::traits::kind_dispatcher::KindDispatcher;
+    pub use crate::traits::kind_dispatcher::KindDispatcher as KindDispatcherTrait;
     pub use std::fmt::Debug;
+    pub use std::path::PathBuf;
     pub use std::sync::Arc;
 }
 
 pub mod business {
-    pub use crate::bots_api::BotsApi;
     pub use crate::structs::business::business_connection::BusinessConnection;
     pub use crate::structs::business::business_intro::BusinessIntro;
     pub use crate::structs::business::business_location::BusinessLocation;
@@ -41,11 +40,44 @@ pub mod business {
     pub use crate::traits::business::Business as BusinessTrait;
 }
 
-pub mod chat {}
+pub mod chat {
+    pub use crate::structs::birthdate::Birthdate;
+    pub use crate::structs::chat::Chat;
+    pub use crate::structs::chats::chat_administrator_rights::ChatAdministratorRights;
+    pub use crate::structs::chats::chat_background::ChatBackground;
+    pub use crate::structs::chats::chat_boost::ChatBoost;
+    pub use crate::structs::chats::chat_boost_added::ChatBoostAdded;
+    pub use crate::structs::chats::chat_boost_removed::ChatBoostRemoved;
+    pub use crate::structs::chats::chat_boost_source_gift_code::ChatBoostSourceGiftCode;
+    pub use crate::structs::chats::chat_boost_source_giveaway::ChatBoostSourceGiveaway;
+    pub use crate::structs::chats::chat_boost_source_premium::ChatBoostSourcePremium;
+    pub use crate::structs::chats::chat_full_info::ChatFullInfo;
+    pub use crate::structs::chats::chat_id::ChatId;
+    pub use crate::structs::chats::chat_invite_link::ChatInviteLink;
+    pub use crate::structs::chats::chat_join_request::ChatJoinRequest;
+    pub use crate::structs::chats::chat_location::ChatLocation;
+    pub use crate::structs::chats::chat_member_administrator::ChatMemberAdministrator;
+    pub use crate::structs::chats::chat_member_banned::ChatMemberBanned;
+    pub use crate::structs::chats::chat_member_left::ChatMemberLeft;
+    pub use crate::structs::chats::chat_member_member::ChatMemberMember;
+    pub use crate::structs::chats::chat_member_owner::ChatMemberOwner;
+    pub use crate::structs::chats::chat_member_restricted::ChatMemberRestricted;
+    pub use crate::structs::chats::chat_member_updated::ChatMemberUpdated;
+    pub use crate::structs::chats::chat_permissions::ChatPermissions;
+    pub use crate::structs::chats::chat_photo::ChatPhoto;
+    pub use crate::structs::chats::chat_shared::ChatShared;
+    pub use crate::structs::chats::options::Options as ChatOptions;
+    pub use crate::structs::chats::user_chat_boosts::UserChatBoosts;
+    pub use crate::structs::chats::video_chat_ended::VideoChatEnded;
+    pub use crate::structs::chats::video_chat_participants_invited::VideoChatParticipantsInvited;
+    pub use crate::structs::chats::video_chat_scheduled::VideoChatScheduled;
+    pub use crate::structs::chats::video_chat_started::VideoChatStarted;
+    pub use crate::traits::chat::Chat as ChatTrait;
+}
 
 pub mod chat_actions {
     pub use crate::enums::chat_action::ChatAction;
-    pub use crate::traits::chat_actions::ChatActions;
+    pub use crate::traits::chat_actions::ChatActions as ChatActionsTrait;
 }
 
 pub mod contact {
@@ -55,13 +87,13 @@ pub mod contact {
 
 pub mod commands {
     pub use crate::traits::bots_apis::commands::Commands;
-    pub use crate::traits::params::EnumParams;
+    pub use crate::traits::params::EnumParams as CommandsTrait;
     pub use telegram_macros::BotCommands;
 }
 
 pub mod dice {
     pub use crate::enums::emoji::Emoji;
-    pub use crate::traits::dice::Dice;
+    pub use crate::traits::dice::Dice as DiceTrait;
 }
 
 pub mod document {
@@ -98,11 +130,11 @@ pub mod game {
 }
 
 pub mod http_listener {
-    pub use crate::traits::bots_apis::http_listen::HttpListen;
+    pub use crate::traits::bots_apis::http_listen::HttpListen as HttpListenTrait;
 }
 
 pub mod https_listener {
-    pub use crate::traits::bots_apis::https_listen::HttpsListen;
+    pub use crate::traits::bots_apis::https_listen::HttpsListen as HttpsListenTrait;
 }
 
 pub mod inline {}
@@ -206,11 +238,10 @@ pub mod photo {
     pub use crate::enums::file_input::FileInput;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::traits::photo::Photo as PhotoTrait;
-    pub use std::path::PathBuf;
 }
 
 pub mod pooling {
-    pub use crate::traits::bots_apis::pooling::Pooling;
+    pub use crate::traits::bots_apis::pooling::Pooling as PoolingTrait;
 }
 
 pub mod poll {
@@ -245,7 +276,6 @@ pub mod video {
     pub use crate::structs::media::video::Video;
     pub use crate::structs::messages::voice::Voice as VideoMessage;
     pub use crate::traits::video::Video as VideoTrait;
-    pub use std::path::PathBuf;
 }
 
 pub mod video_note {
@@ -253,14 +283,12 @@ pub mod video_note {
     pub use crate::structs::media::video_note::VideoNote;
     pub use crate::structs::messages::voice::Voice as VideoNoteMessage;
     pub use crate::traits::video_note::VideoNote as VideoNoteTrait;
-    pub use std::path::PathBuf;
 }
 
 pub mod voice {
     pub use crate::structs::media::voice::Voice;
     pub use crate::structs::messages::voice::Voice as VoiceMessage;
     pub use crate::traits::voice::Voice as VoiceTrait;
-    pub use std::path::PathBuf;
 }
 
 pub mod web_app {
