@@ -7,4 +7,5 @@ pub mod chosen_inline_result;
 pub mod inline_query;
 pub mod message;
 pub mod pre_checkout_query;
+pub mod purchased_paid_media;
 pub mod shipping_query;

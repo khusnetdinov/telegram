@@ -13,6 +13,7 @@ use crate::structs::updates::chosen_inline_result::ChosenInlineResult;
 use crate::structs::updates::inline_query::InlineQuery;
 use crate::structs::updates::message::Message;
 use crate::structs::updates::pre_checkout_query::PreCheckoutQuery;
+use crate::structs::updates::purchased_paid_media::PaidMediaPurchased;
 use crate::structs::updates::shipping_query::ShippingQuery;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::update::Update as Remote;
@@ -64,6 +65,9 @@ pub enum Updates {
     ShippingQuery(ShippingQuery),
     /// Optional. New incoming pre-checkout query. Contains full information about checkout
     PreCheckoutQuery(PreCheckoutQuery),
+    /// Optional. A user purchased paid media with a non-empty payload sent by the bot in a
+    /// non-channel chat
+    PaidMediaPurchased(PaidMediaPurchased),
     /// Optional. New poll state. Bots receive only updates about manually stopped polls and polls,
     /// which are sent by the bot
     Poll(Poll),
@@ -157,6 +161,10 @@ impl From<Remote> for Updates {
                 pre_checkout_query: Some(pre_checkout_query),
                 ..
             } => Self::PreCheckoutQuery(PreCheckoutQuery::from(pre_checkout_query)),
+            Remote {
+                purchased_paid_media: Some(purchased_paid_media),
+                ..
+            } => Self::PaidMediaPurchased(PaidMediaPurchased::from(purchased_paid_media)),
             Remote {
                 poll: Some(poll), ..
             } => Self::Poll(Poll::from(poll)),
