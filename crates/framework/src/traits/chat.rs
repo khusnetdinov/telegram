@@ -117,7 +117,7 @@ pub trait Chat {
     async fn unpin_chat_message(
         &self,
         chat_id: i64,
-        message_id: Option<i64>,
+        message_id: Option<MessageId>,
         business_connection_id: Option<String>,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 

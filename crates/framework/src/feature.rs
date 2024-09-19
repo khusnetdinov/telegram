@@ -48,9 +48,6 @@ pub mod chat {
     pub use crate::structs::chats::chat_boost::ChatBoost;
     pub use crate::structs::chats::chat_boost_added::ChatBoostAdded;
     pub use crate::structs::chats::chat_boost_removed::ChatBoostRemoved;
-    pub use crate::structs::chats::chat_boost_source_gift_code::ChatBoostSourceGiftCode;
-    pub use crate::structs::chats::chat_boost_source_giveaway::ChatBoostSourceGiveaway;
-    pub use crate::structs::chats::chat_boost_source_premium::ChatBoostSourcePremium;
     pub use crate::structs::chats::chat_full_info::ChatFullInfo;
     pub use crate::structs::chats::chat_id::ChatId;
     pub use crate::structs::chats::chat_invite_link::ChatInviteLink;

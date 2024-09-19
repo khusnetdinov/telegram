@@ -13,4 +13,6 @@ pub struct TransactionPartnerUser {
     pub invoice_payload: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub paid_media: Option<Vec<PaidMedia>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paid_media_payload: Option<String>,
 }

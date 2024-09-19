@@ -6,7 +6,10 @@ use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 #[derive(
     Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
 )]
-pub struct GiveawayCreated {}
+pub struct GiveawayCreated {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prize_star_count: Option<i64>,
+}
 
 impl From<Message> for GiveawayCreated {
     fn from(remote: Message) -> Self {

@@ -349,12 +349,12 @@ impl Chat for BotsApi {
     async fn unpin_chat_message(
         &self,
         chat_id: i64,
-        message_id: Option<i64>,
+        message_id: Option<MessageId>,
         business_connection_id: Option<String>,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = UnpinChatMessage {
             chat_id: ChatUId::from(chat_id),
-            message_id,
+            message_id: message_id.map(|inner| inner.into()),
             business_connection_id,
         };
 

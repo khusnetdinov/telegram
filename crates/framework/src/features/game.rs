@@ -86,7 +86,7 @@ impl Game for BotsApi {
                 force: options.force,
                 disable_edit_message: options.disable_edit_message,
                 chat_id: options.chat_id.map(|inner| ChatUId::from(inner)),
-                message_id: options.message_id,
+                message_id: options.message_id.map(|inner| inner.into()),
                 inline_message_id: options.inline_message_id,
             }
         } else {

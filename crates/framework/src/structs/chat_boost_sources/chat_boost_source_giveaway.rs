@@ -13,4 +13,6 @@ pub struct ChatBoostSourceGiveaway {
     pub user: Option<User>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_unclaimed: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prize_star_count: Option<i64>,
 }
