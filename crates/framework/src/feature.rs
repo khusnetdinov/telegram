@@ -252,7 +252,13 @@ pub mod poll {
 
 pub mod reply_markup {}
 
-pub mod stickers {}
+pub mod stickers {
+    pub use crate::structs::stickers::input_sticker::InputSticker;
+    pub use crate::structs::stickers::mask_position::MaskPosition;
+    pub use crate::structs::stickers::options::Options;
+    pub use crate::structs::stickers::sticker_set::StickerSet;
+    pub use crate::traits::stickers::Stickers as StickersTrait;
+}
 
 pub mod user {
     pub use crate::structs::user::User;

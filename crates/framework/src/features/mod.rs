@@ -19,6 +19,7 @@ pub mod payments;
 pub mod photo;
 pub mod poll;
 pub mod pooling;
+mod stickers;
 pub mod user;
 pub mod venue;
 pub mod video;
