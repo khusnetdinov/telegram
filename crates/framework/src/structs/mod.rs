@@ -31,6 +31,8 @@ pub mod poll;
 pub mod polls;
 pub mod reactions;
 pub mod shared_user;
+pub mod sticker;
+pub mod stickers;
 pub mod text_quote;
 pub mod update;
 pub mod updates;
