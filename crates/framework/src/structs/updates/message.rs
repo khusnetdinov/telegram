@@ -11,10 +11,10 @@ use telegram_bots_api::api::structs::story::Story;
 use telegram_bots_api::api::structs::text_quote::TextQuote;
 use telegram_bots_api::api::structs::user::User;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Message {
     /// Unique message identifier inside this chat
-    pub message_id: i64,
+    pub message_id: MessageId,
     /// Optional. Unique identifier of a message thread to which the message belongs; for supergroups only
     pub message_thread_id: Option<i64>,
     /// Optional. Sender of the message; empty for messages sent to channels. For backward compatibility,
@@ -108,7 +108,7 @@ impl From<Remote> for Message {
         } = remote.clone();
 
         Self {
-            message_id,
+            message_id: MessageId::from(message_id),
             message_thread_id,
             chat,
             from,

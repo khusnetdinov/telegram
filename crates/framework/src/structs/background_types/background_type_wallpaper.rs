@@ -1,9 +1,11 @@
 use crate::structs::media::document::Document;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::background_type_wallpaper::BackgroundTypeWallpaper as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct BackgroundTypeWallpaper {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,

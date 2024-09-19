@@ -2,9 +2,9 @@ use crate::structs::payments::order_info::OrderInfo;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::pre_checkout_query::PreCheckoutQuery as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct)]
 pub struct PreCheckoutQuery {
     pub id: String,
     pub from: User,

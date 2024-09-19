@@ -1,9 +1,9 @@
 use crate::enums::revenue_withdrawal_state::RevenueWithdrawalState;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::transaction_partner_fragment::TransactionPartnerFragment as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct)]
 pub struct TransactionPartnerFragment {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,

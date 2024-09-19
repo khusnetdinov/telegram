@@ -6,9 +6,9 @@ use crate::structs::chat_members::chat_member_owner::ChatMemberOwner;
 use crate::structs::chat_members::chat_member_restricted::ChatMemberRestricted;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::chat_member::ChatMember as Remote;
-use telegram_macros::FromRemoteEnum;
+use telegram_macros::{FromRemoteEnum, IntoRemoteEnum};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum, IntoRemoteEnum)]
 #[serde(untagged)]
 pub enum ChatMember {
     Owner(ChatMemberOwner),

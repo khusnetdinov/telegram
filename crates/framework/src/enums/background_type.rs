@@ -4,9 +4,9 @@ use crate::structs::background_types::background_type_pattern::BackgroundTypePat
 use crate::structs::background_types::background_type_wallpaper::BackgroundTypeWallpaper;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::background_type::BackgroundType as Remote;
-use telegram_macros::FromRemoteEnum;
+use telegram_macros::{FromRemoteEnum, IntoRemoteEnum};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum, IntoRemoteEnum)]
 pub enum BackgroundType {
     Fill(BackgroundTypeFill),
     Wallpaper(BackgroundTypeWallpaper),

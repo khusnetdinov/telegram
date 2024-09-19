@@ -1,9 +1,9 @@
 use crate::structs::payments::order_info::OrderInfo;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::successful_payment::SuccessfulPayment as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct)]
 pub struct SuccessfulPayment {
     pub currency: String,
     pub total_amount: i64,

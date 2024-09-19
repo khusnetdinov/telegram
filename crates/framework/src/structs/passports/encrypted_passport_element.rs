@@ -1,9 +1,11 @@
 use crate::structs::passports::passport_file::PassportFile;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::encrypted_passport_element::EncryptedPassportElement as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct EncryptedPassportElement {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,

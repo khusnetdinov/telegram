@@ -1,9 +1,11 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::contact::Contact as Remote;
 use telegram_bots_api::api::structs::message::Message;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct Contact {
     pub phone_number: String,
     pub first_name: String,

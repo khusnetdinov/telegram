@@ -1,8 +1,10 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::link_preview_options::LinkPreviewOptions as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct LinkPreviewOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_disabled: Option<bool>,

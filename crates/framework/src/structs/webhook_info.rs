@@ -1,8 +1,10 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::webhook_info::WebhookInfo as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct WebhookInfo {
     pub url: String,
     pub has_custom_certificate: bool,

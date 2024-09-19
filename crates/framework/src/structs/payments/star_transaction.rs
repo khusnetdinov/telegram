@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::transaction_partner::TransactionPartner;
 use telegram_bots_api::api::structs::star_transaction::StarTransaction as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct)]
 pub struct StarTransaction {
     pub id: i64,
     pub amount: u64,

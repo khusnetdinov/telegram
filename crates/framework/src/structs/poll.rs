@@ -3,9 +3,11 @@ use crate::structs::polls::poll_option::PollOption;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
 use telegram_bots_api::api::structs::poll::Poll as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct Poll {
     #[serde(rename(serialize = "type", deserialize = "type"))]
     pub kind: String,

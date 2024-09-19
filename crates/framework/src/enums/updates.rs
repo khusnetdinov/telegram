@@ -20,7 +20,7 @@ use telegram_bots_api::api::structs::update::Update as Remote;
 /// <https://core.telegram.org/bots/api#update>
 /// This object represents an incoming update.
 /// At most one of the optional parameters can be present in any given update.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum Updates {
     /// Optional. New incoming message of any kind - text, photo, sticker, etc.
     Message(Message),
