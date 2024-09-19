@@ -103,8 +103,8 @@ async fn dispatch(
     }
 
     // dbg!(bots_api);
-    dbg!(update);
     dbg!(storage);
+    dbg!(update);
 
     Ok(())
 }

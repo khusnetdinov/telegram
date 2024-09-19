@@ -2,9 +2,11 @@ use crate::enums::maybe_inaccessible_message::MaybeInaccessibleMessage;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::callback_query::CallbackQuery as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct CallbackQuery {
     pub id: String,
     pub from: User,

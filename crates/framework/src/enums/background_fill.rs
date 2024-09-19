@@ -3,9 +3,9 @@ use crate::structs::background_fills::background_fill_gradient::BackgroundFillGr
 use crate::structs::background_fills::background_fill_solid::BackgroundFillSolid;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::background_fill::BackgroundFill as Remote;
-use telegram_macros::FromRemoteEnum;
+use telegram_macros::{FromRemoteEnum, IntoRemoteEnum};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum, IntoRemoteEnum)]
 pub enum BackgroundFill {
     Solid(BackgroundFillSolid),
     Gradient(BackgroundFillGradient),

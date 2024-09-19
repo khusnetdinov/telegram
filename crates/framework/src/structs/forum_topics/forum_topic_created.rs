@@ -1,9 +1,11 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::forum_topic_edited::ForumTopicEdited as Remote;
 use telegram_bots_api::api::structs::message::Message;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct ForumTopicEdited {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,

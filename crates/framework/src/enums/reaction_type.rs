@@ -3,9 +3,9 @@ use crate::structs::reactions::reaction_type_emoji::ReactionTypeEmoji;
 use crate::structs::reactions::reaction_type_paid::ReactionTypePaid;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::reaction_type::ReactionType as Remote;
-use telegram_macros::FromRemoteEnum;
+use telegram_macros::{FromRemoteEnum, IntoRemoteEnum};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteEnum, IntoRemoteEnum)]
 pub enum ReactionType {
     CustomEmoji(ReactionTypeCustomEmoji),
     Emoji(ReactionTypeEmoji),

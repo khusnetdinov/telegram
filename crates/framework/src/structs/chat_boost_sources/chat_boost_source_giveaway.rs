@@ -1,9 +1,11 @@
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat_boost_source_giveaway::ChatBoostSourceGiveaway as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct ChatBoostSourceGiveaway {
     pub source: String,
     pub giveaway_message_id: i64,

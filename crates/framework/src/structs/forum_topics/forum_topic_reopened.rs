@@ -1,9 +1,11 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::forum_topic_reopened::ForumTopicReopened as Remote;
 use telegram_bots_api::api::structs::message::Message;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct ForumTopicReopened {}
 
 impl From<Message> for ForumTopicReopened {

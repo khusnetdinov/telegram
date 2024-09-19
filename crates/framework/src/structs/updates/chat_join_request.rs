@@ -1,5 +1,5 @@
 use crate::structs::chat::Chat;
-use crate::structs::chat_invite_link::ChatInviteLink;
+use crate::structs::chats::chat_invite_link::ChatInviteLink;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::chat_join_request::ChatJoinRequest as Remote;

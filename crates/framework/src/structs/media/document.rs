@@ -1,9 +1,11 @@
 use crate::structs::media::photo_size::PhotoSize;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::document::Document as Remote;
-use telegram_macros::FromRemoteStruct;
+use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct Document {
     pub file_id: String,
     pub file_unique_id: String,

@@ -1,13 +1,14 @@
 pub mod animation;
 pub mod audio;
-mod business;
+pub mod business;
+pub mod chat;
 pub mod chat_actions;
 pub mod commands;
 pub mod contact;
 pub mod dice;
 pub mod document;
 pub mod file;
-mod forum;
+pub mod forum;
 pub mod game;
 pub mod location;
 pub mod media_group;
