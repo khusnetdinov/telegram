@@ -118,7 +118,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let storage = MemoryStorage::<States>::new();
 
     bots_api.commands(BotCommands::config()).await?;
-    bots_api.pooling(storage, dispatch).await?;
+    bots_api.pooling(None, storage, dispatch).await?;
 
     Ok(())
 }

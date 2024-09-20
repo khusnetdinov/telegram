@@ -1,4 +1,5 @@
 use crate::bots_api::BotsApi;
+use crate::enums::allowed_updates::AllowedUpdate;
 use crate::structs::update::Update;
 use crate::traits::storage::Storage;
 use crate::traits::webhook::Webhook;
@@ -13,6 +14,7 @@ where
 {
     async fn pooling<Callback, Fut>(
         &self,
+        allowed_updates: Option<Vec<AllowedUpdate>>,
         storage: Arc<STO>,
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>

@@ -1,8 +1,10 @@
+pub mod allowed_updates;
 pub mod background_fill;
 pub mod background_type;
 pub mod chat_action;
 pub mod chat_boost_source;
 pub mod chat_member;
+pub mod chat_uid;
 pub mod emoji;
 pub mod file_input;
 pub mod input_media;
