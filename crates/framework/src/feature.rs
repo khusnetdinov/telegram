@@ -136,7 +136,6 @@ pub mod https_listener {
 }
 
 pub mod inline {
-    pub use crate::structs::inline_query::InlineQuery;
     pub use crate::structs::inline_queries::inline_query_result_article::InlineQueryResultArticle;
     pub use crate::structs::inline_queries::inline_query_result_audio::InlineQueryResultAudio;
     pub use crate::structs::inline_queries::inline_query_result_cached_audio::InlineQueryResultCachedAudio;
@@ -158,6 +157,7 @@ pub mod inline {
     pub use crate::structs::inline_queries::inline_query_result_video::InlineQueryResultVideo;
     pub use crate::structs::inline_queries::inline_query_result_voice::InlineQueryResultVoice;
     pub use crate::structs::inline_queries::inline_query_results_button::InlineQueryResultsButton;
+    pub use crate::structs::inline_query::InlineQuery;
     pub use crate::structs::input_message_contents::input_contact_message_content::InputContactMessageContent;
     pub use crate::structs::input_message_contents::input_invoice_message_content::InputInvoiceMessageContent;
     pub use crate::structs::input_message_contents::input_location_message_content::InputLocationMessageContent;
