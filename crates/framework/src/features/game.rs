@@ -13,6 +13,7 @@ use telegram_bots_api::api::requests::r#async::Requests;
 
 #[async_trait::async_trait]
 impl Game for BotsApi {
+    // TODO: Required if inline_message_id is not specified
     async fn get_game_high_scores(
         &self,
         user_id: i64,
@@ -72,6 +73,7 @@ impl Game for BotsApi {
         Ok(self.client.send_game(&params).await?.into())
     }
 
+    // TODO: Required if inline_message_id is not specified
     #[allow(clippy::redundant_closure)]
     async fn set_game_score(
         &self,
