@@ -12,18 +12,15 @@ pub struct ChatAdministratorRights {
     pub can_promote_members: bool,
     pub can_change_info: bool,
     pub can_invite_users: bool,
+    pub can_post_stories: Option<bool>,
+    pub can_edit_stories: Option<bool>,
+    pub can_delete_stories: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_post_messages: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_edit_messages: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_pin_messages: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub can_post_stories: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub can_edit_stories: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub can_delete_stories: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_manage_topics: Option<bool>,
 }
