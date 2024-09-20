@@ -1,23 +1,72 @@
 #[async_trait::async_trait]
 pub trait Message {
-    // copy_message
-    // copy_messages
-    // delete_message
-    // delete_messages
-    // edit_message_caption
-    // edit_message_live_location
-    // edit_message_media
-    // edit_message_reply_markup
-    // edit_message_text
-    // forward_message
-    // forward_messages
-    // set_message_reaction
-    // stop_message_live_location
+    // async fn copy_message(
+    //     &self,
+    //     params: &CopyMessage,
+    // ) -> Result<MessageId, Box<dyn std::error::Error>>;
+    //
+    // async fn copy_messages(
+    //     &self,
+    //     params: &CopyMessages,
+    // ) -> Result<Vec<MessageId>, Box<dyn std::error::Error>>;
+    //
+    // async fn delete_message(
+    //     &self,
+    //     params: &DeleteMessage,
+    // ) -> Result<bool, Box<dyn std::error::Error>>;
+    //
+    // async fn delete_messages(
+    //     &self,
+    //     params: &DeleteMessages,
+    // ) -> Result<bool, Box<dyn std::error::Error>>;
+    //
+    // async fn edit_message_caption(
+    //     &self,
+    //     params: &EditMessageCaption,
+    // ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+    //
+    // async fn edit_message_live_location(
+    //     &self,
+    //     params: &EditMessageLiveLocation,
+    // ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+    //
+    // async fn edit_message_media(
+    //     &self,
+    //     params: &EditMessageMedia,
+    // ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+    //
+    // async fn edit_message_reply_markup(
+    //     &self,
+    //     params: &EditMessageReplyMarkup,
+    // ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+    //
+    // async fn edit_message_text(
+    //     &self,
+    //     params: &EditMessageText,
+    // ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+    //
+    // async fn forward_message(
+    //     &self,
+    //     params: &ForwardMessage,
+    // ) -> Result<MessageId, Box<dyn std::error::Error>>;
+    //
+    // async fn forward_messages(
+    //     &self,
+    //     params: &ForwardMessages,
+    // ) -> Result<Vec<MessageId>, Box<dyn std::error::Error>>;
+    //
+    // async fn set_message_reaction(
+    //     &self,
+    //     params: &SetMessageReaction,
+    // ) -> Result<bool, Box<dyn std::error::Error>>;
+    //
+    // async fn stop_message_live_location(
+    //     &self,
+    //     params: &StopMessageLiveLocation,
+    // ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 
     // async fn send_message(
     //     &self,
-    //     chat_id: i64,
-    //     text: String,
-    //     options: Option<SendOptions>,
+    //     params: &SendMessage,
     // ) -> Result<Message, Box<dyn std::error::Error>>;
 }

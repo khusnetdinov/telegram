@@ -13,6 +13,7 @@ pub mod game;
 pub mod location;
 pub mod media_group;
 pub mod menu_button;
+mod message;
 pub mod my;
 pub mod passport;
 pub mod payments;
