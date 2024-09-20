@@ -4,7 +4,7 @@ pub mod animation {
     pub use crate::structs::media::document::Document;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::messages::animation::Animation as AnimationMessage;
+    pub use crate::structs::updates::messages::animation::Animation as AnimationMessage;
     pub use crate::traits::animation::Animation as AnimationTrait;
 }
 
@@ -13,7 +13,7 @@ pub mod audio {
     pub use crate::structs::media::audio::Audio;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::messages::audio::Audio as AudioMessage;
+    pub use crate::structs::updates::messages::audio::Audio as AudioMessage;
     pub use crate::traits::audio::Audio as AudioTrait;
 }
 
@@ -98,7 +98,7 @@ pub mod document {
     pub use crate::structs::media::document::Document;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::messages::document::Document as DocumentMessage;
+    pub use crate::structs::updates::messages::document::Document as DocumentMessage;
     pub use crate::traits::document::Document as DocumentTrait;
 }
 
@@ -161,11 +161,11 @@ pub mod menu_buttons {
 
 pub mod message {
     pub mod reactions {
-        pub use crate::structs::reactions::message_reaction_count_updated::MessageReactionCountUpdated;
-        pub use crate::structs::reactions::message_reaction_updated::MessageReactionUpdated;
-        pub use crate::structs::reactions::reaction_count::ReactionCount;
-        pub use crate::structs::reactions::reaction_type_custom_emoji::ReactionTypeCustomEmoji;
-        pub use crate::structs::reactions::reaction_type_emoji::ReactionTypeEmoji;
+        pub use crate::structs::message_reactions::message_reaction_count_updated::MessageReactionCountUpdated;
+        pub use crate::structs::message_reactions::message_reaction_updated::MessageReactionUpdated;
+        pub use crate::structs::message_reactions::reaction_count::ReactionCount;
+        pub use crate::structs::message_reactions::reaction_type_custom_emoji::ReactionTypeCustomEmoji;
+        pub use crate::structs::message_reactions::reaction_type_emoji::ReactionTypeEmoji;
     }
 }
 
@@ -277,20 +277,20 @@ pub mod venue {
 pub mod video {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video::Video;
-    pub use crate::structs::messages::voice::Voice as VideoMessage;
+    pub use crate::structs::updates::messages::voice::Voice as VideoMessage;
     pub use crate::traits::video::Video as VideoTrait;
 }
 
 pub mod video_note {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video_note::VideoNote;
-    pub use crate::structs::messages::voice::Voice as VideoNoteMessage;
+    pub use crate::structs::updates::messages::voice::Voice as VideoNoteMessage;
     pub use crate::traits::video_note::VideoNote as VideoNoteTrait;
 }
 
 pub mod voice {
     pub use crate::structs::media::voice::Voice;
-    pub use crate::structs::messages::voice::Voice as VoiceMessage;
+    pub use crate::structs::updates::messages::voice::Voice as VoiceMessage;
     pub use crate::traits::voice::Voice as VoiceTrait;
 }
 

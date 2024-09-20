@@ -6,6 +6,7 @@ pub mod chat_member_updated;
 pub mod chosen_inline_result;
 pub mod inline_query;
 pub mod message;
+pub mod messages;
 pub mod pre_checkout_query;
 pub mod purchased_paid_media;
 pub mod shipping_query;

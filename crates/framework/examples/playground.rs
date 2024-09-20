@@ -1,11 +1,14 @@
 #![allow(dead_code)]
 
 use telegram_framework::feature::bots_api::*;
+use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::media_group::*;
 use telegram_framework::feature::photo::*;
 use telegram_framework::feature::pooling::*;
+
+use telegram_framework::traits::message::Message;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -77,26 +80,26 @@ async fn dispatch(
                 }
                 _ => println!("Command::Unexpected"),
             },
-            // MessageKind::Text(text_message) => {
-            //     let options = SendOptions {
-            //         message_effect_id: Some(String::from("5046589136895476101")),
-            //         ..Default::default()
-            //     };
+            Messages::Text(text_message) => {
+                println!("Text: {:#?}", text_message);
 
-            //     bots_api
-            //         .send_chat_action(message.chat.id, ChatAction::Typing, None)
-            //         .await?;
+                let options = telegram_framework::structs::messages::options::Options {
+                    message_effect_id: Some(String::from("5046589136895476101")),
+                    ..Default::default()
+                };
 
-            //     sleep(Duration::from_secs(1)).await;
+                bots_api
+                    .send_chat_action(message.chat.id, ChatAction::Typing, None)
+                    .await?;
 
-            //     bots_api
-            //         .send_message(
-            //             message.chat.id,
-            //             format!("Text: {}", text_message.text),
-            //             Some(options),
-            //         )
-            //         .await?;
-            //
+                bots_api
+                    .send_message(
+                        message.chat.id,
+                        format!("Text: {}", text_message.text),
+                        options,
+                    )
+                    .await?;
+            }
             Messages::Unexpected(_) | _ => {}
         },
         Updates::Unexpected(_) | _ => {}
