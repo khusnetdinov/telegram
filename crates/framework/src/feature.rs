@@ -136,17 +136,33 @@ pub mod https_listener {
 }
 
 pub mod inline {
-    pub use crate::enums::reply_markup::ReplyMarkup;
-    pub use crate::structs::keyboard_buttons::keyboard_button_poll_type::KeyboardButtonPollType;
-    pub use crate::structs::keyboard_buttons::keyboard_button_request_chat::KeyboardButtonRequestChat;
-    pub use crate::structs::keyboard_buttons::keyboard_button_request_users::KeyboardButtonRequestUsers;
-    pub use crate::structs::reply_markups::force_reply::ForceReply;
-    pub use crate::structs::reply_markups::inline_keyboard_button::InlineKeyboardButton;
-    pub use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
-    pub use crate::structs::reply_markups::keyboard_button::KeyboardButton;
-    pub use crate::structs::reply_markups::login_url::LoginUrl;
-    pub use crate::structs::reply_markups::reply_keyboard_markup::ReplyKeyboardMarkup;
-    pub use crate::structs::reply_markups::reply_keyboard_remove::ReplyKeyboardRemove;
+    pub use crate::structs::inline_queries::inline_query_result_article::InlineQueryResultArticle;
+    pub use crate::structs::inline_queries::inline_query_result_audio::InlineQueryResultAudio;
+    pub use crate::structs::inline_queries::inline_query_result_cached_audio::InlineQueryResultCachedAudio;
+    pub use crate::structs::inline_queries::inline_query_result_cached_document::InlineQueryResultCachedDocument;
+    pub use crate::structs::inline_queries::inline_query_result_cached_gif::InlineQueryResultCachedGif;
+    pub use crate::structs::inline_queries::inline_query_result_cached_mpeg4_gif::InlineQueryResultCachedMpeg4Gif;
+    pub use crate::structs::inline_queries::inline_query_result_cached_photo::InlineQueryResultCachedPhoto;
+    pub use crate::structs::inline_queries::inline_query_result_cached_sticker::InlineQueryResultCachedSticker;
+    pub use crate::structs::inline_queries::inline_query_result_cached_video::InlineQueryResultCachedVideo;
+    pub use crate::structs::inline_queries::inline_query_result_cached_voice::InlineQueryResultCachedVoice;
+    pub use crate::structs::inline_queries::inline_query_result_contact::InlineQueryResultContact;
+    pub use crate::structs::inline_queries::inline_query_result_document::InlineQueryResultDocument;
+    pub use crate::structs::inline_queries::inline_query_result_game::InlineQueryResultGame;
+    pub use crate::structs::inline_queries::inline_query_result_gif::InlineQueryResultGif;
+    pub use crate::structs::inline_queries::inline_query_result_location::InlineQueryResultLocation;
+    pub use crate::structs::inline_queries::inline_query_result_mpeg4_gif::InlineQueryResultMpeg4Gif;
+    pub use crate::structs::inline_queries::inline_query_result_photo::InlineQueryResultPhoto;
+    pub use crate::structs::inline_queries::inline_query_result_venue::InlineQueryResultVenue;
+    pub use crate::structs::inline_queries::inline_query_result_video::InlineQueryResultVideo;
+    pub use crate::structs::inline_queries::inline_query_result_voice::InlineQueryResultVoice;
+    pub use crate::structs::inline_queries::inline_query_results_button::InlineQueryResultsButton;
+    pub use crate::structs::inline_query::InlineQuery;
+    pub use crate::structs::input_message_contents::input_contact_message_content::InputContactMessageContent;
+    pub use crate::structs::input_message_contents::input_invoice_message_content::InputInvoiceMessageContent;
+    pub use crate::structs::input_message_contents::input_location_message_content::InputLocationMessageContent;
+    pub use crate::structs::input_message_contents::input_text_message_content::InputTextMessageContent;
+    pub use crate::structs::input_message_contents::input_venue_message_content::InputVenueMessageContent;
 }
 
 pub mod location {
@@ -268,7 +284,19 @@ pub mod poll {
     pub use crate::traits::poll::Poll as PollTrait;
 }
 
-pub mod reply_markup {}
+pub mod reply_markup {
+    pub use crate::enums::reply_markup::ReplyMarkup;
+    pub use crate::structs::keyboard_buttons::keyboard_button_poll_type::KeyboardButtonPollType;
+    pub use crate::structs::keyboard_buttons::keyboard_button_request_chat::KeyboardButtonRequestChat;
+    pub use crate::structs::keyboard_buttons::keyboard_button_request_users::KeyboardButtonRequestUsers;
+    pub use crate::structs::reply_markups::force_reply::ForceReply;
+    pub use crate::structs::reply_markups::inline_keyboard_button::InlineKeyboardButton;
+    pub use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+    pub use crate::structs::reply_markups::keyboard_button::KeyboardButton;
+    pub use crate::structs::reply_markups::login_url::LoginUrl;
+    pub use crate::structs::reply_markups::reply_keyboard_markup::ReplyKeyboardMarkup;
+    pub use crate::structs::reply_markups::reply_keyboard_remove::ReplyKeyboardRemove;
+}
 
 pub mod stickers {
     pub use crate::structs::stickers::input_sticker::InputSticker;
@@ -313,6 +341,7 @@ pub mod voice {
 }
 
 pub mod web_app {
+    pub use crate::structs::web_apps::sent_web_app_message::SentWebAppMessage;
     pub use crate::structs::web_apps::web_app_data::WebAppData;
     pub use crate::structs::web_apps::web_app_info::WebAppInfo;
 }
