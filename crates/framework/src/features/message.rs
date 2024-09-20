@@ -134,7 +134,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            inline_reply_markup,
+            inline_keyboard_markup,
             business_connection_id,
             parse_mode,
             caption,
@@ -147,7 +147,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            reply_markup: inline_reply_markup,
+            reply_markup: inline_keyboard_markup,
             business_connection_id,
             parse_mode,
             caption,
@@ -170,7 +170,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            inline_reply_markup,
+            inline_keyboard_markup,
             business_connection_id,
             horizontal_accuracy,
             heading,
@@ -185,7 +185,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            reply_markup: inline_reply_markup,
+            reply_markup: inline_keyboard_markup,
             business_connection_id,
             horizontal_accuracy,
             heading,
@@ -208,7 +208,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            inline_reply_markup,
+            inline_keyboard_markup,
             business_connection_id,
             ..
         } = message_options;
@@ -218,7 +218,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            reply_markup: inline_reply_markup,
+            reply_markup: inline_keyboard_markup,
             business_connection_id,
         };
 
@@ -233,7 +233,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            inline_reply_markup,
+            inline_keyboard_markup,
             business_connection_id,
             ..
         } = message_options;
@@ -242,7 +242,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            reply_markup: inline_reply_markup,
+            reply_markup: inline_keyboard_markup,
             business_connection_id,
         };
 
@@ -261,7 +261,7 @@ impl Message for BotsApi {
             parse_mode,
             entities,
             link_preview_options,
-            inline_reply_markup,
+            inline_keyboard_markup,
             business_connection_id,
             ..
         } = message_options;
@@ -275,7 +275,7 @@ impl Message for BotsApi {
             entities: entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
             link_preview_options: link_preview_options.map(|inner| inner.to_owned().into()),
-            reply_markup: inline_reply_markup,
+            reply_markup: inline_keyboard_markup,
             business_connection_id,
         };
 
@@ -369,7 +369,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            inline_reply_markup,
+            inline_keyboard_markup,
             ..
         } = message_options;
 
@@ -377,8 +377,7 @@ impl Message for BotsApi {
             chat_id,
             message_id,
             inline_message_id,
-            // TODO: reply_markup
-            reply_markup: inline_reply_markup,
+            reply_markup: inline_keyboard_markup,
         };
 
         Ok(self

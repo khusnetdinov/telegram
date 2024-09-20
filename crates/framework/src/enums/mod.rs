@@ -14,6 +14,7 @@ pub mod messages;
 pub mod paid_media;
 pub mod passport_element_error;
 pub mod reaction_type;
+pub mod reply_markup;
 pub mod revenue_withdrawal_state;
 pub mod storage;
 pub mod transaction_partner;
