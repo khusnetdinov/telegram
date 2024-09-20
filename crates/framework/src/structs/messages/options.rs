@@ -16,7 +16,7 @@ pub struct Options {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub inline_message_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub inline_reply_markup: Option<InlineKeyboardMarkup>,
+    pub inline_keyboard_markup: Option<InlineKeyboardMarkup>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message_thread_id: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]

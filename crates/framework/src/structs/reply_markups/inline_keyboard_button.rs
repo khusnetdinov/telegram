@@ -1,5 +1,5 @@
 use crate::structs::games::callback_game::CallbackGame;
-use crate::structs::login_url::LoginUrl;
+use crate::structs::reply_markups::login_url::LoginUrl;
 use crate::structs::switch_inline_query_chosen_chat::SwitchInlineQueryChosenChat;
 use crate::structs::web_apps::web_app_info::WebAppInfo;
 use serde::{Deserialize, Serialize};

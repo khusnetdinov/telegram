@@ -24,6 +24,7 @@ pub mod bots_api {
     pub use crate::storages::memory::MemoryStorage;
     pub use crate::structs::options::Options;
     pub use crate::structs::update::Update;
+    pub use crate::structs::updates::*;
     pub use crate::traits::kind_dispatcher::KindDispatcher as KindDispatcherTrait;
     pub use std::fmt::Debug;
     pub use std::path::PathBuf;
@@ -134,7 +135,19 @@ pub mod https_listener {
     pub use crate::traits::bots_apis::https_listen::HttpsListen as HttpsListenTrait;
 }
 
-pub mod inline {}
+pub mod inline {
+    pub use crate::enums::reply_markup::ReplyMarkup;
+    pub use crate::structs::keyboard_buttons::keyboard_button_poll_type::KeyboardButtonPollType;
+    pub use crate::structs::keyboard_buttons::keyboard_button_request_chat::KeyboardButtonRequestChat;
+    pub use crate::structs::keyboard_buttons::keyboard_button_request_users::KeyboardButtonRequestUsers;
+    pub use crate::structs::reply_markups::force_reply::ForceReply;
+    pub use crate::structs::reply_markups::inline_keyboard_button::InlineKeyboardButton;
+    pub use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+    pub use crate::structs::reply_markups::keyboard_button::KeyboardButton;
+    pub use crate::structs::reply_markups::login_url::LoginUrl;
+    pub use crate::structs::reply_markups::reply_keyboard_markup::ReplyKeyboardMarkup;
+    pub use crate::structs::reply_markups::reply_keyboard_remove::ReplyKeyboardRemove;
+}
 
 pub mod location {
     pub use crate::structs::location::Location;
@@ -159,14 +172,19 @@ pub mod menu_buttons {
     pub use crate::traits::menu_button::MenuButton as MenuButtonTrait;
 }
 
+pub mod message_reactions {
+    pub use crate::structs::message_reactions::message_reaction_count_updated::MessageReactionCountUpdated;
+    pub use crate::structs::message_reactions::message_reaction_updated::MessageReactionUpdated;
+    pub use crate::structs::message_reactions::reaction_count::ReactionCount;
+    pub use crate::structs::message_reactions::reaction_type_custom_emoji::ReactionTypeCustomEmoji;
+    pub use crate::structs::message_reactions::reaction_type_emoji::ReactionTypeEmoji;
+}
+
 pub mod message {
-    pub mod reactions {
-        pub use crate::structs::message_reactions::message_reaction_count_updated::MessageReactionCountUpdated;
-        pub use crate::structs::message_reactions::message_reaction_updated::MessageReactionUpdated;
-        pub use crate::structs::message_reactions::reaction_count::ReactionCount;
-        pub use crate::structs::message_reactions::reaction_type_custom_emoji::ReactionTypeCustomEmoji;
-        pub use crate::structs::message_reactions::reaction_type_emoji::ReactionTypeEmoji;
-    }
+    pub use crate::structs::messages::external_reply_info::ExternalReplyInfo;
+    pub use crate::structs::messages::inaccessible_message::InaccessibleMessage;
+    pub use crate::structs::messages::options::Options as MessageOptions;
+    pub use crate::traits::message::Message as MessageTrait;
 }
 
 pub mod my {

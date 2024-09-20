@@ -19,7 +19,6 @@ pub mod input_file;
 pub mod keyboard_buttons;
 pub mod link_preview_options;
 pub mod location;
-pub mod login_url;
 pub mod media;
 pub mod menu_buttons;
 pub mod message_entity;
