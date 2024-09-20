@@ -1,9 +1,9 @@
 use crate::structs::business::business_connection::BusinessConnection;
 use crate::structs::business::business_message_deleted::BusinessMessagesDeleted;
+use crate::structs::message_reactions::message_reaction_count_updated::MessageReactionCountUpdated;
+use crate::structs::message_reactions::message_reaction_updated::MessageReactionUpdated;
 use crate::structs::poll::Poll;
 use crate::structs::polls::poll_answer::PollAnswer;
-use crate::structs::reactions::message_reaction_count_updated::MessageReactionCountUpdated;
-use crate::structs::reactions::message_reaction_updated::MessageReactionUpdated;
 use crate::structs::updates::callback_query::CallbackQuery;
 use crate::structs::updates::chat_boost_removed::ChatBoostRemoved;
 use crate::structs::updates::chat_boost_updated::ChatBoostUpdated;
@@ -46,9 +46,9 @@ pub enum Updates {
     DeletedBusinessMessages(BusinessMessagesDeleted),
     /// Optional. A reaction to a message was changed by a user. The bot must be an administrator
     /// in the chat and must explicitly specify "message_reaction" in the list of allowed_updates
-    /// to receive these updates. The update isn't received for reactions set by bots.
+    /// to receive these updates. The update isn't received for message_reactions set by bots.
     MessageReaction(MessageReactionUpdated),
-    /// Optional. Reactions to a message with anonymous reactions were changed. The bot must be an
+    /// Optional. Reactions to a message with anonymous message_reactions were changed. The bot must be an
     /// administrator in the chat and must explicitly specify "message_reaction_count" in the list
     /// of allowed_updates to receive these updates. The updates are grouped and can be sent with
     /// delay up to a few minutes.

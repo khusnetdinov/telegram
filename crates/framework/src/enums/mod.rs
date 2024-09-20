@@ -8,6 +8,7 @@ pub mod file_input;
 pub mod input_media;
 pub mod maybe_inaccessible_message;
 pub mod menu_button;
+pub mod message_origin;
 pub mod message_result;
 pub mod messages;
 pub mod paid_media;

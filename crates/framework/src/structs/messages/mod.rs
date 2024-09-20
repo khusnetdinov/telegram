@@ -8,6 +8,7 @@ pub mod command;
 pub mod connected_website;
 pub mod delete_chat_photo;
 pub mod document;
+pub mod external_reply_info;
 pub mod group_chat_created;
 pub mod inaccessible_message;
 pub mod invoice;
