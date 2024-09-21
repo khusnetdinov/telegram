@@ -1,7 +1,7 @@
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::options::Options;
+use crate::structs::updates::incoming_messages::venue::Venue as Send;
 use crate::structs::updates::message::Message;
-use crate::structs::venue::Venue as Send;
 
 #[async_trait::async_trait]
 pub trait Venue {

@@ -1,6 +1,6 @@
 use crate::enums::chat_uid::ChatUId;
-use crate::structs::location::Location as Send;
 use crate::structs::options::Options;
+use crate::structs::updates::incoming_messages::location::Location as Send;
 use crate::structs::updates::message::Message;
 #[async_trait::async_trait]
 pub trait Location {

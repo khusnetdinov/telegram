@@ -1,4 +1,4 @@
-use crate::structs::location::Location;
+use crate::structs::updates::incoming_messages::location::Location;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::venue::Venue as Remote;

@@ -89,7 +89,7 @@ pub mod commands {
 }
 
 pub mod contact {
-    pub use crate::structs::contact::Contact;
+    pub use crate::structs::updates::incoming_messages::contact::Contact;
     pub use crate::traits::features::contact::Contact as ContactTrait;
 }
 
@@ -124,10 +124,10 @@ pub mod forum {
 }
 
 pub mod game {
-    pub use crate::structs::game::Game;
     pub use crate::structs::games::callback_game::CallbackGame;
     pub use crate::structs::games::game_high_score::GameHighScore;
     pub use crate::structs::games::options as GameOptions;
+    pub use crate::structs::updates::incoming_messages::game::Game;
     pub use crate::traits::features::game::Game as GameTrait;
 }
 
@@ -170,7 +170,7 @@ pub mod inline {
 }
 
 pub mod location {
-    pub use crate::structs::location::Location;
+    pub use crate::structs::updates::incoming_messages::location::Location;
     pub use crate::traits::features::location::Location as LocationTrait;
 }
 
@@ -320,7 +320,7 @@ pub mod user {
 }
 
 pub mod venue {
-    pub use crate::structs::venue::Venue;
+    pub use crate::structs::updates::incoming_messages::venue::Venue;
     pub use crate::traits::features::venue::Venue as VenueTrait;
 }
 

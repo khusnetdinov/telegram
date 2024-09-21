@@ -12,7 +12,7 @@ impl Location for BotsApi {
     async fn send_location(
         &self,
         chat_id: ChatUId,
-        location: crate::structs::location::Location,
+        location: crate::structs::updates::incoming_messages::location::Location,
         options: Option<Options>,
     ) -> Result<Message, Box<dyn Error>> {
         let params = if let Some(options) = options {
