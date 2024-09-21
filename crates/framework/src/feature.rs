@@ -4,7 +4,7 @@ pub mod animation {
     pub use crate::structs::media::document::Document;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::messages::animation::Animation as AnimationMessage;
+    pub use crate::structs::updates::incoming_messages::animation::Animation as AnimationMessage;
     pub use crate::traits::features::animation::Animation as AnimationTrait;
 }
 
@@ -13,7 +13,7 @@ pub mod audio {
     pub use crate::structs::media::audio::Audio;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::messages::audio::Audio as AudioMessage;
+    pub use crate::structs::updates::incoming_messages::audio::Audio as AudioMessage;
     pub use crate::traits::features::audio::Audio as AudioTrait;
 }
 
@@ -103,7 +103,7 @@ pub mod document {
     pub use crate::structs::media::document::Document;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::messages::document::Document as DocumentMessage;
+    pub use crate::structs::updates::incoming_messages::document::Document as DocumentMessage;
     pub use crate::traits::features::document::Document as DocumentTrait;
 }
 
@@ -114,12 +114,12 @@ pub mod file {
 
 pub mod forum {
     pub use crate::structs::forum_topic::ForumTopic;
-    pub use crate::structs::updates::messages::forum_topic_closed::ForumTopicClosed;
-    pub use crate::structs::updates::messages::forum_topic_created::ForumTopicEdited;
-    pub use crate::structs::updates::messages::forum_topic_edited::ForumTopicCreated;
-    pub use crate::structs::updates::messages::forum_topic_reopened::ForumTopicReopened;
-    pub use crate::structs::updates::messages::general_forum_topic_hidden::GeneralForumTopicHidden;
-    pub use crate::structs::updates::messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
+    pub use crate::structs::updates::incoming_messages::forum_topic_closed::ForumTopicClosed;
+    pub use crate::structs::updates::incoming_messages::forum_topic_created::ForumTopicEdited;
+    pub use crate::structs::updates::incoming_messages::forum_topic_edited::ForumTopicCreated;
+    pub use crate::structs::updates::incoming_messages::forum_topic_reopened::ForumTopicReopened;
+    pub use crate::structs::updates::incoming_messages::general_forum_topic_hidden::GeneralForumTopicHidden;
+    pub use crate::structs::updates::incoming_messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
     pub use crate::traits::features::forum::Forum as ForumTrait;
 }
 
@@ -327,20 +327,20 @@ pub mod venue {
 pub mod video {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video::Video;
-    pub use crate::structs::updates::messages::voice::Voice as VideoMessage;
+    pub use crate::structs::updates::incoming_messages::voice::Voice as VideoMessage;
     pub use crate::traits::features::video::Video as VideoTrait;
 }
 
 pub mod video_note {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video_note::VideoNote;
-    pub use crate::structs::updates::messages::voice::Voice as VideoNoteMessage;
+    pub use crate::structs::updates::incoming_messages::voice::Voice as VideoNoteMessage;
     pub use crate::traits::features::video_note::VideoNote as VideoNoteTrait;
 }
 
 pub mod voice {
     pub use crate::structs::media::voice::Voice;
-    pub use crate::structs::updates::messages::voice::Voice as VoiceMessage;
+    pub use crate::structs::updates::incoming_messages::voice::Voice as VoiceMessage;
     pub use crate::traits::features::voice::Voice as VoiceTrait;
 }
 

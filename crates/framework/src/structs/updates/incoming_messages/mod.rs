@@ -1,8 +1,8 @@
 pub mod animation;
 pub mod audio;
-pub mod boost_added;
 pub mod channel_chat_created;
 pub mod chat_background;
+pub mod chat_boost_added;
 pub mod chat_shared;
 pub mod command;
 pub mod connected_website;
