@@ -1,7 +1,7 @@
 use crate::structs::passports::encrypted_credentials::EncryptedCredentials;
 use crate::structs::passports::encrypted_passport_element::EncryptedPassportElement;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::passport_data::PassportData as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
@@ -13,9 +13,9 @@ pub struct PassportData {
     pub credentials: EncryptedCredentials,
 }
 
-impl From<Message> for PassportData {
-    fn from(remote: Message) -> Self {
-        let Message { passport_data, .. } = remote;
+impl From<IncomingMessage> for PassportData {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { passport_data, .. } = remote;
 
         Self::from(passport_data.unwrap())
     }

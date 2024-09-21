@@ -1,6 +1,6 @@
 use crate::structs::media::story::Story as Media;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Story {
@@ -9,9 +9,9 @@ pub struct Story {
     pub has_media_spoiler: Option<bool>,
 }
 
-impl From<Message> for Story {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for Story {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             story,
             media_group_id,
             has_media_spoiler,

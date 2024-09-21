@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::location::Location as Remote;
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
 #[derive(
@@ -15,9 +15,9 @@ pub struct Location {
     pub proximity_alert_radius: Option<i64>,
 }
 
-impl From<Message> for Location {
-    fn from(remote: Message) -> Self {
-        let Message { location, .. } = remote;
+impl From<IncomingMessage> for Location {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { location, .. } = remote;
 
         Self::from(location.unwrap())
     }

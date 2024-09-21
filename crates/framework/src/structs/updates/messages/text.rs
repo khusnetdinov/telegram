@@ -1,7 +1,7 @@
 use crate::structs::link_preview_options::LinkPreviewOptions;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Text {
@@ -10,9 +10,9 @@ pub struct Text {
     pub link_preview_options: Option<LinkPreviewOptions>,
 }
 
-impl From<Message> for Text {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for Text {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             text,
             entities,
             link_preview_options,

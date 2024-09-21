@@ -1,9 +1,9 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::structs::venue::Venue as Send;
 use crate::traits::features::venue::Venue;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_venue::SendVenue;
 use telegram_bots_api::api::requests::r#async::Requests;
 
@@ -11,13 +11,13 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Venue for BotsApi {
     async fn send_venue(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         venue: Send,
         options: Option<Options>,
     ) -> Result<Message, Box<dyn std::error::Error>> {
         let params = if let Some(options) = options {
             SendVenue {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 latitude: venue.location.latitude,
                 longitude: venue.location.longitude,
                 title: venue.title,
@@ -31,12 +31,12 @@ impl Venue for BotsApi {
                 protect_content: options.protect_content,
                 message_effect_id: options.message_effect_id,
                 message_thread_id: options.message_thread_id,
-                reply_parameters: options.reply_parameters,
-                reply_markup: options.reply_markup,
+                reply_parameters: options.reply_parameters.map(|inner| inner.into()),
+                reply_markup: options.reply_markup.map(|inner| inner.into()),
             }
         } else {
             SendVenue {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 latitude: venue.location.latitude,
                 longitude: venue.location.longitude,
                 title: venue.title,

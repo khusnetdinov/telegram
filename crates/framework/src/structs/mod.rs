@@ -14,7 +14,6 @@ pub mod contact;
 pub mod dice;
 pub mod file;
 pub mod forum_topic;
-pub mod forum_topics;
 pub mod game;
 pub mod games;
 pub mod giveaway;

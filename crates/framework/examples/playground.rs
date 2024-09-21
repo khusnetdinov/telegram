@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 
+use telegram_framework::enums::chat_uid::ChatUId;
 use telegram_framework::feature::bots_api::*;
 use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
@@ -52,7 +53,11 @@ async fn dispatch(
                     };
 
                     bots_api
-                        .send_dice(message.chat.id, Some(Emoji::Darts), Some(options))
+                        .send_dice(
+                            ChatUId::from(message.chat.id),
+                            Some(Emoji::Darts),
+                            Some(options),
+                        )
                         .await?;
                 }
                 Some(BotCommands::Photo) => {
@@ -62,7 +67,7 @@ async fn dispatch(
                     };
 
                     bots_api
-                        .send_photo(message.chat.id, photo, media_options, None)
+                        .send_photo(ChatUId::from(message.chat.id), photo, media_options, None)
                         .await?;
                 }
                 Some(BotCommands::MediaGroup) => {
@@ -75,7 +80,7 @@ async fn dispatch(
                     let media = vec![photo.clone(), photo.clone(), photo.clone()];
 
                     bots_api
-                        .send_media_group(message.chat.id, media, None)
+                        .send_media_group(ChatUId::from(message.chat.id), media, None)
                         .await?;
                 }
                 _ => println!("Command::Unexpected"),
@@ -89,12 +94,12 @@ async fn dispatch(
                 };
 
                 bots_api
-                    .send_chat_action(message.chat.id, ChatAction::Typing, None)
+                    .send_chat_action(ChatUId::from(message.chat.id), ChatAction::Typing, None)
                     .await?;
 
                 bots_api
                     .send_message(
-                        message.chat.id,
+                        ChatUId::from(message.chat.id),
                         format!("Text: {}", text_message.text),
                         options,
                     )

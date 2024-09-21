@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::forum_topic::ForumTopic;
 use crate::traits::features::forum::Forum;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::close_forum_topic::CloseForumTopic;
 use telegram_bots_api::api::params::close_general_forum_topic::CloseGeneralForumTopic;
 use telegram_bots_api::api::params::create_forum_topic::CreateForumTopic;
@@ -20,13 +20,13 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Forum for BotsApi {
     async fn create_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         name: String,
         icon_color: Option<i64>,
         icon_custom_emoji_id: Option<String>,
     ) -> Result<ForumTopic, Box<dyn std::error::Error>> {
         let params = CreateForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             name,
             icon_color,
             icon_custom_emoji_id,
@@ -37,13 +37,13 @@ impl Forum for BotsApi {
 
     async fn edit_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
         name: Option<String>,
         icon_custom_emoji_id: Option<String>,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = EditForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             message_thread_id,
             name,
             icon_custom_emoji_id,
@@ -54,11 +54,11 @@ impl Forum for BotsApi {
 
     async fn close_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = CloseForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             message_thread_id,
         };
 
@@ -67,11 +67,11 @@ impl Forum for BotsApi {
 
     async fn reopen_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = ReopenForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             message_thread_id,
         };
 
@@ -80,11 +80,11 @@ impl Forum for BotsApi {
 
     async fn delete_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = DeleteForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             message_thread_id,
         };
 
@@ -93,11 +93,11 @@ impl Forum for BotsApi {
 
     async fn unpin_all_forum_topic_messages(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = UnpinAllForumTopicMessages {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             message_thread_id,
         };
 
@@ -106,11 +106,11 @@ impl Forum for BotsApi {
 
     async fn edit_general_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         name: String,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = EditGeneralForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             name,
         };
 
@@ -119,10 +119,10 @@ impl Forum for BotsApi {
 
     async fn close_general_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = CloseGeneralForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
         };
 
         Ok(self.client.close_general_forum_topic(&params).await?)
@@ -130,10 +130,10 @@ impl Forum for BotsApi {
 
     async fn reopen_general_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = ReopenGeneralForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
         };
 
         Ok(self.client.reopen_general_forum_topic(&params).await?)
@@ -141,10 +141,10 @@ impl Forum for BotsApi {
 
     async fn hide_general_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = HideGeneralForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
         };
 
         Ok(self.client.hide_general_forum_topic(&params).await?)
@@ -152,10 +152,10 @@ impl Forum for BotsApi {
 
     async fn unhide_general_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = UnhideGeneralForumTopic {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
         };
 
         Ok(self.client.unhide_general_forum_topic(&params).await?)
@@ -163,10 +163,10 @@ impl Forum for BotsApi {
 
     async fn unpin_all_general_forum_topic_messages(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = UnpinAllGeneralForumTopicMessages {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
         };
 
         Ok(self

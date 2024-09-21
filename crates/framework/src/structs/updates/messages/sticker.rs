@@ -1,6 +1,6 @@
 use crate::structs::media::sticker::Sticker as Media;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Sticker {
@@ -9,9 +9,9 @@ pub struct Sticker {
     pub has_media_spoiler: Option<bool>,
 }
 
-impl From<Message> for Sticker {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for Sticker {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             sticker,
             media_group_id,
             has_media_spoiler,

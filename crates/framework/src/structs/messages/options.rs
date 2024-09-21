@@ -1,11 +1,11 @@
+use crate::enums::chat_uid::ChatUId;
+use crate::enums::reply_markup::ReplyMarkup;
 use crate::structs::link_preview_options::LinkPreviewOptions;
 use crate::structs::messages::message_entity::MessageEntity;
+use crate::structs::messages::message_id::MessageId;
+use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+use crate::structs::reply_parameters::ReplyParameters;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
-use telegram_bots_api::api::enums::reply_markup::ReplyMarkup;
-use telegram_bots_api::api::structs::inline_keyboard_markup::InlineKeyboardMarkup;
-use telegram_bots_api::api::structs::message_id::MessageId;
-use telegram_bots_api::api::structs::reply_parameters::ReplyParameters;
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Options {

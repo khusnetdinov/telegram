@@ -1,3 +1,4 @@
+use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::feature::bots_api::Options;
 use crate::structs::file::File;
@@ -22,12 +23,12 @@ pub trait Stickers {
 
     async fn delete_chat_sticker_set(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
     async fn set_chat_sticker_set(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         sticker_set_name: String,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
@@ -118,7 +119,7 @@ pub trait Stickers {
 
     async fn send_sticker(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         sticker: FileInput,
         emoji: Option<String>,
         options: Options,

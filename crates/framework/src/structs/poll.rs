@@ -1,7 +1,7 @@
 use crate::structs::messages::message_entity::MessageEntity;
 use crate::structs::polls::poll_option::PollOption;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::poll::Poll as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
@@ -32,9 +32,9 @@ pub struct Poll {
     pub close_date: Option<i64>,
 }
 
-impl From<Message> for Poll {
-    fn from(remote: Message) -> Self {
-        let Message { poll, .. } = remote;
+impl From<IncomingMessage> for Poll {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { poll, .. } = remote;
 
         Self::from(poll.unwrap())
     }

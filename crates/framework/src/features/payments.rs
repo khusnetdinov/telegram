@@ -1,18 +1,18 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::payments::labeled_price::LabeledPrice;
 use crate::structs::payments::options::Options;
 use crate::structs::payments::shipping_option::ShippingOption;
+use crate::structs::updates::message::Message;
 use crate::traits::features::payments::invoice::Invoice;
 use crate::traits::features::payments::order::Order;
 use crate::traits::features::payments::star::Star;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::answer_pre_checkout_query::AnswerPreCheckoutQuery;
 use telegram_bots_api::api::params::answer_shipping_query::AnswerShippingQuery;
 use telegram_bots_api::api::params::create_invoice_link::CreateInvoiceLink;
 use telegram_bots_api::api::params::refund_star_payment::RefundStarPayment;
 use telegram_bots_api::api::params::send_invoice::SendInvoice;
 use telegram_bots_api::api::requests::r#async::Requests;
-use telegram_bots_api::api::structs::message::Message;
 
 #[async_trait::async_trait]
 impl Invoice for BotsApi {
@@ -72,7 +72,7 @@ impl Invoice for BotsApi {
 
     async fn send_invoice(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         title: String,
         description: String,
         payload: String,
@@ -106,7 +106,7 @@ impl Invoice for BotsApi {
         } = options;
 
         let params = SendInvoice {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             title,
             description,
             payload,
@@ -131,11 +131,11 @@ impl Invoice for BotsApi {
             start_parameter,
             disable_notification,
             protect_content,
-            reply_parameters,
-            reply_markup,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
         };
 
-        Ok(self.client.send_invoice(&params).await?)
+        Ok(self.client.send_invoice(&params).await?.into())
     }
 }
 

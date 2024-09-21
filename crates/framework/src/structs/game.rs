@@ -3,7 +3,7 @@ use crate::structs::media::photo_size::PhotoSize;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::game::Game as Remote;
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
 #[derive(
@@ -21,9 +21,9 @@ pub struct Game {
     pub animation: Option<Animation>,
 }
 
-impl From<Message> for Game {
-    fn from(remote: Message) -> Self {
-        let Message { game, .. } = remote;
+impl From<IncomingMessage> for Game {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { game, .. } = remote;
 
         Self::from(game.unwrap())
     }

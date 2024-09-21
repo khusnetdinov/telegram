@@ -1,3 +1,4 @@
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::forum_topic::ForumTopic;
 use std::error::Error;
 
@@ -5,7 +6,7 @@ use std::error::Error;
 pub trait Forum {
     async fn create_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         name: String,
         icon_color: Option<i64>,
         icon_custom_emoji_id: Option<String>,
@@ -13,7 +14,7 @@ pub trait Forum {
 
     async fn edit_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
         name: Option<String>,
         icon_custom_emoji_id: Option<String>,
@@ -21,44 +22,44 @@ pub trait Forum {
 
     async fn close_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn Error>>;
 
     async fn reopen_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn Error>>;
 
     async fn delete_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn Error>>;
 
     async fn unpin_all_forum_topic_messages(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_thread_id: i64,
     ) -> Result<bool, Box<dyn Error>>;
 
     async fn edit_general_forum_topic(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         name: String,
     ) -> Result<bool, Box<dyn Error>>;
 
-    async fn close_general_forum_topic(&self, chat_id: i64) -> Result<bool, Box<dyn Error>>;
+    async fn close_general_forum_topic(&self, chat_id: ChatUId) -> Result<bool, Box<dyn Error>>;
 
-    async fn reopen_general_forum_topic(&self, chat_id: i64) -> Result<bool, Box<dyn Error>>;
+    async fn reopen_general_forum_topic(&self, chat_id: ChatUId) -> Result<bool, Box<dyn Error>>;
 
-    async fn hide_general_forum_topic(&self, chat_id: i64) -> Result<bool, Box<dyn Error>>;
+    async fn hide_general_forum_topic(&self, chat_id: ChatUId) -> Result<bool, Box<dyn Error>>;
 
-    async fn unhide_general_forum_topic(&self, chat_id: i64) -> Result<bool, Box<dyn Error>>;
+    async fn unhide_general_forum_topic(&self, chat_id: ChatUId) -> Result<bool, Box<dyn Error>>;
 
     async fn unpin_all_general_forum_topic_messages(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn Error>>;
 }

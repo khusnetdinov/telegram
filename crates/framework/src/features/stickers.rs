@@ -1,4 +1,5 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::file::File;
 use crate::structs::input_file::InputFile;
@@ -10,7 +11,6 @@ use crate::structs::stickers::options::Options as StickerOptions;
 use crate::structs::stickers::sticker_set::StickerSet;
 use crate::structs::updates::message::Message;
 use crate::traits::features::stickers::Stickers;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::add_sticker_to_set::AddStickerToSet;
 use telegram_bots_api::api::params::create_new_sticker_set::CreateNewStickerSet;
 use telegram_bots_api::api::params::delete_chat_sticker_set::DeleteChatStickerSet;
@@ -65,10 +65,10 @@ impl Stickers for BotsApi {
 
     async fn delete_chat_sticker_set(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = DeleteChatStickerSet {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
         };
 
         Ok(self.client.delete_chat_sticker_set(&params).await?)
@@ -76,11 +76,11 @@ impl Stickers for BotsApi {
 
     async fn set_chat_sticker_set(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         sticker_set_name: String,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = SetChatStickerSet {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             sticker_set_name,
         };
 
@@ -272,7 +272,7 @@ impl Stickers for BotsApi {
 
     async fn send_sticker(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         sticker: FileInput,
         emoji: Option<String>,
         options: Options,
@@ -289,14 +289,14 @@ impl Stickers for BotsApi {
         } = options;
 
         let params = SendSticker {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             sticker: sticker.into(),
             emoji,
             message_thread_id,
             disable_notification,
             protect_content,
-            reply_parameters,
-            reply_markup,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
             business_connection_id,
             message_effect_id,
         };

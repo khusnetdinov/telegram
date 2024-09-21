@@ -1,7 +1,7 @@
 use crate::structs::media::voice::Voice as Media;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Voice {
@@ -13,9 +13,9 @@ pub struct Voice {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<Message> for Voice {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for Voice {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             voice,
             media_group_id,
             has_media_spoiler,

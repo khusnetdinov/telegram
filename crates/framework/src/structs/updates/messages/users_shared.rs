@@ -1,6 +1,6 @@
 use crate::structs::shared_user::SharedUser;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::users_shared::UsersShared as Remote;
 use telegram_macros::FromRemoteStruct;
 
@@ -10,9 +10,9 @@ pub struct UsersShared {
     pub user_ids: Vec<SharedUser>,
 }
 
-impl From<Message> for UsersShared {
-    fn from(remote: Message) -> Self {
-        let Message { users_shared, .. } = remote;
+impl From<IncomingMessage> for UsersShared {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { users_shared, .. } = remote;
 
         Self::from(users_shared.unwrap())
     }
