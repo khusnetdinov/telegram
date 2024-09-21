@@ -57,8 +57,8 @@ impl Message for BotsApi {
             caption_entities: caption_entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
             show_caption_above_media,
-            reply_markup,
-            reply_parameters,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
         };
 
         Ok(self.client.copy_message(&params).await?.into())
@@ -145,9 +145,9 @@ impl Message for BotsApi {
 
         let params = EditMessageCaption {
             chat_id: chat_id.map(|inner| inner.into()),
-            message_id,
+            message_id: message_id.map(|inner| inner.into()),
             inline_message_id,
-            reply_markup: inline_keyboard_markup,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
             parse_mode,
             caption,
@@ -183,9 +183,9 @@ impl Message for BotsApi {
             longitude,
             live_period,
             chat_id: chat_id.map(|inner| inner.into()),
-            message_id,
+            message_id: message_id.map(|inner| inner.into()),
             inline_message_id,
-            reply_markup: inline_keyboard_markup,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
             horizontal_accuracy,
             heading,
@@ -216,9 +216,9 @@ impl Message for BotsApi {
         let params = EditMessageMedia {
             media: media.into(),
             chat_id: chat_id.map(|inner| inner.into()),
-            message_id,
+            message_id: message_id.map(|inner| inner.into()),
             inline_message_id,
-            reply_markup: inline_keyboard_markup,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
         };
 
@@ -240,9 +240,9 @@ impl Message for BotsApi {
 
         let params = EditMessageReplyMarkup {
             chat_id: chat_id.map(|inner| inner.into()),
-            message_id,
+            message_id: message_id.map(|inner| inner.into()),
             inline_message_id,
-            reply_markup: inline_keyboard_markup,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
         };
 
@@ -269,13 +269,13 @@ impl Message for BotsApi {
         let params = EditMessageText {
             text,
             chat_id: chat_id.map(|inner| inner.into()),
-            message_id,
+            message_id: message_id.map(|inner| inner.into()),
             inline_message_id,
             parse_mode,
             entities: entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
             link_preview_options: link_preview_options.map(|inner| inner.to_owned().into()),
-            reply_markup: inline_keyboard_markup,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
         };
 
@@ -375,9 +375,9 @@ impl Message for BotsApi {
 
         let params = StopMessageLiveLocation {
             chat_id: chat_id.map(|inner| inner.into()),
-            message_id,
+            message_id: message_id.map(|inner| inner.into()),
             inline_message_id,
-            reply_markup: inline_keyboard_markup,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
         };
 
         Ok(self
@@ -417,8 +417,8 @@ impl Message for BotsApi {
             link_preview_options: link_preview_options.map(|inner| inner.to_owned().into()),
             disable_notification,
             protect_content,
-            reply_parameters,
-            reply_markup,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
             business_connection_id,
             message_effect_id,
         };

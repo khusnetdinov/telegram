@@ -27,4 +27,4 @@ pub mod venue;
 pub mod video;
 pub mod video_note;
 pub mod voice;
-mod web_app;
+pub mod web_app;

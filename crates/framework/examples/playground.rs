@@ -53,7 +53,11 @@ async fn dispatch(
                     };
 
                     bots_api
-                        .send_dice(ChatUId::from(message.chat.id), Some(Emoji::Darts), Some(options))
+                        .send_dice(
+                            ChatUId::from(message.chat.id),
+                            Some(Emoji::Darts),
+                            Some(options),
+                        )
                         .await?;
                 }
                 Some(BotCommands::Photo) => {

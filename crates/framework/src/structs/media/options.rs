@@ -1,6 +1,6 @@
+use crate::structs::media::photo_size::PhotoSize;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::photo_size::PhotoSize;
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Options {

@@ -295,8 +295,8 @@ impl Stickers for BotsApi {
             message_thread_id,
             disable_notification,
             protect_content,
-            reply_parameters,
-            reply_markup,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
             business_connection_id,
             message_effect_id,
         };

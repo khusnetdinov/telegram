@@ -1,7 +1,7 @@
 use crate::structs::media::photo_size::PhotoSize;
+use crate::structs::stickers::mask_position::MaskPosition;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::file::File;
-use telegram_bots_api::api::structs::mask_position::MaskPosition;
 use telegram_bots_api::api::structs::sticker::Sticker as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 

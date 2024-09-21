@@ -5,10 +5,10 @@ use crate::structs::chats::chat_location::ChatLocation;
 use crate::structs::chats::chat_permissions::ChatPermissions;
 use crate::structs::chats::chat_photo::ChatPhoto;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::birthdate::Birthdate;
 use telegram_bots_api::api::structs::chat_full_info::ChatFullInfo as Remote;
 use telegram_bots_api::api::structs::message::Message as RemoteMessage;
 
+use crate::structs::birthdate::Birthdate;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
 #[derive(

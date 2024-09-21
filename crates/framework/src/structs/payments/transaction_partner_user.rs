@@ -1,6 +1,6 @@
+use crate::enums::paid_media::PaidMedia;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::paid_media::PaidMedia;
 use telegram_bots_api::api::structs::transaction_partner_user::TransactionPartnerUser as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 

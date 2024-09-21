@@ -1,6 +1,7 @@
+use crate::enums::reply_markup::ReplyMarkup;
+use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+use crate::structs::reply_parameters::ReplyParameters;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::reply_markup::ReplyMarkup;
-use telegram_bots_api::api::structs::reply_parameters::ReplyParameters;
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Options {
@@ -14,6 +15,8 @@ pub struct Options {
     pub reply_parameters: Option<ReplyParameters>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_markup: Option<ReplyMarkup>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inline_keyboard_markup: Option<InlineKeyboardMarkup>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub business_connection_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]

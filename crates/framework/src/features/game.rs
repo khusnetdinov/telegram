@@ -59,8 +59,8 @@ impl Game for BotsApi {
                 protect_content: options.protect_content,
                 message_effect_id: options.message_effect_id,
                 message_thread_id: options.message_thread_id,
-                reply_parameters: options.reply_parameters,
-                reply_markup: options.reply_markup,
+                reply_parameters: options.reply_parameters.map(|inner| inner.into()),
+                reply_markup: options.reply_markup.map(|inner| inner.into()),
             }
         } else {
             SendGame {

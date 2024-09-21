@@ -35,7 +35,7 @@ impl Animation for BotsApi {
                 height,
                 width,
                 duration,
-                thumbnail,
+                thumbnail: thumbnail.map(|inner| inner.into()),
                 parse_mode,
                 has_spoiler,
                 // TODO: #[remote(option, map, into)]
@@ -48,8 +48,8 @@ impl Animation for BotsApi {
                 business_connection_id: options.business_connection_id,
                 message_effect_id: options.message_effect_id,
                 message_thread_id: options.message_thread_id,
-                reply_parameters: options.reply_parameters,
-                reply_markup: options.reply_markup,
+                reply_parameters: options.reply_parameters.map(|inner| inner.into()),
+                reply_markup: options.reply_markup.map(|inner| inner.into()),
             }
         } else {
             SendAnimation {
@@ -58,7 +58,7 @@ impl Animation for BotsApi {
                 height,
                 width,
                 duration,
-                thumbnail,
+                thumbnail: thumbnail.map(|inner| inner.into()),
                 parse_mode,
                 has_spoiler,
                 // TODO: #[remote(option, map, into)]

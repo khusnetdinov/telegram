@@ -1,6 +1,6 @@
+use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+use crate::structs::reply_parameters::ReplyParameters;
 use serde::Serialize;
-use telegram_bots_api::api::structs::inline_keyboard_markup::InlineKeyboardMarkup;
-use telegram_bots_api::api::structs::reply_parameters::ReplyParameters;
 
 #[derive(Debug, Default, Serialize)]
 pub struct Options {

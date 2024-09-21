@@ -131,8 +131,8 @@ impl Invoice for BotsApi {
             start_parameter,
             disable_notification,
             protect_content,
-            reply_parameters,
-            reply_markup,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
         };
 
         Ok(self.client.send_invoice(&params).await?)
