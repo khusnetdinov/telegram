@@ -1,6 +1,6 @@
 use crate::bots_api::BotsApi;
 use crate::structs::business::business_connection::BusinessConnection;
-use crate::traits::business::Business;
+use crate::traits::features::business::Business;
 use telegram_bots_api::api::params::get_business_connection::GetBusinessConnection;
 use telegram_bots_api::api::requests::r#async::Requests;
 

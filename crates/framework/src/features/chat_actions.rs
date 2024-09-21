@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_action::ChatAction;
 use crate::structs::options::Options;
-use crate::traits::chat_actions::ChatActions;
+use crate::traits::features::chat_actions::ChatActions;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_chat_action::SendChatAction;
 use telegram_bots_api::api::requests::r#async::Requests;

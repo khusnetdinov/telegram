@@ -1,6 +1,6 @@
 use crate::structs::media::animation::Animation;
 use crate::structs::media::photo_size::PhotoSize;
-use crate::structs::message_entity::MessageEntity;
+use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::game::Game as Remote;
 use telegram_bots_api::api::structs::message::Message;

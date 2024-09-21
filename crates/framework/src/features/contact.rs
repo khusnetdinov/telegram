@@ -2,7 +2,7 @@ use crate::bots_api::BotsApi;
 use crate::structs::contact::Contact as Send;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
-use crate::traits::contact::Contact;
+use crate::traits::features::contact::Contact;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_contact::SendContact;
 use telegram_bots_api::api::requests::r#async::Requests;

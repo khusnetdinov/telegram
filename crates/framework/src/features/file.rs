@@ -1,6 +1,6 @@
 use crate::bots_api::BotsApi;
 use crate::structs::file::File as Receive;
-use crate::traits::file::File;
+use crate::traits::features::file::File;
 use telegram_bots_api::api::params::get_file::GetFile;
 use telegram_bots_api::api::requests::r#async::Requests;
 

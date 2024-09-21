@@ -1,5 +1,5 @@
 use crate::structs::chat::Chat;
-use crate::structs::message_id::MessageId;
+use crate::structs::messages::message_id::MessageId;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message_origin_channel::MessageOriginChannel as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};

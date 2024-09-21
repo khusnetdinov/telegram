@@ -1,4 +1,4 @@
-use crate::structs::message_id::MessageId;
+use crate::structs::messages::message_id::MessageId;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

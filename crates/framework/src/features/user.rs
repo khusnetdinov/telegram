@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::structs::users::options::Options as UserOptions;
 use crate::structs::users::user_profile_photos::UserProfilePhotos;
-use crate::traits::user::User;
+use crate::traits::features::user::User;
 use telegram_bots_api::api::params::get_user_profile_photos::GetUserProfilePhotos;
 use telegram_bots_api::api::requests::r#async::Requests;
 

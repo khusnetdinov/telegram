@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
-use crate::traits::location::Location;
+use crate::traits::features::location::Location;
 use std::error::Error;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_location::SendLocation;

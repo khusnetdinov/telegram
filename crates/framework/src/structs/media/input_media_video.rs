@@ -1,5 +1,5 @@
 use crate::feature::audio::FileInput;
-use crate::structs::message_entity::MessageEntity;
+use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::input_media_video::InputMediaVideo as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};

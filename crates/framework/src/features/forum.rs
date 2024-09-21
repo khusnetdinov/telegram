@@ -1,6 +1,6 @@
 use crate::bots_api::BotsApi;
-use crate::structs::forum_topics::forum_topic::ForumTopic;
-use crate::traits::forum::Forum;
+use crate::structs::forum_topic::ForumTopic;
+use crate::traits::features::forum::Forum;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::close_forum_topic::CloseForumTopic;
 use telegram_bots_api::api::params::close_general_forum_topic::CloseGeneralForumTopic;

@@ -4,7 +4,7 @@ use crate::structs::games::game_high_score::GameHighScore;
 use crate::structs::games::options::Options as GameOptions;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
-use crate::traits::game::Game;
+use crate::traits::features::game::Game;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::get_game_high_scores::GetGameHighScores;
 use telegram_bots_api::api::params::send_game::SendGame;

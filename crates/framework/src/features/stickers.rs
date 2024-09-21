@@ -9,7 +9,7 @@ use crate::structs::stickers::mask_position::MaskPosition;
 use crate::structs::stickers::options::Options as StickerOptions;
 use crate::structs::stickers::sticker_set::StickerSet;
 use crate::structs::updates::message::Message;
-use crate::traits::stickers::Stickers;
+use crate::traits::features::stickers::Stickers;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::add_sticker_to_set::AddStickerToSet;
 use telegram_bots_api::api::params::create_new_sticker_set::CreateNewStickerSet;

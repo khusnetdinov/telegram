@@ -1,4 +1,3 @@
-pub mod forum_topic;
 pub mod forum_topic_closed;
 pub mod forum_topic_created;
 pub mod forum_topic_edited;

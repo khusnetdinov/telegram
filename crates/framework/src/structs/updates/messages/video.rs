@@ -1,5 +1,5 @@
 use crate::structs::media::video::Video as Media;
-use crate::structs::message_entity::MessageEntity;
+use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
 

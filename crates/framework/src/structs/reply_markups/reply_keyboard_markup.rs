@@ -1,4 +1,4 @@
-use crate::structs::reply_markups::keyboard_button::KeyboardButton;
+use crate::structs::keyboard_button::KeyboardButton;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::reply_keyboard_markup::ReplyKeyboardMarkup as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
