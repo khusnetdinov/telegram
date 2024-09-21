@@ -2,7 +2,7 @@ use crate::structs::media::animation::Animation as Media;
 use crate::structs::media::document::Document;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Animation {
@@ -15,9 +15,9 @@ pub struct Animation {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<Message> for Animation {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for Animation {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             animation,
             document,
             media_group_id,

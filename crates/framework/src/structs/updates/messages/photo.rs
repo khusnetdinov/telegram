@@ -1,7 +1,7 @@
 use crate::structs::media::photo_size::PhotoSize;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Photo {
@@ -13,9 +13,9 @@ pub struct Photo {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<Message> for Photo {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for Photo {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             photo,
             media_group_id,
             has_media_spoiler,

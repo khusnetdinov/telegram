@@ -1,6 +1,6 @@
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::user::User as Remote;
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
@@ -16,9 +16,9 @@ impl From<Remote> for LeftChatMember {
     }
 }
 
-impl From<Message> for LeftChatMember {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for LeftChatMember {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             left_chat_member, ..
         } = remote;
 

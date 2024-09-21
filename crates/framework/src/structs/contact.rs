@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::contact::Contact as Remote;
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
 #[derive(
@@ -14,9 +14,9 @@ pub struct Contact {
     pub vcard: Option<String>,
 }
 
-impl From<Message> for Contact {
-    fn from(remote: Message) -> Self {
-        let Message { contact, .. } = remote;
+impl From<IncomingMessage> for Contact {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { contact, .. } = remote;
 
         Self::from(contact.unwrap())
     }

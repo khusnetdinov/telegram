@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::write_access_allowed::WriteAccessAllowed as Remote;
 use telegram_macros::FromRemoteStruct;
 
@@ -13,9 +13,9 @@ pub struct WriteAccessAllowed {
     pub from_attachment_menu: Option<bool>,
 }
 
-impl From<Message> for WriteAccessAllowed {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for WriteAccessAllowed {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             write_access_allowed,
             ..
         } = remote;

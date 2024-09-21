@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::giveaway_completed::GiveawayCompleted as Remote;
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
 #[derive(
@@ -16,9 +16,9 @@ pub struct GiveawayCompleted {
     pub is_star_giveaway: Option<bool>,
 }
 
-impl From<Message> for GiveawayCompleted {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for GiveawayCompleted {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             giveaway_completed, ..
         } = remote;
 

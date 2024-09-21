@@ -1,6 +1,6 @@
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Command {
@@ -8,9 +8,9 @@ pub struct Command {
     pub entities: Option<Vec<MessageEntity>>,
 }
 
-impl From<Message> for Command {
-    fn from(remote: Message) -> Self {
-        let Message { text, entities, .. } = remote;
+impl From<IncomingMessage> for Command {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { text, entities, .. } = remote;
 
         Self {
             text: text.unwrap(),

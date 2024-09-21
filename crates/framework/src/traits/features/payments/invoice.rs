@@ -1,7 +1,7 @@
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::payments::labeled_price::LabeledPrice;
 use crate::structs::payments::options::Options;
-use telegram_bots_api::api::structs::message::Message;
+use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]
 pub trait Invoice {

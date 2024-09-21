@@ -1,7 +1,7 @@
 use crate::structs::chat::Chat;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::giveaway::Giveaway as Remote;
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
 #[derive(
@@ -25,9 +25,9 @@ pub struct Giveaway {
     pub prize_star_count: Option<i64>,
 }
 
-impl From<Message> for Giveaway {
-    fn from(remote: Message) -> Self {
-        let Message { giveaway, .. } = remote;
+impl From<IncomingMessage> for Giveaway {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { giveaway, .. } = remote;
 
         Self::from(giveaway.unwrap())
     }

@@ -1,6 +1,6 @@
 use crate::structs::location::Location;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::venue::Venue as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
@@ -21,9 +21,9 @@ pub struct Venue {
     pub google_place_type: Option<String>,
 }
 
-impl From<Message> for Venue {
-    fn from(remote: Message) -> Self {
-        let Message { venue, .. } = remote;
+impl From<IncomingMessage> for Venue {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage { venue, .. } = remote;
 
         Self::from(venue.unwrap())
     }

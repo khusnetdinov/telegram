@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::forum_topic_edited::ForumTopicEdited as Remote;
-use telegram_bots_api::api::structs::message::Message;
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
 #[derive(
@@ -13,9 +13,9 @@ pub struct ForumTopicEdited {
     pub icon_custom_emoji_id: Option<String>,
 }
 
-impl From<Message> for ForumTopicEdited {
-    fn from(remote: Message) -> Self {
-        let Message {
+impl From<IncomingMessage> for ForumTopicEdited {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
             forum_topic_edited, ..
         } = remote;
 
