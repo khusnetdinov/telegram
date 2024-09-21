@@ -1,9 +1,9 @@
-use crate::traits::webhook::Webhook;
+use crate::traits::bots_apis::parametrized::webhook::Webhook;
 
 #[async_trait::async_trait]
 pub trait HttpsListen
 where
     Self: Webhook,
 {
-    fn https_listen(&self);
+    async fn https_listen(&self);
 }

@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::enums::menu_button::MenuButton as Receive;
 use crate::enums::menu_button::MenuButton as Send;
-use crate::traits::menu_button::MenuButton;
+use crate::traits::features::menu_button::MenuButton;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::get_chat_menu_button::GetChatMenuButton;
 use telegram_bots_api::api::params::set_chat_menu_button::SetChatMenuButton;

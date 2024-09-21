@@ -4,7 +4,9 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::shipping_query::ShippingQuery as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct ShippingQuery {
     pub id: String,
     pub from: User,

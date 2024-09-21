@@ -1,5 +1,5 @@
-use crate::structs::message_entity::MessageEntity;
-use crate::structs::message_id::MessageId;
+use crate::structs::messages::message_entity::MessageEntity;
+use crate::structs::messages::message_id::MessageId;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::reply_parameters::ReplyParameters as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};

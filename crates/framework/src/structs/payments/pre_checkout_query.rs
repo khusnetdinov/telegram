@@ -4,7 +4,9 @@ use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::pre_checkout_query::PreCheckoutQuery as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct PreCheckoutQuery {
     pub id: String,
     pub from: User,

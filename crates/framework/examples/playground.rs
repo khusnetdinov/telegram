@@ -8,7 +8,7 @@ use telegram_framework::feature::media_group::*;
 use telegram_framework::feature::photo::*;
 use telegram_framework::feature::pooling::*;
 
-use telegram_framework::traits::message::Message;
+use telegram_framework::traits::features::message::Message;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -118,7 +118,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let storage = MemoryStorage::<States>::new();
 
     bots_api.commands(BotCommands::config()).await?;
-    bots_api.pooling(storage, dispatch).await?;
+    bots_api.pooling(None, storage, dispatch).await?;
 
     Ok(())
 }

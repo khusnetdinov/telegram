@@ -3,7 +3,7 @@ use crate::structs::options::Options;
 use crate::structs::polls::input_poll_option::InputPollOption;
 use crate::structs::polls::options::Options as PollOptions;
 use crate::structs::updates::message::Message;
-use crate::traits::poll::Poll;
+use crate::traits::features::poll::Poll;
 use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_poll::SendPoll;
 use telegram_bots_api::api::requests::r#async::Requests;

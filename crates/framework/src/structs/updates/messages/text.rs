@@ -1,5 +1,5 @@
 use crate::structs::link_preview_options::LinkPreviewOptions;
-use crate::structs::message_entity::MessageEntity;
+use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message;
 

@@ -3,7 +3,7 @@ use crate::structs::chats::chat_administrator_rights::ChatAdministratorRights;
 use crate::structs::my::bot_description::BotDescription;
 use crate::structs::my::bot_name::BotName;
 use crate::structs::my::bot_short_description::BotShortDescription;
-use crate::traits::my::My;
+use crate::traits::features::my::My;
 use telegram_bots_api::api::params::get_my_description::GetMyDescription;
 use telegram_bots_api::api::params::get_my_name::GetMyName;
 use telegram_bots_api::api::params::get_my_short_description::GetMyShortDescription;

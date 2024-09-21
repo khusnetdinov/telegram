@@ -1,10 +1,12 @@
+use crate::structs::location::Location;
+use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::inline_query::InlineQuery as Remote;
-use telegram_bots_api::api::structs::location::Location;
-use telegram_bots_api::api::structs::user::User;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct)]
+#[derive(
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
+)]
 pub struct InlineQuery {
     pub id: String,
     pub from: User,

@@ -1,6 +1,6 @@
 use crate::bots_api::BotsApi;
 use crate::enums::passport_element_error::PassportElementError;
-use crate::traits::passport::Passport;
+use crate::traits::features::passport::Passport;
 use telegram_bots_api::api::params::set_passport_data_errors::SetPassportDataErrors;
 use telegram_bots_api::api::requests::r#async::Requests;
 
