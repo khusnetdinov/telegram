@@ -1,10 +1,10 @@
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::messages::message_id::MessageId;
 use crate::structs::options::Options;
-use crate::structs::poll::Poll as Response;
 use crate::structs::polls::input_poll_option::InputPollOption;
 use crate::structs::polls::options::Options as PollOptions;
 use crate::structs::updates::message::Message;
+use crate::structs::updates::poll::Poll as Response;
 
 #[async_trait::async_trait]
 pub trait Poll {

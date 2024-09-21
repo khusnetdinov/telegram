@@ -32,12 +32,12 @@ pub mod bots_api {
 }
 
 pub mod business {
-    pub use crate::structs::business::business_connection::BusinessConnection;
     pub use crate::structs::business::business_intro::BusinessIntro;
     pub use crate::structs::business::business_location::BusinessLocation;
-    pub use crate::structs::business::business_message_deleted::BusinessMessagesDeleted;
     pub use crate::structs::business::business_opening_hours::BusinessOpeningHours;
     pub use crate::structs::business::business_opening_hours_interval::BusinessOpeningHoursInterval;
+    pub use crate::structs::updates::business_connection::BusinessConnection;
+    pub use crate::structs::updates::business_message_deleted::BusinessMessagesDeleted;
     pub use crate::traits::features::business::Business as BusinessTrait;
 }
 
@@ -140,7 +140,6 @@ pub mod https_listener {
 }
 
 pub mod inline {
-    pub use crate::structs::inline_query::InlineQuery;
     pub use crate::structs::inline_query_results::inline_query_result_article::InlineQueryResultArticle;
     pub use crate::structs::inline_query_results::inline_query_result_audio::InlineQueryResultAudio;
     pub use crate::structs::inline_query_results::inline_query_result_cached_audio::InlineQueryResultCachedAudio;
@@ -167,6 +166,7 @@ pub mod inline {
     pub use crate::structs::input_message_contents::input_location_message_content::InputLocationMessageContent;
     pub use crate::structs::input_message_contents::input_text_message_content::InputTextMessageContent;
     pub use crate::structs::input_message_contents::input_venue_message_content::InputVenueMessageContent;
+    pub use crate::structs::updates::inline_query::InlineQuery;
 }
 
 pub mod location {
@@ -226,7 +226,7 @@ pub mod payments {
         pub use crate::structs::payments::labeled_price::LabeledPrice;
         pub use crate::structs::payments::shipping_address::ShippingAddress;
         pub use crate::structs::payments::shipping_option::ShippingOption;
-        pub use crate::structs::payments::shipping_query::ShippingQuery;
+        pub use crate::structs::updates::shipping_query::ShippingQuery;
         pub use crate::traits::features::payments::order::Order as OrderTrait;
     }
 
@@ -280,11 +280,11 @@ pub mod pooling {
 }
 
 pub mod poll {
-    pub use crate::structs::poll::Poll;
     pub use crate::structs::polls::input_poll_option::InputPollOption;
     pub use crate::structs::polls::options::Options as PollOptions;
-    pub use crate::structs::polls::poll_answer::PollAnswer;
     pub use crate::structs::polls::poll_option::PollOption;
+    pub use crate::structs::updates::poll::Poll;
+    pub use crate::structs::updates::poll_answer::PollAnswer;
     pub use crate::traits::features::poll::Poll as PollTrait;
 }
 
