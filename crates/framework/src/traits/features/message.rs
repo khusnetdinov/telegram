@@ -1,3 +1,4 @@
+use crate::enums::chat_uid::ChatUId;
 use crate::enums::input_media::InputMedia;
 use crate::enums::message_result::MessageResult;
 use crate::enums::reaction_type::ReactionType;
@@ -9,29 +10,29 @@ use crate::structs::updates::message::Message as Response;
 pub trait Message {
     async fn copy_message(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageId, Box<dyn std::error::Error>>;
 
     async fn copy_messages(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_ids: Vec<MessageId>,
         message_options: MessageOptions,
     ) -> Result<Vec<MessageId>, Box<dyn std::error::Error>>;
 
     async fn delete_message(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_id: MessageId,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
     async fn delete_messages(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_ids: Vec<i64>,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
@@ -72,23 +73,23 @@ pub trait Message {
 
     async fn forward_message(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageId, Box<dyn std::error::Error>>;
 
     async fn forward_messages(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_ids: Vec<MessageId>,
         message_options: MessageOptions,
     ) -> Result<Vec<MessageId>, Box<dyn std::error::Error>>;
 
     async fn set_message_reaction(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_id: MessageId,
         reaction: Option<Vec<ReactionType>>,
         is_big: Option<bool>,
@@ -101,7 +102,7 @@ pub trait Message {
 
     async fn send_message(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         text: String,
         message_options: MessageOptions,
     ) -> Result<Response, Box<dyn std::error::Error>>;

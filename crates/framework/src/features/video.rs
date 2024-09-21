@@ -1,10 +1,10 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::feature::animation::MediaOptions;
 use crate::feature::bots_api::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::video::Video;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_video::SendVideo;
 use telegram_bots_api::api::requests::r#async::Requests;
 
@@ -12,7 +12,7 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Video for BotsApi {
     async fn send_video(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         file: FileInput,
         media_options: MediaOptions,
         options: Option<Options>,
@@ -31,7 +31,7 @@ impl Video for BotsApi {
 
         let params = if let Some(options) = options {
             SendVideo {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 video: file.into(),
                 duration,
                 width,
@@ -55,7 +55,7 @@ impl Video for BotsApi {
             }
         } else {
             SendVideo {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 video: file.into(),
                 duration,
                 width,

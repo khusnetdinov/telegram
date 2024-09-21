@@ -1,3 +1,4 @@
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::chat::Chat;
 use crate::structs::chats::chat_invite_link::ChatInviteLink;
 use crate::structs::user::User;
@@ -9,7 +10,7 @@ use telegram_macros::FromRemoteStruct;
 pub struct ChatJoinRequest {
     pub chat: Chat,
     pub from: User,
-    pub user_chat_id: i64,
+    pub user_chat_id: ChatUId,
     pub date: i64,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bio: Option<String>,

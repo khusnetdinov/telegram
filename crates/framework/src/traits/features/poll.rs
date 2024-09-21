@@ -1,3 +1,4 @@
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::options::Options;
 use crate::structs::polls::input_poll_option::InputPollOption;
 use crate::structs::polls::options::Options as PollOptions;
@@ -7,7 +8,7 @@ use crate::structs::updates::message::Message;
 pub trait Poll {
     async fn send_poll(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         question: String,
         kind: String,
         poll_options: PollOptions,

@@ -1,10 +1,10 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::photo::Photo;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_photo::SendPhoto;
 use telegram_bots_api::api::requests::r#async::Requests;
 
@@ -12,7 +12,7 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Photo for BotsApi {
     async fn send_photo(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         file: FileInput,
         media_options: MediaOptions,
         options: Option<Options>,
@@ -26,7 +26,7 @@ impl Photo for BotsApi {
 
         let params = if let Some(options) = options {
             SendPhoto {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 photo: file.into(),
                 parse_mode,
                 has_spoiler,
@@ -45,7 +45,7 @@ impl Photo for BotsApi {
             }
         } else {
             SendPhoto {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 photo: file.into(),
                 parse_mode,
                 has_spoiler,

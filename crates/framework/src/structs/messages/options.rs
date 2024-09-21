@@ -1,7 +1,7 @@
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::link_preview_options::LinkPreviewOptions;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::enums::reply_markup::ReplyMarkup;
 use telegram_bots_api::api::structs::inline_keyboard_markup::InlineKeyboardMarkup;
 use telegram_bots_api::api::structs::message_id::MessageId;

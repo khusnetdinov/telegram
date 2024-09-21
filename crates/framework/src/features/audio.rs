@@ -1,10 +1,10 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::audio::Audio;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_audio::SendAudio;
 use telegram_bots_api::api::requests::r#async::Requests;
 
@@ -12,7 +12,7 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Audio for BotsApi {
     async fn send_audio(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         file: FileInput,
         media_options: MediaOptions,
         options: Option<Options>,
@@ -29,7 +29,7 @@ impl Audio for BotsApi {
 
         let params = if let Some(options) = options {
             SendAudio {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 audio: file.into(),
                 duration,
                 thumbnail,
@@ -50,7 +50,7 @@ impl Audio for BotsApi {
             }
         } else {
             SendAudio {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 audio: file.into(),
                 duration,
                 thumbnail,

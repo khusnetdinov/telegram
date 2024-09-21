@@ -1,11 +1,11 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::payments::labeled_price::LabeledPrice;
 use crate::structs::payments::options::Options;
 use crate::structs::payments::shipping_option::ShippingOption;
 use crate::traits::features::payments::invoice::Invoice;
 use crate::traits::features::payments::order::Order;
 use crate::traits::features::payments::star::Star;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::answer_pre_checkout_query::AnswerPreCheckoutQuery;
 use telegram_bots_api::api::params::answer_shipping_query::AnswerShippingQuery;
 use telegram_bots_api::api::params::create_invoice_link::CreateInvoiceLink;
@@ -72,7 +72,7 @@ impl Invoice for BotsApi {
 
     async fn send_invoice(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         title: String,
         description: String,
         payload: String,
@@ -106,7 +106,7 @@ impl Invoice for BotsApi {
         } = options;
 
         let params = SendInvoice {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             title,
             description,
             payload,

@@ -1,3 +1,4 @@
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::payments::labeled_price::LabeledPrice;
 use crate::structs::payments::options::Options;
 use telegram_bots_api::api::structs::message::Message;
@@ -16,7 +17,7 @@ pub trait Invoice {
 
     async fn send_invoice(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         title: String,
         description: String,
         payload: String,

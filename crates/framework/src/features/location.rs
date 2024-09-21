@@ -1,9 +1,9 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::location::Location;
 use std::error::Error;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_location::SendLocation;
 use telegram_bots_api::api::requests::r#async::Requests;
 
@@ -11,13 +11,13 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Location for BotsApi {
     async fn send_location(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         location: crate::structs::location::Location,
         options: Option<Options>,
     ) -> Result<Message, Box<dyn Error>> {
         let params = if let Some(options) = options {
             SendLocation {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 latitude: location.latitude,
                 longitude: location.longitude,
                 horizontal_accuracy: location.horizontal_accuracy,
@@ -34,7 +34,7 @@ impl Location for BotsApi {
             }
         } else {
             SendLocation {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 latitude: location.latitude,
                 longitude: location.longitude,
                 horizontal_accuracy: location.horizontal_accuracy,

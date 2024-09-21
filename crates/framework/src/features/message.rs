@@ -1,4 +1,5 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::enums::input_media::InputMedia;
 use crate::enums::message_result::MessageResult;
 use crate::enums::reaction_type::ReactionType;
@@ -6,7 +7,6 @@ use crate::structs::messages::message_id::MessageId;
 use crate::structs::messages::options::Options as MessageOptions;
 use crate::structs::updates::message::Message as Response;
 use crate::traits::features::message::Message;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::copy_message::CopyMessage;
 use telegram_bots_api::api::params::copy_messages::CopyMessages;
 use telegram_bots_api::api::params::delete_message::DeleteMessage;
@@ -27,8 +27,8 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Message for BotsApi {
     async fn copy_message(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageId, Box<dyn std::error::Error>> {
@@ -46,8 +46,8 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = CopyMessage {
-            chat_id: ChatUId::from(chat_id),
-            from_chat_id: ChatUId::from(from_chat_id),
+            chat_id: chat_id.into(),
+            from_chat_id: from_chat_id.into(),
             message_id: message_id.into(),
             message_thread_id,
             disable_notification,
@@ -65,8 +65,8 @@ impl Message for BotsApi {
     }
     async fn copy_messages(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_ids: Vec<MessageId>,
         message_options: MessageOptions,
     ) -> Result<Vec<MessageId>, Box<dyn std::error::Error>> {
@@ -79,8 +79,8 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = CopyMessages {
-            chat_id: ChatUId::from(chat_id),
-            from_chat_id: ChatUId::from(from_chat_id),
+            chat_id: chat_id.into(),
+            from_chat_id: from_chat_id.into(),
             message_ids: message_ids
                 .iter()
                 .map(|inner| inner.to_owned().into())
@@ -102,11 +102,11 @@ impl Message for BotsApi {
 
     async fn delete_message(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_id: MessageId,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = DeleteMessage {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             message_id: message_id.into(),
         };
 
@@ -115,11 +115,11 @@ impl Message for BotsApi {
 
     async fn delete_messages(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_ids: Vec<i64>,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = DeleteMessages {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             message_ids,
         };
 
@@ -144,7 +144,7 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = EditMessageCaption {
-            chat_id,
+            chat_id: chat_id.map(|inner| inner.into()),
             message_id,
             inline_message_id,
             reply_markup: inline_keyboard_markup,
@@ -182,7 +182,7 @@ impl Message for BotsApi {
             latitude,
             longitude,
             live_period,
-            chat_id,
+            chat_id: chat_id.map(|inner| inner.into()),
             message_id,
             inline_message_id,
             reply_markup: inline_keyboard_markup,
@@ -215,7 +215,7 @@ impl Message for BotsApi {
 
         let params = EditMessageMedia {
             media: media.into(),
-            chat_id,
+            chat_id: chat_id.map(|inner| inner.into()),
             message_id,
             inline_message_id,
             reply_markup: inline_keyboard_markup,
@@ -239,7 +239,7 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = EditMessageReplyMarkup {
-            chat_id,
+            chat_id: chat_id.map(|inner| inner.into()),
             message_id,
             inline_message_id,
             reply_markup: inline_keyboard_markup,
@@ -268,7 +268,7 @@ impl Message for BotsApi {
 
         let params = EditMessageText {
             text,
-            chat_id,
+            chat_id: chat_id.map(|inner| inner.into()),
             message_id,
             inline_message_id,
             parse_mode,
@@ -284,8 +284,8 @@ impl Message for BotsApi {
 
     async fn forward_message(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageId, Box<dyn std::error::Error>> {
@@ -297,8 +297,8 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = ForwardMessage {
-            chat_id: ChatUId::from(chat_id),
-            from_chat_id: ChatUId::from(from_chat_id),
+            chat_id: chat_id.into(),
+            from_chat_id: from_chat_id.into(),
             message_id: message_id.into(),
             message_thread_id,
             disable_notification,
@@ -310,8 +310,8 @@ impl Message for BotsApi {
 
     async fn forward_messages(
         &self,
-        chat_id: i64,
-        from_chat_id: i64,
+        chat_id: ChatUId,
+        from_chat_id: ChatUId,
         message_ids: Vec<MessageId>,
         message_options: MessageOptions,
     ) -> Result<Vec<MessageId>, Box<dyn std::error::Error>> {
@@ -323,8 +323,8 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = ForwardMessages {
-            chat_id: ChatUId::from(chat_id),
-            from_chat_id: ChatUId::from(from_chat_id),
+            chat_id: chat_id.into(),
+            from_chat_id: from_chat_id.into(),
             message_ids: message_ids
                 .iter()
                 .map(|inner| inner.to_owned().into())
@@ -345,14 +345,14 @@ impl Message for BotsApi {
 
     async fn set_message_reaction(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         message_id: MessageId,
         reaction: Option<Vec<ReactionType>>,
         is_big: Option<bool>,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let params = SetMessageReaction {
             message_id: message_id.into(),
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             reaction: reaction
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
             is_big,
@@ -374,7 +374,7 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = StopMessageLiveLocation {
-            chat_id,
+            chat_id: chat_id.map(|inner| inner.into()),
             message_id,
             inline_message_id,
             reply_markup: inline_keyboard_markup,
@@ -389,7 +389,7 @@ impl Message for BotsApi {
 
     async fn send_message(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         text: String,
         message_options: MessageOptions,
     ) -> Result<Response, Box<dyn std::error::Error>> {
@@ -408,7 +408,7 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = SendMessage {
-            chat_id: ChatUId::from(chat_id),
+            chat_id: chat_id.into(),
             text,
             message_thread_id,
             parse_mode,

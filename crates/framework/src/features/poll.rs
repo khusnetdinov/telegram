@@ -1,10 +1,10 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_uid::ChatUId;
 use crate::structs::options::Options;
 use crate::structs::polls::input_poll_option::InputPollOption;
 use crate::structs::polls::options::Options as PollOptions;
 use crate::structs::updates::message::Message;
 use crate::traits::features::poll::Poll;
-use telegram_bots_api::api::enums::chat_uid::ChatUId;
 use telegram_bots_api::api::params::send_poll::SendPoll;
 use telegram_bots_api::api::requests::r#async::Requests;
 
@@ -12,7 +12,7 @@ use telegram_bots_api::api::requests::r#async::Requests;
 impl Poll for BotsApi {
     async fn send_poll(
         &self,
-        chat_id: i64,
+        chat_id: ChatUId,
         question: String,
         kind: String,
         poll_options: PollOptions,
@@ -36,7 +36,7 @@ impl Poll for BotsApi {
 
         let params = if let Some(options) = options {
             SendPoll {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 kind: Some(kind),
                 question,
                 // TODO: #[remote(option, map, into)]
@@ -69,7 +69,7 @@ impl Poll for BotsApi {
             }
         } else {
             SendPoll {
-                chat_id: ChatUId::from(chat_id),
+                chat_id: chat_id.into(),
                 kind: Some(kind),
                 question,
                 // TODO: #[remote(option, map, into)]
