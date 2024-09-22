@@ -312,7 +312,6 @@ pub mod stickers {
 
 pub mod user {
     pub use crate::structs::user::User;
-    pub use crate::structs::users::options::Options as UserOptions;
     pub use crate::structs::users::shared_user::SharedUser;
     pub use crate::structs::users::user_profile_photos::UserProfilePhotos;
     pub use crate::structs::users::users_shared::UsersShared;
