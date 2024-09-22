@@ -1,11 +1,11 @@
-use crate::structs::media::video::Video as Media;
+use crate::structs::media::video::Video;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct Video {
-    pub video: Media,
+pub struct IncomingVideo {
+    pub video: Video,
     pub media_group_id: Option<String>,
     pub has_media_spoiler: Option<bool>,
     pub caption: Option<String>,
@@ -13,7 +13,7 @@ pub struct Video {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<IncomingMessage> for Video {
+impl From<IncomingMessage> for IncomingVideo {
     fn from(remote: IncomingMessage) -> Self {
         let IncomingMessage {
             video,

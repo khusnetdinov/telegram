@@ -1,11 +1,11 @@
-use crate::structs::media::photo_size::PhotoSize;
+use crate::structs::media::voice::Voice;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct Photo {
-    pub photo: Vec<PhotoSize>,
+pub struct IncomingVoice {
+    pub voice: Voice,
     pub media_group_id: Option<String>,
     pub has_media_spoiler: Option<bool>,
     pub caption: Option<String>,
@@ -13,10 +13,10 @@ pub struct Photo {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<IncomingMessage> for Photo {
+impl From<IncomingMessage> for IncomingVoice {
     fn from(remote: IncomingMessage) -> Self {
         let IncomingMessage {
-            photo,
+            voice,
             media_group_id,
             has_media_spoiler,
             caption,
@@ -26,12 +26,8 @@ impl From<IncomingMessage> for Photo {
         } = remote;
 
         Self {
-            // TODO: #[remote(map, into)]
-            photo: photo
-                .unwrap()
-                .iter()
-                .map(|inner| inner.to_owned().into())
-                .collect(),
+            // TODO: #[remote(into)]
+            voice: voice.unwrap().into(),
             media_group_id,
             has_media_spoiler,
             caption,

@@ -1,11 +1,11 @@
-use crate::structs::media::audio::Audio as Media;
+use crate::structs::media::video_note::VideoNote;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct Audio {
-    pub audio: Media,
+pub struct IncomingVideoNote {
+    pub video_note: VideoNote,
     pub media_group_id: Option<String>,
     pub has_media_spoiler: Option<bool>,
     pub caption: Option<String>,
@@ -13,10 +13,10 @@ pub struct Audio {
     pub show_caption_above_media: Option<bool>,
 }
 
-impl From<IncomingMessage> for Audio {
+impl From<IncomingMessage> for IncomingVideoNote {
     fn from(remote: IncomingMessage) -> Self {
         let IncomingMessage {
-            audio,
+            video_note,
             media_group_id,
             has_media_spoiler,
             caption,
@@ -27,7 +27,7 @@ impl From<IncomingMessage> for Audio {
 
         Self {
             // TODO: #[remote(into)]
-            audio: audio.unwrap().into(),
+            video_note: video_note.unwrap().into(),
             media_group_id,
             has_media_spoiler,
             caption,

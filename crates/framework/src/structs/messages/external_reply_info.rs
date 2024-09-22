@@ -1,6 +1,5 @@
 use crate::enums::message_origin::MessageOrigin;
 use crate::structs::chat::Chat;
-use crate::structs::giveaways::giveaway_winners::GiveawayWinners;
 use crate::structs::link_preview_options::LinkPreviewOptions;
 use crate::structs::media::animation::Animation;
 use crate::structs::media::audio::Audio;
@@ -18,6 +17,7 @@ use crate::structs::updates::incoming_messages::contact::Contact;
 use crate::structs::updates::incoming_messages::dice::Dice;
 use crate::structs::updates::incoming_messages::game::Game;
 use crate::structs::updates::incoming_messages::giveaway::Giveaway;
+use crate::structs::updates::incoming_messages::giveaway_winners::GiveawayWinners;
 use crate::structs::updates::incoming_messages::location::Location;
 use crate::structs::updates::incoming_messages::venue::Venue;
 use crate::structs::updates::poll::Poll;

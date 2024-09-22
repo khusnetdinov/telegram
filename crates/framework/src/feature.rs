@@ -4,7 +4,7 @@ pub mod animation {
     pub use crate::structs::media::document::Document;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::incoming_messages::animation::Animation as AnimationMessage;
+    pub use crate::structs::updates::incoming_messages::incoming_animation::IncomingAnimation as AnimationMessage;
     pub use crate::traits::features::animation::Animation as AnimationTrait;
 }
 
@@ -13,7 +13,7 @@ pub mod audio {
     pub use crate::structs::media::audio::Audio;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::incoming_messages::audio::Audio as AudioMessage;
+    pub use crate::structs::updates::incoming_messages::incoming_audio::IncomingAudio as AudioMessage;
     pub use crate::traits::features::audio::Audio as AudioTrait;
 }
 
@@ -103,7 +103,7 @@ pub mod document {
     pub use crate::structs::media::document::Document;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::incoming_messages::document::Document as DocumentMessage;
+    pub use crate::structs::updates::incoming_messages::incoming_document::IncomingDocument as DocumentMessage;
     pub use crate::traits::features::document::Document as DocumentTrait;
 }
 
@@ -255,7 +255,6 @@ pub mod passport {
     pub use crate::enums::passport_element_error::PassportElementError;
     pub use crate::structs::passports::encrypted_credentials::EncryptedCredentials;
     pub use crate::structs::passports::encrypted_passport_element::EncryptedPassportElement;
-    pub use crate::structs::passports::passport_data::PassportData;
     pub use crate::structs::passports::passport_element_error_data_field::PassportElementErrorDataField;
     pub use crate::structs::passports::passport_element_error_file::PassportElementErrorFile;
     pub use crate::structs::passports::passport_element_error_files::PassportElementErrorFiles;
@@ -266,6 +265,7 @@ pub mod passport {
     pub use crate::structs::passports::passport_element_error_translation_files::PassportElementErrorTranslationFiles;
     pub use crate::structs::passports::passport_element_error_unspecified::PassportElementErrorUnspecified;
     pub use crate::structs::passports::passport_file::PassportFile;
+    pub use crate::structs::updates::incoming_messages::passport_data::PassportData;
     pub use crate::traits::features::passport::Passport as PassportTrait;
 }
 
@@ -327,26 +327,26 @@ pub mod venue {
 pub mod video {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video::Video;
-    pub use crate::structs::updates::incoming_messages::voice::Voice as VideoMessage;
+    pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VideoMessage;
     pub use crate::traits::features::video::Video as VideoTrait;
 }
 
 pub mod video_note {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video_note::VideoNote;
-    pub use crate::structs::updates::incoming_messages::voice::Voice as VideoNoteMessage;
+    pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VideoNoteMessage;
     pub use crate::traits::features::video_note::VideoNote as VideoNoteTrait;
 }
 
 pub mod voice {
     pub use crate::structs::media::voice::Voice;
-    pub use crate::structs::updates::incoming_messages::voice::Voice as VoiceMessage;
+    pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VoiceMessage;
     pub use crate::traits::features::voice::Voice as VoiceTrait;
 }
 
 pub mod web_app {
+    pub use crate::structs::updates::incoming_messages::web_app_data::WebAppData;
     pub use crate::structs::web_apps::sent_web_app_message::SentWebAppMessage;
-    pub use crate::structs::web_apps::web_app_data::WebAppData;
     pub use crate::structs::web_apps::web_app_info::WebAppInfo;
     pub use crate::traits::features::web_app::WebApp as WebAppTrait;
 }

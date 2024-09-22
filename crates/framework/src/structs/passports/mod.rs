@@ -1,6 +1,5 @@
 pub mod encrypted_credentials;
 pub mod encrypted_passport_element;
-pub mod passport_data;
 pub mod passport_element_error_data_field;
 pub mod passport_element_error_file;
 pub mod passport_element_error_files;
