@@ -67,7 +67,7 @@ async fn dispatch(
                     };
 
                     bots_api
-                        .send_photo(ChatUId::from(message.chat.id), photo, options, None)
+                        .send_photo(ChatUId::from(message.chat.id), photo, options)
                         .await?;
                 }
                 Some(BotCommands::MediaGroup) => {
