@@ -5,8 +5,8 @@ use telegram_framework::feature::bots_api::*;
 use telegram_framework::feature::chat_actions::*;
 use telegram_framework::feature::commands::*;
 use telegram_framework::feature::dice::*;
-use telegram_framework::feature::media_group::*;
-use telegram_framework::feature::photo::*;
+use telegram_framework::feature::media::media_group::*;
+use telegram_framework::feature::media::photo::*;
 use telegram_framework::feature::pooling::*;
 
 use telegram_framework::traits::features::message::Message;

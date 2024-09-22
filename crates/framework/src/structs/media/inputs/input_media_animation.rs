@@ -1,4 +1,4 @@
-use crate::feature::audio::FileInput;
+use crate::enums::file_input::FileInput;
 use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::input_media_animation::InputMediaAnimation as Remote;

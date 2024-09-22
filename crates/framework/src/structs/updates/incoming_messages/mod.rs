@@ -50,3 +50,4 @@ pub mod video_chat_scheduled;
 pub mod video_chat_started;
 pub mod web_app_data;
 pub mod write_access_allowed;
+mod media;

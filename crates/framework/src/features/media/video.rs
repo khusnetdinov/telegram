@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
-use crate::feature::animation::MediaOptions;
+use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::media::video::Video;
