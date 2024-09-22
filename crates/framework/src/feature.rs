@@ -190,7 +190,7 @@ pub mod media_group {
     pub use crate::structs::media::input_media_document::InputMediaDocument;
     pub use crate::structs::media::input_media_photo::InputMediaPhoto;
     pub use crate::structs::media::input_media_video::InputMediaVideo;
-    pub use crate::traits::features::media_group::MediaGroup as MediaGroupTrait;
+    pub use crate::traits::features::media::media_group::MediaGroup as MediaGroupTrait;
 }
 
 pub mod menu_buttons {

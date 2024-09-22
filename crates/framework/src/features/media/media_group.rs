@@ -3,7 +3,7 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::input_media::InputMedia;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
-use crate::traits::features::media_group::MediaGroup;
+use crate::traits::features::media::media_group::MediaGroup;
 use std::error::Error;
 use telegram_bots_api::api::params::send_media_group::SendMediaGroup;
 use telegram_bots_api::api::requests::r#async::Requests;

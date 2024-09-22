@@ -10,7 +10,6 @@ pub mod game;
 pub mod geo;
 pub mod inline_query;
 pub mod media;
-pub mod media_group;
 pub mod menu_button;
 pub mod message;
 pub mod my;
