@@ -1,6 +1,6 @@
 use crate::bots_api::BotsApi;
 use crate::structs::webhook_info::WebhookInfo;
-use crate::traits::bots_apis::parametrized::webhook::Webhook;
+use crate::traits::bots_apis::sealed::webhook::Webhook;
 use crate::traits::params::Params;
 use telegram_bots_api::api::requests::r#async::Requests;
 

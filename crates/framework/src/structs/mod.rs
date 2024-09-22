@@ -40,5 +40,5 @@ pub mod updates;
 pub mod user;
 pub mod users;
 pub mod web_apps;
-pub mod webhook;
-pub mod webhook_info;
+pub(crate) mod webhook;
+pub(crate) mod webhook_info;

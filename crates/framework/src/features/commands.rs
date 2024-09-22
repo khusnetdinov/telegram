@@ -1,6 +1,6 @@
 use crate::bots_api::BotsApi;
 use crate::structs::bot_command::BotCommand;
-use crate::traits::bots_apis::parametrized::commands::Commands;
+use crate::traits::features::commands::Commands;
 use telegram_bots_api::api::params::delete_my_commands::DeleteMyCommands;
 use telegram_bots_api::api::params::get_my_commands::GetMyCommands;
 use telegram_bots_api::api::params::set_my_commands::SetMyCommands;

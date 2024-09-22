@@ -65,7 +65,7 @@ pub mod callback_query {
 }
 
 pub mod commands {
-    pub use crate::traits::bots_apis::parametrized::commands::Commands;
+    pub use crate::traits::features::commands::Commands;
     pub use crate::traits::params::EnumParams as CommandsTrait;
     pub use telegram_macros::BotCommands;
 }
@@ -378,8 +378,4 @@ pub mod web_app {
     pub use crate::structs::web_apps::sent_web_app_message::SentWebAppMessage;
     pub use crate::structs::web_apps::web_app_info::WebAppInfo;
     pub use crate::traits::features::web_app::WebApp as WebAppTrait;
-}
-
-pub mod webhook {
-    pub use crate::traits::bots_apis::parametrized::webhook::Webhook;
 }

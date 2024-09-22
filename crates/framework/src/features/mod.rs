@@ -21,4 +21,3 @@ pub mod poll;
 pub mod stickers;
 pub mod user;
 pub mod web_app;
-pub mod webhook;
