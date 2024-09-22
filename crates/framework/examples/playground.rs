@@ -62,12 +62,12 @@ async fn dispatch(
                 }
                 Some(BotCommands::Photo) => {
                     let photo = FileInput::from("https://248006.selcdn.ru/main/iblock/73d/73da4a4a09e01c1a4b2f20d3a870ac62/f8c5806b72c401ebaa6a32a2a482a3d4.png".to_string());
-                    let media_options = MediaOptions {
+                    let options = MediaOptions {
                         ..Default::default()
                     };
 
                     bots_api
-                        .send_photo(ChatUId::from(message.chat.id), photo, media_options, None)
+                        .send_photo(ChatUId::from(message.chat.id), photo, options, None)
                         .await?;
                 }
                 Some(BotCommands::MediaGroup) => {
@@ -78,9 +78,12 @@ async fn dispatch(
                         });
 
                     let media = vec![photo.clone(), photo.clone(), photo.clone()];
+                    let options = MediaOptions {
+                        ..Default::default()
+                    };
 
                     bots_api
-                        .send_media_group(ChatUId::from(message.chat.id), media, None)
+                        .send_media_group(ChatUId::from(message.chat.id), media, options)
                         .await?;
                 }
                 _ => println!("Command::Unexpected"),

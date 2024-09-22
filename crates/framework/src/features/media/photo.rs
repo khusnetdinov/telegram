@@ -3,13 +3,13 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::updates::message::Message;
-use crate::traits::features::media::audio::Audio;
-use telegram_bots_api::api::params::send_audio::SendAudio;
+use crate::traits::features::media::photo::Photo;
+use telegram_bots_api::api::params::send_photo::SendPhoto;
 use telegram_bots_api::api::requests::r#async::Requests;
 
 #[async_trait::async_trait]
-impl Audio for BotsApi {
-    async fn send_audio(
+impl Photo for BotsApi {
+    async fn send_photo(
         &self,
         chat_id: ChatUId,
         file: FileInput,
@@ -19,10 +19,6 @@ impl Audio for BotsApi {
             parse_mode,
             has_spoiler,
             caption_entities,
-            caption,
-            duration,
-            thumbnail,
-            performer,
             business_connection_id,
             disable_notification,
             protect_content,
@@ -33,17 +29,15 @@ impl Audio for BotsApi {
             ..
         } = options;
 
-        let params = SendAudio {
+        let params = SendPhoto {
             chat_id: chat_id.into(),
-            audio: file.into(),
-            duration,
-            thumbnail: thumbnail.map(|inner| inner.into()),
+            photo: file.into(),
             parse_mode,
             has_spoiler,
-            performer,
             caption_entities: caption_entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
-            caption,
+            caption: options.caption,
+            show_caption_above_media: options.show_caption_above_media,
             business_connection_id,
             disable_notification,
             protect_content,
@@ -53,6 +47,6 @@ impl Audio for BotsApi {
             reply_markup: reply_markup.map(|inner| inner.into()),
         };
 
-        Ok(self.client.send_audio(&params).await?.into())
+        Ok(self.client.send_photo(&params).await?.into())
     }
 }

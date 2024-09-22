@@ -2,7 +2,6 @@ use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::media::options::Options as MediaOptions;
-use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::media::video_note::VideoNote;
 use telegram_bots_api::api::params::send_video_note::SendVideoNote;
@@ -14,40 +13,33 @@ impl VideoNote for BotsApi {
         &self,
         chat_id: ChatUId,
         file: FileInput,
-        media_options: MediaOptions,
-        options: Option<Options>,
+        options: MediaOptions,
     ) -> Result<Message, Box<dyn std::error::Error>> {
         let MediaOptions {
             duration,
             length,
             thumbnail,
+            business_connection_id,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters,
+            reply_markup,
             ..
-        } = media_options;
+        } = options;
 
-        let params = if let Some(options) = options {
-            SendVideoNote {
-                chat_id: chat_id.into(),
-                video_note: file.into(),
-                duration,
-                length,
-                thumbnail: thumbnail.map(|inner| inner.into()),
-                disable_notification: options.disable_notification,
-                protect_content: options.protect_content,
-                business_connection_id: options.business_connection_id,
-                message_effect_id: options.message_effect_id,
-                message_thread_id: options.message_thread_id,
-                reply_parameters: options.reply_parameters.map(|inner| inner.into()),
-                reply_markup: options.reply_markup.map(|inner| inner.into()),
-            }
-        } else {
-            SendVideoNote {
-                chat_id: chat_id.into(),
-                video_note: file.into(),
-                duration,
-                length,
-                thumbnail: thumbnail.map(|inner| inner.into()),
-                ..Default::default()
-            }
+        let params = SendVideoNote {
+            chat_id: chat_id.into(),
+            video_note: file.into(),
+            duration,
+            length,
+            thumbnail: thumbnail.map(|inner| inner.into()),
+            disable_notification: options.disable_notification,
+            protect_content: options.protect_content,
+            business_connection_id,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
         };
 
         Ok(self.client.send_video_note(&params).await?.into())

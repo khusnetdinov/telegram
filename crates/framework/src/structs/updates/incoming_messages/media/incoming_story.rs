@@ -2,7 +2,7 @@ use crate::structs::media::story::Story;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct IncomingStory {
     pub story: Story,
     pub media_group_id: Option<String>,
@@ -19,7 +19,6 @@ impl From<IncomingMessage> for IncomingStory {
         } = remote;
 
         Self {
-            // TODO: #[remote(into)]
             story: story.unwrap().into(),
             media_group_id,
             has_media_spoiler,

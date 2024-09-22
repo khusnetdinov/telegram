@@ -16,5 +16,6 @@ pub mod my;
 pub mod passport;
 pub mod payments;
 pub mod poll;
+pub mod stickers;
 pub mod user;
 pub mod web_app;

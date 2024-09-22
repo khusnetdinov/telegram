@@ -4,7 +4,7 @@ use crate::structs::messages::message_entity::MessageEntity;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct IncomingAnimation {
     pub animation: Animation,
     pub document: Document,
@@ -29,14 +29,11 @@ impl From<IncomingMessage> for IncomingAnimation {
         } = remote;
 
         Self {
-            // TODO: #[remote(into)]
             animation: animation.unwrap().into(),
-            // TODO: #[remote(into)]
             document: document.unwrap().into(),
             media_group_id,
             has_media_spoiler,
             caption,
-            // TODO: #[remote(option, map, into)]
             caption_entities: caption_entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
             show_caption_above_media,

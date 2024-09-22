@@ -1,10 +1,9 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::input_media::InputMedia;
-use crate::structs::options::Options;
+use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::updates::message::Message;
 use crate::traits::features::media::media_group::MediaGroup;
-use std::error::Error;
 use telegram_bots_api::api::params::send_media_group::SendMediaGroup;
 use telegram_bots_api::api::requests::r#async::Requests;
 
@@ -14,25 +13,27 @@ impl MediaGroup for BotsApi {
         &self,
         chat_id: ChatUId,
         media: Vec<InputMedia>,
-        option: Option<Options>,
-    ) -> Result<Vec<Message>, Box<dyn Error>> {
-        let params = if let Some(options) = option {
-            SendMediaGroup {
-                chat_id: chat_id.into(),
-                media: media.iter().map(|inner| inner.clone().into()).collect(),
-                business_connection_id: options.business_connection_id,
-                disable_notification: options.disable_notification,
-                protect_content: options.protect_content,
-                message_effect_id: options.message_effect_id,
-                message_thread_id: options.message_thread_id,
-                reply_parameters: options.reply_parameters.map(|inner| inner.into()),
-            }
-        } else {
-            SendMediaGroup {
-                chat_id: chat_id.into(),
-                media: media.iter().map(|inner| inner.clone().into()).collect(),
-                ..Default::default()
-            }
+        options: MediaOptions,
+    ) -> Result<Vec<Message>, Box<dyn std::error::Error>> {
+        let MediaOptions {
+            business_connection_id,
+            disable_notification,
+            protect_content,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters,
+            ..
+        } = options;
+
+        let params = SendMediaGroup {
+            chat_id: chat_id.into(),
+            media: media.iter().map(|inner| inner.to_owned().into()).collect(),
+            business_connection_id,
+            disable_notification,
+            protect_content,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
         };
 
         Ok(self

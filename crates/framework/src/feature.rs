@@ -156,66 +156,90 @@ pub mod inline {
 }
 
 pub mod media {
+    pub use crate::enums::file_input::FileInput;
     pub use crate::enums::input_media::InputMedia;
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
 
     pub mod animation {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
         pub use crate::structs::media::animation::Animation;
         pub use crate::structs::media::document::Document;
-        pub use crate::structs::updates::incoming_messages::incoming_animation::IncomingAnimation as AnimationMessage;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::updates::incoming_messages::media::incoming_animation::IncomingAnimation as AnimationMessage;
         pub use crate::traits::features::media::animation::Animation as AnimationTrait;
     }
 
     pub mod audio {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
         pub use crate::structs::media::audio::Audio;
-        pub use crate::structs::updates::incoming_messages::incoming_audio::IncomingAudio as AudioMessage;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::updates::incoming_messages::media::incoming_audio::IncomingAudio as AudioMessage;
         pub use crate::traits::features::media::audio::Audio as AudioTrait;
     }
 
     pub mod document {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
         pub use crate::structs::media::document::Document;
-        pub use crate::structs::updates::incoming_messages::incoming_document::IncomingDocument as DocumentMessage;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::updates::incoming_messages::media::incoming_document::IncomingDocument as DocumentMessage;
         pub use crate::traits::features::media::document::Document as DocumentTrait;
     }
 
     pub mod media_group {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
         pub use crate::structs::media::inputs::input_media_animation::InputMediaAnimation;
         pub use crate::structs::media::inputs::input_media_audio::InputMediaAudio;
         pub use crate::structs::media::inputs::input_media_document::InputMediaDocument;
         pub use crate::structs::media::inputs::input_media_photo::InputMediaPhoto;
         pub use crate::structs::media::inputs::input_media_video::InputMediaVideo;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
         pub use crate::traits::features::media::media_group::MediaGroup as MediaGroupTrait;
     }
 
     pub mod photo {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
         pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
         pub use crate::traits::features::media::photo::Photo as PhotoTrait;
     }
 
-    pub mod stickers {
-        pub use crate::structs::stickers::input_sticker::InputSticker;
-        pub use crate::structs::stickers::mask_position::MaskPosition;
-        pub use crate::structs::stickers::options::Options as StickerOptions;
-        pub use crate::structs::stickers::sticker_set::StickerSet;
-        pub use crate::traits::features::media::stickers::Stickers as StickersTrait;
-    }
-
     pub mod video {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
         pub use crate::structs::media::video::Video;
-        pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VideoMessage;
+        pub use crate::structs::updates::incoming_messages::media::incoming_voice::IncomingVoice as VideoMessage;
         pub use crate::traits::features::media::video::Video as VideoTrait;
     }
 
     pub mod video_note {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
         pub use crate::structs::media::video_note::VideoNote;
-        pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VideoNoteMessage;
+        pub use crate::structs::updates::incoming_messages::media::incoming_voice::IncomingVoice as VideoNoteMessage;
         pub use crate::traits::features::media::video_note::VideoNote as VideoNoteTrait;
     }
 
     pub mod voice {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
         pub use crate::structs::media::voice::Voice;
-        pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VoiceMessage;
+        pub use crate::structs::updates::incoming_messages::media::incoming_voice::IncomingVoice as VoiceMessage;
         pub use crate::traits::features::media::voice::Voice as VoiceTrait;
     }
 }
@@ -330,6 +354,14 @@ pub mod reply_markup {
     pub use crate::structs::reply_markups::login_url::LoginUrl;
     pub use crate::structs::reply_markups::reply_keyboard_markup::ReplyKeyboardMarkup;
     pub use crate::structs::reply_markups::reply_keyboard_remove::ReplyKeyboardRemove;
+}
+
+pub mod stickers {
+    pub use crate::structs::stickers::input_sticker::InputSticker;
+    pub use crate::structs::stickers::mask_position::MaskPosition;
+    pub use crate::structs::stickers::options::Options as StickerOptions;
+    pub use crate::structs::stickers::sticker_set::StickerSet;
+    pub use crate::traits::features::stickers::Stickers as StickersTrait;
 }
 
 pub mod user {
