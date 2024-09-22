@@ -4,7 +4,7 @@ use crate::enums::file_input::FileInput;
 use crate::structs::media::options::Options as MediaOptions;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
-use crate::traits::features::document::Document;
+use crate::traits::features::media::document::Document;
 use telegram_bots_api::api::params::send_document::SendDocument;
 use telegram_bots_api::api::requests::r#async::Requests;
 

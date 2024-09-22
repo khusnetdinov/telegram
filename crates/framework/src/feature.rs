@@ -5,7 +5,7 @@ pub mod animation {
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::updates::incoming_messages::incoming_animation::IncomingAnimation as AnimationMessage;
-    pub use crate::traits::features::animation::Animation as AnimationTrait;
+    pub use crate::traits::features::media::animation::Animation as AnimationTrait;
 }
 
 pub mod audio {
@@ -14,7 +14,7 @@ pub mod audio {
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::updates::incoming_messages::incoming_audio::IncomingAudio as AudioMessage;
-    pub use crate::traits::features::audio::Audio as AudioTrait;
+    pub use crate::traits::features::media::audio::Audio as AudioTrait;
 }
 
 pub mod bots_api {
@@ -104,7 +104,7 @@ pub mod document {
     pub use crate::structs::media::options::Options as MediaOptions;
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::updates::incoming_messages::incoming_document::IncomingDocument as DocumentMessage;
-    pub use crate::traits::features::document::Document as DocumentTrait;
+    pub use crate::traits::features::media::document::Document as DocumentTrait;
 }
 
 pub mod file {
@@ -171,7 +171,7 @@ pub mod inline {
 
 pub mod location {
     pub use crate::structs::updates::incoming_messages::location::Location;
-    pub use crate::traits::features::location::Location as LocationTrait;
+    pub use crate::traits::features::geo::location::Location as LocationTrait;
 }
 
 pub mod media_group {
@@ -272,7 +272,7 @@ pub mod passport {
 pub mod photo {
     pub use crate::enums::file_input::FileInput;
     pub use crate::structs::media::options::Options as MediaOptions;
-    pub use crate::traits::features::photo::Photo as PhotoTrait;
+    pub use crate::traits::features::media::photo::Photo as PhotoTrait;
 }
 
 pub mod pooling {
@@ -307,7 +307,7 @@ pub mod stickers {
     pub use crate::structs::stickers::mask_position::MaskPosition;
     pub use crate::structs::stickers::options::Options;
     pub use crate::structs::stickers::sticker_set::StickerSet;
-    pub use crate::traits::features::stickers::Stickers as StickersTrait;
+    pub use crate::traits::features::media::stickers::Stickers as StickersTrait;
 }
 
 pub mod user {
@@ -320,27 +320,27 @@ pub mod user {
 
 pub mod venue {
     pub use crate::structs::updates::incoming_messages::venue::Venue;
-    pub use crate::traits::features::venue::Venue as VenueTrait;
+    pub use crate::traits::features::geo::venue::Venue as VenueTrait;
 }
 
 pub mod video {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video::Video;
     pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VideoMessage;
-    pub use crate::traits::features::video::Video as VideoTrait;
+    pub use crate::traits::features::media::video::Video as VideoTrait;
 }
 
 pub mod video_note {
     pub use crate::structs::media::photo_size::PhotoSize;
     pub use crate::structs::media::video_note::VideoNote;
     pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VideoNoteMessage;
-    pub use crate::traits::features::video_note::VideoNote as VideoNoteTrait;
+    pub use crate::traits::features::media::video_note::VideoNote as VideoNoteTrait;
 }
 
 pub mod voice {
     pub use crate::structs::media::voice::Voice;
     pub use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice as VoiceMessage;
-    pub use crate::traits::features::voice::Voice as VoiceTrait;
+    pub use crate::traits::features::media::voice::Voice as VoiceTrait;
 }
 
 pub mod web_app {
