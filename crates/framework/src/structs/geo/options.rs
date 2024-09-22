@@ -1,6 +1,6 @@
+use crate::enums::reply_markup::ReplyMarkup;
+use crate::structs::reply_parameters::ReplyParameters;
 use serde::Serialize;
-use telegram_bots_api::api::enums::reply_markup::ReplyMarkup;
-use telegram_bots_api::api::structs::reply_parameters::ReplyParameters;
 
 #[derive(Debug, Default, Serialize)]
 pub struct Options {
