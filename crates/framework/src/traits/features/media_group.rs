@@ -1,6 +1,6 @@
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::input_media::InputMedia;
-use crate::feature::bots_api::Options;
+use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]

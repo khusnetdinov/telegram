@@ -13,9 +13,11 @@ use telegram_bots_api::api::params::approve_chat_join_request::ApproveChatJoinRe
 use telegram_bots_api::api::params::ban_chat_member::BanChatMember;
 use telegram_bots_api::api::params::ban_chat_sender_chat::BanChatSenderChat;
 use telegram_bots_api::api::params::create_chat_invite_link::CreateChatInviteLink;
+use telegram_bots_api::api::params::create_chat_subscription_invite_link::CreateChatSubscriptionInviteLink;
 use telegram_bots_api::api::params::decline_chat_join_request::DeclineChatJoinRequest;
 use telegram_bots_api::api::params::delete_chat_photo::DeleteChatPhoto;
 use telegram_bots_api::api::params::edit_chat_invite_link::EditChatInviteLink;
+use telegram_bots_api::api::params::edit_chat_subscription_invite_link::EditChatSubscriptionInviteLink;
 use telegram_bots_api::api::params::export_chat_invite_link::ExportChatInviteLink;
 use telegram_bots_api::api::params::get_chat::GetChat;
 use telegram_bots_api::api::params::get_chat_administrators::GetChatAdministrators;
@@ -57,13 +59,13 @@ impl Chat for BotsApi {
         &self,
         chat_id: ChatUId,
         user_id: i64,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let ChatOptions {
             until_date,
             revoke_messages,
             ..
-        } = chat_options;
+        } = options;
 
         let params = BanChatMember {
             chat_id: chat_id.into(),
@@ -91,7 +93,7 @@ impl Chat for BotsApi {
     async fn create_chat_invite_link(
         &self,
         chat_id: ChatUId,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<ChatInviteLink, Box<dyn std::error::Error>> {
         let ChatOptions {
             name,
@@ -99,7 +101,7 @@ impl Chat for BotsApi {
             member_limit,
             creates_join_request,
             ..
-        } = chat_options;
+        } = options;
 
         let params = CreateChatInviteLink {
             chat_id: chat_id.into(),
@@ -129,7 +131,7 @@ impl Chat for BotsApi {
         &self,
         chat_id: ChatUId,
         invite_link: String,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<ChatInviteLink, Box<dyn std::error::Error>> {
         let ChatOptions {
             name,
@@ -137,7 +139,7 @@ impl Chat for BotsApi {
             member_limit,
             creates_join_request,
             ..
-        } = chat_options;
+        } = options;
 
         let params = EditChatInviteLink {
             chat_id: chat_id.into(),
@@ -208,7 +210,7 @@ impl Chat for BotsApi {
         &self,
         chat_id: ChatUId,
         user_id: i64,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let ChatOptions {
             is_anonymous,
@@ -227,7 +229,7 @@ impl Chat for BotsApi {
             can_delete_stories,
             can_manage_topics,
             ..
-        } = chat_options;
+        } = options;
 
         let params = PromoteChatMember {
             chat_id: chat_id.into(),
@@ -257,13 +259,13 @@ impl Chat for BotsApi {
         chat_id: ChatUId,
         user_id: i64,
         permissions: ChatPermissions,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<bool, Box<dyn std::error::Error>> {
         let ChatOptions {
             until_date,
             use_independent_chat_permissions,
             ..
-        } = chat_options;
+        } = options;
 
         let params = RestrictChatMember {
             chat_id: chat_id.into(),
@@ -469,5 +471,45 @@ impl Chat for BotsApi {
         };
 
         Ok(self.client.set_chat_permissions(&params).await?)
+    }
+
+    async fn create_chat_subscription_invite_link(
+        &self,
+        chat_id: ChatUId,
+        subscription_period: i64,
+        subscription_price: i64,
+        name: Option<String>,
+    ) -> Result<ChatInviteLink, Box<dyn std::error::Error>> {
+        let params = CreateChatSubscriptionInviteLink {
+            chat_id: chat_id.into(),
+            subscription_period,
+            subscription_price,
+            name,
+        };
+
+        Ok(self
+            .client
+            .create_chat_subscription_invite_link(&params)
+            .await?
+            .into())
+    }
+
+    async fn edit_chat_subscription_invite_link(
+        &self,
+        chat_id: ChatUId,
+        invite_link: String,
+        name: Option<String>,
+    ) -> Result<ChatInviteLink, Box<dyn std::error::Error>> {
+        let params = EditChatSubscriptionInviteLink {
+            chat_id: chat_id.into(),
+            invite_link,
+            name,
+        };
+
+        Ok(self
+            .client
+            .edit_chat_subscription_invite_link(&params)
+            .await?
+            .into())
     }
 }

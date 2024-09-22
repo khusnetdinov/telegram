@@ -2,7 +2,7 @@ use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::feature::animation::MediaOptions;
-use crate::feature::bots_api::Options;
+use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::video_note::VideoNote;
 use telegram_bots_api::api::params::send_video_note::SendVideoNote;

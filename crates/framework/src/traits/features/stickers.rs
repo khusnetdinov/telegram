@@ -1,8 +1,8 @@
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
-use crate::feature::bots_api::Options;
 use crate::structs::file::File;
 use crate::structs::input_file::InputFile;
+use crate::structs::options::Options;
 use crate::structs::sticker::Sticker;
 use crate::structs::stickers::input_sticker::InputSticker;
 use crate::structs::stickers::mask_position::MaskPosition;
