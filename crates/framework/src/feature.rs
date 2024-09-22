@@ -13,11 +13,12 @@ pub mod bots_api {
 }
 
 pub mod business {
+    pub use crate::structs::business::business_connection::BusinessConnection;
     pub use crate::structs::business::business_intro::BusinessIntro;
     pub use crate::structs::business::business_location::BusinessLocation;
     pub use crate::structs::business::business_opening_hours::BusinessOpeningHours;
     pub use crate::structs::business::business_opening_hours_interval::BusinessOpeningHoursInterval;
-    pub use crate::structs::updates::business_connection::BusinessConnection;
+    pub use crate::structs::updates::business_connection_updates::BusinessConnectionUpdates;
     pub use crate::structs::updates::business_message_deleted::BusinessMessagesDeleted;
     pub use crate::traits::features::business::Business as BusinessTrait;
 }

@@ -1,4 +1,4 @@
-use crate::structs::updates::business_connection::BusinessConnection;
+use crate::structs::business::business_connection::BusinessConnection;
 
 #[async_trait::async_trait]
 pub trait Business {

@@ -1,4 +1,4 @@
-use crate::structs::updates::business_connection::BusinessConnection;
+use crate::structs::updates::business_connection_updates::BusinessConnectionUpdates;
 use crate::structs::updates::business_message_deleted::BusinessMessagesDeleted;
 use crate::structs::updates::callback_query::CallbackQuery;
 use crate::structs::updates::chat_boost_removed::ChatBoostRemoved;
@@ -37,7 +37,7 @@ pub enum Updates {
     EditedChannelPost(Message),
     /// Optional. The bot was connected to or disconnected from a business account, or a user
     /// edited an existing connection with the bot
-    BusinessConnection(BusinessConnection),
+    BusinessConnection(BusinessConnectionUpdates),
     /// Optional. New message from a connected business account
     BusinessMessage(Message),
     /// Optional. New version of a message from a connected business account
@@ -116,7 +116,7 @@ impl From<Remote> for Updates {
             Remote {
                 business_connection: Some(business_connection),
                 ..
-            } => Self::BusinessConnection(BusinessConnection::from(business_connection)),
+            } => Self::BusinessConnection(BusinessConnectionUpdates::from(business_connection)),
             Remote {
                 business_message: Some(message),
                 ..

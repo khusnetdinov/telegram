@@ -1,4 +1,4 @@
-pub mod business_connection;
+pub mod business_connection_updates;
 pub mod business_message_deleted;
 pub mod callback_query;
 pub mod chat_boost_removed;
