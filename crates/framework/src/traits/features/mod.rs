@@ -20,7 +20,6 @@ pub mod passport;
 pub mod payments;
 pub mod photo;
 pub mod poll;
-pub mod reply_markup;
 pub mod stickers;
 pub mod user;
 pub mod venue;
