@@ -3,6 +3,7 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::message_result::MessageResult;
 use crate::structs::games::game_high_score::GameHighScore;
 use crate::structs::games::options::Options as GameOptions;
+use crate::structs::messages::message_id::MessageId;
 use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::game::Game;
@@ -18,21 +19,14 @@ impl Game for BotsApi {
         &self,
         user_id: i64,
         chat_id: ChatUId,
-        game_options: Option<GameOptions>,
+        message_id: Option<MessageId>,
+        inline_message_id: Option<String>,
     ) -> Result<Vec<GameHighScore>, Box<dyn std::error::Error>> {
-        let params = if let Some(options) = game_options {
-            GetGameHighScores {
-                user_id,
-                chat_id: chat_id.into(),
-                message_id: options.message_id.map(|inner| inner.into()),
-                inline_message_id: options.inline_message_id,
-            }
-        } else {
-            GetGameHighScores {
-                user_id,
-                chat_id: chat_id.into(),
-                ..Default::default()
-            }
+        let params = GetGameHighScores {
+            user_id,
+            chat_id: chat_id.into(),
+            message_id: message_id.map(|inner| inner.into()),
+            inline_message_id,
         };
 
         Ok(self
@@ -44,6 +38,7 @@ impl Game for BotsApi {
             .collect())
     }
 
+    // TODO: send_options
     async fn send_game(
         &self,
         chat_id: ChatUId,
@@ -74,29 +69,28 @@ impl Game for BotsApi {
     }
 
     // TODO: Required if inline_message_id is not specified
-    #[allow(clippy::redundant_closure)]
     async fn set_game_score(
         &self,
-        user_id: i64,
         score: u64,
-        game_options: Option<GameOptions>,
+        user_id: i64,
+        chat_id: Option<ChatUId>,
+        message_id: Option<MessageId>,
+        inline_message_id: Option<String>,
+        options: GameOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
-        let params = if let Some(options) = game_options {
-            SetGameScore {
-                user_id,
-                score,
-                force: options.force,
-                disable_edit_message: options.disable_edit_message,
-                chat_id: options.chat_id.map(|inner| inner.into()),
-                message_id: options.message_id.map(|inner| inner.into()),
-                inline_message_id: options.inline_message_id,
-            }
-        } else {
-            SetGameScore {
-                user_id,
-                score,
-                ..Default::default()
-            }
+        let GameOptions {
+            force,
+            disable_edit_message,
+        } = options;
+
+        let params = SetGameScore {
+            score,
+            user_id,
+            chat_id: chat_id.map(|inner| inner.into()),
+            message_id: message_id.map(|inner| inner.into()),
+            inline_message_id,
+            force,
+            disable_edit_message,
         };
 
         Ok(self.client.set_game_score(&params).await?.into())
