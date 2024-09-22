@@ -6,7 +6,9 @@ use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Text {
     pub text: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub entities: Option<Vec<MessageEntity>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub link_preview_options: Option<LinkPreviewOptions>,
 }
 

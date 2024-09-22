@@ -8,6 +8,8 @@ pub struct StarTransaction {
     pub id: i64,
     pub amount: u64,
     pub date: i64,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub source: Option<TransactionPartner>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub receiver: Option<TransactionPartner>,
 }

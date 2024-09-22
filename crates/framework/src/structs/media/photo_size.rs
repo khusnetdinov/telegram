@@ -10,5 +10,6 @@ pub struct PhotoSize {
     pub file_unique_id: String,
     pub width: i64,
     pub height: i64,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub file_size: Option<i64>,
 }

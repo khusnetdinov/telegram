@@ -5,6 +5,7 @@ use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Command {
     pub text: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub entities: Option<Vec<MessageEntity>>,
 }
 

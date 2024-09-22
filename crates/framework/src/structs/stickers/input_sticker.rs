@@ -10,9 +10,9 @@ use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 pub struct InputSticker {
     pub sticker: FileInput,
     pub emoji_list: Vec<String>,
+    pub format: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mask_position: Option<MaskPosition>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<String>>,
-    pub format: String,
 }

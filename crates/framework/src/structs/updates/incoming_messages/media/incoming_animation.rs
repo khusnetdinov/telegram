@@ -8,10 +8,15 @@ use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 pub struct IncomingAnimation {
     pub animation: Animation,
     pub document: Document,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub media_group_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub has_media_spoiler: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub caption: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub caption_entities: Option<Vec<MessageEntity>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub show_caption_above_media: Option<bool>,
 }
 
