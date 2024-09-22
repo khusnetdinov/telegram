@@ -1,6 +1,6 @@
 use crate::enums::chat_uid::ChatUId;
-use crate::structs::options::Options;
-use crate::structs::updates::incoming_messages::location::Location as Send;
+use crate::structs::geo::location::Location as Send;
+use crate::structs::options::Options as GeoOptions;
 use crate::structs::updates::message::Message;
 #[async_trait::async_trait]
 pub trait Location {
@@ -8,6 +8,6 @@ pub trait Location {
         &self,
         chat_id: ChatUId,
         location: Send,
-        options: Option<Options>,
+        options: GeoOptions,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 }

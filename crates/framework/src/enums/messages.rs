@@ -14,6 +14,8 @@ use crate::structs::updates::incoming_messages::forum_topic_reopened::ForumTopic
 use crate::structs::updates::incoming_messages::game::Game;
 use crate::structs::updates::incoming_messages::general_forum_topic_hidden::GeneralForumTopicHidden;
 use crate::structs::updates::incoming_messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
+use crate::structs::updates::incoming_messages::geo::incoming_location::IncomingLocation;
+use crate::structs::updates::incoming_messages::geo::incoming_venue::IncomingVenue;
 use crate::structs::updates::incoming_messages::giveaway::Giveaway;
 use crate::structs::updates::incoming_messages::giveaway_completed::GiveawayCompleted;
 use crate::structs::updates::incoming_messages::giveaway_created::GiveawayCreated;
@@ -30,7 +32,6 @@ use crate::structs::updates::incoming_messages::incoming_video_note::IncomingVid
 use crate::structs::updates::incoming_messages::incoming_voice::IncomingVoice;
 use crate::structs::updates::incoming_messages::invoice::Invoice;
 use crate::structs::updates::incoming_messages::left_chat_member::LeftChatMember;
-use crate::structs::updates::incoming_messages::location::Location;
 use crate::structs::updates::incoming_messages::message_auto_delete_timer_changed::MessageAutoDeleteTimerChanged;
 use crate::structs::updates::incoming_messages::migrate_from_chat::MigrateFromChat;
 use crate::structs::updates::incoming_messages::migrate_to_chat::MigrateToChat;
@@ -44,7 +45,6 @@ use crate::structs::updates::incoming_messages::successful_payment::SuccessfulPa
 use crate::structs::updates::incoming_messages::supergroup_chat_created::SupergroupChatCreated;
 use crate::structs::updates::incoming_messages::text::Text;
 use crate::structs::updates::incoming_messages::users_shared::UsersShared;
-use crate::structs::updates::incoming_messages::venue::Venue;
 use crate::structs::updates::incoming_messages::video_chat_ended::VideoChatEnded;
 use crate::structs::updates::incoming_messages::video_chat_participants_invited::VideoChatParticipantsInvited;
 use crate::structs::updates::incoming_messages::video_chat_scheduled::VideoChatScheduled;
@@ -90,9 +90,9 @@ pub enum Messages {
     /// Message is a native poll, information about the poll
     Poll(Poll),
     /// Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
-    Venue(Venue),
+    Venue(IncomingVenue),
     ///  Message is a shared location, information about the location
-    Location(Location),
+    Location(IncomingLocation),
     /// New members that were added to the group or supergroup and information about them (the bot
     /// itself may be one of these members)
     NewChatMembers(NewChatMembersMessage),
@@ -202,8 +202,8 @@ impl From<Inner> for Messages {
             inner if Self::is_dice(&inner) => Messages::Dice(Dice::from(inner)),
             inner if Self::is_game(&inner) => Messages::Game(Game::from(inner)),
             inner if Self::is_poll(&inner) => Messages::Poll(Poll::from(inner)),
-            inner if Self::is_venue(&inner) => Messages::Venue(Venue::from(inner)),
-            inner if Self::is_location(&inner) => Messages::Location(Location::from(inner)),
+            inner if Self::is_venue(&inner) => Messages::Venue(IncomingVenue::from(inner)),
+            inner if Self::is_location(&inner) => Messages::Location(IncomingLocation::from(inner)),
             inner if Self::is_new_chat_members(&inner) => {
                 Messages::NewChatMembers(NewChatMembersMessage::from(inner))
             }

@@ -10,6 +10,7 @@ pub mod chats;
 pub mod file;
 pub mod forum_topic;
 pub mod games;
+pub mod geo;
 pub mod inline_query_results;
 pub mod input_file;
 pub mod input_message_contents;

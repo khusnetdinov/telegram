@@ -1,4 +1,4 @@
-use crate::structs::updates::incoming_messages::location::Location;
+use crate::structs::updates::incoming_messages::geo::incoming_location::IncomingLocation;
 use crate::structs::user::User;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::inline_query::InlineQuery as Remote;
@@ -15,5 +15,5 @@ pub struct InlineQuery {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub chat_type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub location: Option<Location>,
+    pub location: Option<IncomingLocation>,
 }

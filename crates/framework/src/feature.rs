@@ -131,6 +131,20 @@ pub mod game {
     pub use crate::traits::features::game::Game as GameTrait;
 }
 
+pub mod geo {
+    pub mod location {
+        pub use crate::structs::geo::location::Location;
+        pub use crate::structs::updates::incoming_messages::geo::incoming_location::IncomingLocation;
+        pub use crate::traits::features::geo::location::Location as LocationTrait;
+    }
+
+    pub mod venue {
+        pub use crate::structs::geo::venue::Venue;
+        pub use crate::structs::updates::incoming_messages::geo::incoming_venue::IncomingVenue;
+        pub use crate::traits::features::geo::venue::Venue as VenueTrait;
+    }
+}
+
 pub mod http_listener {
     pub use crate::traits::bots_apis::http_listen::HttpListen as HttpListenTrait;
 }
@@ -167,11 +181,6 @@ pub mod inline {
     pub use crate::structs::input_message_contents::input_text_message_content::InputTextMessageContent;
     pub use crate::structs::input_message_contents::input_venue_message_content::InputVenueMessageContent;
     pub use crate::structs::updates::inline_query::InlineQuery;
-}
-
-pub mod location {
-    pub use crate::structs::updates::incoming_messages::location::Location;
-    pub use crate::traits::features::geo::location::Location as LocationTrait;
 }
 
 pub mod media_group {
@@ -316,11 +325,6 @@ pub mod user {
     pub use crate::structs::users::user_profile_photos::UserProfilePhotos;
     pub use crate::structs::users::users_shared::UsersShared;
     pub use crate::traits::features::user::User as UserTrait;
-}
-
-pub mod venue {
-    pub use crate::structs::updates::incoming_messages::venue::Venue;
-    pub use crate::traits::features::geo::venue::Venue as VenueTrait;
 }
 
 pub mod video {

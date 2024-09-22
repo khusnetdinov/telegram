@@ -16,10 +16,10 @@ use crate::structs::sticker::Sticker;
 use crate::structs::updates::incoming_messages::contact::Contact;
 use crate::structs::updates::incoming_messages::dice::Dice;
 use crate::structs::updates::incoming_messages::game::Game;
+use crate::structs::updates::incoming_messages::geo::incoming_location::IncomingLocation;
+use crate::structs::updates::incoming_messages::geo::incoming_venue::IncomingVenue;
 use crate::structs::updates::incoming_messages::giveaway::Giveaway;
 use crate::structs::updates::incoming_messages::giveaway_winners::GiveawayWinners;
-use crate::structs::updates::incoming_messages::location::Location;
-use crate::structs::updates::incoming_messages::venue::Venue;
 use crate::structs::updates::poll::Poll;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo as Remote;
@@ -67,11 +67,11 @@ pub struct ExternalReplyInfo {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub invoice: Option<Invoice>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub location: Option<Location>,
+    pub location: Option<IncomingLocation>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub poll: Option<Poll>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub venue: Option<Venue>,
+    pub venue: Option<IncomingVenue>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub paid_media: Option<PaidMediaInfo>,
 }
