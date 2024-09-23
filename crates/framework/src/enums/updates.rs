@@ -1,6 +1,6 @@
 use crate::structs::updates::business_connection_updates::BusinessConnectionUpdates;
 use crate::structs::updates::business_message_deleted::BusinessMessagesDeleted;
-use crate::structs::updates::callback_query::CallbackQuery;
+use crate::structs::updates::callback_query_updates::CallbackQueryUpdates;
 use crate::structs::updates::chat_boost_removed::ChatBoostRemoved;
 use crate::structs::updates::chat_boost_updated::ChatBoostUpdated;
 use crate::structs::updates::chat_join_request::ChatJoinRequest;
@@ -60,7 +60,7 @@ pub enum Updates {
     /// enable these updates for your bot.
     ChosenInlineResult(ChosenInlineResult),
     /// Optional. New incoming callback query
-    CallbackQuery(CallbackQuery),
+    CallbackQuery(CallbackQueryUpdates),
     /// Optional. New incoming shipping query. Only for invoices with flexible price
     ShippingQuery(ShippingQuery),
     /// Optional. New incoming pre-checkout query. Contains full information about checkout
@@ -152,7 +152,7 @@ impl From<Remote> for Updates {
             Remote {
                 callback_query: Some(callback_query),
                 ..
-            } => Self::CallbackQuery(CallbackQuery::from(callback_query)),
+            } => Self::CallbackQuery(CallbackQueryUpdates::from(callback_query)),
             Remote {
                 shipping_query: Some(shipping_query),
                 ..

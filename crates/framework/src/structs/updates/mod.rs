@@ -1,6 +1,6 @@
 pub mod business_connection_updates;
 pub mod business_message_deleted;
-pub mod callback_query;
+pub mod callback_query_updates;
 pub mod chat_boost_removed;
 pub mod chat_boost_updated;
 pub mod chat_join_request;
