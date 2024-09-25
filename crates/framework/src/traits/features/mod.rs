@@ -1,7 +1,6 @@
 pub mod business;
 pub mod callback_query;
 pub mod chat;
-pub mod chat_actions;
 pub mod commands;
 pub mod contact;
 pub mod dice;

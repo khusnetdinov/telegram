@@ -1,4 +1,5 @@
 use crate::bots_api::BotsApi;
+use crate::enums::chat_action::ChatAction;
 use crate::enums::chat_member::ChatMember;
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::chats::chat_full_info::ChatFullInfo;
@@ -29,6 +30,7 @@ use telegram_bots_api::api::params::pin_chat_message::PinChatMessage;
 use telegram_bots_api::api::params::promote_chat_member::PromoteChatMember;
 use telegram_bots_api::api::params::restrict_chat_member::RestrictChatMember;
 use telegram_bots_api::api::params::revoke_chat_invite_link::RevokeChatInviteLink;
+use telegram_bots_api::api::params::send_chat_action::SendChatAction;
 use telegram_bots_api::api::params::set_chat_administrator_custom_title::SetChatAdministratorCustomTitle;
 use telegram_bots_api::api::params::set_chat_description::SetChatDescription;
 use telegram_bots_api::api::params::set_chat_permissions::SetChatPermissions;
@@ -511,5 +513,22 @@ impl Chat for BotsApi {
             .edit_chat_subscription_invite_link(&params)
             .await?
             .into())
+    }
+
+    async fn send_chat_action(
+        &self,
+        chat_id: ChatUId,
+        action: ChatAction,
+        message_thread_id: Option<i64>,
+        business_connection_id: Option<String>,
+    ) -> Result<bool, Box<dyn std::error::Error>> {
+        let params = SendChatAction {
+            action: action.into(),
+            chat_id: chat_id.into(),
+            message_thread_id,
+            business_connection_id,
+        };
+
+        Ok(self.client.send_chat_action(&params).await?)
     }
 }

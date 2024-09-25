@@ -1,3 +1,4 @@
+use crate::enums::chat_action::ChatAction;
 use crate::enums::chat_member::ChatMember;
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::chats::chat_full_info::ChatFullInfo;
@@ -182,4 +183,12 @@ pub trait Chat {
         invite_link: String,
         name: Option<String>,
     ) -> Result<ChatInviteLink, Box<dyn std::error::Error>>;
+
+    async fn send_chat_action(
+        &self,
+        chat_id: ChatUId,
+        action: ChatAction,
+        message_thread_id: Option<i64>,
+        business_connection_id: Option<String>,
+    ) -> Result<bool, Box<dyn std::error::Error>>;
 }

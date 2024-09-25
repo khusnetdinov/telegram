@@ -24,6 +24,7 @@ pub mod business {
 }
 
 pub mod chat {
+    pub use crate::enums::chat_action::ChatAction;
     pub use crate::structs::birthdate::Birthdate;
     pub use crate::structs::chat::Chat;
     pub use crate::structs::chats::chat_administrator_rights::ChatAdministratorRights;
@@ -53,11 +54,6 @@ pub mod chat {
     pub use crate::structs::chats::video_chat_started::VideoChatStarted;
     pub use crate::structs::users::user_chat_boosts::UserChatBoosts;
     pub use crate::traits::features::chat::Chat as ChatTrait;
-}
-
-pub mod chat_actions {
-    pub use crate::enums::chat_action::ChatAction;
-    pub use crate::traits::features::chat_actions::ChatActions as ChatActionsTrait;
 }
 
 pub mod callback_query {

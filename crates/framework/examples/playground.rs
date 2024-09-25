@@ -2,7 +2,7 @@
 
 use telegram_framework::enums::chat_uid::ChatUId;
 use telegram_framework::feature::bots_api::*;
-use telegram_framework::feature::chat_actions::*;
+use telegram_framework::feature::chat::*;
 use telegram_framework::feature::commands::*;
 use telegram_framework::feature::dice::*;
 use telegram_framework::feature::media::media_group::*;
@@ -97,7 +97,7 @@ async fn dispatch(
                 };
 
                 bots_api
-                    .send_chat_action(ChatUId::from(message.chat.id), ChatAction::Typing, None)
+                    .send_chat_action(ChatUId::from(message.chat.id), ChatAction::Typing, None, None)
                     .await?;
 
                 bots_api
