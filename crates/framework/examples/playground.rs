@@ -97,7 +97,12 @@ async fn dispatch(
                 };
 
                 bots_api
-                    .send_chat_action(ChatUId::from(message.chat.id), ChatAction::Typing, None, None)
+                    .send_chat_action(
+                        ChatUId::from(message.chat.id),
+                        ChatAction::Typing,
+                        None,
+                        None,
+                    )
                     .await?;
 
                 bots_api

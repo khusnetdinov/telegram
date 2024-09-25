@@ -1,6 +1,6 @@
-use crate::structs::chat_boost_sources::chat_boost_source_gift_code::ChatBoostSourceGiftCode;
-use crate::structs::chat_boost_sources::chat_boost_source_giveaway::ChatBoostSourceGiveaway;
-use crate::structs::chat_boost_sources::chat_boost_source_premium::ChatBoostSourcePremium;
+use crate::structs::chats::chat_boost_sources::chat_boost_source_gift_code::ChatBoostSourceGiftCode;
+use crate::structs::chats::chat_boost_sources::chat_boost_source_giveaway::ChatBoostSourceGiveaway;
+use crate::structs::chats::chat_boost_sources::chat_boost_source_premium::ChatBoostSourcePremium;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::chat_boost_source::ChatBoostSource as Remote;
 use telegram_macros::{FromRemoteEnum, IntoRemoteEnum};

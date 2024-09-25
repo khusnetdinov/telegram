@@ -4,8 +4,6 @@ pub mod birthdate;
 pub mod bot_command;
 pub mod business;
 pub mod chat;
-pub mod chat_boost_sources;
-pub mod chat_members;
 pub mod chats;
 pub mod file;
 pub mod forum_topic;
