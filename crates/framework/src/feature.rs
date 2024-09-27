@@ -3,7 +3,6 @@ pub mod bots_api {
     pub use crate::enums::messages::Messages;
     pub use crate::enums::updates::Updates;
     pub use crate::storages::memory::MemoryStorage;
-    pub use crate::structs::options::Options;
     pub use crate::structs::update::Update;
     pub use crate::structs::updates::*;
     pub use crate::traits::kind_dispatcher::KindDispatcher as KindDispatcherTrait;
@@ -333,7 +332,6 @@ pub mod pooling {
 pub mod poll {
     pub use crate::structs::polls::input_poll_option::InputPollOption;
     pub use crate::structs::polls::options::Options as PollOptions;
-    pub use crate::structs::polls::poll_option::PollOption;
     pub use crate::structs::updates::poll::Poll;
     pub use crate::structs::updates::poll_answer::PollAnswer;
     pub use crate::traits::features::poll::Poll as PollTrait;

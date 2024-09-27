@@ -1,14 +1,10 @@
 use crate::enums::reply_markup::ReplyMarkup;
-use crate::feature::reply_markup::InlineKeyboardMarkup;
+use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
 use crate::structs::reply_parameters::ReplyParameters;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Options {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sticker_type: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub needs_repainting: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message_thread_id: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]

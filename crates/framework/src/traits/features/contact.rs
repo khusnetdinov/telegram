@@ -9,6 +9,6 @@ pub trait Contact {
         &self,
         chat_id: ChatUId,
         contact: Send,
-        options: Option<ContactOptions>,
+        options: ContactOptions,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 }

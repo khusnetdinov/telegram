@@ -2,7 +2,6 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::file::File;
 use crate::structs::input_file::InputFile;
-use crate::structs::options::Options;
 use crate::structs::sticker::Sticker;
 use crate::structs::stickers::input_sticker::InputSticker;
 use crate::structs::stickers::mask_position::MaskPosition;
@@ -18,7 +17,7 @@ pub trait Stickers {
         name: String,
         title: String,
         stickers: Vec<InputSticker>,
-        stickers_options: StickerOptions,
+        options: StickerOptions,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
     async fn delete_chat_sticker_set(
@@ -122,6 +121,6 @@ pub trait Stickers {
         chat_id: ChatUId,
         sticker: FileInput,
         emoji: Option<String>,
-        options: Options,
+        options: StickerOptions,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 }

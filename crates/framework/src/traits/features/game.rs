@@ -3,7 +3,6 @@ use crate::enums::message_result::MessageResult;
 use crate::structs::games::game_high_score::GameHighScore;
 use crate::structs::games::options::Options as GameOptions;
 use crate::structs::messages::message_id::MessageId;
-use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]
@@ -20,7 +19,7 @@ pub trait Game {
         &self,
         chat_id: ChatUId,
         game_short_name: String,
-        options: Option<Options>,
+        options: GameOptions,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 
     async fn set_game_score(

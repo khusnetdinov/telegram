@@ -13,6 +13,7 @@ pub struct Poll {
     pub kind: String,
     pub id: String,
     pub question: String,
+
     pub options: Vec<PollOption>,
     pub total_voter_count: i64,
     pub is_closed: bool,

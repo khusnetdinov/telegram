@@ -4,7 +4,6 @@ use crate::enums::message_result::MessageResult;
 use crate::structs::games::game_high_score::GameHighScore;
 use crate::structs::games::options::Options as GameOptions;
 use crate::structs::messages::message_id::MessageId;
-use crate::structs::options::Options;
 use crate::structs::updates::message::Message;
 use crate::traits::features::game::Game;
 use telegram_bots_api::api::params::get_game_high_scores::GetGameHighScores;
@@ -38,31 +37,33 @@ impl Game for BotsApi {
             .collect())
     }
 
-    // TODO: send_options
     async fn send_game(
         &self,
         chat_id: ChatUId,
         game_short_name: String,
-        options: Option<Options>,
+        options: GameOptions,
     ) -> Result<Message, Box<dyn std::error::Error>> {
-        let params = if let Some(options) = options {
-            SendGame {
-                game_short_name,
-                chat_id: chat_id.into(),
-                business_connection_id: options.business_connection_id,
-                disable_notification: options.disable_notification,
-                protect_content: options.protect_content,
-                message_effect_id: options.message_effect_id,
-                message_thread_id: options.message_thread_id,
-                reply_parameters: options.reply_parameters.map(|inner| inner.into()),
-                reply_markup: options.reply_markup.map(|inner| inner.into()),
-            }
-        } else {
-            SendGame {
-                game_short_name,
-                chat_id: chat_id.into(),
-                ..Default::default()
-            }
+        let GameOptions {
+            business_connection_id,
+            disable_notification,
+            protect_content,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters,
+            reply_markup,
+            ..
+        } = options;
+
+        let params = SendGame {
+            game_short_name,
+            chat_id: chat_id.into(),
+            business_connection_id,
+            disable_notification,
+            protect_content,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
         };
 
         Ok(self.client.send_game(&params).await?.into())
@@ -81,6 +82,7 @@ impl Game for BotsApi {
         let GameOptions {
             force,
             disable_edit_message,
+            ..
         } = options;
 
         let params = SetGameScore {
