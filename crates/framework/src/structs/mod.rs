@@ -5,6 +5,7 @@ pub mod bot_command;
 pub mod business;
 pub mod chat;
 pub mod chats;
+pub mod contacts;
 pub mod file;
 pub mod forum_topic;
 pub mod games;

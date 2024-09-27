@@ -1,6 +1,6 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
-use crate::structs::options::Options;
+use crate::structs::contacts::options::Options as ContactOptions;
 use crate::structs::updates::incoming_messages::contact::Contact as Send;
 use crate::structs::updates::message::Message;
 use crate::traits::features::contact::Contact;
@@ -13,7 +13,7 @@ impl Contact for BotsApi {
         &self,
         chat_id: ChatUId,
         contact: Send,
-        options: Option<Options>,
+        options: Option<ContactOptions>,
     ) -> Result<Message, Box<dyn std::error::Error>> {
         let params = if let Some(options) = options {
             SendContact {
