@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
-use crate::structs::contact::Contact as Send;
-use crate::structs::options::Options;
+use crate::structs::contacts::options::Options as ContactOptions;
+use crate::structs::updates::incoming_messages::contact::Contact as Send;
 use crate::structs::updates::message::Message;
 use crate::traits::features::contact::Contact;
 use telegram_bots_api::api::params::send_contact::SendContact;
@@ -13,32 +13,32 @@ impl Contact for BotsApi {
         &self,
         chat_id: ChatUId,
         contact: Send,
-        options: Option<Options>,
+        options: ContactOptions,
     ) -> Result<Message, Box<dyn std::error::Error>> {
-        let params = if let Some(options) = options {
-            SendContact {
-                chat_id: chat_id.into(),
-                phone_number: contact.phone_number,
-                first_name: contact.first_name,
-                last_name: contact.last_name,
-                vcard: contact.vcard,
-                business_connection_id: options.business_connection_id,
-                disable_notification: options.disable_notification,
-                protect_content: options.protect_content,
-                message_effect_id: options.message_effect_id,
-                message_thread_id: options.message_thread_id,
-                reply_parameters: options.reply_parameters.map(|inner| inner.into()),
-                reply_markup: options.reply_markup.map(|inner| inner.into()),
-            }
-        } else {
-            SendContact {
-                chat_id: chat_id.into(),
-                phone_number: contact.phone_number,
-                first_name: contact.first_name,
-                last_name: contact.last_name,
-                vcard: contact.vcard,
-                ..Default::default()
-            }
+        let ContactOptions {
+            business_connection_id,
+            disable_notification,
+            protect_content,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters,
+            reply_markup,
+            ..
+        } = options;
+
+        let params = SendContact {
+            chat_id: chat_id.into(),
+            phone_number: contact.phone_number,
+            first_name: contact.first_name,
+            last_name: contact.last_name,
+            vcard: contact.vcard,
+            business_connection_id,
+            disable_notification,
+            protect_content,
+            message_effect_id,
+            message_thread_id,
+            reply_parameters: reply_parameters.map(|inner| inner.into()),
+            reply_markup: reply_markup.map(|inner| inner.into()),
         };
 
         Ok(self.client.send_contact(&params).await?.into())

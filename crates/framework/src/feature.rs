@@ -1,28 +1,8 @@
-pub mod animation {
-    pub use crate::enums::file_input::FileInput;
-    pub use crate::structs::media::animation::Animation;
-    pub use crate::structs::media::document::Document;
-    pub use crate::structs::media::options::Options as MediaOptions;
-    pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::messages::animation::Animation as AnimationMessage;
-    pub use crate::traits::features::animation::Animation as AnimationTrait;
-}
-
-pub mod audio {
-    pub use crate::enums::file_input::FileInput;
-    pub use crate::structs::media::audio::Audio;
-    pub use crate::structs::media::options::Options as MediaOptions;
-    pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::messages::audio::Audio as AudioMessage;
-    pub use crate::traits::features::audio::Audio as AudioTrait;
-}
-
 pub mod bots_api {
     pub use crate::bots_api::BotsApi;
     pub use crate::enums::messages::Messages;
     pub use crate::enums::updates::Updates;
     pub use crate::storages::memory::MemoryStorage;
-    pub use crate::structs::options::Options;
     pub use crate::structs::update::Update;
     pub use crate::structs::updates::*;
     pub use crate::traits::kind_dispatcher::KindDispatcher as KindDispatcherTrait;
@@ -35,13 +15,15 @@ pub mod business {
     pub use crate::structs::business::business_connection::BusinessConnection;
     pub use crate::structs::business::business_intro::BusinessIntro;
     pub use crate::structs::business::business_location::BusinessLocation;
-    pub use crate::structs::business::business_message_deleted::BusinessMessagesDeleted;
     pub use crate::structs::business::business_opening_hours::BusinessOpeningHours;
     pub use crate::structs::business::business_opening_hours_interval::BusinessOpeningHoursInterval;
+    pub use crate::structs::updates::business_connection_updates::BusinessConnectionUpdates;
+    pub use crate::structs::updates::business_message_deleted::BusinessMessagesDeleted;
     pub use crate::traits::features::business::Business as BusinessTrait;
 }
 
 pub mod chat {
+    pub use crate::enums::chat_action::ChatAction;
     pub use crate::structs::birthdate::Birthdate;
     pub use crate::structs::chat::Chat;
     pub use crate::structs::chats::chat_administrator_rights::ChatAdministratorRights;
@@ -73,38 +55,26 @@ pub mod chat {
     pub use crate::traits::features::chat::Chat as ChatTrait;
 }
 
-pub mod chat_actions {
-    pub use crate::enums::chat_action::ChatAction;
-    pub use crate::traits::features::chat_actions::ChatActions as ChatActionsTrait;
-}
-
 pub mod callback_query {
     pub use crate::traits::features::callback_query::CallbackQuery as CallbackQueryTrait;
 }
 
 pub mod commands {
-    pub use crate::traits::bots_apis::parametrized::commands::Commands;
+    pub use crate::traits::features::commands::Commands;
     pub use crate::traits::params::EnumParams as CommandsTrait;
     pub use telegram_macros::BotCommands;
 }
 
 pub mod contact {
-    pub use crate::structs::contact::Contact;
+    pub use crate::structs::contacts::options::Options as ContactOptions;
+    pub use crate::structs::updates::incoming_messages::contact::Contact;
     pub use crate::traits::features::contact::Contact as ContactTrait;
 }
 
 pub mod dice {
     pub use crate::enums::emoji::Emoji;
+    pub use crate::structs::dice::options::Options as DiceOptions;
     pub use crate::traits::features::dice::Dice as DiceTrait;
-}
-
-pub mod document {
-    pub use crate::enums::file_input::FileInput;
-    pub use crate::structs::media::document::Document;
-    pub use crate::structs::media::options::Options as MediaOptions;
-    pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::updates::messages::document::Document as DocumentMessage;
-    pub use crate::traits::features::document::Document as DocumentTrait;
 }
 
 pub mod file {
@@ -114,21 +84,35 @@ pub mod file {
 
 pub mod forum {
     pub use crate::structs::forum_topic::ForumTopic;
-    pub use crate::structs::updates::messages::forum_topic_closed::ForumTopicClosed;
-    pub use crate::structs::updates::messages::forum_topic_created::ForumTopicEdited;
-    pub use crate::structs::updates::messages::forum_topic_edited::ForumTopicCreated;
-    pub use crate::structs::updates::messages::forum_topic_reopened::ForumTopicReopened;
-    pub use crate::structs::updates::messages::general_forum_topic_hidden::GeneralForumTopicHidden;
-    pub use crate::structs::updates::messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
+    pub use crate::structs::updates::incoming_messages::forum_topic_closed::ForumTopicClosed;
+    pub use crate::structs::updates::incoming_messages::forum_topic_created::ForumTopicEdited;
+    pub use crate::structs::updates::incoming_messages::forum_topic_edited::ForumTopicCreated;
+    pub use crate::structs::updates::incoming_messages::forum_topic_reopened::ForumTopicReopened;
+    pub use crate::structs::updates::incoming_messages::general_forum_topic_hidden::GeneralForumTopicHidden;
+    pub use crate::structs::updates::incoming_messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
     pub use crate::traits::features::forum::Forum as ForumTrait;
 }
 
 pub mod game {
-    pub use crate::structs::game::Game;
     pub use crate::structs::games::callback_game::CallbackGame;
     pub use crate::structs::games::game_high_score::GameHighScore;
     pub use crate::structs::games::options as GameOptions;
+    pub use crate::structs::updates::incoming_messages::game::Game;
     pub use crate::traits::features::game::Game as GameTrait;
+}
+
+pub mod geo {
+    pub mod location {
+        pub use crate::structs::geo::location::Location;
+        pub use crate::structs::updates::incoming_messages::geo::incoming_location::IncomingLocation;
+        pub use crate::traits::features::geo::location::Location as LocationTrait;
+    }
+
+    pub mod venue {
+        pub use crate::structs::geo::venue::Venue;
+        pub use crate::structs::updates::incoming_messages::geo::incoming_venue::IncomingVenue;
+        pub use crate::traits::features::geo::venue::Venue as VenueTrait;
+    }
 }
 
 pub mod http_listener {
@@ -140,7 +124,6 @@ pub mod https_listener {
 }
 
 pub mod inline {
-    pub use crate::structs::inline_query::InlineQuery;
     pub use crate::structs::inline_query_results::inline_query_result_article::InlineQueryResultArticle;
     pub use crate::structs::inline_query_results::inline_query_result_audio::InlineQueryResultAudio;
     pub use crate::structs::inline_query_results::inline_query_result_cached_audio::InlineQueryResultCachedAudio;
@@ -167,21 +150,96 @@ pub mod inline {
     pub use crate::structs::input_message_contents::input_location_message_content::InputLocationMessageContent;
     pub use crate::structs::input_message_contents::input_text_message_content::InputTextMessageContent;
     pub use crate::structs::input_message_contents::input_venue_message_content::InputVenueMessageContent;
+    pub use crate::structs::updates::inline_query::InlineQuery;
 }
 
-pub mod location {
-    pub use crate::structs::location::Location;
-    pub use crate::traits::features::location::Location as LocationTrait;
-}
-
-pub mod media_group {
+pub mod media {
+    pub use crate::enums::file_input::FileInput;
     pub use crate::enums::input_media::InputMedia;
-    pub use crate::structs::media::input_media_animation::InputMediaAnimation;
-    pub use crate::structs::media::input_media_audio::InputMediaAudio;
-    pub use crate::structs::media::input_media_document::InputMediaDocument;
-    pub use crate::structs::media::input_media_photo::InputMediaPhoto;
-    pub use crate::structs::media::input_media_video::InputMediaVideo;
-    pub use crate::traits::features::media_group::MediaGroup as MediaGroupTrait;
+    pub use crate::structs::media::options::Options as MediaOptions;
+    pub use crate::structs::media::photo_size::PhotoSize;
+
+    pub mod animation {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::animation::Animation;
+        pub use crate::structs::media::document::Document;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::updates::incoming_messages::media::incoming_animation::IncomingAnimation as AnimationMessage;
+        pub use crate::traits::features::media::animation::Animation as AnimationTrait;
+    }
+
+    pub mod audio {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::audio::Audio;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::updates::incoming_messages::media::incoming_audio::IncomingAudio as AudioMessage;
+        pub use crate::traits::features::media::audio::Audio as AudioTrait;
+    }
+
+    pub mod document {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::document::Document;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::updates::incoming_messages::media::incoming_document::IncomingDocument as DocumentMessage;
+        pub use crate::traits::features::media::document::Document as DocumentTrait;
+    }
+
+    pub mod media_group {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::inputs::input_media_animation::InputMediaAnimation;
+        pub use crate::structs::media::inputs::input_media_audio::InputMediaAudio;
+        pub use crate::structs::media::inputs::input_media_document::InputMediaDocument;
+        pub use crate::structs::media::inputs::input_media_photo::InputMediaPhoto;
+        pub use crate::structs::media::inputs::input_media_video::InputMediaVideo;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::traits::features::media::media_group::MediaGroup as MediaGroupTrait;
+    }
+
+    pub mod photo {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::traits::features::media::photo::Photo as PhotoTrait;
+    }
+
+    pub mod video {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::media::video::Video;
+        pub use crate::structs::updates::incoming_messages::media::incoming_voice::IncomingVoice as VideoMessage;
+        pub use crate::traits::features::media::video::Video as VideoTrait;
+    }
+
+    pub mod video_note {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::media::video_note::VideoNote;
+        pub use crate::structs::updates::incoming_messages::media::incoming_voice::IncomingVoice as VideoNoteMessage;
+        pub use crate::traits::features::media::video_note::VideoNote as VideoNoteTrait;
+    }
+
+    pub mod voice {
+        pub use crate::enums::file_input::FileInput;
+        pub use crate::enums::input_media::InputMedia;
+        pub use crate::structs::media::options::Options as MediaOptions;
+        pub use crate::structs::media::photo_size::PhotoSize;
+        pub use crate::structs::media::voice::Voice;
+        pub use crate::structs::updates::incoming_messages::media::incoming_voice::IncomingVoice as VoiceMessage;
+        pub use crate::traits::features::media::voice::Voice as VoiceTrait;
+    }
 }
 
 pub mod menu_buttons {
@@ -226,7 +284,7 @@ pub mod payments {
         pub use crate::structs::payments::labeled_price::LabeledPrice;
         pub use crate::structs::payments::shipping_address::ShippingAddress;
         pub use crate::structs::payments::shipping_option::ShippingOption;
-        pub use crate::structs::payments::shipping_query::ShippingQuery;
+        pub use crate::structs::updates::shipping_query::ShippingQuery;
         pub use crate::traits::features::payments::order::Order as OrderTrait;
     }
 
@@ -255,7 +313,6 @@ pub mod passport {
     pub use crate::enums::passport_element_error::PassportElementError;
     pub use crate::structs::passports::encrypted_credentials::EncryptedCredentials;
     pub use crate::structs::passports::encrypted_passport_element::EncryptedPassportElement;
-    pub use crate::structs::passports::passport_data::PassportData;
     pub use crate::structs::passports::passport_element_error_data_field::PassportElementErrorDataField;
     pub use crate::structs::passports::passport_element_error_file::PassportElementErrorFile;
     pub use crate::structs::passports::passport_element_error_files::PassportElementErrorFiles;
@@ -266,13 +323,8 @@ pub mod passport {
     pub use crate::structs::passports::passport_element_error_translation_files::PassportElementErrorTranslationFiles;
     pub use crate::structs::passports::passport_element_error_unspecified::PassportElementErrorUnspecified;
     pub use crate::structs::passports::passport_file::PassportFile;
+    pub use crate::structs::updates::incoming_messages::passport_data::PassportData;
     pub use crate::traits::features::passport::Passport as PassportTrait;
-}
-
-pub mod photo {
-    pub use crate::enums::file_input::FileInput;
-    pub use crate::structs::media::options::Options as MediaOptions;
-    pub use crate::traits::features::photo::Photo as PhotoTrait;
 }
 
 pub mod pooling {
@@ -280,11 +332,10 @@ pub mod pooling {
 }
 
 pub mod poll {
-    pub use crate::structs::poll::Poll;
     pub use crate::structs::polls::input_poll_option::InputPollOption;
     pub use crate::structs::polls::options::Options as PollOptions;
-    pub use crate::structs::polls::poll_answer::PollAnswer;
-    pub use crate::structs::polls::poll_option::PollOption;
+    pub use crate::structs::updates::poll::Poll;
+    pub use crate::structs::updates::poll_answer::PollAnswer;
     pub use crate::traits::features::poll::Poll as PollTrait;
 }
 
@@ -305,52 +356,22 @@ pub mod reply_markup {
 pub mod stickers {
     pub use crate::structs::stickers::input_sticker::InputSticker;
     pub use crate::structs::stickers::mask_position::MaskPosition;
-    pub use crate::structs::stickers::options::Options;
+    pub use crate::structs::stickers::options::Options as StickerOptions;
     pub use crate::structs::stickers::sticker_set::StickerSet;
     pub use crate::traits::features::stickers::Stickers as StickersTrait;
 }
 
 pub mod user {
     pub use crate::structs::user::User;
-    pub use crate::structs::users::options::Options as UserOptions;
     pub use crate::structs::users::shared_user::SharedUser;
     pub use crate::structs::users::user_profile_photos::UserProfilePhotos;
     pub use crate::structs::users::users_shared::UsersShared;
     pub use crate::traits::features::user::User as UserTrait;
 }
 
-pub mod venue {
-    pub use crate::structs::venue::Venue;
-    pub use crate::traits::features::venue::Venue as VenueTrait;
-}
-
-pub mod video {
-    pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::media::video::Video;
-    pub use crate::structs::updates::messages::voice::Voice as VideoMessage;
-    pub use crate::traits::features::video::Video as VideoTrait;
-}
-
-pub mod video_note {
-    pub use crate::structs::media::photo_size::PhotoSize;
-    pub use crate::structs::media::video_note::VideoNote;
-    pub use crate::structs::updates::messages::voice::Voice as VideoNoteMessage;
-    pub use crate::traits::features::video_note::VideoNote as VideoNoteTrait;
-}
-
-pub mod voice {
-    pub use crate::structs::media::voice::Voice;
-    pub use crate::structs::updates::messages::voice::Voice as VoiceMessage;
-    pub use crate::traits::features::voice::Voice as VoiceTrait;
-}
-
 pub mod web_app {
+    pub use crate::structs::updates::incoming_messages::web_app_data::WebAppData;
     pub use crate::structs::web_apps::sent_web_app_message::SentWebAppMessage;
-    pub use crate::structs::web_apps::web_app_data::WebAppData;
     pub use crate::structs::web_apps::web_app_info::WebAppInfo;
     pub use crate::traits::features::web_app::WebApp as WebAppTrait;
-}
-
-pub mod webhook {
-    pub use crate::traits::bots_apis::parametrized::webhook::Webhook;
 }

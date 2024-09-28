@@ -244,7 +244,7 @@ pub fn impl_proc_macro(input: proc_macro::TokenStream) -> proc_macro::TokenStrea
 
     let quote = quote::quote! {
         impl #ident {
-            pub fn dispatch(message: &telegram_framework::structs::updates::messages::command::Command) -> Option<#ident> {
+            pub fn dispatch(message: &telegram_framework::structs::updates::incoming_messages::command::Command) -> Option<#ident> {
                 match message.text.as_str() {
                     #(#enum_variants,)*
                     _ => None

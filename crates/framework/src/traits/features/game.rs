@@ -2,7 +2,7 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::message_result::MessageResult;
 use crate::structs::games::game_high_score::GameHighScore;
 use crate::structs::games::options::Options as GameOptions;
-use crate::structs::options::Options;
+use crate::structs::messages::message_id::MessageId;
 use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]
@@ -11,20 +11,24 @@ pub trait Game {
         &self,
         user_id: i64,
         chat_id: ChatUId,
-        options: Option<GameOptions>,
+        message_id: Option<MessageId>,
+        inline_message_id: Option<String>,
     ) -> Result<Vec<GameHighScore>, Box<dyn std::error::Error>>;
 
     async fn send_game(
         &self,
         chat_id: ChatUId,
         game_short_name: String,
-        options: Option<Options>,
+        options: GameOptions,
     ) -> Result<Message, Box<dyn std::error::Error>>;
 
     async fn set_game_score(
         &self,
-        user_id: i64,
         score: u64,
-        options: Option<GameOptions>,
+        user_id: i64,
+        chat_id: Option<ChatUId>,
+        message_id: Option<MessageId>,
+        inline_message_id: Option<String>,
+        options: GameOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 }

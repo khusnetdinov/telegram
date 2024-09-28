@@ -1,57 +1,57 @@
-use crate::structs::contact::Contact;
-use crate::structs::dice::Dice;
-use crate::structs::game::Game;
-use crate::structs::giveaway::Giveaway;
-use crate::structs::giveaways::giveaway_completed::GiveawayCompleted;
-use crate::structs::giveaways::giveaway_created::GiveawayCreated;
-use crate::structs::giveaways::giveaway_winners::GiveawayWinners;
-use crate::structs::location::Location;
-use crate::structs::passports::passport_data::PassportData;
-use crate::structs::poll::Poll;
-use crate::structs::updates::messages::animation::Animation;
-use crate::structs::updates::messages::audio::Audio;
-use crate::structs::updates::messages::boost_added::ChatBoostAdded;
-use crate::structs::updates::messages::channel_chat_created::ChannelChatCreated;
-use crate::structs::updates::messages::chat_background::ChatBackground;
-use crate::structs::updates::messages::chat_shared::ChatShared;
-use crate::structs::updates::messages::command::Command;
-use crate::structs::updates::messages::connected_website::ConnectedWebsite;
-use crate::structs::updates::messages::delete_chat_photo::DeleteChatPhoto;
-use crate::structs::updates::messages::document::Document;
-use crate::structs::updates::messages::forum_topic_closed::ForumTopicClosed;
-use crate::structs::updates::messages::forum_topic_created::ForumTopicEdited;
-use crate::structs::updates::messages::forum_topic_edited::ForumTopicCreated;
-use crate::structs::updates::messages::forum_topic_reopened::ForumTopicReopened;
-use crate::structs::updates::messages::general_forum_topic_hidden::GeneralForumTopicHidden;
-use crate::structs::updates::messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
-use crate::structs::updates::messages::group_chat_created::GroupChatCreated;
-use crate::structs::updates::messages::invoice::InvoiceMessage;
-use crate::structs::updates::messages::left_chat_member::LeftChatMember;
-use crate::structs::updates::messages::message_auto_delete_timer_changed::MessageAutoDeleteTimerChanged;
-use crate::structs::updates::messages::migrate_from_chat::MigrateFromChat;
-use crate::structs::updates::messages::migrate_to_chat::MigrateToChat;
-use crate::structs::updates::messages::new_chat_members::NewChatMembersMessage;
-use crate::structs::updates::messages::new_chat_photo::NewChatPhotoMessage;
-use crate::structs::updates::messages::new_chat_title::NewChatTitle;
-use crate::structs::updates::messages::photo::Photo;
-use crate::structs::updates::messages::pinned_message::PinnedMessage;
-use crate::structs::updates::messages::proximity_alert_triggered::ProximityAlertTriggered;
-use crate::structs::updates::messages::sticker::Sticker;
-use crate::structs::updates::messages::story::Story;
-use crate::structs::updates::messages::successful_payment::SuccessfulPayment;
-use crate::structs::updates::messages::supergroup_chat_created::SupergroupChatCreated;
-use crate::structs::updates::messages::text::Text;
-use crate::structs::updates::messages::users_shared::UsersShared;
-use crate::structs::updates::messages::video::Video;
-use crate::structs::updates::messages::video_note::VideoNote;
-use crate::structs::updates::messages::voice::Voice;
-use crate::structs::updates::messages::write_access_allowed::WriteAccessAllowed;
-use crate::structs::venue::Venue;
-use crate::structs::video_chats::video_chat_ended::VideoChatEnded;
-use crate::structs::video_chats::video_chat_participants_invited::VideoChatParticipantsInvited;
-use crate::structs::video_chats::video_chat_scheduled::VideoChatScheduled;
-use crate::structs::video_chats::video_chat_started::VideoChatStarted;
-use crate::structs::web_apps::web_app_data::WebAppData;
+use crate::structs::updates::incoming_messages::channel_chat_created::ChannelChatCreated;
+use crate::structs::updates::incoming_messages::chat_background::ChatBackground;
+use crate::structs::updates::incoming_messages::chat_boost_added::ChatBoostAdded;
+use crate::structs::updates::incoming_messages::chat_shared::ChatShared;
+use crate::structs::updates::incoming_messages::command::Command;
+use crate::structs::updates::incoming_messages::connected_website::ConnectedWebsite;
+use crate::structs::updates::incoming_messages::contact::Contact;
+use crate::structs::updates::incoming_messages::delete_chat_photo::DeleteChatPhoto;
+use crate::structs::updates::incoming_messages::dice::Dice;
+use crate::structs::updates::incoming_messages::forum_topic_closed::ForumTopicClosed;
+use crate::structs::updates::incoming_messages::forum_topic_created::ForumTopicEdited;
+use crate::structs::updates::incoming_messages::forum_topic_edited::ForumTopicCreated;
+use crate::structs::updates::incoming_messages::forum_topic_reopened::ForumTopicReopened;
+use crate::structs::updates::incoming_messages::game::Game;
+use crate::structs::updates::incoming_messages::general_forum_topic_hidden::GeneralForumTopicHidden;
+use crate::structs::updates::incoming_messages::general_forum_topic_unhidden::GeneralForumTopicUnhidden;
+use crate::structs::updates::incoming_messages::geo::incoming_location::IncomingLocation;
+use crate::structs::updates::incoming_messages::geo::incoming_venue::IncomingVenue;
+use crate::structs::updates::incoming_messages::giveaway::Giveaway;
+use crate::structs::updates::incoming_messages::giveaway_completed::GiveawayCompleted;
+use crate::structs::updates::incoming_messages::giveaway_created::GiveawayCreated;
+use crate::structs::updates::incoming_messages::giveaway_winners::GiveawayWinners;
+use crate::structs::updates::incoming_messages::group_chat_created::GroupChatCreated;
+use crate::structs::updates::incoming_messages::incoming_sticker::IncomingSticker;
+use crate::structs::updates::incoming_messages::invoice::Invoice;
+use crate::structs::updates::incoming_messages::left_chat_member::LeftChatMember;
+use crate::structs::updates::incoming_messages::media::incoming_animation::IncomingAnimation;
+use crate::structs::updates::incoming_messages::media::incoming_audio::IncomingAudio;
+use crate::structs::updates::incoming_messages::media::incoming_document::IncomingDocument;
+use crate::structs::updates::incoming_messages::media::incoming_photo_size::IncomingPhotoSize;
+use crate::structs::updates::incoming_messages::media::incoming_story::IncomingStory;
+use crate::structs::updates::incoming_messages::media::incoming_video::IncomingVideo;
+use crate::structs::updates::incoming_messages::media::incoming_video_note::IncomingVideoNote;
+use crate::structs::updates::incoming_messages::media::incoming_voice::IncomingVoice;
+use crate::structs::updates::incoming_messages::message_auto_delete_timer_changed::MessageAutoDeleteTimerChanged;
+use crate::structs::updates::incoming_messages::migrate_from_chat::MigrateFromChat;
+use crate::structs::updates::incoming_messages::migrate_to_chat::MigrateToChat;
+use crate::structs::updates::incoming_messages::new_chat_members::NewChatMembersMessage;
+use crate::structs::updates::incoming_messages::new_chat_photo::NewChatPhotoMessage;
+use crate::structs::updates::incoming_messages::new_chat_title::NewChatTitle;
+use crate::structs::updates::incoming_messages::passport_data::PassportData;
+use crate::structs::updates::incoming_messages::pinned_message::PinnedMessage;
+use crate::structs::updates::incoming_messages::proximity_alert_triggered::ProximityAlertTriggered;
+use crate::structs::updates::incoming_messages::successful_payment::SuccessfulPayment;
+use crate::structs::updates::incoming_messages::supergroup_chat_created::SupergroupChatCreated;
+use crate::structs::updates::incoming_messages::text::Text;
+use crate::structs::updates::incoming_messages::users_shared::UsersShared;
+use crate::structs::updates::incoming_messages::video_chat_ended::VideoChatEnded;
+use crate::structs::updates::incoming_messages::video_chat_participants_invited::VideoChatParticipantsInvited;
+use crate::structs::updates::incoming_messages::video_chat_scheduled::VideoChatScheduled;
+use crate::structs::updates::incoming_messages::video_chat_started::VideoChatStarted;
+use crate::structs::updates::incoming_messages::web_app_data::WebAppData;
+use crate::structs::updates::incoming_messages::write_access_allowed::WriteAccessAllowed;
+use crate::structs::updates::poll::Poll;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as Inner;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;
@@ -64,23 +64,23 @@ pub enum Messages {
     Command(Command),
     /// Message is an animation, information about the animation. For backward compatibility,
     /// when this field is set, the document field will also be set
-    Animation(Animation),
+    Animation(IncomingAnimation),
     /// Message is an audio file, information about the file
-    Audio(Audio),
+    Audio(IncomingAudio),
     /// Message is a general file, information about the file
-    Document(Document),
+    Document(IncomingDocument),
     /// Message is a photo, available sizes of the photo
-    Photo(Photo),
+    Photo(IncomingPhotoSize),
     /// Message is a sticker, information about the sticker
-    Sticker(Sticker),
+    Sticker(IncomingSticker),
     /// Message is a forwarded story
-    Story(Story),
+    Story(IncomingStory),
     /// Message is a video, information about the video
-    Video(Video),
+    Video(IncomingVideo),
     /// Message is a video note, information about the video message
-    VideoNote(VideoNote),
+    VideoNote(IncomingVideoNote),
     /// Message is a voice message, information about the file
-    Voice(Voice),
+    Voice(IncomingVoice),
     /// Message is a shared contact, information about the contact
     Contact(Contact),
     /// Message is a dice with random value
@@ -90,9 +90,9 @@ pub enum Messages {
     /// Message is a native poll, information about the poll
     Poll(Poll),
     /// Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
-    Venue(Venue),
+    Venue(IncomingVenue),
     ///  Message is a shared location, information about the location
-    Location(Location),
+    Location(IncomingLocation),
     /// New members that were added to the group or supergroup and information about them (the bot
     /// itself may be one of these members)
     NewChatMembers(NewChatMembersMessage),
@@ -131,7 +131,7 @@ pub enum Messages {
     /// further reply_to_message fields even if it itself is a reply.
     Pinned(PinnedMessage),
     /// Message is an invoice for a payment, information about the invoice.
-    Invoice(InvoiceMessage),
+    Invoice(Invoice),
     /// Message is a service message about a successful payment, information about the payment.
     SuccessfulPayment(SuccessfulPayment),
     /// Service message: users were shared with the bot
@@ -191,17 +191,19 @@ impl From<Inner> for Messages {
         match inner {
             inner if Self::is_text(&inner) => Messages::Text(Text::from(inner)),
             inner if Self::is_command(&inner) => Messages::Command(Command::from(inner)),
-            inner if Self::is_animation(&inner) => Messages::Animation(Animation::from(inner)),
-            inner if Self::is_audio(&inner) => Messages::Audio(Audio::from(inner)),
-            inner if Self::is_document(&inner) => Messages::Document(Document::from(inner)),
-            inner if Self::is_photo(&inner) => Messages::Photo(Photo::from(inner)),
-            inner if Self::is_sticker(&inner) => Messages::Sticker(Sticker::from(inner)),
+            inner if Self::is_animation(&inner) => {
+                Messages::Animation(IncomingAnimation::from(inner))
+            }
+            inner if Self::is_audio(&inner) => Messages::Audio(IncomingAudio::from(inner)),
+            inner if Self::is_document(&inner) => Messages::Document(IncomingDocument::from(inner)),
+            inner if Self::is_photo(&inner) => Messages::Photo(IncomingPhotoSize::from(inner)),
+            inner if Self::is_sticker(&inner) => Messages::Sticker(IncomingSticker::from(inner)),
             inner if Self::is_contact(&inner) => Messages::Contact(Contact::from(inner)),
             inner if Self::is_dice(&inner) => Messages::Dice(Dice::from(inner)),
             inner if Self::is_game(&inner) => Messages::Game(Game::from(inner)),
             inner if Self::is_poll(&inner) => Messages::Poll(Poll::from(inner)),
-            inner if Self::is_venue(&inner) => Messages::Venue(Venue::from(inner)),
-            inner if Self::is_location(&inner) => Messages::Location(Location::from(inner)),
+            inner if Self::is_venue(&inner) => Messages::Venue(IncomingVenue::from(inner)),
+            inner if Self::is_location(&inner) => Messages::Location(IncomingLocation::from(inner)),
             inner if Self::is_new_chat_members(&inner) => {
                 Messages::NewChatMembers(NewChatMembersMessage::from(inner))
             }
@@ -238,7 +240,7 @@ impl From<Inner> for Messages {
             inner if Self::is_pinned_message(&inner) => {
                 Messages::Pinned(PinnedMessage::from(inner))
             }
-            inner if Self::is_invoice(&inner) => Messages::Invoice(InvoiceMessage::from(inner)),
+            inner if Self::is_invoice(&inner) => Messages::Invoice(Invoice::from(inner)),
             inner if Self::is_successful_payment(&inner) => {
                 Messages::SuccessfulPayment(SuccessfulPayment::from(inner))
             }

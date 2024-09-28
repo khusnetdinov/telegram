@@ -1,15 +1,15 @@
+use crate::enums::message_origin::MessageOrigin;
 use crate::enums::messages::Messages;
+use crate::structs::chat::Chat;
+use crate::structs::media::story::Story;
+use crate::structs::messages::external_reply_info::ExternalReplyInfo;
+use crate::structs::messages::message_id::MessageId;
+use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+use crate::structs::text_quote::TextQuote;
+use crate::structs::user::User;
 use crate::traits::kind_dispatcher::KindDispatcher;
 use serde::{Deserialize, Serialize};
-use telegram_bots_api::api::enums::message_origin::MessageOrigin;
-use telegram_bots_api::api::structs::chat::Chat;
-use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo;
-use telegram_bots_api::api::structs::inline_keyboard_markup::InlineKeyboardMarkup;
 use telegram_bots_api::api::structs::message::Message as Remote;
-use telegram_bots_api::api::structs::message_id::MessageId;
-use telegram_bots_api::api::structs::story::Story;
-use telegram_bots_api::api::structs::text_quote::TextQuote;
-use telegram_bots_api::api::structs::user::User;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Message {
@@ -81,7 +81,7 @@ pub struct Message {
 impl From<Remote> for Message {
     fn from(remote: Remote) -> Self {
         let Remote {
-            message_id: MessageId { message_id },
+            message_id,
             message_thread_id,
             from,
             sender_chat,
@@ -110,26 +110,27 @@ impl From<Remote> for Message {
         Self {
             message_id: MessageId::from(message_id),
             message_thread_id,
-            chat,
-            from,
-            sender_chat,
+            chat: chat.into(),
+            from: from.map(|inner| inner.into()),
+            sender_chat: sender_chat.map(|inner| Box::new((*inner).into())),
             sender_boost_count,
-            sender_business_bot,
-            forward_origin,
+            sender_business_bot: sender_business_bot
+                .map(|inner| Box::new((*inner).to_owned().into())),
+            forward_origin: forward_origin.map(|inner| inner.into()),
             is_topic_message,
             is_automatic_forward,
-            external_reply,
-            quote,
-            reply_to_story,
+            external_reply: external_reply.map(|inner| inner.into()),
+            quote: quote.map(|inner| inner.into()),
+            reply_to_story: reply_to_story.map(|inner| Box::new((*inner).into())),
             business_connection_id,
             date,
-            via_bot,
+            via_bot: via_bot.map(|inner| inner.into()),
             edit_date,
             has_protected_content,
             is_from_offline,
             author_signature,
             effect_id,
-            reply_markup,
+            reply_markup: reply_markup.map(|inner| inner.into()),
             reply_to_message: reply_to_message.map(|inner| Box::new((*inner).into())),
             kind: Messages::from(remote),
         }

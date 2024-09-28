@@ -1,3 +1,4 @@
+use crate::enums::chat_action::ChatAction;
 use crate::enums::chat_member::ChatMember;
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::chats::chat_full_info::ChatFullInfo;
@@ -20,7 +21,7 @@ pub trait Chat {
         &self,
         chat_id: ChatUId,
         user_id: i64,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
     async fn ban_chat_sender_chat(
@@ -32,7 +33,7 @@ pub trait Chat {
     async fn create_chat_invite_link(
         &self,
         chat_id: ChatUId,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<ChatInviteLink, Box<dyn std::error::Error>>;
 
     async fn decline_chat_join_request(
@@ -45,7 +46,7 @@ pub trait Chat {
         &self,
         chat_id: ChatUId,
         invite_link: String,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<ChatInviteLink, Box<dyn std::error::Error>>;
 
     async fn export_chat_invite_link(
@@ -73,7 +74,7 @@ pub trait Chat {
         &self,
         chat_id: ChatUId,
         user_id: i64,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
     async fn restrict_chat_member(
@@ -81,7 +82,7 @@ pub trait Chat {
         chat_id: ChatUId,
         user_id: i64,
         permissions: ChatPermissions,
-        chat_options: ChatOptions,
+        options: ChatOptions,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
     async fn set_chat_administrator_custom_title(
@@ -168,13 +169,26 @@ pub trait Chat {
         use_independent_chat_permissions: Option<bool>,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
-    // async fn create_chat_subscription_invite_link(
-    //     &self,
-    //     params: &CreateChatSubscriptionInviteLink,
-    // ) -> Result<ChatInviteLink, Box<dyn std::error::Error>>;
-    //
-    // async fn edit_chat_subscription_invite_link(
-    //     &self,
-    //     params: &EditChatSubscriptionInviteLink,
-    // ) -> Result<ChatInviteLink, Box<dyn std::error::Error>>;
+    async fn create_chat_subscription_invite_link(
+        &self,
+        chat_id: ChatUId,
+        subscription_period: i64,
+        subscription_price: i64,
+        name: Option<String>,
+    ) -> Result<ChatInviteLink, Box<dyn std::error::Error>>;
+
+    async fn edit_chat_subscription_invite_link(
+        &self,
+        chat_id: ChatUId,
+        invite_link: String,
+        name: Option<String>,
+    ) -> Result<ChatInviteLink, Box<dyn std::error::Error>>;
+
+    async fn send_chat_action(
+        &self,
+        chat_id: ChatUId,
+        action: ChatAction,
+        message_thread_id: Option<i64>,
+        business_connection_id: Option<String>,
+    ) -> Result<bool, Box<dyn std::error::Error>>;
 }

@@ -1,8 +1,8 @@
-use crate::structs::media::input_media_animation::InputMediaAnimation;
-use crate::structs::media::input_media_audio::InputMediaAudio;
-use crate::structs::media::input_media_document::InputMediaDocument;
-use crate::structs::media::input_media_photo::InputMediaPhoto;
-use crate::structs::media::input_media_video::InputMediaVideo;
+use crate::structs::media::inputs::input_media_animation::InputMediaAnimation;
+use crate::structs::media::inputs::input_media_audio::InputMediaAudio;
+use crate::structs::media::inputs::input_media_document::InputMediaDocument;
+use crate::structs::media::inputs::input_media_photo::InputMediaPhoto;
+use crate::structs::media::inputs::input_media_video::InputMediaVideo;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::enums::input_media::InputMedia as Remote;
 use telegram_macros::{FromRemoteEnum, IntoRemoteEnum};

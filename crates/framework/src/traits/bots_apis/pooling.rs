@@ -1,7 +1,7 @@
 use crate::bots_api::BotsApi;
 use crate::enums::allowed_updates::AllowedUpdate;
 use crate::structs::update::Update;
-use crate::traits::bots_apis::parametrized::webhook::Webhook;
+use crate::traits::bots_apis::sealed::webhook::Webhook;
 use crate::traits::storage::Storage;
 use futures::Future;
 use std::fmt::Debug;

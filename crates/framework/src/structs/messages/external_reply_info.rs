@@ -1,12 +1,6 @@
 use crate::enums::message_origin::MessageOrigin;
 use crate::structs::chat::Chat;
-use crate::structs::contact::Contact;
-use crate::structs::dice::Dice;
-use crate::structs::game::Game;
-use crate::structs::giveaway::Giveaway;
-use crate::structs::giveaways::giveaway_winners::GiveawayWinners;
 use crate::structs::link_preview_options::LinkPreviewOptions;
-use crate::structs::location::Location;
 use crate::structs::media::animation::Animation;
 use crate::structs::media::audio::Audio;
 use crate::structs::media::document::Document;
@@ -18,9 +12,15 @@ use crate::structs::media::voice::Voice;
 use crate::structs::messages::message_id::MessageId;
 use crate::structs::paid_media::paid_media_info::PaidMediaInfo;
 use crate::structs::payments::invoice::Invoice;
-use crate::structs::poll::Poll;
 use crate::structs::sticker::Sticker;
-use crate::structs::venue::Venue;
+use crate::structs::updates::incoming_messages::contact::Contact;
+use crate::structs::updates::incoming_messages::dice::Dice;
+use crate::structs::updates::incoming_messages::game::Game;
+use crate::structs::updates::incoming_messages::geo::incoming_location::IncomingLocation;
+use crate::structs::updates::incoming_messages::geo::incoming_venue::IncomingVenue;
+use crate::structs::updates::incoming_messages::giveaway::Giveaway;
+use crate::structs::updates::incoming_messages::giveaway_winners::GiveawayWinners;
+use crate::structs::updates::poll::Poll;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
@@ -67,11 +67,11 @@ pub struct ExternalReplyInfo {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub invoice: Option<Invoice>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub location: Option<Location>,
+    pub location: Option<IncomingLocation>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub poll: Option<Poll>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub venue: Option<Venue>,
+    pub venue: Option<IncomingVenue>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub paid_media: Option<PaidMediaInfo>,
 }

@@ -3,7 +3,6 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::file::File;
 use crate::structs::input_file::InputFile;
-use crate::structs::options::Options;
 use crate::structs::sticker::Sticker;
 use crate::structs::stickers::input_sticker::InputSticker;
 use crate::structs::stickers::mask_position::MaskPosition;
@@ -275,9 +274,9 @@ impl Stickers for BotsApi {
         chat_id: ChatUId,
         sticker: FileInput,
         emoji: Option<String>,
-        options: Options,
+        options: StickerOptions,
     ) -> Result<Message, Box<dyn std::error::Error>> {
-        let Options {
+        let StickerOptions {
             message_thread_id,
             disable_notification,
             protect_content,

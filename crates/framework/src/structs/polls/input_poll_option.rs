@@ -7,7 +7,10 @@ use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
     Debug, Clone, Default, PartialEq, Serialize, Deserialize, FromRemoteStruct, IntoRemoteStruct,
 )]
 pub struct InputPollOption {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub text_parse_mode: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub text_entities: Option<Vec<MessageEntity>>,
 }
