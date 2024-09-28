@@ -23,7 +23,6 @@ pub mod message_origin;
 pub mod message_reactions;
 pub mod messages;
 pub mod my;
-pub mod options;
 pub mod paid_media;
 pub mod passports;
 pub mod payments;

@@ -66,12 +66,14 @@ pub mod commands {
 }
 
 pub mod contact {
+    pub use crate::structs::contacts::options::Options as ContactOptions;
     pub use crate::structs::updates::incoming_messages::contact::Contact;
     pub use crate::traits::features::contact::Contact as ContactTrait;
 }
 
 pub mod dice {
     pub use crate::enums::emoji::Emoji;
+    pub use crate::structs::dice::options::Options as DiceOptions;
     pub use crate::traits::features::dice::Dice as DiceTrait;
 }
 

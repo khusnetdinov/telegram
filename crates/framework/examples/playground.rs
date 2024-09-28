@@ -47,17 +47,13 @@ async fn dispatch(
                     println!("{:#?}", command_message);
                 }
                 Some(BotCommands::Dice) => {
-                    let options = Options {
+                    let options = DiceOptions {
                         message_effect_id: Some(String::from("5046589136895476101")),
                         ..Default::default()
                     };
 
                     bots_api
-                        .send_dice(
-                            ChatUId::from(message.chat.id),
-                            Some(Emoji::Darts),
-                            Some(options),
-                        )
+                        .send_dice(ChatUId::from(message.chat.id), Some(Emoji::Darts), options)
                         .await?;
                 }
                 Some(BotCommands::Photo) => {
