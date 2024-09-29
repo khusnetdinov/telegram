@@ -2,7 +2,7 @@ use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::geo::options::Options as GeoOptions;
 use crate::structs::geo::venue::Venue as Send;
-use crate::structs::updates::message::Message;
+use crate::structs::message::Message;
 use crate::traits::features::geo::venue::Venue;
 use telegram_bots_api::api::params::send_venue::SendVenue;
 use telegram_bots_api::api::requests::r#async::Requests;

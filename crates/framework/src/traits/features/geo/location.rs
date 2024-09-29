@@ -1,7 +1,7 @@
 use crate::enums::chat_uid::ChatUId;
 use crate::structs::geo::location::Location as Send;
 use crate::structs::geo::options::Options as GeoOptions;
-use crate::structs::updates::message::Message;
+use crate::structs::message::Message;
 #[async_trait::async_trait]
 pub trait Location {
     async fn send_location(

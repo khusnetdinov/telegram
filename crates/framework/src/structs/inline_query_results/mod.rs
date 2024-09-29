@@ -1,14 +1,6 @@
-pub mod chosen_inline_result;
 pub mod inline_query_result_article;
 pub mod inline_query_result_audio;
-pub mod inline_query_result_cached_audio;
-pub mod inline_query_result_cached_document;
-pub mod inline_query_result_cached_gif;
-pub mod inline_query_result_cached_mpeg4_gif;
-pub mod inline_query_result_cached_photo;
-pub mod inline_query_result_cached_sticker;
-pub mod inline_query_result_cached_video;
-pub mod inline_query_result_cached_voice;
+pub mod inline_query_result_caches;
 pub mod inline_query_result_contact;
 pub mod inline_query_result_document;
 pub mod inline_query_result_game;

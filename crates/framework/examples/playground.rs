@@ -42,7 +42,7 @@ async fn dispatch(
 ) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
         Updates::Message(message) => match message.dispatch() {
-            Messages::Command(command_message) => match BotCommands::dispatch(command_message) {
+            MessageKind::Command(command_message) => match BotCommands::dispatch(command_message) {
                 Some(BotCommands::Help) => {
                     println!("{:#?}", command_message);
                 }
@@ -84,7 +84,7 @@ async fn dispatch(
                 }
                 _ => println!("Command::Unexpected"),
             },
-            Messages::Text(text_message) => {
+            MessageKind::Text(text_message) => {
                 println!("Text: {:#?}", text_message);
 
                 let options = telegram_framework::structs::messages::options::Options {
@@ -109,12 +109,11 @@ async fn dispatch(
                     )
                     .await?;
             }
-            Messages::Unexpected(_) | _ => {}
+            MessageKind::Unexpected(_) | _ => {}
         },
         Updates::Unexpected(_) | _ => {}
     }
 
-    // dbg!(bots_api);
     dbg!(storage);
     dbg!(update);
 

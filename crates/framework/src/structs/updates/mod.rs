@@ -1,8 +1,9 @@
 pub mod business_message_deleted;
+pub mod chat_boost_added;
 pub mod chat_boost_removed;
 pub mod chat_boost_updated;
 pub mod chat_member_updated;
-pub mod incoming_messages;
-pub mod message;
+pub mod inline_result_chosen;
 pub mod message_reaction_count_updated;
 pub mod message_reaction_updated;
+pub mod paid_media_purchased;

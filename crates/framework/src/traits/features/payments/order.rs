@@ -1,4 +1,4 @@
-use crate::structs::payments::shipping_option::ShippingOption;
+use crate::structs::payments::shippings::shipping_option::ShippingOption;
 
 #[async_trait::async_trait]
 pub trait Order {

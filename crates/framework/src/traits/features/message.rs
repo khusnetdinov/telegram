@@ -2,9 +2,9 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::input_media::InputMedia;
 use crate::enums::message_result::MessageResult;
 use crate::enums::reaction_type::ReactionType;
+use crate::structs::message::Message as Response;
 use crate::structs::messages::message_id::MessageId;
 use crate::structs::messages::options::Options as MessageOptions;
-use crate::structs::updates::message::Message as Response;
 
 #[async_trait::async_trait]
 pub trait Message {

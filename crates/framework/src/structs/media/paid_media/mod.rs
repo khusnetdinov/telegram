@@ -1,3 +1,4 @@
+pub mod input_paid_media;
 pub mod paid_media_info;
 pub mod paid_media_photo;
 pub mod paid_media_preview;

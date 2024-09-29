@@ -1,8 +1,8 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::emoji::Emoji;
-use crate::structs::dice::options::Options as DiceOptions;
-use crate::structs::updates::message::Message;
+use crate::structs::dices::options::Options as DiceOptions;
+use crate::structs::message::Message;
 use crate::traits::features::dice::Dice;
 use telegram_bots_api::api::params::send_dice::SendDice;
 use telegram_bots_api::api::requests::r#async::Requests;

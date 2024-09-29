@@ -2,19 +2,19 @@ use crate::structs::business::business_connection::BusinessConnection;
 use crate::structs::callback_query::CallbackQuery;
 use crate::structs::chats::chat_join_request::ChatJoinRequest;
 use crate::structs::inline_query::InlineQuery;
-use crate::structs::inline_query_results::chosen_inline_result::ChosenInlineResult;
-use crate::structs::media::purchased_paid_media::PaidMediaPurchased;
+use crate::structs::message::Message;
 use crate::structs::payments::pre_checkout_query::PreCheckoutQuery;
-use crate::structs::payments::shipping_query::ShippingQuery;
+use crate::structs::payments::shippings::shipping_query::ShippingQuery;
 use crate::structs::poll::Poll;
 use crate::structs::polls::poll_answer::PollAnswer;
 use crate::structs::updates::business_message_deleted::BusinessMessagesDeleted;
 use crate::structs::updates::chat_boost_removed::ChatBoostRemoved;
 use crate::structs::updates::chat_boost_updated::ChatBoostUpdated;
 use crate::structs::updates::chat_member_updated::ChatMemberUpdated;
-use crate::structs::updates::message::Message;
+use crate::structs::updates::inline_result_chosen::ChosenInlineResult;
 use crate::structs::updates::message_reaction_count_updated::MessageReactionCountUpdated;
 use crate::structs::updates::message_reaction_updated::MessageReactionUpdated;
+use crate::structs::updates::paid_media_purchased::PaidMediaPurchased;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::update::Update as Remote;
 
@@ -46,9 +46,9 @@ pub enum Updates {
     DeletedBusinessMessages(BusinessMessagesDeleted),
     /// Optional. A reaction to a message was changed by a user. The bot must be an administrator
     /// in the chat and must explicitly specify "message_reaction" in the list of allowed_updates
-    /// to receive these updates. The update isn't received for message_reactions set by bots.
+    /// to receive these updates. The update isn't received for reactions set by bots.
     MessageReaction(MessageReactionUpdated),
-    /// Optional. Reactions to a message with anonymous message_reactions were changed. The bot must be an
+    /// Optional. Reactions to a message with anonymous reactions were changed. The bot must be an
     /// administrator in the chat and must explicitly specify "message_reaction_count" in the list
     /// of allowed_updates to receive these updates. The updates are grouped and can be sent with
     /// delay up to a few minutes.

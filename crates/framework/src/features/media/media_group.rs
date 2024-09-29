@@ -2,7 +2,7 @@ use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::input_media::InputMedia;
 use crate::structs::media::options::Options as MediaOptions;
-use crate::structs::updates::message::Message;
+use crate::structs::message::Message;
 use crate::traits::features::media::media_group::MediaGroup;
 use telegram_bots_api::api::params::send_media_group::SendMediaGroup;
 use telegram_bots_api::api::requests::r#async::Requests;

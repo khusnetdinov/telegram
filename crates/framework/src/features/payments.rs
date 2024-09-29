@@ -1,9 +1,9 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
+use crate::structs::message::Message;
 use crate::structs::payments::labeled_price::LabeledPrice;
 use crate::structs::payments::options::Options;
-use crate::structs::payments::shipping_option::ShippingOption;
-use crate::structs::updates::message::Message;
+use crate::structs::payments::shippings::shipping_option::ShippingOption;
 use crate::traits::features::payments::invoice::Invoice;
 use crate::traits::features::payments::order::Order;
 use crate::traits::features::payments::star::Star;

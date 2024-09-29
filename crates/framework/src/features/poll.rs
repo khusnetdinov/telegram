@@ -1,10 +1,10 @@
 use crate::bots_api::BotsApi;
 use crate::enums::chat_uid::ChatUId;
+use crate::structs::message::Message;
 use crate::structs::messages::message_id::MessageId;
 use crate::structs::poll::Poll as Response;
 use crate::structs::polls::input_poll_option::InputPollOption;
 use crate::structs::polls::options::Options as PollOptions;
-use crate::structs::updates::message::Message;
 use crate::traits::features::poll::Poll;
 use telegram_bots_api::api::params::send_poll::SendPoll;
 use telegram_bots_api::api::params::stop_poll::StopPoll;
