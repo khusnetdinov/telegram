@@ -1,20 +1,20 @@
-use crate::structs::updates::business_connection_updates::BusinessConnectionUpdates;
+use crate::structs::business::business_connection::BusinessConnection;
+use crate::structs::callback_query::CallbackQuery;
+use crate::structs::chats::chat_join_request::ChatJoinRequest;
+use crate::structs::inline_query::InlineQuery;
+use crate::structs::inline_query_results::chosen_inline_result::ChosenInlineResult;
+use crate::structs::media::purchased_paid_media::PaidMediaPurchased;
+use crate::structs::payments::pre_checkout_query::PreCheckoutQuery;
+use crate::structs::payments::shipping_query::ShippingQuery;
+use crate::structs::poll::Poll;
+use crate::structs::polls::poll_answer::PollAnswer;
 use crate::structs::updates::business_message_deleted::BusinessMessagesDeleted;
-use crate::structs::updates::callback_query_updates::CallbackQueryUpdates;
 use crate::structs::updates::chat_boost_removed::ChatBoostRemoved;
 use crate::structs::updates::chat_boost_updated::ChatBoostUpdated;
-use crate::structs::updates::chat_join_request::ChatJoinRequest;
 use crate::structs::updates::chat_member_updated::ChatMemberUpdated;
-use crate::structs::updates::chosen_inline_result::ChosenInlineResult;
-use crate::structs::updates::inline_query::InlineQuery;
 use crate::structs::updates::message::Message;
 use crate::structs::updates::message_reaction_count_updated::MessageReactionCountUpdated;
 use crate::structs::updates::message_reaction_updated::MessageReactionUpdated;
-use crate::structs::updates::poll::Poll;
-use crate::structs::updates::poll_answer::PollAnswer;
-use crate::structs::updates::pre_checkout_query::PreCheckoutQuery;
-use crate::structs::updates::purchased_paid_media::PaidMediaPurchased;
-use crate::structs::updates::shipping_query::ShippingQuery;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::update::Update as Remote;
 
@@ -37,7 +37,7 @@ pub enum Updates {
     EditedChannelPost(Message),
     /// Optional. The bot was connected to or disconnected from a business account, or a user
     /// edited an existing connection with the bot
-    BusinessConnection(BusinessConnectionUpdates),
+    BusinessConnection(BusinessConnection),
     /// Optional. New message from a connected business account
     BusinessMessage(Message),
     /// Optional. New version of a message from a connected business account
@@ -60,7 +60,7 @@ pub enum Updates {
     /// enable these updates for your bot.
     ChosenInlineResult(ChosenInlineResult),
     /// Optional. New incoming callback query
-    CallbackQuery(CallbackQueryUpdates),
+    CallbackQuery(CallbackQuery),
     /// Optional. New incoming shipping query. Only for invoices with flexible price
     ShippingQuery(ShippingQuery),
     /// Optional. New incoming pre-checkout query. Contains full information about checkout
@@ -116,7 +116,7 @@ impl From<Remote> for Updates {
             Remote {
                 business_connection: Some(business_connection),
                 ..
-            } => Self::BusinessConnection(BusinessConnectionUpdates::from(business_connection)),
+            } => Self::BusinessConnection(BusinessConnection::from(business_connection)),
             Remote {
                 business_message: Some(message),
                 ..
@@ -152,7 +152,7 @@ impl From<Remote> for Updates {
             Remote {
                 callback_query: Some(callback_query),
                 ..
-            } => Self::CallbackQuery(CallbackQueryUpdates::from(callback_query)),
+            } => Self::CallbackQuery(CallbackQuery::from(callback_query)),
             Remote {
                 shipping_query: Some(shipping_query),
                 ..

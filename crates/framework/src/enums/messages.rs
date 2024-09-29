@@ -1,3 +1,4 @@
+use crate::structs::poll::Poll;
 use crate::structs::updates::incoming_messages::channel_chat_created::ChannelChatCreated;
 use crate::structs::updates::incoming_messages::chat_background::ChatBackground;
 use crate::structs::updates::incoming_messages::chat_boost_added::ChatBoostAdded;
@@ -51,7 +52,6 @@ use crate::structs::updates::incoming_messages::video_chat_scheduled::VideoChatS
 use crate::structs::updates::incoming_messages::video_chat_started::VideoChatStarted;
 use crate::structs::updates::incoming_messages::web_app_data::WebAppData;
 use crate::structs::updates::incoming_messages::write_access_allowed::WriteAccessAllowed;
-use crate::structs::updates::poll::Poll;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::message::Message as Inner;
 use telegram_bots_api::api::structs::message_entity::MessageEntity;

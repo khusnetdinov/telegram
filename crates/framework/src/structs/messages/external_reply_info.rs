@@ -12,6 +12,7 @@ use crate::structs::media::voice::Voice;
 use crate::structs::messages::message_id::MessageId;
 use crate::structs::paid_media::paid_media_info::PaidMediaInfo;
 use crate::structs::payments::invoice::Invoice;
+use crate::structs::poll::Poll;
 use crate::structs::sticker::Sticker;
 use crate::structs::updates::incoming_messages::contact::Contact;
 use crate::structs::updates::incoming_messages::dice::Dice;
@@ -20,7 +21,6 @@ use crate::structs::updates::incoming_messages::geo::incoming_location::Incoming
 use crate::structs::updates::incoming_messages::geo::incoming_venue::IncomingVenue;
 use crate::structs::updates::incoming_messages::giveaway::Giveaway;
 use crate::structs::updates::incoming_messages::giveaway_winners::GiveawayWinners;
-use crate::structs::updates::poll::Poll;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::external_reply_info::ExternalReplyInfo as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};

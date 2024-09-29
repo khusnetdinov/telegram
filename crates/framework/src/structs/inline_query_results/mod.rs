@@ -1,3 +1,4 @@
+pub mod chosen_inline_result;
 pub mod inline_query_result_article;
 pub mod inline_query_result_audio;
 pub mod inline_query_result_cached_audio;
