@@ -2,8 +2,8 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::message_result::MessageResult;
 use crate::structs::games::game_high_score::GameHighScore;
 use crate::structs::games::options::Options as GameOptions;
+use crate::structs::message::Message;
 use crate::structs::messages::message_id::MessageId;
-use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]
 pub trait Game {

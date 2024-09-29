@@ -44,8 +44,8 @@ pub trait My {
         for_channels: Option<bool>,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
-    // async fn get_my_default_administrator_rights(
-    //     &self,
-    //     params: &GetMyDefaultAdministratorRights,
-    // ) -> Result<ChatAdministratorRights, Error>;
+    async fn get_my_default_administrator_rights(
+        &self,
+        for_channels: Option<bool>,
+    ) -> Result<ChatAdministratorRights, Box<dyn std::error::Error>>;
 }

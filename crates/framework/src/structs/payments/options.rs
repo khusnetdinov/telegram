@@ -1,4 +1,4 @@
-use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+use crate::structs::reply_markups::inline_keyboards::inline_keyboard_markup::InlineKeyboardMarkup;
 use crate::structs::reply_parameters::ReplyParameters;
 use serde::Serialize;
 

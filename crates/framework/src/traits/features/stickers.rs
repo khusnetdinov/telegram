@@ -2,12 +2,12 @@ use crate::enums::chat_uid::ChatUId;
 use crate::enums::file_input::FileInput;
 use crate::structs::file::File;
 use crate::structs::input_file::InputFile;
+use crate::structs::message::Message;
 use crate::structs::sticker::Sticker;
 use crate::structs::stickers::input_sticker::InputSticker;
 use crate::structs::stickers::mask_position::MaskPosition;
 use crate::structs::stickers::options::Options as StickerOptions;
 use crate::structs::stickers::sticker_set::StickerSet;
-use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]
 pub trait Stickers {

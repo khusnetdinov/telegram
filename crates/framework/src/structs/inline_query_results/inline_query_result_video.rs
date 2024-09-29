@@ -1,6 +1,6 @@
 use crate::enums::input_message_content::InputMessageContent;
 use crate::structs::messages::message_entity::MessageEntity;
-use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+use crate::structs::reply_markups::inline_keyboards::inline_keyboard_markup::InlineKeyboardMarkup;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::inline_query_result_video::InlineQueryResultVideo as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};

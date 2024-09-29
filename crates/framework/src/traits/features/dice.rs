@@ -1,7 +1,7 @@
 use crate::enums::chat_uid::ChatUId;
 use crate::enums::emoji::Emoji;
-use crate::structs::dice::options::Options as DiceOptions;
-use crate::structs::updates::message::Message;
+use crate::structs::dices::options::Options as DiceOptions;
+use crate::structs::message::Message;
 
 #[async_trait::async_trait]
 pub trait Dice {

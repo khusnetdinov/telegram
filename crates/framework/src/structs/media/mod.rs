@@ -1,8 +1,9 @@
 pub mod animation;
 pub mod audio;
 pub mod document;
-pub mod inputs;
+pub mod input_media;
 pub mod options;
+pub mod paid_media;
 pub mod photo_size;
 pub mod story;
 pub mod video;

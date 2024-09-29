@@ -1,7 +1,7 @@
 use crate::enums::chat_uid::ChatUId;
+use crate::structs::message::Message;
 use crate::structs::payments::labeled_price::LabeledPrice;
 use crate::structs::payments::options::Options;
-use crate::structs::updates::message::Message;
 
 #[async_trait::async_trait]
 pub trait Invoice {

@@ -1,5 +1,6 @@
 use crate::structs::payments::order_info::OrderInfo;
 use serde::{Deserialize, Serialize};
+use telegram_bots_api::api::structs::message::Message as IncomingMessage;
 use telegram_bots_api::api::structs::successful_payment::SuccessfulPayment as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};
 
@@ -14,4 +15,14 @@ pub struct SuccessfulPayment {
     pub shipping_option_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub order_info: Option<OrderInfo>,
+}
+
+impl From<IncomingMessage> for SuccessfulPayment {
+    fn from(remote: IncomingMessage) -> Self {
+        let IncomingMessage {
+            successful_payment, ..
+        } = remote;
+
+        Self::from(successful_payment.unwrap())
+    }
 }
