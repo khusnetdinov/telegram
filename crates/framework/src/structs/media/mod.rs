@@ -3,6 +3,7 @@ pub mod audio;
 pub mod document;
 pub mod inputs;
 pub mod options;
+pub mod paid_media;
 pub mod photo_size;
 pub mod purchased_paid_media;
 pub mod story;

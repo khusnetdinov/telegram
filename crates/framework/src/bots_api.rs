@@ -1,6 +1,6 @@
 use crate::config::Config;
 use crate::structs::user::User;
-use crate::structs::webhook::Webhook;
+use crate::structs::webhooks::webhook::Webhook;
 use std::fmt::Debug;
 use telegram_bots_api::api::requests::r#async::Requests;
 use telegram_bots_api::clients::r#async::Async;

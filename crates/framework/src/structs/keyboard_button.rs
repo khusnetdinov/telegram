@@ -1,7 +1,7 @@
 use crate::feature::web_app::WebAppInfo;
-use crate::structs::keyboard_buttons::keyboard_button_poll_type::KeyboardButtonPollType;
-use crate::structs::keyboard_buttons::keyboard_button_request_chat::KeyboardButtonRequestChat;
-use crate::structs::keyboard_buttons::keyboard_button_request_users::KeyboardButtonRequestUsers;
+use crate::structs::reply_markups::keyboard_buttons::keyboard_button_poll_type::KeyboardButtonPollType;
+use crate::structs::reply_markups::keyboard_buttons::keyboard_button_request_chat::KeyboardButtonRequestChat;
+use crate::structs::reply_markups::keyboard_buttons::keyboard_button_request_users::KeyboardButtonRequestUsers;
 use serde::{Deserialize, Serialize};
 use telegram_bots_api::api::structs::keyboard_button::KeyboardButton as Remote;
 use telegram_macros::{FromRemoteStruct, IntoRemoteStruct};

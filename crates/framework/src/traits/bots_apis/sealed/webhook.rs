@@ -1,4 +1,4 @@
-use crate::structs::webhook_info::WebhookInfo;
+use crate::structs::webhooks::webhook_info::WebhookInfo;
 
 #[async_trait::async_trait]
 pub trait Webhook {

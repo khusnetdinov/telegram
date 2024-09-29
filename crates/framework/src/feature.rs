@@ -145,11 +145,11 @@ pub mod inline {
     pub use crate::structs::inline_query_results::inline_query_result_video::InlineQueryResultVideo;
     pub use crate::structs::inline_query_results::inline_query_result_voice::InlineQueryResultVoice;
     pub use crate::structs::inline_query_results::inline_query_results_button::InlineQueryResultsButton;
-    pub use crate::structs::input_message_contents::input_contact_message_content::InputContactMessageContent;
-    pub use crate::structs::input_message_contents::input_invoice_message_content::InputInvoiceMessageContent;
-    pub use crate::structs::input_message_contents::input_location_message_content::InputLocationMessageContent;
-    pub use crate::structs::input_message_contents::input_text_message_content::InputTextMessageContent;
-    pub use crate::structs::input_message_contents::input_venue_message_content::InputVenueMessageContent;
+    pub use crate::structs::inline_query_results::input_message_contents::input_contact_message_content::InputContactMessageContent;
+    pub use crate::structs::inline_query_results::input_message_contents::input_invoice_message_content::InputInvoiceMessageContent;
+    pub use crate::structs::inline_query_results::input_message_contents::input_location_message_content::InputLocationMessageContent;
+    pub use crate::structs::inline_query_results::input_message_contents::input_text_message_content::InputTextMessageContent;
+    pub use crate::structs::inline_query_results::input_message_contents::input_venue_message_content::InputVenueMessageContent;
 }
 
 pub mod media {
@@ -250,9 +250,9 @@ pub mod menu_buttons {
 }
 
 pub mod message_reactions {
-    pub use crate::structs::message_reactions::reaction_count::ReactionCount;
-    pub use crate::structs::message_reactions::reaction_type_custom_emoji::ReactionTypeCustomEmoji;
-    pub use crate::structs::message_reactions::reaction_type_emoji::ReactionTypeEmoji;
+    pub use crate::structs::messages::message_reactions::reaction_count::ReactionCount;
+    pub use crate::structs::messages::message_reactions::reaction_type_custom_emoji::ReactionTypeCustomEmoji;
+    pub use crate::structs::messages::message_reactions::reaction_type_emoji::ReactionTypeEmoji;
     pub use crate::structs::updates::message_reaction_count_updated::MessageReactionCountUpdated;
     pub use crate::structs::updates::message_reaction_updated::MessageReactionUpdated;
 }
@@ -291,10 +291,10 @@ pub mod payments {
         pub use crate::enums::paid_media::PaidMedia;
         pub use crate::enums::revenue_withdrawal_state::RevenueWithdrawalState;
         pub use crate::enums::transaction_partner::TransactionPartner;
-        pub use crate::structs::paid_media::paid_media_info::PaidMediaInfo;
-        pub use crate::structs::paid_media::paid_media_photo::PaidMediaPhoto;
-        pub use crate::structs::paid_media::paid_media_preview::PaidMediaPreview;
-        pub use crate::structs::paid_media::paid_media_video::PaidMediaVideo;
+        pub use crate::structs::media::paid_media::paid_media_info::PaidMediaInfo;
+        pub use crate::structs::media::paid_media::paid_media_photo::PaidMediaPhoto;
+        pub use crate::structs::media::paid_media::paid_media_preview::PaidMediaPreview;
+        pub use crate::structs::media::paid_media::paid_media_video::PaidMediaVideo;
         pub use crate::structs::payments::revenue_withdrawal_state_failed::RevenueWithdrawalStateFailed;
         pub use crate::structs::payments::revenue_withdrawal_state_pending::RevenueWithdrawalStatePending;
         pub use crate::structs::payments::revenue_withdrawal_state_succeeded::RevenueWithdrawalStateSucceeded;
@@ -341,12 +341,12 @@ pub mod poll {
 pub mod reply_markup {
     pub use crate::enums::reply_markup::ReplyMarkup;
     pub use crate::structs::keyboard_button::KeyboardButton;
-    pub use crate::structs::keyboard_buttons::keyboard_button_poll_type::KeyboardButtonPollType;
-    pub use crate::structs::keyboard_buttons::keyboard_button_request_chat::KeyboardButtonRequestChat;
-    pub use crate::structs::keyboard_buttons::keyboard_button_request_users::KeyboardButtonRequestUsers;
     pub use crate::structs::reply_markups::force_reply::ForceReply;
     pub use crate::structs::reply_markups::inline_keyboard_button::InlineKeyboardButton;
     pub use crate::structs::reply_markups::inline_keyboard_markup::InlineKeyboardMarkup;
+    pub use crate::structs::reply_markups::keyboard_buttons::keyboard_button_poll_type::KeyboardButtonPollType;
+    pub use crate::structs::reply_markups::keyboard_buttons::keyboard_button_request_chat::KeyboardButtonRequestChat;
+    pub use crate::structs::reply_markups::keyboard_buttons::keyboard_button_request_users::KeyboardButtonRequestUsers;
     pub use crate::structs::reply_markups::login_url::LoginUrl;
     pub use crate::structs::reply_markups::reply_keyboard_markup::ReplyKeyboardMarkup;
     pub use crate::structs::reply_markups::reply_keyboard_remove::ReplyKeyboardRemove;

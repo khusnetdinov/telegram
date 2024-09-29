@@ -20,3 +20,4 @@ pub mod inline_query_result_venue;
 pub mod inline_query_result_video;
 pub mod inline_query_result_voice;
 pub mod inline_query_results_button;
+pub mod input_message_contents;
