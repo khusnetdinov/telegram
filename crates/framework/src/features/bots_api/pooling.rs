@@ -22,7 +22,7 @@ impl<STO, STA> Pooling<STO, STA> for BotsApi {
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
-        Callback: Fn(BotsApi, Arc<Mutex<STO>>, Update) -> Fut + std::marker::Send,
+        Callback: Fn(BotsApi, Arc<Mutex<STO>>, Update) -> Fut + Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
         STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
         STA: Debug + Clone + 'async_trait,
