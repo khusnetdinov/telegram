@@ -8,8 +8,10 @@ use telegram_framework::feature::dice::*;
 use telegram_framework::feature::media::media_group::*;
 use telegram_framework::feature::media::photo::*;
 use telegram_framework::feature::pooling::*;
+use tokio::sync::Mutex;
 
 use telegram_framework::traits::features::message::Message;
+use telegram_framework::traits::storage::Storage;
 
 #[derive(Debug, BotCommands)]
 #[command(scope = "default")]
@@ -37,7 +39,7 @@ pub enum States {
 
 async fn dispatch(
     bots_api: BotsApi,
-    storage: Arc<MemoryStorage<States>>,
+    storage: Arc<Mutex<MemoryStorage<String>>>,
     update: Update,
 ) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
@@ -85,7 +87,12 @@ async fn dispatch(
                 _ => println!("Command::Unexpected"),
             },
             MessageKind::Text(text_message) => {
-                println!("Text: {:#?}", text_message);
+                let storage = Arc::clone(&storage);
+                let mut storage = storage.lock().await;
+
+                storage.set(message.chat.id, text_message.text.to_string());
+
+                println!("State: {:?}", storage);
 
                 let options = telegram_framework::structs::messages::options::Options {
                     message_effect_id: Some(String::from("5046589136895476101")),
@@ -115,7 +122,6 @@ async fn dispatch(
     }
 
     dbg!(storage);
-    dbg!(update);
 
     Ok(())
 }
@@ -123,7 +129,7 @@ async fn dispatch(
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let bots_api = BotsApi::from_env().await?;
-    let storage = MemoryStorage::<States>::new();
+    let storage = Arc::new(Mutex::new(MemoryStorage::<String>::new()));
 
     bots_api.commands(BotCommands::config()).await?;
     bots_api.pooling(None, storage, dispatch).await?;

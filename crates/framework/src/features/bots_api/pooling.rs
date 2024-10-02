@@ -9,6 +9,7 @@ use std::fmt::Debug;
 use std::sync::Arc;
 use telegram_bots_api::api::params::get_update::GetUpdate;
 use telegram_bots_api::api::requests::r#async::Requests;
+use tokio::sync::Mutex;
 use tokio::time::sleep;
 use tokio::time::Duration;
 
@@ -17,11 +18,11 @@ impl<STO, STA> Pooling<STO, STA> for BotsApi {
     async fn pooling<Callback, Fut>(
         &self,
         allowed_updates: Option<Vec<AllowedUpdate>>,
-        storage: Arc<STO>,
+        storage: Arc<Mutex<STO>>,
         callback: Callback,
     ) -> Result<(), Box<dyn std::error::Error>>
     where
-        Callback: Fn(BotsApi, Arc<STO>, Update) -> Fut + std::marker::Send,
+        Callback: Fn(BotsApi, Arc<Mutex<STO>>, Update) -> Fut + Send,
         Fut: Future<Output = Result<(), Box<dyn std::error::Error>>> + Send + 'static,
         STO: Storage<STA> + Debug + Send + Sync + 'async_trait,
         STA: Debug + Clone + 'async_trait,
