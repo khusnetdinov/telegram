@@ -8,6 +8,7 @@ use telegram_framework::feature::dice::*;
 use telegram_framework::feature::media::media_group::*;
 use telegram_framework::feature::media::photo::*;
 use telegram_framework::feature::pooling::*;
+use tokio::sync::Mutex;
 
 use telegram_framework::traits::features::message::Message;
 
@@ -37,7 +38,7 @@ pub enum States {
 
 async fn dispatch(
     bots_api: BotsApi,
-    storage: Arc<MemoryStorage<States>>,
+    storage: Arc<Mutex<MemoryStorage<States>>>,
     update: Update,
 ) -> Result<(), Box<dyn std::error::Error>> {
     match update.dispatch() {
