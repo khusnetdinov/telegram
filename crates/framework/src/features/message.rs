@@ -129,12 +129,11 @@ impl Message for BotsApi {
 
     async fn edit_message_caption(
         &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
         let MessageOptions {
-            chat_id,
-            message_id,
-            inline_message_id,
             inline_keyboard_markup,
             business_connection_id,
             parse_mode,
@@ -145,9 +144,40 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = EditMessageCaption {
-            chat_id: chat_id.map(|inner| inner.into()),
-            message_id: message_id.map(|inner| inner.into()),
-            inline_message_id,
+            chat_id: Some(chat_id.into()),
+            message_id: Some(message_id.into()),
+            inline_message_id: None,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
+            business_connection_id,
+            parse_mode,
+            caption,
+            caption_entities: caption_entities
+                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
+            show_caption_above_media,
+        };
+
+        Ok(self.client.edit_message_caption(&params).await?.into())
+    }
+
+    async fn edit_message_caption_inline(
+        &self,
+        inline_message_id: String,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>> {
+        let MessageOptions {
+            inline_keyboard_markup,
+            business_connection_id,
+            parse_mode,
+            caption,
+            caption_entities,
+            show_caption_above_media,
+            ..
+        } = message_options;
+
+        let params = EditMessageCaption {
+            chat_id: None,
+            message_id: None,
+            inline_message_id: Some(inline_message_id),
             reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
             parse_mode,
@@ -162,15 +192,14 @@ impl Message for BotsApi {
 
     async fn edit_message_live_location(
         &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
         latitude: f64,
         longitude: f64,
         live_period: Option<i64>,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
         let MessageOptions {
-            chat_id,
-            message_id,
-            inline_message_id,
             inline_keyboard_markup,
             business_connection_id,
             horizontal_accuracy,
@@ -180,12 +209,50 @@ impl Message for BotsApi {
         } = message_options;
 
         let params = EditMessageLiveLocation {
+            chat_id: Some(chat_id.into()),
+            message_id: Some(message_id.into()),
+            inline_message_id: None,
             latitude,
             longitude,
             live_period,
-            chat_id: chat_id.map(|inner| inner.into()),
-            message_id: message_id.map(|inner| inner.into()),
-            inline_message_id,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
+            business_connection_id,
+            horizontal_accuracy,
+            heading,
+            proximity_alert_radius,
+        };
+
+        Ok(self
+            .client
+            .edit_message_live_location(&params)
+            .await?
+            .into())
+    }
+
+    async fn edit_message_live_location_inline(
+        &self,
+        inline_message_id: String,
+        latitude: f64,
+        longitude: f64,
+        live_period: Option<i64>,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>> {
+        let MessageOptions {
+            inline_keyboard_markup,
+            business_connection_id,
+            horizontal_accuracy,
+            heading,
+            proximity_alert_radius,
+            ..
+        } = message_options;
+
+        let params = EditMessageLiveLocation {
+            chat_id: None,
+            message_id: None,
+            inline_message_id: Some(inline_message_id),
+            latitude,
+            longitude,
+            live_period,
             reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
             horizontal_accuracy,
@@ -202,13 +269,36 @@ impl Message for BotsApi {
 
     async fn edit_message_media(
         &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
         media: InputMedia,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
         let MessageOptions {
-            chat_id,
-            message_id,
-            inline_message_id,
+            inline_keyboard_markup,
+            business_connection_id,
+            ..
+        } = message_options;
+
+        let params = EditMessageMedia {
+            chat_id: Some(chat_id.into()),
+            message_id: Some(message_id.into()),
+            inline_message_id: None,
+            media: media.into(),
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
+            business_connection_id,
+        };
+
+        Ok(self.client.edit_message_media(&params).await?.into())
+    }
+
+    async fn edit_message_media_inline(
+        &self,
+        inline_message_id: String,
+        media: InputMedia,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>> {
+        let MessageOptions {
             inline_keyboard_markup,
             business_connection_id,
             ..
@@ -216,9 +306,9 @@ impl Message for BotsApi {
 
         let params = EditMessageMedia {
             media: media.into(),
-            chat_id: chat_id.map(|inner| inner.into()),
-            message_id: message_id.map(|inner| inner.into()),
-            inline_message_id,
+            chat_id: None,
+            message_id: None,
+            inline_message_id: Some(inline_message_id),
             reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
         };
@@ -228,21 +318,42 @@ impl Message for BotsApi {
 
     async fn edit_message_reply_markup(
         &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
         let MessageOptions {
-            chat_id,
-            message_id,
-            inline_message_id,
             inline_keyboard_markup,
             business_connection_id,
             ..
         } = message_options;
 
         let params = EditMessageReplyMarkup {
-            chat_id: chat_id.map(|inner| inner.into()),
-            message_id: message_id.map(|inner| inner.into()),
-            inline_message_id,
+            chat_id: Some(chat_id.into()),
+            message_id: Some(message_id.into()),
+            inline_message_id: None,
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
+            business_connection_id,
+        };
+
+        Ok(self.client.edit_message_reply_markup(&params).await?.into())
+    }
+
+    async fn edit_message_reply_markup_inline(
+        &self,
+        inline_message_id: String,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>> {
+        let MessageOptions {
+            inline_keyboard_markup,
+            business_connection_id,
+            ..
+        } = message_options;
+
+        let params = EditMessageReplyMarkup {
+            chat_id: None,
+            message_id: None,
+            inline_message_id: Some(inline_message_id),
             reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
             business_connection_id,
         };
@@ -253,12 +364,11 @@ impl Message for BotsApi {
     async fn edit_message_text(
         &self,
         text: String,
+        chat_id: ChatUId,
+        message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
         let MessageOptions {
-            chat_id,
-            message_id,
-            inline_message_id,
             parse_mode,
             entities,
             link_preview_options,
@@ -269,9 +379,40 @@ impl Message for BotsApi {
 
         let params = EditMessageText {
             text,
-            chat_id: chat_id.map(|inner| inner.into()),
-            message_id: message_id.map(|inner| inner.into()),
-            inline_message_id,
+            chat_id: Some(chat_id.into()),
+            message_id: Some(message_id.into()),
+            inline_message_id: None,
+            parse_mode,
+            entities: entities
+                .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
+            link_preview_options: link_preview_options.map(|inner| inner.to_owned().into()),
+            reply_markup: inline_keyboard_markup.map(|inner| inner.into()),
+            business_connection_id,
+        };
+
+        Ok(self.client.edit_message_text(&params).await?.into())
+    }
+
+    async fn edit_message_text_inline(
+        &self,
+        text: String,
+        inline_message_id: String,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>> {
+        let MessageOptions {
+            parse_mode,
+            entities,
+            link_preview_options,
+            inline_keyboard_markup,
+            business_connection_id,
+            ..
+        } = message_options;
+
+        let params = EditMessageText {
+            text,
+            chat_id: None,
+            message_id: None,
+            inline_message_id: Some(inline_message_id),
             parse_mode,
             entities: entities
                 .map(|coll| coll.iter().map(|inner| inner.to_owned().into()).collect()),
