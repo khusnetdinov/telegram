@@ -63,6 +63,7 @@ impl Message for BotsApi {
 
         Ok(self.client.copy_message(&params).await?.into())
     }
+
     async fn copy_messages(
         &self,
         chat_id: ChatUId,

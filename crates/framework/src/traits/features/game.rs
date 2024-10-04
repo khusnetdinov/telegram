@@ -11,8 +11,13 @@ pub trait Game {
         &self,
         user_id: i64,
         chat_id: ChatUId,
-        message_id: Option<MessageId>,
-        inline_message_id: Option<String>,
+        message_id: MessageId,
+    ) -> Result<Vec<GameHighScore>, Box<dyn std::error::Error>>;
+
+    async fn get_game_high_scores_inline(
+        &self,
+        user_id: i64,
+        inline_message_id: String,
     ) -> Result<Vec<GameHighScore>, Box<dyn std::error::Error>>;
 
     async fn send_game(
@@ -26,9 +31,16 @@ pub trait Game {
         &self,
         score: u64,
         user_id: i64,
-        chat_id: Option<ChatUId>,
-        message_id: Option<MessageId>,
-        inline_message_id: Option<String>,
+        chat_id: ChatUId,
+        message_id: MessageId,
+        options: GameOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+
+    async fn set_game_score_inline(
+        &self,
+        score: u64,
+        user_id: i64,
+        inline_message_id: String,
         options: GameOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 }
