@@ -36,38 +36,78 @@ pub trait Message {
         message_ids: Vec<i64>,
     ) -> Result<bool, Box<dyn std::error::Error>>;
 
-    // TODO: Required if inline_message_id is not specified
     async fn edit_message_caption(
         &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 
-    // TODO: Required if inline_message_id is not specified
+    async fn edit_message_caption_inline(
+        &self,
+        inline_message_id: String,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+
     async fn edit_message_live_location(
         &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
         latitude: f64,
         longitude: f64,
         live_period: Option<i64>,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 
-    // TODO: Required if inline_message_id is not specified
+    async fn edit_message_live_location_inline(
+        &self,
+        inline_message_id: String,
+        latitude: f64,
+        longitude: f64,
+        live_period: Option<i64>,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+
     async fn edit_message_media(
         &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
         media: InputMedia,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 
-    // TODO: Required if inline_message_id is not specified
-    async fn edit_message_reply_markup(
+    async fn edit_message_media_inline(
         &self,
+        inline_message_id: String,
+        media: InputMedia,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 
-    // TODO: Required if inline_message_id is not specified
+    async fn edit_message_reply_markup(
+        &self,
+        chat_id: ChatUId,
+        message_id: MessageId,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+
+    async fn edit_message_reply_markup_inline(
+        &self,
+        inline_message_id: String,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+
     async fn edit_message_text(
         &self,
         text: String,
+        chat_id: ChatUId,
+        message_id: MessageId,
+        message_options: MessageOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>>;
+
+    async fn edit_message_text_inline(
+        &self,
+        text: String,
+        inline_message_id: String,
         message_options: MessageOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>>;
 

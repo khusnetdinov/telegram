@@ -13,19 +13,38 @@ use telegram_bots_api::api::requests::r#async::Requests;
 
 #[async_trait::async_trait]
 impl Game for BotsApi {
-    // TODO: Required if inline_message_id is not specified
     async fn get_game_high_scores(
         &self,
         user_id: i64,
         chat_id: ChatUId,
-        message_id: Option<MessageId>,
-        inline_message_id: Option<String>,
+        message_id: MessageId,
     ) -> Result<Vec<GameHighScore>, Box<dyn std::error::Error>> {
         let params = GetGameHighScores {
             user_id,
-            chat_id: chat_id.into(),
-            message_id: message_id.map(|inner| inner.into()),
-            inline_message_id,
+            chat_id: Some(chat_id.into()),
+            message_id: Some(message_id.into()),
+            inline_message_id: None,
+        };
+
+        Ok(self
+            .client
+            .get_game_high_scores(&params)
+            .await?
+            .iter()
+            .map(|inner| inner.to_owned().into())
+            .collect())
+    }
+
+    async fn get_game_high_scores_inline(
+        &self,
+        user_id: i64,
+        inline_message_id: String,
+    ) -> Result<Vec<GameHighScore>, Box<dyn std::error::Error>> {
+        let params = GetGameHighScores {
+            user_id,
+            chat_id: None,
+            message_id: None,
+            inline_message_id: Some(inline_message_id),
         };
 
         Ok(self
@@ -69,14 +88,12 @@ impl Game for BotsApi {
         Ok(self.client.send_game(&params).await?.into())
     }
 
-    // TODO: Required if inline_message_id is not specified
     async fn set_game_score(
         &self,
         score: u64,
         user_id: i64,
-        chat_id: Option<ChatUId>,
-        message_id: Option<MessageId>,
-        inline_message_id: Option<String>,
+        chat_id: ChatUId,
+        message_id: MessageId,
         options: GameOptions,
     ) -> Result<MessageResult, Box<dyn std::error::Error>> {
         let GameOptions {
@@ -88,9 +105,35 @@ impl Game for BotsApi {
         let params = SetGameScore {
             score,
             user_id,
-            chat_id: chat_id.map(|inner| inner.into()),
-            message_id: message_id.map(|inner| inner.into()),
-            inline_message_id,
+            chat_id: Some(chat_id.into()),
+            message_id: Some(message_id.into()),
+            inline_message_id: None,
+            force,
+            disable_edit_message,
+        };
+
+        Ok(self.client.set_game_score(&params).await?.into())
+    }
+
+    async fn set_game_score_inline(
+        &self,
+        score: u64,
+        user_id: i64,
+        inline_message_id: String,
+        options: GameOptions,
+    ) -> Result<MessageResult, Box<dyn std::error::Error>> {
+        let GameOptions {
+            force,
+            disable_edit_message,
+            ..
+        } = options;
+
+        let params = SetGameScore {
+            score,
+            user_id,
+            chat_id: None,
+            message_id: None,
+            inline_message_id: Some(inline_message_id),
             force,
             disable_edit_message,
         };
