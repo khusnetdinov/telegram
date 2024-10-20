@@ -1,5 +1,6 @@
 pub mod bots_api {
     pub use crate::bots_api::BotsApi;
+    pub use crate::enums::chat_uid::ChatUId;
     pub use crate::enums::message_kind::MessageKind;
     pub use crate::enums::updates::Updates;
     pub use crate::storages::memory::MemoryStorage;
@@ -9,6 +10,7 @@ pub mod bots_api {
     pub use std::fmt::Debug;
     pub use std::path::PathBuf;
     pub use std::sync::Arc;
+    pub use tokio::sync::Mutex;
 }
 
 pub mod business {

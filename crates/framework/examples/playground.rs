@@ -1,6 +1,5 @@
 #![allow(dead_code)]
 
-use telegram_framework::enums::chat_uid::ChatUId;
 use telegram_framework::feature::bots_api::*;
 use telegram_framework::feature::chat::*;
 use telegram_framework::feature::commands::*;
@@ -8,7 +7,6 @@ use telegram_framework::feature::dice::*;
 use telegram_framework::feature::media::media_group::*;
 use telegram_framework::feature::media::photo::*;
 use telegram_framework::feature::pooling::*;
-use tokio::sync::Mutex;
 
 use telegram_framework::traits::features::message::Message;
 use telegram_framework::traits::storage::Storage;
